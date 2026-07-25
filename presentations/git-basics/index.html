@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="SVN 경험자를 위한 Git 기초와 VS Code 협업 흐름 강의"
+    />
+    <title>Git, 가지를 만들고 합치는 일</title>
+    <link
+      rel="preload"
+      href="../../assets/fonts/pretendard/1.3.9/PretendardVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../../assets/fonts/fraunces/1.0/FrauncesVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../../assets/fonts/jetendard/0.1.0/Jetendard-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../../assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="./assets/deck.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#deck">슬라이드 본문으로 이동</a>
+
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient__ring ambient__ring--one"></span>
+      <span class="ambient__ring ambient__ring--two"></span>
+      <span class="ambient__grain"></span>
+    </div>
+
+    <header class="deck-header">
+      <div class="deck-header__brand">
+        <span class="brand-mark" aria-hidden="true">⑂</span>
+        <span>GIT / FIELD NOTES</span>
+      </div>
+      <div class="deck-header__chapter" id="chapter-label">OPENING</div>
+    </header>
+
+    <main id="deck" class="deck" aria-live="polite">
+      <section class="slide slide--cover is-active" data-slide data-chapter="OPENING">
+        <div class="cover-kicker" data-step="1">SVN 사용자를 위한 110분의 전환</div>
+        <h1 class="cover-title">
+          Git,
+          <span>가지를 만들고</span>
+          합치는 일
+        </h1>
+        <p class="cover-copy" data-step="2">
+          VS Code로 시작해 <strong>clone → branch → commit → PR → conflict → merge</strong>까지
+        </p>
+        <div class="cover-tree" aria-hidden="true">
+          <svg viewBox="0 0 520 360" role="img">
+            <path class="tree-line draw-line" d="M252 340 C254 270 244 235 252 180 C257 140 250 94 265 26" />
+            <path class="tree-line draw-line draw-line--delay" d="M252 220 C210 195 176 168 150 118" />
+            <path class="tree-line draw-line draw-line--delay-2" d="M253 168 C304 151 338 116 365 72" />
+            <path class="tree-line tree-line--accent draw-line draw-line--delay-3" d="M253 244 C315 236 366 210 408 165" />
+            <circle class="tree-node node-pop" cx="252" cy="300" r="9" />
+            <circle class="tree-node node-pop node-pop--2" cx="251" cy="220" r="9" />
+            <circle class="tree-node node-pop node-pop--3" cx="252" cy="168" r="9" />
+            <circle class="tree-node tree-node--accent node-pop node-pop--4" cx="408" cy="165" r="11" />
+          </svg>
+        </div>
+        <p class="cover-foot">KNUE · DEVELOPER PRACTICE</p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="DESTINATION">
+        <div class="slide-index">01</div>
+        <p class="eyebrow">TODAY’S DESTINATION</p>
+        <h2>오늘, 여기까지 간다</h2>
+        <div class="journey" aria-label="오늘 학습할 Git 흐름">
+          <div class="journey__track"></div>
+          <div class="journey__item" data-step="1">
+            <span>01</span>
+            <strong>clone</strong>
+            <small>원격 역사를 내 컴퓨터로</small>
+          </div>
+          <div class="journey__item" data-step="2">
+            <span>02</span>
+            <strong>branch</strong>
+            <small>안전한 작업 가지</small>
+          </div>
+          <div class="journey__item" data-step="3">
+            <span>03</span>
+            <strong>commit</strong>
+            <small>변경을 로컬에 기록</small>
+          </div>
+          <div class="journey__item" data-step="4">
+            <span>04</span>
+            <strong>PR</strong>
+            <small>공유하고 검토 요청</small>
+          </div>
+          <div class="journey__item" data-step="5">
+            <span>05</span>
+            <strong>merge</strong>
+            <small>검토한 가지를 합치기</small>
+          </div>
+        </div>
+        <p class="takeaway" data-step="6">목표는 명령어 암기가 아니라 <strong>현재 상태를 읽는 힘</strong></p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="SVN → GIT">
+        <div class="slide-index">02</div>
+        <p class="eyebrow">MENTAL MODEL SHIFT</p>
+        <h2>같은 문제, 다른 중심</h2>
+        <div class="split-stage">
+          <article class="model-card model-card--svn" data-step="1">
+            <div class="model-card__label">SVN</div>
+            <h3>중앙이 역사다</h3>
+            <div class="server-stack">
+              <span class="server-box">CENTRAL<br />REPOSITORY</span>
+              <i></i>
+              <div class="client-row"><span>나</span><span>동료</span><span>동료</span></div>
+            </div>
+          </article>
+          <div class="versus" aria-hidden="true">→</div>
+          <article class="model-card model-card--git" data-step="2">
+            <div class="model-card__label">GIT</div>
+            <h3>모두가 역사를 가진다</h3>
+            <div class="distributed">
+              <span>REMOTE</span>
+              <div>
+                <b>나<br /><small>history</small></b>
+                <b>동료<br /><small>history</small></b>
+                <b>동료<br /><small>history</small></b>
+              </div>
+            </div>
+          </article>
+        </div>
+        <blockquote data-step="3">
+          SVN의 commit은 공유에 가깝다.<br />
+          <strong>Git의 commit은 로컬 기록이다.</strong>
+        </blockquote>
+      </section>
+
+      <section class="slide" data-slide data-chapter="SVN → GIT">
+        <div class="slide-index">03</div>
+        <p class="eyebrow">TRANSLATION GUIDE</p>
+        <h2>아는 말에서 새 뜻으로</h2>
+        <div class="translation-grid">
+          <div class="translation-head"><span>SVN에서 익숙한 생각</span><span>Git에서 바꿀 생각</span></div>
+          <div class="translation-row" data-step="1"><span>checkout</span><strong>clone</strong><em>전체 역사까지 복제</em></div>
+          <div class="translation-row" data-step="2"><span>commit</span><strong>commit + push</strong><em>기록과 공유가 분리</em></div>
+          <div class="translation-row" data-step="3"><span>update</span><strong>fetch / pull</strong><em>관찰과 반영을 구분</em></div>
+          <div class="translation-row" data-step="4"><span>revision 1842</span><strong>commit a31f…</strong><em>전역 번호 대신 해시</em></div>
+          <div class="translation-row" data-step="5"><span>branch = 디렉터리 복사</span><strong>branch = 포인터</strong><em>싸고 빠른 이름표</em></div>
+        </div>
+        <p class="footnote" data-step="6">초보 강의에서는 Git의 여러 역할을 가진 <code>checkout</code> 대신 <code>switch</code> 사용</p>
+      </section>
+
+      <section class="slide slide--graph" data-slide data-chapter="THE TREE">
+        <div class="slide-index">04</div>
+        <p class="eyebrow">THE TREE METAPHOR</p>
+        <h2>커밋이 마디가 되고, 브랜치가 자란다</h2>
+        <div class="git-graph git-graph--teaching" aria-label="커밋과 브랜치 그래프">
+          <svg viewBox="0 0 980 340" role="img">
+            <path class="graph-path" data-step="1" d="M100 180 L300 180 L500 180" />
+            <path class="graph-path graph-path--feature" data-step="3" d="M500 180 C575 180 555 280 650 280 L790 280" />
+            <path class="graph-path graph-path--merge" data-step="5" d="M790 280 C860 280 835 180 900 180" />
+            <path class="graph-path" data-step="5" d="M500 180 L900 180" />
+          </svg>
+          <div class="commit-node pos-a" data-step="1"><b>A</b></div>
+          <div class="commit-node pos-b" data-step="1"><b>B</b></div>
+          <div class="commit-node pos-c" data-step="1"><b>C</b></div>
+          <div class="branch-tag pos-main" data-step="2">main</div>
+          <div class="commit-node commit-node--feature pos-d" data-step="3"><b>D</b></div>
+          <div class="commit-node commit-node--feature pos-e" data-step="3"><b>E</b></div>
+          <div class="branch-tag branch-tag--feature pos-feature" data-step="4">feature</div>
+          <div class="commit-node commit-node--merge pos-m" data-step="5"><b>M</b></div>
+          <div class="branch-tag pos-main-merged" data-step="5">main</div>
+        </div>
+        <div class="graph-legend">
+          <p data-step="1"><strong>commit</strong><span>프로젝트 상태의 스냅샷</span></p>
+          <p data-step="2"><strong>branch</strong><span>커밋을 가리키는 움직이는 이름표</span></p>
+          <p data-step="4"><strong>HEAD</strong><span>지금 내가 서 있는 위치</span></p>
+          <p data-step="5"><strong>merge</strong><span>갈라진 역사를 연결하는 커밋</span></p>
+        </div>
+        <p class="simplification" data-step="6">교육용 단순화 · 실제 Git 역사는 merge가 여러 부모를 가지는 방향성 비순환 그래프</p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="START">
+        <div class="slide-index">05</div>
+        <p class="eyebrow">TWO ENTRANCES</p>
+        <h2>시작은 둘 중 하나</h2>
+        <div class="entrances">
+          <article class="entrance entrance--init" data-step="1">
+            <span class="entrance__number">A</span>
+            <p>새 프로젝트</p>
+            <h3>Initialize Repository</h3>
+            <code>git init</code>
+            <div class="folder-visual"><span>my-project/</span><b>.git/</b></div>
+          </article>
+          <div class="or" data-step="2">OR</div>
+          <article class="entrance entrance--clone" data-step="3">
+            <span class="entrance__number">B</span>
+            <p>이미 원격에 있는 프로젝트</p>
+            <h3>Clone Repository</h3>
+            <code>git clone &lt;url&gt;</code>
+            <div class="clone-visual"><span>REMOTE</span><i>→</i><b>LOCAL + HISTORY</b></div>
+          </article>
+        </div>
+        <div class="warning-strip" data-step="4">
+          <strong>주의</strong>
+          clone한 저장소 안에서 다시 <code>git init</code> 하지 않는다
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CORE LOOP">
+        <div class="slide-index">06</div>
+        <p class="eyebrow">FOUR AREAS</p>
+        <h2>변경은 네 공간을 이동한다</h2>
+        <div class="pipeline" aria-label="Git의 네 공간">
+          <article class="pipeline__area pipeline__area--work is-lit" data-step="0">
+            <span>01</span>
+            <h3>Working Tree</h3>
+            <p>수정 중</p>
+            <div class="paper"><i></i><i></i><i></i></div>
+          </article>
+          <div class="pipeline__arrow" data-step="1"><code>add</code><i>→</i></div>
+          <article class="pipeline__area pipeline__area--stage" data-step="1">
+            <span>02</span>
+            <h3>Staging Area</h3>
+            <p>다음 기록에 넣을 변경</p>
+            <div class="tray"><b>+ 1 line</b></div>
+          </article>
+          <div class="pipeline__arrow" data-step="2"><code>commit</code><i>→</i></div>
+          <article class="pipeline__area pipeline__area--local" data-step="2">
+            <span>03</span>
+            <h3>Local Repo</h3>
+            <p>내 컴퓨터의 역사</p>
+            <div class="mini-commits"><i></i><i></i><i></i></div>
+          </article>
+          <div class="pipeline__arrow" data-step="3"><code>push</code><i>→</i></div>
+          <article class="pipeline__area pipeline__area--remote" data-step="3">
+            <span>04</span>
+            <h3>Remote Repo</h3>
+            <p>팀과 공유하는 역사</p>
+            <div class="remote-cloud">origin</div>
+          </article>
+        </div>
+        <p class="takeaway" data-step="4"><strong>Stage</strong>는 “다음 커밋에 무엇을 넣을지” 고르는 검수대</p>
+      </section>
+
+      <section class="slide slide--statement" data-slide data-chapter="CORE LOOP">
+        <div class="slide-index">07</div>
+        <p class="eyebrow">ONE DISTINCTION TO KEEP</p>
+        <div class="big-equation">
+          <div data-step="1">
+            <code>commit</code>
+            <strong>저장</strong>
+            <small>내 로컬 역사에 기록</small>
+          </div>
+          <span data-step="2">≠</span>
+          <div data-step="3">
+            <code>push</code>
+            <strong>공유</strong>
+            <small>원격 저장소에 전송</small>
+          </div>
+        </div>
+        <p class="statement-foot" data-step="4">커밋했다고 동료가 볼 수 있는 것은 아니다.</p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CORE LOOP">
+        <div class="slide-index">08</div>
+        <p class="eyebrow">FIRST DIAGNOSTIC</p>
+        <h2>길을 잃으면, 상태부터</h2>
+        <div class="terminal-card" data-step="1">
+          <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal</span></div>
+          <pre><span class="prompt">$</span> git status
+
+On branch <mark>feature/team-message</mark>
+Changes to be committed:
+  <span class="added">modified: team.md</span>
+
+Your branch is ahead of 'origin/feature/team-message'
+by <span class="accent">1 commit</span>.</pre>
+        </div>
+        <div class="status-questions">
+          <p data-step="2"><span>①</span> 어느 브랜치인가?</p>
+          <p data-step="3"><span>②</span> 무엇이 바뀌었나?</p>
+          <p data-step="4"><span>③</span> 무엇이 stage됐나?</p>
+          <p data-step="5"><span>④</span> 원격보다 앞인가, 뒤인가?</p>
+        </div>
+      </section>
+
+      <section class="slide slide--chapter" data-slide data-chapter="PRACTICE">
+        <div class="chapter-number">02</div>
+        <p class="eyebrow">GUIDED PRACTICE</p>
+        <h2>이제, 한 가지를<br />끝까지 보낸다</h2>
+        <div class="chapter-route" data-step="1">
+          <span>LOCAL</span><i></i><span>REMOTE</span><i></i><span>TEAM</span>
+        </div>
+        <p data-step="2">VS Code + <strong>git.knue.ac.kr</strong></p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="PREFLIGHT">
+        <div class="slide-index">09</div>
+        <p class="eyebrow">BEFORE THE EXERCISE</p>
+        <h2>코드보다 먼저 통로 확인</h2>
+        <div class="check-grid">
+          <div class="check-item" data-step="1"><span>01</span><strong>Git 설치</strong><code>git --version</code></div>
+          <div class="check-item" data-step="2"><span>02</span><strong>사용자 정보</strong><code>git config --global user.name</code></div>
+          <div class="check-item" data-step="3"><span>03</span><strong>서버 접근</strong><code>git.knue.ac.kr</code></div>
+          <div class="check-item" data-step="4"><span>04</span><strong>권한</strong><small>clone · branch push · PR/MR</small></div>
+        </div>
+        <aside class="instructor-note" data-step="5">
+          <strong>강사 사전 확인</strong>
+          HTTPS/SSH 인증, VPN, 내부 인증서, <code>main</code> 보호 규칙
+        </aside>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="CLONE">
+        <div class="slide-index">10</div>
+        <p class="eyebrow">STEP 01 · CLONE</p>
+        <h2>원격의 역사를 통째로 가져온다</h2>
+        <div class="vscode-window" data-step="1">
+          <div class="vscode-titlebar">
+            <span class="window-dots"><i></i><i></i><i></i></span>
+            <b>Visual Studio Code</b>
+          </div>
+          <div class="vscode-body">
+            <nav class="vscode-rail"><span>⌕</span><span class="active">⑂</span><span>▧</span></nav>
+            <aside class="vscode-sidebar">
+              <small>SOURCE CONTROL</small>
+              <button>Clone Repository</button>
+              <button class="ghost">Initialize Repository</button>
+            </aside>
+            <div class="vscode-editor">
+              <div class="command-palette" data-step="2">
+                <span>›</span>
+                <strong>Git: Clone</strong>
+              </div>
+              <div class="url-entry" data-step="3">https://git.knue.ac.kr/<mark>team/training.git</mark></div>
+              <div class="clone-result" data-step="4">
+                <span class="repo-icon">⑂</span>
+                <div><strong>training</strong><small>main · origin configured · history ready</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="vscode-status"><span>⑂ main</span><span>0 ↓ &nbsp; 0 ↑</span></div>
+        </div>
+        <p class="takeaway" data-step="5">clone = 폴더 생성 + 저장소 생성 + 이력 다운로드 + <code>origin</code> 설정</p>
+      </section>
+
+      <section class="slide slide--graph" data-slide data-chapter="BRANCH">
+        <div class="slide-index">11</div>
+        <p class="eyebrow">STEP 02 · BRANCH</p>
+        <h2>작업을 위한 새 이름표를 붙인다</h2>
+        <div class="branch-lab">
+          <div class="branch-lab__graph">
+            <svg viewBox="0 0 900 300" role="img" aria-label="main에서 feature 브랜치가 생성되는 과정">
+              <path class="graph-path is-drawn" d="M100 145 L280 145 L460 145" />
+              <path class="graph-path graph-path--feature" data-step="2" d="M460 145 C545 145 530 235 650 235" />
+            </svg>
+            <div class="commit-node pos-lab-a is-visible"><b>A</b></div>
+            <div class="commit-node pos-lab-b is-visible"><b>B</b></div>
+            <div class="commit-node pos-lab-c is-visible"><b>C</b></div>
+            <div class="branch-tag pos-lab-main is-visible">main</div>
+            <div class="branch-tag branch-tag--feature pos-lab-feature-start" data-step="1">feature/team-message</div>
+            <div class="commit-node commit-node--feature pos-lab-d" data-step="2"><b>D</b></div>
+            <div class="branch-tag branch-tag--feature pos-lab-feature-end" data-step="2">feature/team-message</div>
+          </div>
+          <div class="branch-command" data-step="1">
+            <span>VS Code · 상태 표시줄의 브랜치 선택</span>
+            <code>git switch -c feature/team-message</code>
+          </div>
+        </div>
+        <p class="takeaway" data-step="3"><strong>main 최신화 → branch 생성</strong> · 출발점을 먼저 맞춘다</p>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="EDIT">
+        <div class="slide-index">12</div>
+        <p class="eyebrow">STEP 03 · EDIT & DIFF</p>
+        <h2>무엇을 바꿨는지 먼저 읽는다</h2>
+        <div class="diff-window" data-step="1">
+          <div class="diff-window__head">
+            <span>team.md</span>
+            <small>M · Modified</small>
+          </div>
+          <div class="diff-columns">
+            <div class="diff-old">
+              <small>BEFORE</small>
+              <pre><span>1</span> # Team Introduction
+<span>2</span>
+<span>3</span> Department: 교육정보부
+<span>4</span> <del>Message: 함께 만드는 서비스</del></pre>
+            </div>
+            <div class="diff-new">
+              <small>AFTER</small>
+              <pre><span>1</span> # Team Introduction
+<span>2</span>
+<span>3</span> Department: 교육정보부
+<span>4</span> <ins>Message: 안전하게 함께 개발하기</ins></pre>
+            </div>
+          </div>
+        </div>
+        <div class="review-strip">
+          <span data-step="2">파일 저장했나?</span>
+          <span data-step="3">의도한 줄만 바뀌었나?</span>
+          <span data-step="4">비밀정보는 없나?</span>
+        </div>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="STAGE">
+        <div class="slide-index">13</div>
+        <p class="eyebrow">STEP 04 · STAGE & COMMIT</p>
+        <h2>다음 마디에 넣을 변경을 고른다</h2>
+        <div class="stage-scene">
+          <div class="changes-pane" data-step="1">
+            <header><span>CHANGES</span><button aria-label="stage">＋</button></header>
+            <div class="file-change"><b>M</b><span>team.md</span><i>＋</i></div>
+          </div>
+          <div class="stage-motion" data-step="2" aria-hidden="true">→</div>
+          <div class="changes-pane changes-pane--staged" data-step="2">
+            <header><span>STAGED CHANGES</span><button aria-label="unstage">−</button></header>
+            <div class="file-change"><b>M</b><span>team.md</span><i>✓</i></div>
+          </div>
+        </div>
+        <div class="commit-box" data-step="3">
+          <small>MESSAGE</small>
+          <strong>Update team introduction</strong>
+          <button>Commit</button>
+        </div>
+        <p class="takeaway" data-step="4">좋은 커밋 = <strong>한 가지 목적</strong> + 검토 가능한 크기</p>
+      </section>
+
+      <section class="slide slide--graph" data-slide data-chapter="COMMIT">
+        <div class="slide-index">14</div>
+        <p class="eyebrow">LOCAL HISTORY</p>
+        <h2>커밋하면 내 가지가 한 칸 자란다</h2>
+        <div class="dual-history">
+          <article>
+            <small>LOCAL</small>
+            <div class="history-line">
+              <i></i><i></i><i></i><i class="new-commit" data-step="1"></i>
+            </div>
+            <div class="branch-tag branch-tag--feature floating-tag" data-step="1">feature/team-message</div>
+          </article>
+          <div class="history-gap" data-step="2">
+            <span>아직 공유되지 않음</span>
+            <i>×</i>
+          </div>
+          <article class="history-remote">
+            <small>REMOTE · origin</small>
+            <div class="history-line"><i></i><i></i><i></i></div>
+          </article>
+        </div>
+        <p class="statement-foot" data-step="3">서버에는 아직 새 커밋이 없다.</p>
+      </section>
+
+      <section class="slide slide--graph" data-slide data-chapter="PUSH">
+        <div class="slide-index">15</div>
+        <p class="eyebrow">STEP 05 · PUSH</p>
+        <h2>내 가지를 팀의 원격으로 보낸다</h2>
+        <div class="push-scene">
+          <div class="repo-island repo-island--local">
+            <small>LOCAL</small>
+            <div class="mini-branch"><i></i><i></i><i></i><i class="accent-node"></i></div>
+            <b>feature/team-message</b>
+          </div>
+          <div class="push-stream" data-step="1">
+            <span class="packet">D</span>
+            <div class="push-line"></div>
+            <code>Publish Branch</code>
+          </div>
+          <div class="repo-island repo-island--remote" data-step="2">
+            <small>REMOTE · origin</small>
+            <div class="mini-branch"><i></i><i></i><i></i><i class="accent-node"></i></div>
+            <b>feature/team-message</b>
+          </div>
+        </div>
+        <div class="push-facts">
+          <p data-step="2"><strong>공유됨</strong><span>동료가 브랜치와 커밋을 볼 수 있음</span></p>
+          <p data-step="3"><strong>병합 전</strong><span><code>main</code>에는 아직 들어가지 않음</span></p>
+        </div>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="PULL REQUEST">
+        <div class="slide-index">16</div>
+        <p class="eyebrow">STEP 06 · OPEN PR / MR</p>
+        <h2>“합쳐도 될까요?”를 기록으로 남긴다</h2>
+        <div class="pr-window" data-step="1">
+          <div class="pr-window__top">
+            <span class="pr-logo">⑂</span>
+            <strong>git.knue.ac.kr</strong>
+            <small>교육용 개념 화면 · 실제 UI 확인 필요</small>
+          </div>
+          <div class="pr-window__body">
+            <div class="branch-selector">
+              <span>feature/team-message</span><i>→</i><strong>main</strong>
+            </div>
+            <label>
+              <span>제목</span>
+              <b>Update team introduction</b>
+            </label>
+            <div class="pr-meta">
+              <p><small>변경</small><strong>1 file · +1 −1</strong></p>
+              <p><small>리뷰어</small><strong>팀원 1명</strong></p>
+              <button data-step="2">Create Pull Request</button>
+            </div>
+          </div>
+        </div>
+        <div class="pr-purpose" data-step="3">
+          <span>diff 검토</span><span>의견 교환</span><span>병합 판단</span>
+        </div>
+        <p class="footnote" data-step="4">서버 제품에 따라 <strong>Merge Request</strong>라는 이름 사용 가능</p>
+      </section>
+
+      <section class="slide slide--graph" data-slide data-chapter="CONFLICT">
+        <div class="slide-index">17</div>
+        <p class="eyebrow">THE PLANNED CONFLICT</p>
+        <h2>같은 줄, 서로 다른 결정</h2>
+        <div class="conflict-branches">
+          <article class="conflict-branch conflict-branch--main" data-step="1">
+            <small>main · 강사가 먼저 병합</small>
+            <code>Message: <mark>안전하게</mark> 함께 개발하기</code>
+          </article>
+          <div class="conflict-symbol" data-step="3">!</div>
+          <article class="conflict-branch conflict-branch--feature" data-step="2">
+            <small>feature · 교육생 작업</small>
+            <code>Message: <mark>즐겁게</mark> 함께 개발하기</code>
+          </article>
+        </div>
+        <div class="conflict-callout" data-step="3">
+          <strong>Git이 멈춘 이유</strong>
+          <span>둘 다 보존할 수는 있지만, 어느 결과가 맞는지는 알 수 없음</span>
+        </div>
+        <p class="takeaway" data-step="4">충돌은 실패가 아니라 <strong>결정을 사람에게 넘긴 상태</strong></p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CONFLICT">
+        <div class="slide-index">18</div>
+        <p class="eyebrow">BRING MAIN IN</p>
+        <h2>작업 브랜치에서 최신 main을 합친다</h2>
+        <div class="merge-command-flow">
+          <article data-step="1">
+            <span>1</span>
+            <small>원격 상태 관찰</small>
+            <code>git fetch origin</code>
+          </article>
+          <i data-step="2">→</i>
+          <article data-step="2">
+            <span>2</span>
+            <small>현재 branch 확인</small>
+            <code>feature/team-message</code>
+          </article>
+          <i data-step="3">→</i>
+          <article data-step="3">
+            <span>3</span>
+            <small>최신 main 병합</small>
+            <code>git merge origin/main</code>
+          </article>
+        </div>
+        <div class="merge-paused" data-step="4">
+          <span>MERGE PAUSED</span>
+          <strong>CONFLICT · team.md</strong>
+          <small>이제 최종 내용을 결정할 차례</small>
+        </div>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="RESOLVE">
+        <div class="slide-index">19</div>
+        <p class="eyebrow">STEP 07 · MERGE EDITOR</p>
+        <h2>둘 중 하나가 아니라, 최종 결과를 만든다</h2>
+        <div class="merge-editor" data-step="1">
+          <div class="merge-panel merge-panel--incoming">
+            <small>INCOMING · main</small>
+            <code>Message: <mark>안전하게</mark> 함께 개발하기</code>
+            <button data-step="2">Accept Incoming</button>
+          </div>
+          <div class="merge-panel merge-panel--current">
+            <small>CURRENT · feature</small>
+            <code>Message: <mark>즐겁게</mark> 함께 개발하기</code>
+            <button data-step="2">Accept Current</button>
+          </div>
+          <div class="merge-panel merge-panel--result" data-step="3">
+            <small>RESULT · 직접 결정</small>
+            <code>Message: <mark>안전하고 즐겁게</mark> 함께 개발하기</code>
+            <span>✓ conflicts resolved</span>
+          </div>
+        </div>
+        <p class="takeaway" data-step="4">저장 → stage → 결과 확인 → merge commit → push</p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="RESOLVE">
+        <div class="slide-index">20</div>
+        <p class="eyebrow">ESCAPE HATCH</p>
+        <h2>잘못 시작했다면 중단할 수 있다</h2>
+        <div class="abort-scene">
+          <div class="abort-state" data-step="1">
+            <span>MERGING</span>
+            <div class="tangled-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <div class="abort-action" data-step="2">
+            <code>git merge --abort</code>
+            <small>병합을 시작하기 전 상태로</small>
+          </div>
+          <div class="abort-state abort-state--clean" data-step="3">
+            <span>CLEAN</span>
+            <div class="straight-line" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="safety-note" data-step="4">
+          <strong>단, 해결을 끝낼 때는</strong>
+          충돌 파일 저장 · stage · commit까지 완료
+        </div>
+      </section>
+
+      <section class="slide slide--graph" data-slide data-chapter="MERGE">
+        <div class="slide-index">21</div>
+        <p class="eyebrow">STEP 08 · REVIEW & MERGE</p>
+        <h2>검토한 가지를 main에 연결한다</h2>
+        <div class="merge-animation" aria-label="feature branch가 main에 병합되는 그래프">
+          <svg viewBox="0 0 1000 360" role="img">
+            <path class="graph-path is-drawn" d="M80 160 L300 160 L520 160" />
+            <path class="graph-path graph-path--feature is-drawn" d="M520 160 C600 160 580 280 700 280 L810 280" />
+            <path class="graph-path graph-path--merge" data-step="2" d="M810 280 C880 280 850 160 930 160" />
+            <path class="graph-path" data-step="2" d="M520 160 L930 160" />
+          </svg>
+          <div class="commit-node pos-merge-a is-visible"><b>A</b></div>
+          <div class="commit-node pos-merge-b is-visible"><b>B</b></div>
+          <div class="commit-node pos-merge-c is-visible"><b>C</b></div>
+          <div class="commit-node commit-node--feature pos-merge-d is-visible"><b>D</b></div>
+          <div class="commit-node commit-node--feature pos-merge-e is-visible"><b>E</b></div>
+          <div class="branch-tag branch-tag--feature pos-merge-feature is-visible" data-step="1">PR APPROVED</div>
+          <div class="commit-node commit-node--merge pos-merge-m" data-step="2"><b>M</b></div>
+          <div class="branch-tag pos-merge-main" data-step="2">main</div>
+        </div>
+        <div class="merge-verdict" data-step="3">
+          <span>✓ diff 확인</span><span>✓ 리뷰 승인</span><span>✓ 충돌 해결</span><strong>MERGED</strong>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CLEANUP">
+        <div class="slide-index">22</div>
+        <p class="eyebrow">THE SERVER IS DONE. YOU ARE NOT.</p>
+        <h2>로컬 main까지 닫아야 끝난다</h2>
+        <div class="cleanup-flow">
+          <article data-step="1"><span>01</span><strong>Switch</strong><code>main</code></article>
+          <article data-step="2"><span>02</span><strong>Pull</strong><code>origin/main</code></article>
+          <article data-step="3"><span>03</span><strong>Verify</strong><code>git status</code></article>
+          <article data-step="4"><span>04</span><strong>Delete</strong><code>feature branch</code></article>
+        </div>
+        <div class="clean-result" data-step="5">
+          <span class="pulse-dot"></span>
+          <div><strong>working tree clean</strong><small>원격 main = 로컬 main</small></div>
+        </div>
+      </section>
+
+      <section class="slide slide--chapter" data-slide data-chapter="TEAM RULES">
+        <div class="chapter-number">03</div>
+        <p class="eyebrow">A SMALL TEAM’S DEFAULT</p>
+        <h2>복잡한 전략보다<br />짧은 가지</h2>
+        <div class="small-team" data-step="1">
+          <span>3–5명</span><i>×</i><span>한 저장소</span><i>×</i><span>작은 PR</span>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="TEAM RULES">
+        <div class="slide-index">23</div>
+        <p class="eyebrow">RECOMMENDED WORKFLOW</p>
+        <h2>우리 부서의 기본 경로</h2>
+        <ol class="team-rules">
+          <li data-step="1"><span>01</span><strong><code>main</code> 최신화</strong><small>새 일의 출발점을 맞춘다</small></li>
+          <li data-step="2"><span>02</span><strong>작업별 짧은 branch</strong><small>기능·수정·문서를 분리한다</small></li>
+          <li data-step="3"><span>03</span><strong>작은 commit과 PR</strong><small>리뷰 가능한 크기로 보낸다</small></li>
+          <li data-step="4"><span>04</span><strong>최소 1명 리뷰</strong><small>가벼운 안전장치를 둔다</small></li>
+          <li data-step="5"><span>05</span><strong>merge 후 정리</strong><small>로컬 main과 branch까지 닫는다</small></li>
+        </ol>
+      </section>
+
+      <section class="slide" data-slide data-chapter="TEAM RULES">
+        <div class="slide-index">24</div>
+        <p class="eyebrow">SHARED REPOSITORY, NOT FORKS</p>
+        <h2>우리 팀에는 Fork가 필요 없다</h2>
+        <div class="fork-compare">
+          <article class="fork-path fork-path--chosen" data-step="1">
+            <span class="choice">OUR DEFAULT</span>
+            <h3>Shared Repository</h3>
+            <div><b>clone</b><i>→</i><b>feature branch</b><i>→</i><b>PR</b></div>
+            <p>원본 저장소에 branch push 권한이 있는 내부 팀</p>
+          </article>
+          <article class="fork-path" data-step="2">
+            <span class="choice">WHEN NEEDED</span>
+            <h3>Fork Workflow</h3>
+            <div><b>upstream</b><i>→</i><b>fork</b><i>→</i><b>PR</b></div>
+            <p>원본 쓰기 권한이 없는 외부 기여 또는 격리 정책</p>
+          </article>
+        </div>
+        <p class="takeaway" data-step="3"><code>main</code> 직접 push만 보호하고, feature branch push 허용</p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="SAFETY">
+        <div class="slide-index">25</div>
+        <p class="eyebrow">RECOVERY BEFORE PANIC</p>
+        <h2>실수했을 때의 순서</h2>
+        <div class="recovery-stack">
+          <div data-step="1"><span>1</span><code>git status</code><small>현재 상태 읽기</small></div>
+          <div data-step="2"><span>2</span><code>git diff</code><small>변경 내용 읽기</small></div>
+          <div data-step="3"><span>3</span><code>git merge --abort</code><small>미완료 병합 중단</small></div>
+          <div data-step="4"><span>4</span><code>git revert</code><small>공유된 커밋을 새 커밋으로 되돌리기</small></div>
+        </div>
+        <div class="danger-zone" data-step="5">
+          <strong>첫 강의의 금지 구역</strong>
+          <code>reset --hard</code>
+          <code>push --force</code>
+          <span>이미 공유한 역사는 다시 쓰지 않는다</span>
+        </div>
+      </section>
+
+      <section class="slide slide--recap" data-slide data-chapter="RECAP">
+        <div class="slide-index">26</div>
+        <p class="eyebrow">THE WHOLE JOURNEY</p>
+        <h2>한 번 더, 처음부터 끝까지</h2>
+        <div class="recap-track">
+          <div data-step="1"><span>1</span><strong>clone</strong></div>
+          <i data-step="2"></i>
+          <div data-step="2"><span>2</span><strong>branch</strong></div>
+          <i data-step="3"></i>
+          <div data-step="3"><span>3</span><strong>edit</strong></div>
+          <i data-step="4"></i>
+          <div data-step="4"><span>4</span><strong>stage</strong></div>
+          <i data-step="5"></i>
+          <div data-step="5"><span>5</span><strong>commit</strong></div>
+          <i data-step="6"></i>
+          <div data-step="6"><span>6</span><strong>push</strong></div>
+          <i data-step="7"></i>
+          <div data-step="7"><span>7</span><strong>PR</strong></div>
+          <i data-step="8"></i>
+          <div data-step="8"><span>8</span><strong>resolve</strong></div>
+          <i data-step="9"></i>
+          <div data-step="9"><span>9</span><strong>merge</strong></div>
+          <i data-step="10"></i>
+          <div data-step="10"><span>10</span><strong>cleanup</strong></div>
+        </div>
+        <p class="recap-line" data-step="11">
+          기록은 <strong>로컬</strong>에서 시작하고,<br />
+          검토를 거쳐 <strong>팀의 역사</strong>가 된다.
+        </p>
+      </section>
+
+      <section class="slide slide--final" data-slide data-chapter="Q&A">
+        <p class="eyebrow">ONE QUESTION TO KEEP</p>
+        <h2>지금,<br />내 나무는<br /><span>어떤 상태인가?</span></h2>
+        <div class="final-command" data-step="1"><span>$</span> git status</div>
+        <p data-step="2">질문과 실습</p>
+        <div class="final-tree" aria-hidden="true">
+          <svg viewBox="0 0 600 420">
+            <path class="tree-line draw-line" d="M282 410 C290 315 277 255 292 190 C305 130 300 80 325 15" />
+            <path class="tree-line draw-line draw-line--delay" d="M289 258 C230 228 185 184 158 120" />
+            <path class="tree-line tree-line--accent draw-line draw-line--delay-2" d="M293 204 C375 194 420 151 467 92" />
+            <circle class="tree-node node-pop" cx="288" cy="320" r="9" />
+            <circle class="tree-node node-pop node-pop--2" cx="290" cy="258" r="9" />
+            <circle class="tree-node tree-node--accent node-pop node-pop--3" cx="467" cy="92" r="12" />
+          </svg>
+        </div>
+      </section>
+    </main>
+
+    <footer class="deck-controls" aria-label="프레젠테이션 탐색">
+      <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+      <button id="previous" type="button" aria-label="이전 단계">←</button>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">30</span></p>
+      <button id="next" type="button" aria-label="다음 단계">→</button>
+      <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
+    </footer>
+
+    <div class="key-hint" id="key-hint" aria-hidden="true">
+      <kbd>←</kbd><kbd>→</kbd> 단계 이동 · <kbd>F</kbd> 전체 화면
+    </div>
+
+    <script src="./assets/deck.js"></script>
+    <script>
+      document.addEventListener("keydown", window.gitDeck.handleKeydown);
+    </script>
+  </body>
+</html>
