@@ -1,0 +1,20 @@
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.fleet/
+.idea/
+
+# Generated output and dependencies
+node_modules/
+dist/
+build/
+coverage/
+*.map
+*.zip
+*.tar.gz
