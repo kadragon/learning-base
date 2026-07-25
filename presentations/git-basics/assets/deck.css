@@ -679,14 +679,6 @@ blockquote strong {
 }
 
 /* Graph */
-.git-graph {
-  position: relative;
-  width: min(100%, 1100px);
-  height: min(34vh, 340px);
-  margin: 0 auto;
-}
-
-.git-graph svg,
 .branch-lab svg,
 .merge-animation svg {
   position: absolute;
@@ -763,16 +755,6 @@ blockquote strong {
 .branch-tag--feature {
   background: var(--sky);
 }
-
-.pos-a { left: 10%; top: 53%; }
-.pos-b { left: 30%; top: 53%; }
-.pos-c { left: 50%; top: 53%; }
-.pos-d { left: 66%; top: 82%; }
-.pos-e { left: 80%; top: 82%; }
-.pos-m { left: 91%; top: 53%; }
-.pos-main { left: 54%; top: 34%; }
-.pos-feature { left: 80%; top: 99%; }
-.pos-main-merged { left: 93%; top: 34%; }
 
 .collab-timeline {
   position: relative;
@@ -884,33 +866,6 @@ blockquote strong {
 .team-event--one { left: 47%; top: 50%; }
 .team-event--two { left: 72%; top: 50%; }
 .team-event--three { left: 93%; top: 50%; }
-
-.graph-legend {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.graph-legend p {
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--line);
-}
-
-.graph-legend strong,
-.graph-legend span {
-  display: block;
-}
-
-.graph-legend strong {
-  color: var(--leaf);
-  font-family: var(--mono);
-}
-
-.graph-legend span {
-  margin-top: 0.35rem;
-  color: var(--paper-dim);
-  font-size: 0.8rem;
-}
 
 /* Entrances */
 .entrances {
@@ -1089,8 +1044,7 @@ blockquote strong {
   gap: 0.5rem;
 }
 
-.mini-commits i,
-.mini-branch i {
+.mini-commits i {
   display: grid;
   width: 0.8rem;
   height: 0.8rem;
@@ -1603,16 +1557,6 @@ blockquote strong {
   line-height: 1.35;
 }
 
-.pr-window--embedded {
-  width: 100%;
-  border: 1px solid #303d36;
-  background: #111916;
-}
-
-.pr-window--embedded .pr-window__body {
-  padding: 1rem;
-}
-
 /* Branch lab */
 .branch-lab {
   min-height: 38vh;
@@ -1863,8 +1807,7 @@ blockquote strong {
   letter-spacing: 0.13em;
 }
 
-.history-line,
-.mini-branch {
+.history-line {
   position: relative;
   display: flex;
   align-items: center;
@@ -1872,8 +1815,7 @@ blockquote strong {
   margin-top: 3rem;
 }
 
-.history-line::before,
-.mini-branch::before {
+.history-line::before {
   content: "";
   position: absolute;
   z-index: 0;
@@ -2003,16 +1945,6 @@ blockquote strong {
   color: var(--sky);
 }
 
-.mini-branch i {
-  position: relative;
-  z-index: 1;
-  background: var(--ink);
-}
-
-.mini-branch .accent-node {
-  border-color: var(--sky);
-}
-
 .push-stream {
   position: relative;
   display: grid;
@@ -2139,6 +2071,16 @@ blockquote strong {
   align-items: end;
   gap: 1rem;
   margin-top: 1.2rem;
+}
+
+.pr-action {
+  align-self: stretch;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--leaf);
+  background: var(--leaf);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-weight: 900;
 }
 
 .pr-meta p {
@@ -3096,7 +3038,6 @@ kbd {
 
   .journey__track,
   .progress,
-  .graph-legend,
   .push-stream,
   .versus,
   .conflict-symbol,
@@ -3157,7 +3098,6 @@ kbd {
     min-height: auto;
   }
 
-  .git-graph,
   .merge-animation {
     transform: scale(0.78);
     transform-origin: center;
@@ -3178,16 +3118,18 @@ kbd {
     display: none;
   }
 
-  .vscode-window--workflow .vscode-editor {
-    display: block;
-  }
-
   .vscode-window--workflow .vscode-body {
     grid-template-columns: 2.5rem minmax(7rem, 32%) minmax(0, 1fr);
   }
 
-  .vscode-window--workflow .vscode-editor {
+  .vscode-window--workflow .vscode-editor,
+  .vscode-window--init .vscode-editor {
+    display: block;
     min-width: 0;
+  }
+
+  .vscode-window--init .vscode-body {
+    grid-template-columns: 2.5rem minmax(7rem, 32%) minmax(0, 1fr);
   }
 
   .diff-columns {

@@ -122,7 +122,7 @@
             <div class="server-stack">
               <span class="server-box">CENTRAL<br />REPOSITORY</span>
               <i></i>
-              <div class="client-row" aria-label="모든 사용자가 하나의 중앙 저장소 역사에 연결됨">
+              <div class="client-row" role="group" aria-label="모든 사용자가 하나의 중앙 저장소 역사에 연결됨">
                 <span>나<small>작업 사본</small></span>
                 <span>동료 1<small>작업 사본</small></span>
                 <span>동료 2<small>작업 사본</small></span>
@@ -169,7 +169,7 @@
         <div class="slide-index">04</div>
         <p class="eyebrow">ONE REPOSITORY · THREE CONTRIBUTORS</p>
         <h2>세 사람이 각자 작업하고, 시간차로 main에 합친다</h2>
-        <div class="collab-timeline" aria-label="세 명이 각자 브랜치에서 커밋하고 순서대로 push와 merge하는 팀 타임라인">
+        <div class="collab-timeline" role="group" aria-label="세 명이 각자 브랜치에서 커밋하고 순서대로 push와 merge하는 팀 타임라인">
           <svg viewBox="0 0 1000 360" preserveAspectRatio="none" role="img">
             <path class="graph-path is-drawn" d="M60 180 L950 180" />
             <path class="graph-path graph-path--alice" data-step="1" d="M170 180 C215 180 210 70 270 70 L360 70 C420 70 415 180 470 180" />
@@ -190,7 +190,7 @@
           <span class="team-event team-event--two" data-step="2">M2</span>
           <span class="team-event team-event--three" data-step="3">M3</span>
         </div>
-        <p class="simplification" data-step="4">각 색 선 = 한 사람의 작업 브랜치 · M = 검토 뒤 main에 연결된 merge commit</p>
+        <p class="simplification" data-step="4">commit = 로컬 기록 · push = 원격 공유 · merge = main 반영 · M = 검토 뒤 통합 지점</p>
       </section>
 
       <section class="slide" data-slide data-chapter="START">
@@ -243,7 +243,7 @@
             <span>03</span>
             <h3>Local Repo</h3>
             <p>내 컴퓨터의 역사</p>
-            <div class="mini-commits" aria-label="저장된 커밋 세 개">
+            <div class="mini-commits" role="group" aria-label="저장된 커밋 세 개">
               <i><b>C1</b></i><i><b>C2</b></i><i><b>C3</b></i>
             </div>
             <small class="commit-key">각 점 = 저장된 커밋</small>
@@ -421,7 +421,7 @@ by <span class="accent">1 commit</span>.</pre>
             <code>git switch -c feature/team-message</code>
           </div>
         </div>
-        <p class="takeaway" data-step="3"><strong>점 C1–C4 = 커밋</strong> · branch는 마지막 커밋을 가리키는 이름표</p>
+        <p class="takeaway" data-step="3"><strong>커밋 = 프로젝트 스냅샷</strong> · branch = 마지막 커밋의 이름표 · HEAD = 현재 선택한 branch</p>
       </section>
 
       <section class="slide slide--ui" data-slide data-chapter="EDIT">
@@ -523,7 +523,7 @@ by <span class="accent">1 commit</span>.</pre>
         <div class="push-scene">
           <div class="repo-island repo-island--local">
             <small>LOCAL</small>
-            <div class="repo-branch-map" aria-label="로컬 main에서 feature 브랜치가 갈라진 상태">
+            <div class="repo-branch-map" role="group" aria-label="로컬 main에서 feature 브랜치가 갈라진 상태">
               <svg viewBox="0 0 280 120" role="img">
                 <path class="repo-main-path" d="M20 42 L250 42" />
                 <path class="repo-feature-path" d="M110 42 C145 42 135 90 180 90 L250 90" />
@@ -540,7 +540,7 @@ by <span class="accent">1 commit</span>.</pre>
           </div>
           <div class="repo-island repo-island--remote" data-step="2">
             <small>REMOTE · origin</small>
-            <div class="repo-branch-map" aria-label="원격에도 같은 feature 브랜치가 게시된 상태">
+            <div class="repo-branch-map" role="group" aria-label="원격에도 같은 feature 브랜치가 게시된 상태">
               <svg viewBox="0 0 280 120" role="img">
                 <path class="repo-main-path" d="M20 42 L250 42" />
                 <path class="repo-feature-path" d="M110 42 C145 42 135 90 180 90 L250 90" />
@@ -561,44 +561,28 @@ by <span class="accent">1 commit</span>.</pre>
         <div class="slide-index">17</div>
         <p class="eyebrow">STEP 06 · OPEN PR / MR</p>
         <h2>“합쳐도 될까요?”를 기록으로 남긴다</h2>
-        <div class="vscode-window vscode-window--workflow" data-step="1">
-          <div class="vscode-titlebar">
-            <span class="window-dots"><i></i><i></i><i></i></span>
-            <b>Visual Studio Code · Pull Request 작성 흐름</b>
+        <div class="pr-window" data-step="1" role="group" aria-label="원격 저장소에서 PR 또는 MR을 작성하는 개념 화면">
+          <div class="pr-window__top">
+            <span class="pr-logo">REMOTE</span>
+            <strong>원격 저장소 · PR / MR 작성 흐름</strong>
+            <small>서버 제품에 따라 이름과 UI가 다름</small>
           </div>
-          <div class="vscode-body">
-            <nav class="vscode-rail"><span>▧</span><span class="active">⑂</span><span>⌕</span></nav>
-            <aside class="vscode-sidebar">
-              <small>PULL REQUEST</small>
-              <p><strong>feature/team-message</strong></p>
-              <p>→ main</p>
-              <button data-step="2">Create Pull Request</button>
-            </aside>
-            <div class="vscode-editor">
-              <div class="pr-window pr-window--embedded">
-                <div class="pr-window__top">
-                  <span class="pr-logo">⑂</span>
-                  <strong>PR 작성 · 개념 화면</strong>
-                  <small>실제 서버 UI와 다를 수 있음</small>
-                </div>
-                <div class="pr-window__body">
-                  <div class="branch-selector">
-                    <span>feature/team-message</span><i>→</i><strong>main</strong>
-                  </div>
-                  <label>
-                    <span>제목</span>
-                    <b>Update team introduction</b>
-                  </label>
-                  <div class="pr-meta">
-                    <p><small>변경</small><strong>1 file · +1 −1</strong></p>
-                    <p><small>리뷰어</small><strong>팀원 1명</strong></p>
-                  </div>
-                </div>
-              </div>
+          <div class="pr-window__body">
+            <div class="branch-selector">
+              <span>feature/team-message</span><i>→</i><strong>main</strong>
+            </div>
+            <label>
+              <span>제목</span>
+              <b>Update team introduction</b>
+            </label>
+            <div class="pr-meta">
+              <p><small>변경</small><strong>1 file · +1 −1</strong></p>
+              <p><small>리뷰어</small><strong>팀원 1명</strong></p>
+              <button class="pr-action" data-step="2">Create PR / MR</button>
             </div>
           </div>
-          <div class="vscode-status"><span>⑂ feature/team-message</span><span>origin에 게시됨</span></div>
         </div>
+        <p class="footnote" data-step="3">실습 전 원격 서버에서 실제 메뉴 이름과 위치 확인</p>
         <div class="pr-purpose" data-step="3">
           <span>diff 검토</span><span>의견 교환</span><span>병합 판단</span>
         </div>
@@ -866,7 +850,7 @@ by <span class="accent">1 commit</span>.</pre>
     <footer class="deck-controls" aria-label="프레젠테이션 탐색">
       <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
       <button id="previous" type="button" aria-label="이전 단계">←</button>
-      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">30</span></p>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">31</span></p>
       <button id="next" type="button" aria-label="다음 단계">→</button>
       <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
     </footer>
