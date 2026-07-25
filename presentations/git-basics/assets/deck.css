@@ -16,6 +16,10 @@
   color-scheme: dark;
 }
 
+html {
+  font-size: clamp(1.125rem, calc(0.65rem + 0.65vw), 2.25rem);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -131,7 +135,7 @@ a:focus-visible {
   align-items: center;
   justify-content: space-between;
   color: var(--paper-dim);
-  font-size: clamp(0.62rem, 0.8vw, 0.82rem);
+  font-size: clamp(0.8rem, 0.8vw, 0.82rem);
   font-weight: 700;
   letter-spacing: 0.18em;
 }
@@ -198,7 +202,7 @@ a:focus-visible {
 .eyebrow {
   margin: 0 0 clamp(0.7rem, 1.6vh, 1.15rem);
   color: var(--leaf);
-  font-size: clamp(0.62rem, 0.85vw, 0.92rem);
+  font-size: clamp(0.8rem, 0.85vw, 0.92rem);
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -273,7 +277,7 @@ strong {
 .simplification {
   margin-top: 1.6rem;
   color: var(--paper-dim);
-  font-size: clamp(0.72rem, 0.95vw, 1rem);
+  font-size: clamp(0.8rem, 0.95vw, 1rem);
 }
 
 /* Cover */
@@ -298,7 +302,7 @@ strong {
   align-self: end;
   margin-bottom: 1rem;
   color: var(--ember);
-  font-size: clamp(0.78rem, 1vw, 1.05rem);
+  font-size: clamp(0.8rem, 1vw, 1.05rem);
   font-weight: 800;
   letter-spacing: 0.14em;
 }
@@ -419,7 +423,7 @@ strong {
   bottom: 4.5vh;
   left: clamp(42px, 8vw, 148px);
   color: rgba(238, 233, 221, 0.42);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.2em;
 }
@@ -470,7 +474,7 @@ strong {
   display: block;
   color: var(--paper-dim);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 .journey__item strong {
@@ -482,7 +486,7 @@ strong {
 
 .journey__item small {
   color: var(--paper-dim);
-  font-size: clamp(0.68rem, 0.9vw, 0.95rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.95rem);
 }
 
 /* SVN versus Git */
@@ -507,7 +511,7 @@ strong {
 
 .model-card__label {
   color: var(--ember);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0.2em;
 }
@@ -576,7 +580,7 @@ strong {
 .distributed small {
   color: var(--leaf);
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.8rem;
 }
 
 blockquote {
@@ -610,7 +614,7 @@ blockquote strong {
 .translation-head {
   grid-template-columns: 1fr 2.2fr;
   color: var(--paper-dim);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -683,7 +687,7 @@ blockquote strong {
   background: var(--ink);
   color: var(--paper);
   font-family: var(--mono);
-  font-size: clamp(0.68rem, 0.9vw, 0.9rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
   transform: translate(-50%, -50%) scale(0);
 }
 
@@ -708,7 +712,7 @@ blockquote strong {
   background: var(--leaf);
   color: var(--ink);
   font-family: var(--mono);
-  font-size: clamp(0.62rem, 0.8vw, 0.82rem);
+  font-size: clamp(0.8rem, 0.8vw, 0.82rem);
   font-weight: 800;
   transform: translate(-50%, -50%);
 }
@@ -751,7 +755,7 @@ blockquote strong {
 .graph-legend span {
   margin-top: 0.35rem;
   color: var(--paper-dim);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 /* Entrances */
@@ -859,7 +863,7 @@ blockquote strong {
 .pipeline__area > span {
   color: var(--ember);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
 .pipeline__area h3 {
@@ -869,7 +873,7 @@ blockquote strong {
 
 .pipeline__area p {
   color: var(--paper-dim);
-  font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
 }
 
 .pipeline__area.is-visible,
@@ -885,7 +889,7 @@ blockquote strong {
 }
 
 .pipeline__arrow code {
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
 .pipeline__arrow i {
@@ -919,7 +923,7 @@ blockquote strong {
   border-bottom: 5px solid var(--sky);
   color: var(--sky);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 .mini-commits {
@@ -1030,14 +1034,14 @@ blockquote strong {
   margin-left: auto;
   color: var(--paper-dim);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
 .terminal-card pre {
   margin: 0;
   padding: clamp(1.3rem, 2.5vw, 2.3rem);
   color: var(--paper-dim);
-  font-size: clamp(0.78rem, 1.15vw, 1.2rem);
+  font-size: clamp(0.8rem, 1.15vw, 1.2rem);
   line-height: 1.65;
 }
 
@@ -1066,7 +1070,7 @@ blockquote strong {
   padding-top: 0.8rem;
   border-top: 1px solid var(--line);
   color: var(--paper-dim);
-  font-size: clamp(0.7rem, 0.95vw, 0.95rem);
+  font-size: clamp(0.8rem, 0.95vw, 0.95rem);
 }
 
 .status-questions span {
@@ -1142,7 +1146,7 @@ blockquote strong {
 .check-item span {
   color: var(--ember);
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
 }
 
 .check-item strong,
@@ -1160,7 +1164,7 @@ blockquote strong {
 .check-item code,
 .check-item small {
   color: var(--paper-dim);
-  font-size: clamp(0.62rem, 0.8vw, 0.82rem);
+  font-size: clamp(0.8rem, 0.8vw, 0.82rem);
   overflow-wrap: anywhere;
 }
 
@@ -1204,7 +1208,7 @@ blockquote strong {
 .vscode-titlebar b {
   margin: 0 auto;
   color: #c9cec9;
-  font-size: 0.68rem;
+  font-size: 0.8rem;
 }
 
 .vscode-body {
@@ -1238,7 +1242,7 @@ blockquote strong {
   display: block;
   margin-bottom: 1.2rem;
   color: #aab4ae;
-  font-size: 0.62rem;
+  font-size: 0.8rem;
 }
 
 .vscode-sidebar button {
@@ -1249,7 +1253,7 @@ blockquote strong {
   border-radius: 2px;
   background: #347d4e;
   color: white;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 .vscode-sidebar button.ghost {
@@ -1280,7 +1284,7 @@ blockquote strong {
   background: #202b26;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
   font-family: var(--mono);
-  font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
 }
 
 .command-palette span {
@@ -1325,7 +1329,7 @@ blockquote strong {
   margin-top: 0.4rem;
   color: #849189;
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.8rem;
 }
 
 .vscode-status {
@@ -1333,7 +1337,7 @@ blockquote strong {
   justify-content: space-between;
   padding: 0.35rem 0.8rem;
   background: #326c48;
-  font-size: 0.62rem;
+  font-size: 0.8rem;
 }
 
 /* Branch lab */
@@ -1363,7 +1367,7 @@ blockquote strong {
   padding: 0.8rem 1.2rem;
   border-top: 1px solid var(--line);
   color: var(--paper-dim);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 /* Diff */
@@ -1400,14 +1404,14 @@ blockquote strong {
 
 .diff-columns small {
   color: var(--paper-dim);
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   letter-spacing: 0.15em;
 }
 
 .diff-columns pre {
   margin-top: 1.2rem;
   color: var(--paper-dim);
-  font-size: clamp(0.68rem, 1vw, 1rem);
+  font-size: clamp(0.8rem, 1vw, 1rem);
   line-height: 2;
 }
 
@@ -1442,7 +1446,7 @@ blockquote strong {
   padding-top: 0.8rem;
   border-top: 1px solid var(--line);
   color: var(--paper-dim);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .review-strip span::before,
@@ -1480,7 +1484,7 @@ blockquote strong {
 
 .changes-pane header span {
   color: var(--paper-dim);
-  font-size: 0.62rem;
+  font-size: 0.8rem;
   letter-spacing: 0.14em;
 }
 
@@ -1495,7 +1499,7 @@ blockquote strong {
   padding: 0.7rem;
   background: rgba(255, 255, 255, 0.035);
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.8rem;
 }
 
 .file-change b {
@@ -1616,7 +1620,7 @@ blockquote strong {
   justify-items: center;
   gap: 0.6rem;
   color: var(--paper-dim);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 .history-gap i {
@@ -1652,7 +1656,7 @@ blockquote strong {
   margin-top: 1rem;
   color: var(--sky);
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .mini-branch i {
@@ -1723,7 +1727,7 @@ blockquote strong {
 
 .push-facts span {
   color: var(--paper-dim);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 /* PR */
@@ -1740,7 +1744,7 @@ blockquote strong {
 .pr-window__top small {
   margin-left: auto;
   color: var(--ember);
-  font-size: 0.62rem;
+  font-size: 0.8rem;
 }
 
 .pr-logo {
@@ -1757,7 +1761,7 @@ blockquote strong {
   gap: 1rem;
   margin-bottom: 1.4rem;
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .branch-selector span {
@@ -1846,7 +1850,7 @@ blockquote strong {
 
 .conflict-branch code {
   color: var(--paper);
-  font-size: clamp(0.78rem, 1.05vw, 1.1rem);
+  font-size: clamp(0.8rem, 1.05vw, 1.1rem);
 }
 
 .conflict-branch mark {
@@ -1937,7 +1941,7 @@ blockquote strong {
   padding: 0.3rem 0.5rem;
   background: var(--ember);
   color: var(--ink);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 900;
 }
 
@@ -1971,14 +1975,14 @@ blockquote strong {
 
 .merge-panel small {
   color: var(--paper-dim);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   letter-spacing: 0.1em;
 }
 
 .merge-panel code {
   margin: 2rem 0 1rem;
   color: var(--paper);
-  font-size: clamp(0.72rem, 0.95vw, 0.95rem);
+  font-size: clamp(0.8rem, 0.95vw, 0.95rem);
 }
 
 .merge-panel mark {
@@ -1990,7 +1994,7 @@ blockquote strong {
 .merge-panel button {
   padding: 0.45rem 0.65rem;
   background: #2d6847;
-  font-size: 0.66rem;
+  font-size: 0.8rem;
 }
 
 .merge-panel--result {
@@ -2012,7 +2016,7 @@ blockquote strong {
 
 .merge-panel--result span {
   color: var(--leaf);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 /* Abort */
@@ -2034,7 +2038,7 @@ blockquote strong {
 .abort-state > span {
   color: var(--ember);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 .abort-state--clean {
@@ -2120,7 +2124,7 @@ blockquote strong {
   padding-top: 0.9rem;
   border-top: 1px solid var(--line);
   color: var(--paper-dim);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .merge-verdict span {
@@ -2158,7 +2162,7 @@ blockquote strong {
 .cleanup-flow span {
   color: var(--ember);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
 .cleanup-flow strong {
@@ -2169,7 +2173,7 @@ blockquote strong {
 
 .cleanup-flow code {
   color: var(--paper-dim);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
 }
 
 .clean-result {
@@ -2229,7 +2233,7 @@ blockquote strong {
 .team-rules span {
   color: var(--ember);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
 .team-rules strong {
@@ -2240,7 +2244,7 @@ blockquote strong {
 
 .team-rules small {
   color: var(--paper-dim);
-  font-size: clamp(0.68rem, 0.85vw, 0.86rem);
+  font-size: clamp(0.8rem, 0.85vw, 0.86rem);
   line-height: 1.55;
 }
 
@@ -2266,7 +2270,7 @@ blockquote strong {
 .choice {
   color: var(--ember);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0.12em;
 }
@@ -2285,7 +2289,7 @@ blockquote strong {
   align-items: center;
   gap: 0.7rem;
   font-family: var(--mono);
-  font-size: clamp(0.68rem, 0.9vw, 0.9rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
 }
 
 .fork-path div i {
@@ -2326,7 +2330,7 @@ blockquote strong {
 
 .recovery-stack code {
   margin: 1.3rem 0 0.8rem;
-  font-size: clamp(0.72rem, 1vw, 1rem);
+  font-size: clamp(0.8rem, 1vw, 1rem);
 }
 
 .recovery-stack small {
@@ -2357,7 +2361,7 @@ blockquote strong {
 .danger-zone span {
   justify-self: end;
   color: var(--paper-dim);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 /* Recap */
@@ -2383,12 +2387,12 @@ blockquote strong {
   border-radius: 50%;
   color: var(--leaf);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
 .recap-track strong {
   font-family: var(--mono);
-  font-size: clamp(0.55rem, 0.75vw, 0.78rem);
+  font-size: 0.8rem;
 }
 
 .recap-track > i {
@@ -2508,7 +2512,7 @@ blockquote strong {
   margin: 0;
   color: var(--paper-dim);
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-align: center;
 }
 
@@ -2553,7 +2557,7 @@ blockquote strong {
   border-radius: 3px;
   background: rgba(11, 20, 17, 0.92);
   color: var(--paper-dim);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   opacity: 0;
   transform: translate(-50%, 12px);
   transition: opacity 300ms ease, transform 300ms ease;
