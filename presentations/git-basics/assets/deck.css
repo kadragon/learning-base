@@ -17,7 +17,7 @@
 }
 
 html {
-  font-size: clamp(18px, min(1vw, 1.8vh), 36px);
+  font-size: clamp(1.125rem, calc(0.65rem + 0.65vw), 2.25rem);
 }
 
 * {
@@ -2392,7 +2392,7 @@ blockquote strong {
 
 .recap-track strong {
   font-family: var(--mono);
-  font-size: 0.8rem
+  font-size: 0.8rem;
 }
 
 .recap-track > i {
