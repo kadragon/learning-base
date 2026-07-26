@@ -432,9 +432,30 @@ strong {
 .journey {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: clamp(0.7rem, 1.6vw, 1.8rem);
   margin: 3vh 0 1vh;
+}
+
+.time-budget {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin-top: clamp(1rem, 2.2vh, 1.8rem);
+}
+
+.time-budget span {
+  padding: 0.55rem 0.8rem;
+  border-left: 2px solid var(--line);
+  color: var(--paper-dim);
+  font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+}
+
+.time-budget b {
+  display: block;
+  color: var(--sky);
+  font-family: var(--mono);
+  font-size: clamp(0.78rem, 0.85vw, 0.9rem);
 }
 
 .journey__track {
@@ -1317,6 +1338,24 @@ blockquote strong {
   color: var(--ember);
 }
 
+/* Icon set */
+.icon-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.ic {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* VS Code concept windows */
 .vscode-window,
 .diff-window,
@@ -1349,7 +1388,7 @@ blockquote strong {
 .vscode-body {
   display: grid;
   grid-template-columns: 3rem minmax(180px, 22%) 1fr;
-  min-height: 38vh;
+  min-height: 32vh;
 }
 
 .vscode-rail {
@@ -1359,7 +1398,15 @@ blockquote strong {
   padding-top: 1rem;
   background: #1b2420;
   color: #6f7c75;
+  font-size: 1.15rem;
   text-align: center;
+}
+
+.vscode-rail span,
+.rail-mock span,
+.rail-list b {
+  display: grid;
+  place-items: center;
 }
 
 .vscode-rail .active {
@@ -1406,7 +1453,7 @@ blockquote strong {
   position: relative;
   display: grid;
   place-items: center;
-  padding: 2rem;
+  padding: 1.4rem 2rem;
   background:
     linear-gradient(rgba(125, 211, 215, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(125, 211, 215, 0.025) 1px, transparent 1px),
@@ -1524,7 +1571,7 @@ blockquote strong {
 }
 
 .vscode-window--workflow .vscode-body {
-  min-height: 32vh;
+  min-height: 26vh;
 }
 
 .vscode-window--workflow .vscode-editor {
@@ -3334,6 +3381,195 @@ kbd {
   font-family: var(--mono);
 }
 
+/* Practice chapter rules */
+.practice-rules {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 68ch;
+  margin: clamp(1rem, 2.4vh, 1.9rem) 0 0;
+}
+
+.practice-rules p {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--line);
+  color: var(--paper-dim);
+  font-size: clamp(0.82rem, 1vw, 1.02rem);
+  line-height: 1.55;
+}
+
+.practice-rules b {
+  display: block;
+  color: var(--leaf);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* Step checkpoint */
+.checkpoint {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: clamp(0.7rem, 1.5vh, 1.1rem);
+  padding: 0.55rem 1rem;
+  border: 1px dashed rgba(168, 229, 143, 0.45);
+  border-radius: 6px;
+  color: var(--paper-dim);
+  font-size: clamp(0.8rem, 0.95vw, 1rem);
+}
+
+.checkpoint b {
+  margin-right: 0.7rem;
+  color: var(--leaf);
+}
+
+/* Keep inline code and emphasis inside flex callouts from being spaced apart */
+.warning-strip > span,
+.safety-note > span,
+.instructor-note > span {
+  flex: 1;
+}
+
+/* gitignore and conflict markers */
+.ignore-stage,
+.marker-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 2.2rem);
+  align-items: start;
+}
+
+.ignore-steps li {
+  font-size: clamp(0.8rem, 0.95vw, 1rem);
+}
+
+.ignore-steps b {
+  color: var(--paper);
+}
+
+.marker-legend {
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.marker-legend li {
+  padding: 0.7rem 0 0.7rem 1rem;
+  border-left: 2px solid var(--sky);
+}
+
+.marker-legend b {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--sky);
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+}
+
+.marker-legend span {
+  color: var(--paper-dim);
+  font-size: clamp(0.8rem, 0.92vw, 0.98rem);
+}
+
+/* origin and origin/main pointer map */
+.pointer-map {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(0.8rem, 1.8vw, 1.8rem);
+  align-items: center;
+}
+
+.pointer-side {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--ink-raised);
+}
+
+.pointer-side > small {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--paper-dim);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.pointer-side--remote {
+  border-color: rgba(125, 211, 215, 0.45);
+}
+
+.pointer-row + .pointer-row {
+  margin-top: 0.65rem;
+}
+
+.pointer-row b {
+  display: block;
+  color: var(--leaf);
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+}
+
+.pointer-row span {
+  color: var(--paper-dim);
+  font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+}
+
+.pointer-row--track b {
+  color: var(--sky);
+}
+
+.pointer-flow {
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  text-align: center;
+}
+
+.pointer-flow code {
+  font-size: clamp(0.85rem, 1vw, 1.1rem);
+}
+
+.pointer-flow i {
+  color: var(--sky);
+  font-size: 1.6rem;
+  font-style: normal;
+}
+
+.pointer-flow small {
+  color: var(--paper-dim);
+  font-size: clamp(0.76rem, 0.88vw, 0.92rem);
+}
+
+/* Error message table */
+.translation-grid--errors .translation-row {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 0.8rem;
+  min-height: clamp(2.4rem, 5vh, 3.6rem);
+}
+
+.translation-grid--errors .translation-row span {
+  font-size: clamp(0.72rem, 0.85vw, 0.92rem);
+  overflow-wrap: anywhere;
+}
+
+.translation-grid--errors .translation-row strong {
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: clamp(0.76rem, 0.88vw, 0.95rem);
+}
+
+.translation-grid--errors .translation-row em {
+  font-size: clamp(0.74rem, 0.85vw, 0.9rem);
+}
+
+.terminal-card--status pre {
+  font-size: clamp(0.7rem, 0.92vw, 0.98rem);
+}
+
 /* Animation */
 @keyframes draw {
   to { stroke-dashoffset: 0; }
@@ -3391,7 +3627,11 @@ kbd {
   }
 
   .journey {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .time-budget {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .journey__item small,
@@ -3401,6 +3641,18 @@ kbd {
 
   .translation-row {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .translation-grid--errors .translation-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .translation-grid--errors .translation-row strong {
+    display: none;
+  }
+
+  .translation-grid--errors .translation-row em {
+    display: block;
   }
 
   .pipeline {
@@ -3501,9 +3753,21 @@ kbd {
   .cleanup-flow,
   .recovery-stack,
   .team-rules,
-  .fork-compare,
   .push-facts {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .fork-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .fork-path {
+    min-height: auto;
+    padding: 1.2rem;
+  }
+
+  .fork-path div {
+    flex-wrap: wrap;
   }
 
   .journey__track,
@@ -3580,6 +3844,11 @@ kbd {
     display: grid;
   }
 
+  .terminal-card--status pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
   .vscode-body {
     grid-template-columns: 2.5rem 1fr;
   }
@@ -3639,8 +3908,15 @@ kbd {
   .open-project,
   .branch-ui,
   .terminal-open,
-  .scm-anatomy {
+  .scm-anatomy,
+  .ignore-stage,
+  .marker-stage,
+  .pointer-map {
     grid-template-columns: 1fr;
+  }
+
+  .pointer-flow i {
+    transform: rotate(90deg);
   }
 
   .activity-map {
