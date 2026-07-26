@@ -55,6 +55,10 @@ error-message slide was copied from this run rather than written from memory.
 - Outside a repository: `fatal: not a git repository (or any of the parent directories): .git`
 - A file that is already tracked stays tracked after its name is added to `.gitignore`; it keeps
   appearing as `M` in `git status`. This is the caveat stated on the `.gitignore` slide.
+- `git revert <merge-commit>` without `-m` fails: `error: commit <sha> is a merge but no -m option
+  was given.` / `fatal: revert failed` (exit 128). The merge slide's safety note therefore shows
+  `git revert -m 1 <커밋>` and tells participants to call the instructor rather than quoting a bare
+  `git revert`.
 - `git fetch origin` updates **every** remote-tracking ref matched by the remote's fetch refspec,
   not just `origin/main`. With two changed remote branches the run printed both
   `main -> origin/main` and `topic -> origin/topic`. The fetch slide therefore says
