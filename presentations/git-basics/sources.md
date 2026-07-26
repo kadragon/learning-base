@@ -32,13 +32,32 @@ that the actual service may use either **Pull Request** or **Merge Request**.
   - Verified UI concepts: Source Control view, staging, committing, branches, Source Control Graph,
     remote synchronization, and merge-conflict indicators.
 - [Quickstart: Use Source Control in VS Code](https://code.visualstudio.com/docs/sourcecontrol/quickstart)
-  - Verified UI paths: **Git: Clone**, **Initialize Repository**, save/edit/review, stage, commit,
-    and individual pull/push actions.
+  - Verified UI paths: **File > Open Folder**, opening the Source Control view with `Ctrl+Shift+G` /
+    `⌃⇧G`, **Git: Clone**, **Initialize Repository**, save/edit/review, stage, commit, and
+    individual pull/push actions.
+  - Verified file badges: `U` for untracked and `M` for modified files listed under **Changes**,
+    which move to **Staged Changes** after staging with the **+** button.
 - [Working with Repositories and Remotes](https://code.visualstudio.com/docs/sourcecontrol/repos-remotes)
   - Verified concepts: cloning, default `origin`, fetch, pull, push, Publish Branch, and Sync
     Changes combining pull and push.
 - [Branches and Worktrees in VS Code](https://code.visualstudio.com/docs/sourcecontrol/branches-worktrees)
   - Verified UI concepts: branch creation and switching, publishing branches, and merge results.
+  - Verified branch-creation paths: the status bar branch indicator, the branch picker in the Source
+    Control view, the **Git: Create Branch** and **Git: Checkout to** commands, **Publish Branch**,
+    and the warning that Git may block a switch while uncommitted changes exist.
+- [VS Code User Interface](https://code.visualstudio.com/docs/getstarted/userinterface)
+  - Verified UI concepts: the Activity Bar on the far left switching views (Explorer, Search, Source
+    Control, Run and Debug, Extensions, plus extension-contributed views), Primary Side Bar, Editor,
+    Panel, and Status Bar regions, and the `Ctrl+B` / `⌘B` Primary Side Bar toggle.
+- [Default Keyboard Shortcuts Reference](https://code.visualstudio.com/docs/reference/default-keybindings)
+  - Verified default keybindings used on the Activity Bar slide: Explorer `Ctrl+Shift+E` / `⇧⌘E`,
+    Search `Ctrl+Shift+F` / `⇧⌘F`, Source Control `Ctrl+Shift+G` / `⌃⇧G`, Run `Ctrl+Shift+D` /
+    `⇧⌘D`, Extensions `Ctrl+Shift+X` / `⇧⌘X`, Show All Commands `Ctrl+Shift+P` / `⇧⌘P`, Toggle
+    Sidebar `Ctrl+B` / `⌘B`, Toggle Terminal `` Ctrl+` `` / `` ⌃` ``.
+- [Terminal Basics](https://code.visualstudio.com/docs/terminal/basics)
+  - Verified UI paths: **Terminal > New Terminal**, the **View: Toggle Terminal** command,
+    `` Ctrl+` `` toggle and `` Ctrl+Shift+` `` new-terminal shortcuts, and the terminal starting at
+    the root of the opened workspace.
 - [Resolve Merge Conflicts in VS Code](https://code.visualstudio.com/docs/sourcecontrol/merge-conflicts)
   - Verified UI concepts: conflict markers, Current/Incoming changes, the three-way Merge Editor,
     staging resolved files, completing the merge commit, and aborting an unfinished merge.
@@ -95,6 +114,11 @@ license copies retain their copyright and reserved-name notices.
   appropriate when contributors lack write permission or policy requires isolation.
 - Rebase, cherry-pick, stash, hard reset, force push, tags, submodules, and fork synchronization are
   intentionally deferred from the first lecture.
+- The VS Code basics slides list default keybindings. Participants who remapped keys, use a
+  keymap extension, or run a different VS Code version may see different shortcuts; the menu and
+  Command Palette paths are given alongside every shortcut for that reason.
+- The Activity Bar slide shows the five built-in views in their default order. Installed extensions
+  can add icons, and the Activity Bar can be moved or hidden through workbench settings.
 
 ## Environment-Specific Items to Verify Before Delivery
 

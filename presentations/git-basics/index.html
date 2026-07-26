@@ -327,8 +327,227 @@ by <span class="accent">1 commit</span>.</pre>
         </aside>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="INIT">
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
         <div class="slide-index">10</div>
+        <p class="eyebrow">VS CODE 01 · OPEN THE PROJECT</p>
+        <h2>폴더 하나를 열면, 프로젝트가 열린다</h2>
+        <div class="open-project">
+          <div class="vscode-window vscode-window--open" data-step="1">
+            <div class="vscode-titlebar">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <b>Visual Studio Code · training</b>
+            </div>
+            <div class="vscode-body">
+              <nav class="vscode-rail"><span class="active">▧</span><span>⌕</span><span>⑂</span></nav>
+              <aside class="vscode-sidebar">
+                <small>EXPLORER</small>
+                <ul class="folder-tree">
+                  <li class="folder-tree__root">training</li>
+                  <li>docs</li>
+                  <li>team.md</li>
+                  <li>README.md</li>
+                </ul>
+              </aside>
+              <div class="vscode-editor">
+                <div class="menu-drop" data-step="2">
+                  <span>FILE</span>
+                  <b>Open Folder…</b>
+                  <small>폴더 선택 창이 열린다</small>
+                </div>
+              </div>
+            </div>
+            <div class="vscode-status"><span>⑂ main</span><span>training</span></div>
+          </div>
+          <ol class="practice-checks open-steps">
+            <li data-step="2"><b>File &gt; Open Folder…</b> 선택</li>
+            <li data-step="3">프로젝트 <b>최상위 폴더</b>를 연다 · 하위 폴더 하나만 열지 않는다</li>
+            <li data-step="4">제목 표시줄과 탐색기에 폴더 이름이 보이면 완료</li>
+          </ol>
+        </div>
+        <p class="takeaway" data-step="5">
+          <strong>연 폴더가 작업 기준</strong>&nbsp;· 터미널이 시작하는 위치도, 소스 제어가 보는 대상도 이 폴더
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="VS CODE">
+        <div class="slide-index">11</div>
+        <p class="eyebrow">VS CODE 02 · ACTIVITY BAR</p>
+        <h2>왼쪽 세로줄이 화면을 바꾼다</h2>
+        <div class="activity-map">
+          <nav class="rail-mock" aria-hidden="true">
+            <span data-step="1">▧</span>
+            <span data-step="2">⌕</span>
+            <span class="rail-mock__accent" data-step="3">⑂</span>
+            <span data-step="4">▷</span>
+            <span data-step="5">⧉</span>
+          </nav>
+          <ul class="rail-list">
+            <li data-step="1">
+              <b aria-hidden="true">▧</b>
+              <strong>Explorer<em>탐색기</em></strong>
+              <span>연 폴더의 파일 목록</span>
+              <div class="rail-keys"><kbd>Ctrl+Shift+E</kbd><kbd>⇧⌘E</kbd></div>
+            </li>
+            <li data-step="2">
+              <b aria-hidden="true">⌕</b>
+              <strong>Search<em>검색</em></strong>
+              <span>프로젝트 전체 텍스트 찾기</span>
+              <div class="rail-keys"><kbd>Ctrl+Shift+F</kbd><kbd>⇧⌘F</kbd></div>
+            </li>
+            <li class="rail-list__scm" data-step="3">
+              <b aria-hidden="true">⑂</b>
+              <strong>Source Control<em>소스 제어 · 오늘의 주무대</em></strong>
+              <span>변경 확인 · stage · commit · branch</span>
+              <div class="rail-keys"><kbd>Ctrl+Shift+G</kbd><kbd>⌃⇧G</kbd></div>
+            </li>
+            <li data-step="4">
+              <b aria-hidden="true">▷</b>
+              <strong>Run and Debug<em>실행 · 디버그</em></strong>
+              <span>오늘 강의에서는 사용하지 않음</span>
+              <div class="rail-keys"><kbd>Ctrl+Shift+D</kbd><kbd>⇧⌘D</kbd></div>
+            </li>
+            <li data-step="5">
+              <b aria-hidden="true">⧉</b>
+              <strong>Extensions<em>확장</em></strong>
+              <span>기능 추가 설치</span>
+              <div class="rail-keys"><kbd>Ctrl+Shift+X</kbd><kbd>⇧⌘X</kbd></div>
+            </li>
+          </ul>
+        </div>
+        <p class="footnote" data-step="6">
+          사이드바 접기·펼치기 <kbd>Ctrl+B</kbd> (mac <kbd>⌘B</kbd>) · 확장을 설치하면 아이콘이 늘어난다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="VS CODE">
+        <div class="slide-index">12</div>
+        <p class="eyebrow">VS CODE 03 · TERMINAL</p>
+        <h2>명령을 입력할 자리는 아래에서 연다</h2>
+        <div class="terminal-open">
+          <div class="open-ways">
+            <article data-step="1">
+              <span>단축키</span>
+              <kbd>Ctrl+`</kbd>
+              <small>mac <kbd>⌃`</kbd> · 같은 키로 닫힌다</small>
+            </article>
+            <article data-step="2">
+              <span>메뉴</span>
+              <b>Terminal &gt; New Terminal</b>
+              <small>새 터미널 <kbd>Ctrl+Shift+`</kbd> (mac <kbd>⌃⇧`</kbd>)</small>
+            </article>
+            <article data-step="3">
+              <span>명령 팔레트</span>
+              <kbd>Ctrl+Shift+P</kbd>
+              <small>mac <kbd>⇧⌘P</kbd> · <code>View: Toggle Terminal</code></small>
+            </article>
+          </div>
+          <div class="terminal-card" data-step="4">
+            <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal · training</span></div>
+            <pre><span class="prompt">$</span> git status
+
+On branch <mark>main</mark>
+nothing to commit, working tree clean</pre>
+          </div>
+        </div>
+        <p class="takeaway" data-step="5">
+          <strong>터미널은 지금 연 폴더에서 시작</strong>&nbsp;· 경로 이동 없이 바로&nbsp;<code>git</code>&nbsp;명령 실행
+        </p>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
+        <div class="slide-index">13</div>
+        <p class="eyebrow">VS CODE 04 · SOURCE CONTROL VIEW</p>
+        <h2>소스 제어 화면은 네 곳만 본다</h2>
+        <div class="scm-anatomy">
+          <div class="scm-panel" data-step="1">
+            <header><small>SOURCE CONTROL</small><b>⑂ Ctrl+Shift+G</b></header>
+            <div class="scm-row" data-step="1">
+              <i aria-hidden="true">①</i>
+              <div>
+                <label class="scm-message">Message<strong>Update team introduction</strong></label>
+                <button type="button">Commit</button>
+              </div>
+            </div>
+            <div class="scm-group" data-step="2">
+              <i aria-hidden="true">②</i>
+              <div>
+                <p>CHANGES <b>2</b></p>
+                <span><em>M</em>team.md<u>＋</u></span>
+                <span><em>U</em>notes.md<u>＋</u></span>
+              </div>
+            </div>
+            <div class="scm-group scm-group--staged" data-step="3">
+              <i aria-hidden="true">③</i>
+              <div>
+                <p>STAGED CHANGES <b>1</b></p>
+                <span><em>M</em>team.md<u>−</u></span>
+              </div>
+            </div>
+            <div class="scm-row scm-row--status" data-step="4">
+              <i aria-hidden="true">④</i>
+              <div class="scm-statusbar"><span>⑂ feature/team-message</span><span>↻ 0 ↓ 1 ↑</span></div>
+            </div>
+          </div>
+          <ul class="scm-legend">
+            <li data-step="1">
+              <b>①</b>
+              <div><strong>메시지 입력과 Commit</strong><small>stage된 변경만 이 버튼으로 기록된다</small></div>
+            </li>
+            <li data-step="2">
+              <b>②</b>
+              <div><strong>Changes</strong><small>아직 고르지 않은 변경 · <code>M</code> 수정 <code>U</code> 새 파일</small></div>
+            </li>
+            <li data-step="3">
+              <b>③</b>
+              <div><strong>Staged Changes</strong><small>＋ 로 올린 변경 · 다음 커밋에 들어갈 목록</small></div>
+            </li>
+            <li data-step="4">
+              <b>④</b>
+              <div><strong>상태 표시줄</strong><small>현재 브랜치와 원격과의 차이(↓ 받을 것 · ↑ 보낼 것)</small></div>
+            </li>
+          </ul>
+        </div>
+        <p class="footnote" data-step="5">
+          파일 위 <b>＋</b> = stage · <b>−</b> = unstage · 원격 반영은 <b>Sync Changes</b> 또는 개별 Pull / Push
+        </p>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
+        <div class="slide-index">14</div>
+        <p class="eyebrow">VS CODE 05 · CREATE BRANCH</p>
+        <h2>새 가지는 상태 표시줄에서 만든다</h2>
+        <div class="branch-ui">
+          <div class="picker-mock" data-step="1">
+            <div class="picker-list">
+              <div class="picker-input" data-step="3">feature/team-message<i aria-hidden="true">↵</i></div>
+              <ul>
+                <li class="is-highlight" data-step="2">＋ Create new branch…</li>
+                <li data-step="2">＋ Create new branch from…</li>
+                <li data-step="2">main</li>
+                <li data-step="2">origin/main</li>
+              </ul>
+            </div>
+            <div class="picker-status">
+              <span class="picker-status__branch">⑂ main</span>
+              <span>0 ↓ &nbsp; 0 ↑</span>
+            </div>
+          </div>
+          <ol class="practice-checks branch-steps">
+            <li data-step="1">상태 표시줄 왼쪽 <b>⑂ main</b> 클릭</li>
+            <li data-step="2">목록에서 <b>Create new branch…</b> 선택</li>
+            <li data-step="3">이름 입력 → 새 브랜치로 자동 전환</li>
+            <li data-step="4">소스 제어의 <b>Publish Branch</b>로 원격에 게시</li>
+          </ol>
+        </div>
+        <div class="warning-strip" data-step="5">
+          <strong>주의</strong>
+          커밋하지 않은 변경이 있으면 브랜치 전환이 막힐 수 있다 · 명령 팔레트에서는
+          <code>Git: Create Branch</code> · 전환은 <code>Git: Checkout to</code>
+        </div>
+      </section>
+
+      <section class="slide slide--ui" data-slide data-chapter="INIT">
+        <div class="slide-index">15</div>
         <p class="eyebrow">PRACTICE 00 · INIT</p>
         <h2>빈 폴더를 내 첫 로컬 저장소로 만든다</h2>
         <div class="vscode-window vscode-window--init" data-step="1">
@@ -361,7 +580,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--ui" data-slide data-chapter="CLONE">
-        <div class="slide-index">11</div>
+        <div class="slide-index">16</div>
         <p class="eyebrow">STEP 01 · CLONE</p>
         <h2>원격의 역사를 통째로 가져온다</h2>
         <div class="vscode-window" data-step="1">
@@ -394,7 +613,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--graph" data-slide data-chapter="BRANCH">
-        <div class="slide-index">12</div>
+        <div class="slide-index">17</div>
         <p class="eyebrow">STEP 02 · BRANCH</p>
         <h2>작업을 위한 새 이름표를 붙인다</h2>
         <div class="branch-lab">
@@ -425,7 +644,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--ui" data-slide data-chapter="EDIT">
-        <div class="slide-index">13</div>
+        <div class="slide-index">18</div>
         <p class="eyebrow">STEP 03 · EDIT & DIFF</p>
         <h2>무엇을 바꿨는지 먼저 읽는다</h2>
         <div class="diff-window" data-step="1">
@@ -458,7 +677,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--ui" data-slide data-chapter="STAGE">
-        <div class="slide-index">14</div>
+        <div class="slide-index">19</div>
         <p class="eyebrow">STEP 04 · STAGE & COMMIT</p>
         <h2>다음 마디에 넣을 변경을 고른다</h2>
         <div class="vscode-window vscode-window--workflow" data-step="1">
@@ -493,7 +712,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--graph" data-slide data-chapter="COMMIT">
-        <div class="slide-index">15</div>
+        <div class="slide-index">20</div>
         <p class="eyebrow">LOCAL HISTORY</p>
         <h2>커밋하면 내 가지가 한 칸 자란다</h2>
         <div class="dual-history">
@@ -517,7 +736,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--graph" data-slide data-chapter="PUSH">
-        <div class="slide-index">16</div>
+        <div class="slide-index">21</div>
         <p class="eyebrow">STEP 05 · PUSH</p>
         <h2>내 가지를 팀의 원격으로 보낸다</h2>
         <div class="push-scene">
@@ -558,7 +777,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--ui" data-slide data-chapter="PULL REQUEST">
-        <div class="slide-index">17</div>
+        <div class="slide-index">22</div>
         <p class="eyebrow">STEP 06 · OPEN PR / MR</p>
         <h2>“합쳐도 될까요?”를 기록으로 남긴다</h2>
         <div class="pr-window" data-step="1" role="group" aria-label="원격 저장소에서 PR 또는 MR을 작성하는 개념 화면">
@@ -590,7 +809,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--graph" data-slide data-chapter="CONFLICT">
-        <div class="slide-index">18</div>
+        <div class="slide-index">23</div>
         <p class="eyebrow">THE PLANNED CONFLICT</p>
         <h2>같은 줄, 서로 다른 결정</h2>
         <div class="conflict-branches">
@@ -612,7 +831,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide" data-slide data-chapter="CONFLICT">
-        <div class="slide-index">19</div>
+        <div class="slide-index">24</div>
         <p class="eyebrow">BRING MAIN IN</p>
         <h2>작업 브랜치에서 최신 main을 합친다</h2>
         <div class="merge-command-flow">
@@ -642,7 +861,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--ui" data-slide data-chapter="RESOLVE">
-        <div class="slide-index">20</div>
+        <div class="slide-index">25</div>
         <p class="eyebrow">STEP 07 · MERGE EDITOR</p>
         <h2>둘 중 하나가 아니라, 최종 결과를 만든다</h2>
         <div class="merge-editor" data-step="1">
@@ -666,7 +885,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide" data-slide data-chapter="RESOLVE">
-        <div class="slide-index">21</div>
+        <div class="slide-index">26</div>
         <p class="eyebrow">ESCAPE HATCH</p>
         <h2>잘못 시작했다면 중단할 수 있다</h2>
         <div class="abort-scene">
@@ -697,7 +916,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--graph" data-slide data-chapter="MERGE">
-        <div class="slide-index">22</div>
+        <div class="slide-index">27</div>
         <p class="eyebrow">STEP 08 · REVIEW & MERGE</p>
         <h2>검토한 가지를 main에 연결한다</h2>
         <div class="merge-animation" aria-label="feature branch가 main에 병합되는 그래프">
@@ -722,7 +941,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide" data-slide data-chapter="CLEANUP">
-        <div class="slide-index">23</div>
+        <div class="slide-index">28</div>
         <p class="eyebrow">CLEAN UP THE LOCAL WORKSPACE</p>
         <h2>병합 뒤, 로컬 작업 환경을 정리한다</h2>
         <div class="cleanup-flow">
@@ -747,7 +966,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide" data-slide data-chapter="TEAM RULES">
-        <div class="slide-index">24</div>
+        <div class="slide-index">29</div>
         <p class="eyebrow">RECOMMENDED WORKFLOW</p>
         <h2>우리 부서의 기본 경로</h2>
         <ol class="team-rules">
@@ -760,7 +979,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide" data-slide data-chapter="TEAM RULES">
-        <div class="slide-index">25</div>
+        <div class="slide-index">30</div>
         <p class="eyebrow">SHARED REPOSITORY, NOT FORKS</p>
         <h2>우리 팀에는 Fork가 필요 없다</h2>
         <div class="fork-compare">
@@ -781,7 +1000,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide" data-slide data-chapter="SAFETY">
-        <div class="slide-index">26</div>
+        <div class="slide-index">31</div>
         <p class="eyebrow">RECOVERY BEFORE PANIC</p>
         <h2>실수했을 때의 순서</h2>
         <div class="recovery-stack">
@@ -799,7 +1018,7 @@ by <span class="accent">1 commit</span>.</pre>
       </section>
 
       <section class="slide slide--recap" data-slide data-chapter="RECAP">
-        <div class="slide-index">27</div>
+        <div class="slide-index">32</div>
         <p class="eyebrow">THE WHOLE JOURNEY</p>
         <h2>한 번 더, 처음부터 끝까지</h2>
         <div class="recap-track">
