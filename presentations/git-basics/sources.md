@@ -55,6 +55,10 @@ error-message slide was copied from this run rather than written from memory.
 - Outside a repository: `fatal: not a git repository (or any of the parent directories): .git`
 - A file that is already tracked stays tracked after its name is added to `.gitignore`; it keeps
   appearing as `M` in `git status`. This is the caveat stated on the `.gitignore` slide.
+- `git fetch origin` updates **every** remote-tracking ref matched by the remote's fetch refspec,
+  not just `origin/main`. With two changed remote branches the run printed both
+  `main -> origin/main` and `topic -> origin/topic`. The fetch slide therefore says
+  "`origin/`으로 시작하는 원격 추적 포인터" rather than naming `origin/main` alone.
 
 Authentication failure text was **not** captured, so the error-message slide describes that row in
 prose ("로그인 창이 반복해서 뜨거나 인증에 실패") instead of quoting a message.
