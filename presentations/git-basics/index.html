@@ -332,7 +332,7 @@
       <section class="slide slide--statement" data-slide data-chapter="CORE LOOP">
         <div class="slide-index">08</div>
         <p class="eyebrow">ONE DISTINCTION TO KEEP</p>
-<div class="big-equation">
+        <div class="big-equation">
           <div data-step="1">
             <code>commit</code>
             <strong>저장</strong>
@@ -550,7 +550,7 @@ nothing to commit, working tree clean</pre>
                 <span><em>M</em>team.md<u>−</u></span>
               </div>
             </div>
-            <div class="scm-row scm-row--status" data-step="4">
+            <div class="scm-row" data-step="4">
               <i aria-hidden="true">④</i>
               <div class="scm-statusbar"><span>⑂ feature/team-message</span><span>↻ 0↓ 1↑</span></div>
             </div>
@@ -1078,7 +1078,7 @@ Message: 안전하게 함께 개발하기
         </div>
         <div class="safety-note" data-step="4">
           <strong><code>--abort</code>는 병합이 진행 중일 때만</strong>
-          <span>이미 Merge Commit까지 마쳤다면 되돌리는 방법은 <code>git revert</code>입니다 (뒤의 복구 슬라이드 참고)</span>
+          <span>이미 Merge Commit까지 마쳤다면 <code>git revert -m 1 &lt;커밋&gt;</code>로 되돌립니다 — 병합 커밋은 부모가 둘이라 <code>-m</code> 없이는 실패합니다. 혼자 하지 말고 강사와 함께 진행하세요 (뒤의 복구 슬라이드 참고)</span>
         </div>
       </section>
 
