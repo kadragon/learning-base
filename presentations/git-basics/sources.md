@@ -59,6 +59,25 @@ error-message slide was copied from this run rather than written from memory.
   was given.` / `fatal: revert failed` (exit 128). The merge slide's safety note therefore shows
   `git revert -m 1 <커밋>` and tells participants to call the instructor rather than quoting a bare
   `git revert`.
+- `git status` with a staged modification, an unstaged modification, and an untracked file prints the
+  three blocks in this order: `Changes to be committed:`, `Changes not staged for commit:`,
+  `Untracked files:`, each followed by tab-indented entries (`modified:   team.md`,
+  `modified:   notes.md`, `draft.md`). The status slide shows all three states so that "수정됨",
+  "Stage에 올림", and "추적 안 됨" can be told apart; the `(use …)` hint lines under each block are
+  omitted for space and the slide says so.
+- A repository with no commits prints `On branch main`, `No commits yet`, and
+  `nothing to commit (create/copy files and use "git add" to track)`; `git branch` prints nothing
+  until the first commit, after which it prints `* main`. This is the claim on the local warm-up
+  slide.
+- Staging a new file makes `git status --short` print `A  <file>` and `git status` list it under
+  `Changes to be committed:` as `new file:   <file>`. The warm-up slide therefore shows the staged
+  entry with an `A` badge. VS Code's own docs list only the `U` and `M` badges under **Changes**, so
+  the badge letter shown after staging a new file is inferred from Git's status letter, not quoted
+  from the product docs.
+- Merging a branch back into an untouched `main` prints `Switched to branch 'main'`, then
+  `Updating <old>..<new>` / `Fast-forward` / the diffstat, and `git branch -d <branch>` prints
+  `Deleted branch <branch> (was <sha>).` The warm-up merge slide quotes this run verbatim, including
+  the abbreviated hashes.
 - `git fetch origin` updates **every** remote-tracking ref matched by the remote's fetch refspec,
   not just `origin/main`. With two changed remote branches the run printed both
   `main -> origin/main` and `topic -> origin/topic`. The fetch slide therefore says
@@ -181,6 +200,16 @@ license copies retain their copyright and reserved-name notices.
   "not today" slide so participants know what exists and when it becomes relevant. `.gitignore` was
   moved out of the deferred list and taught as a full step, because participants need it within the
   first week.
+- The VS Code chapter ends with a three-slide **local warm-up** (first commit → create branch →
+  merge back) run in a throwaway `git-practice` folder with no remote. It exists so participants
+  complete one full branch lifecycle before the networked exercise; the merge-back slide states that
+  the team repository does this merge through push → PR → review instead, so the warm-up is not read
+  as the recommended team workflow. The warm-up branch is named `feature/hello` to keep it distinct
+  from `feature/team-message` used in the real exercise.
+- The team-timeline slide marks a `main 최신 반영` step for the second and third contributors,
+  because `main` already moved before their merge. It names the deck's own fetch-then-merge path
+  (`git fetch origin` → `git merge origin/main`) rather than rebase, which stays on the "not today"
+  slide.
 - `git init` moved to an appendix slide after the closing Q&A. The guided practice runs on `clone`
   only, so participants keep a single working folder; the appendix covers new projects and the
   fallback path when the server is unreachable.
