@@ -4236,6 +4236,13 @@ kbd {
  * began. That is a 2.5:1 viewport no projector produces, and closing it would
  * mean capping the mock's type, which measurably reopens the overlap below.
  *
+ * Note this block no longer carries an #appendix-init rule. The one that used
+ * to sit here was justified by a wrap that does not happen, and removing it
+ * restores that bar's full type — at the cost of ~4px more of it being cut at
+ * 1600x768 and 1920x768, where it was already mostly gone. Those sizes are
+ * outside the three the runbook documents; the sentence above about the clip
+ * reaching zero is about #clone and does not carry over to #appendix-init.
+ *
  * `.command-palette` and `.url-entry` are both absolutely positioned as a
  * percentage of the editor's height, so shrinking the editor also shrinks the
  * distance between them: the 19% that separates `top: 15%` from `top: 34%`
@@ -4279,12 +4286,13 @@ kbd {
 
 /*
  * #pull-request cuts 18px off the bottom of its own PR window at 1366x768.
- * Measured, that 18px is the body's bottom padding, not the controls: the
- * Create Pull Request button still clears the window's edge by 12px there, and
- * at 1024x768 nothing is cut at all. So this is breathing room rather than a
- * rescue — the button does start to clip a little above 1440px wide. Same
- * cause as #clone above: a grid row of a fixed-height slide with
- * `overflow: hidden`.
+ * Measured on the revision that clip describes, that 18px lands inside the
+ * body's 34px bottom padding, not on the controls: the Create Pull Request
+ * button still clears the window's clip edge by 16.8px there, and at 1024x768
+ * nothing is cut at all. So this is breathing room rather than a rescue. The
+ * margin does shrink as the viewport widens — 3.3px at 1600x768 — so the
+ * button is close to clipping there, but it has not yet. Same cause as #clone
+ * above: a grid row of a fixed-height slide with `overflow: hidden`.
  */
 @media (max-height: 860px) {
   #pull-request .pr-window__body {
@@ -4297,5 +4305,44 @@ kbd {
 
   #pull-request .pr-window label {
     padding: 0.7rem 0;
+  }
+}
+
+/*
+ * Shorter than a projector: a 1366x768 laptop with browser chrome is ~1366x625,
+ * and the mock's three boxes are sized by the root font, which scales with
+ * viewport WIDTH (`html { font-size: clamp(1.125rem, 0.65rem + 0.65vw, 2.25rem) }`),
+ * while the editor they sit in is floored by `min-height: 32vh` — viewport
+ * HEIGHT. Wide and short is therefore the worst case: measured at 1366x625 the
+ * boxes want 175px plus two 8px gaps inside a 169px editor, so ~22px has to
+ * come off. Take it from the result badge, which is the tallest box and the
+ * least information-dense, rather than from the URL the slide is teaching.
+ */
+@media (max-height: 700px) {
+  #clone .repo-icon {
+    width: 2.2rem;
+    font-size: 1rem;
+  }
+
+  #clone .command-palette,
+  #clone .url-entry {
+    padding: 0.45rem 1rem;
+  }
+
+  #clone .clone-result {
+    gap: 0.7rem;
+  }
+
+  /* Re-spaced for the shorter boxes above; the rem axis is unchanged. */
+  #clone .command-palette {
+    top: 1.4rem;
+  }
+
+  #clone .url-entry {
+    top: 4rem;
+  }
+
+  #clone .clone-result {
+    top: 6.6rem;
   }
 }

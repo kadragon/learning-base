@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- [done] Fit the #clone mock at laptop-window heights; correct two unverified numbers in comments (2026-07-29)
+  → docs/runbook.md
+
 - [done] Fix the #clone mock overlap introduced by the chrome pass; drop a fix built on a wrong premise (2026-07-29)
 - [done] git-basics stops cutting its own editor chrome; deck-wide WCAG AA at three sizes (2026-07-29)
   → docs/runbook.md
