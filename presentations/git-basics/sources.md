@@ -61,10 +61,21 @@ error-message slide was copied from this run rather than written from memory.
   `git revert`.
 - `git status` with a staged modification, an unstaged modification, and an untracked file prints the
   three blocks in this order: `Changes to be committed:`, `Changes not staged for commit:`,
-  `Untracked files:`, each followed by tab-indented entries (`modified:   team.md`,
+  `Untracked files:`, each followed by tab-indented entries (`modified:   report.md`,
   `modified:   notes.md`, `draft.md`). The status slide shows all three states so that "수정됨",
   "Stage에 올림", and "추적 안 됨" can be told apart; the `(use …)` hint lines under each block are
   omitted for space and the slide says so.
+  Re-reproduced on 2026-07-28 in a throwaway repository with a bare remote, on a branch one commit
+  ahead of its upstream: the output is byte-identical to the slide apart from those hint lines,
+  including `Your branch is ahead of 'origin/feature/print-layout' by 1 commit.` and the
+  `(use "git push" to publish your local commits)` line the slide does keep.
+- **The status mock deliberately uses names the exercise never uses** — `feature/print-layout` and
+  `report.md`, alongside the already-neutral `notes.md` and `draft.md`. It sits in the concepts
+  chapter, before the practice chapter introduces `feature/team-message` and `team.md`, and it shows
+  an ahead-count that cannot exist until after the exercise's push step. Sharing names would have
+  let a participant read the illustration as their own current state, which is the misreading the
+  practice-framing pass existed to remove; this was the last place it survived. The slide teaches
+  four readable signals, not a scenario, so the names carry no teaching weight.
 - A repository with no commits prints `On branch main`, `No commits yet`, and
   `nothing to commit (create/copy files and use "git add" to track)`; `git branch` prints nothing
   until the first commit, after which it prints `* main`. This is the claim on the local warm-up

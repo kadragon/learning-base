@@ -1,18 +1,5 @@
 # Follow-up Tasks
 
-## From QA of the practice-framing fix
-
-- [ ] **Decide whether the pre-practice `git status` slide should reuse the exercise's own branch
-      and file names** (`presentations/git-basics/index.html`, slide 09 · FIRST DIAGNOSTIC).
-      The slide illustrates real `git status` output and quotes
-      `Your branch is ahead of 'origin/feature/team-message' by 1 commit` plus `modified: team.md`.
-      Both names belong to the guided exercise, and the ahead-count only exists after the push
-      step, so this is the one remaining place a participant could read an ahead-count as their own
-      current state. It sits in the concepts chapter with no imperative copy, so nothing is
-      executable there and the VS Code orientation slides were already moved off the team repo.
-      Either rename the branch and file in this mock to neutral placeholders, or keep the
-      foreshadowing deliberately — a deck-owner framing call, not a defect.
-
 ## Open follow-ups
 
 - [ ] **Anchor `sources.md` evidence entries to something stable, not a slide ordinal**
@@ -32,3 +19,13 @@
       section. The obstacle: the rehearsal project lives in an ephemeral scratchpad, so the fixtures
       would have to be committed alongside the deck first, and `docs/architecture.md` currently
       keeps the repository dependency-free. Decide whether that trade is worth it before building.
+
+- [ ] **`git-basics` has the same projection defects the Vue deck's pass just fixed**
+      (`presentations/git-basics/`). Measured at 1366×768 with every `[data-step]` revealed, after
+      `document.fonts.ready`, comparing the lowest step against `#previous`: 13 of 43 slides have a
+      step at or past the controls — ordinals 4 (−40px), 6 (−5), 7 (−16), 14 (−6, plus a 117px `pre`
+      horizontal overflow), 15 (−15), 16 (3), 18 (−21), 19 (−7), 20 (−9), 22 (4), 23 (−21),
+      42 (61px slide overflow, gap 5), 43 (4).
+      Verified identical on `main`, so none of it is a regression — the Vue deck simply got a
+      whole-deck pass and this one never has. `docs/runbook.md` now describes the measurement, and
+      `deck.css` there could take the same `code-card--dense` treatment.
