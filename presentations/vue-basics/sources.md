@@ -1,6 +1,6 @@
 # Sources and Verification Notes
 
-## Scope
+## Scope  — (#what-we-build) (#ch1-why-tooling) (#ch2-what-it-is) (#ch3-one-command) (#ch4-the-data) (#ch5-the-spa-idea) (#ch6-the-problem) (#ch7-the-problem) (#ch8-the-mapping)
 
 This deck teaches Vue to developers who already work in another stack (server, desktop, or data)
 but have never used Node.js, npm/pnpm, bundlers, or TypeScript. The audience will take over
@@ -60,6 +60,16 @@ gained a trailing comma; and the router slide's first route had been collapsed i
 one. All three are now token-identical, with `bookmark.ts` reformatted in the rehearsal project and
 re-type-checked at exit 0 rather than the slide being quietly bent to match.
 
+### Quoted uniweb paths
+
+Excerpts of the read-only `uniweb` checkout that appear in a code block. Nothing here is committed,
+so the checker verifies only that a block's declaration is one of these — the text itself is
+accounted for in the sections above.
+
+- `package.json`
+- `src/main/types/user.ts`
+- `AGENTS.md`
+
 ### Recorded captures
 
 Command output the deck shows, all from the 2026-07-28 rehearsal and transcribed in the sections
@@ -85,7 +95,7 @@ that is neither is written on the slide as `[unknown — read {source} to verify
 Read on **2026-07-28** from the author's local checkout of `uniweb` (`~/dev/knue/uniweb` on the
 machine used here). `uniweb` is read-only for this lecture.
 
-### `package.json`
+### `package.json`  — (#ch1-manifest) (#ch1-manifest-2) (#ch1-versions)
 
 Quoted verbatim on slide 09:
 
@@ -124,7 +134,7 @@ both are real entries in this file. The stated *reason* the team pins TypeScript
 (minor TypeScript releases can change type-check results) is a teaching rationale, not a claim
 read from `uniweb` — it is presented as commentary, not as the repository's recorded intent.
 
-### `.nvmrc`
+### `.nvmrc`  — (#ch1-versions-2)
 
 The first line is `24.13.0`, which is what `nvm use` reads and what slide 15 quotes.
 
@@ -142,7 +152,7 @@ Counted with `find src -name '*.vue' | wc -l` and `find src -name '*.ts' | wc -l
 
 Slide 02 shows both numbers.
 
-### `src/main/` contents
+### `src/main/` contents  — (#destination)
 
 Listed on slide 02 as 14 entries, read with `ls src/main/`: `api`, `assets`, `components`,
 `composables`, `constants`, `i18n.ts`, `layouts`, `locales`, `plugins`, `router`, `stores`,
@@ -316,7 +326,7 @@ Note that `uniweb` composes its builds with `run-s` (sequential) while the scaff
 `run-p` (parallel). Slide 31 describes the scaffolded project's behaviour only — that `pnpm build`
 fails when the type check fails — and does not claim an ordering.
 
-## Rehearsal Run — Parts 2 and 3
+## Rehearsal Run — Parts 2 and 3  — (#ch2-vue-tsc) (#ch3-one-command)
 
 Every command output, file tree, and version number on slides 21 and 24–31 was captured from a
 single rehearsal run on **2026-07-28**, in a throwaway directory outside this repository.
@@ -333,7 +343,7 @@ single rehearsal run on **2026-07-28**, in a throwaway directory outside this re
 The rehearsal deliberately used Node 24.13.0 rather than the machine's default, so that the
 captured output matches the version the pre-lecture checklist pins.
 
-### Commands run, in order
+### Commands run, in order  — (#ch3-prompts)
 
 ```bash
 pnpm create vue@latest member-directory --ts --router --pinia --eslint --prettier
@@ -538,13 +548,13 @@ check "runs together with" the build and that a failure fails `pnpm build` — d
 an ordering claim, because `run-p` is parallel. Content hashes in filenames change on every build;
 the slide shows one run's output rather than a stable expectation.
 
-## Rehearsal Run — Part 4
+## Rehearsal Run — Part 4  — (#ch4-the-data)
 
 Every Vue code block on slides 33–44 was written into the same rehearsal project used for Part 3,
 then compiled and run before it went on a slide. Same environment as above (Node `v24.13.0`, pnpm
 `11.17.0`), on **2026-07-28**.
 
-### What was built
+### What was built  — (#ch2-shapes)
 
 The chapter-4 state of the member directory — the point where the app renders a searchable,
 bookmarkable list but has no router, composable, or store yet:
@@ -576,7 +586,7 @@ src/App.vue                         reduced to <RouterView />
 
 Slide 40's "6명 → 2명, 박지호·최유진" caption is that measurement, not an illustration.
 
-### What the slides abbreviate
+### What the slides abbreviate  — (#ch4-the-data) (#ch4-lists) (#ch4-forms) (#ch4-props) (#ch4-emits) (#ch4-wrap-up)
 
 Slide numbers below are the current ones (Part 4 runs 33–44).
 
@@ -641,7 +651,7 @@ skeleton.
 The same rehearsal project was grown to its chapter-5/6 state on **2026-07-28** before any Part 5 or
 Part 6 slide was written. `axios` was added with `pnpm add axios` and resolved to **1.18.1**.
 
-### What was built
+### What was built  — (#ch3-file-tree)
 
 ```text
 src/api/http.ts                 the configured axios instance
@@ -656,7 +666,7 @@ src/App.vue                     <RouterView />
 `HomeView.vue` and `AboutView.vue` — the scaffolder's examples quoted in Part 3 — were deleted at
 this point, which is the swap slide 28's footnote promised.
 
-### Verification
+### Verification  — (#ch5-routes)
 
 - `pnpm type-check` → `vue-tsc --build`, no output, exit 0.
 - `pnpm build` → `✓ 87 modules transformed`, `✓ built in 141ms`, and crucially a **separate chunk**
@@ -691,7 +701,7 @@ With that in place the list view rendered exactly `구성원 목록을 불러오
 cards. `http.ts` was restored to `baseURL: '/'` immediately afterwards, and the project re-verified
 — `pnpm type-check` exit 0 and 6 cards rendering.
 
-### What the slides abbreviate
+### What the slides abbreviate  — (#ch4-lists) (#ch4-props) (#ch5-links) (#ch5-params) (#ch5-wrap-up) (#ch6-what-is-it) (#ch6-the-client) (#ch6-using-it) (#ch6-wrap-up)
 
 - Slide 46 collapses the `'/'` route onto one line; the file spreads it over three. Its card bar
   says `— 발췌` and the slide's footnote states the reformatting.
@@ -741,7 +751,7 @@ The store was written into the same rehearsal project on **2026-07-28**, before 
 their local `bookmarked` ref and onto the store. `createPinia()` and `app.use(pinia)` were already
 in `src/main.ts` — the scaffolder put them there in Part 3, which is why Part 7 adds no wiring.
 
-### The rehearsal project is a moving target — read this before tracing an earlier chapter
+### The rehearsal project is a moving target — read this before tracing an earlier chapter  — (#ch7-using-it)
 
 One project carries all eight chapters, so **a later chapter's edits retroactively change the file
 an earlier chapter quotes.** Part 7 is the clearest case: it moved the bookmark state out of
@@ -773,7 +783,7 @@ Slide 60's four rows are a single browser session, read from the DOM at each ste
 
 That round trip is the whole argument for a store, so it is measured rather than asserted.
 
-### What the slides abbreviate
+### What the slides abbreviate  — (#ch4-props)
 
 - Slide 57 splits `bookmark.ts` across two cards at the `toggle` boundary; together they are the
   **whole file**, and neither card omits a line. Two statements are folded to fit a projector
@@ -790,7 +800,7 @@ That round trip is the whole argument for a store, so it is measured rather than
 
 All pages fetched **2026-07-28**.
 
-### Node.js
+### Node.js  — (#ch1-node) (#ch1-translation)
 
 - [About Node.js](https://nodejs.org/en/about)
   - Quoted verbatim on slide 07: "As an asynchronous event-driven JavaScript runtime, Node.js is
@@ -799,7 +809,7 @@ All pages fetched **2026-07-28**.
     the JVM/CPython analogy are **teaching simplifications**, labelled as such on slide 08. They
     are not quoted from this page.
 
-### npm
+### npm  — (#ch1-manifest) (#ch1-manifest-2) (#ch1-versions)
 
 - [package.json — npm Docs](https://docs.npmjs.com/cli/v11/configuring-npm/package-json)
   - Quoted verbatim on slide 10: "Please do not put test harnesses or transpilers or other
@@ -815,7 +825,7 @@ All pages fetched **2026-07-28**.
     `5.9.3 → 5.9.9` accepted, `5.10.0` rejected) are worked examples of that rule applied to the
     two real `uniweb` ranges, not strings quoted from the page.
 
-### pnpm
+### pnpm  — (#ch1-lockfile) (#ch1-pnpm) (#ch1-pnpm-2)
 
 - [Motivation — pnpm](https://pnpm.io/motivation)
   - Quoted on slide 13: "all the files are saved in a single place on the disk", and "pnpm uses
@@ -850,7 +860,7 @@ All pages fetched **2026-07-28**.
 The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equivalent given in
 `docs/vue-lecture-plan.md` §4.1, which was itself built from the pnpm CLI documentation.
 
-### TypeScript
+### TypeScript  — (#ch2-what-it-is)
 
 - [typescriptlang.org](https://www.typescriptlang.org/)
   - Quoted verbatim on slide 17: "TypeScript is JavaScript with syntax for types." and
@@ -862,7 +872,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - Slide 17's takeaway — that you cannot ask at runtime whether a value is a `Result` — is the
     stated consequence of erasure, phrased as teaching commentary rather than quoted.
 
-### Vue — TypeScript
+### Vue — TypeScript  — (#ch2-shapes) (#ch2-vue-tsc)
 
 - [Using Vue with TypeScript — vuejs.org](https://vuejs.org/guide/typescript/overview.html)
   - Quoted verbatim on slide 21: "With a Vite-based setup, the dev server and the bundler are
@@ -875,7 +885,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     forward-references ("props are written this way, chapter 4"). The claim itself belongs to
     chapter 4 and is not made on a slide in this part.
 
-### Vue — Quick Start
+### Vue — Quick Start  — (#ch3-one-command) (#ch3-prompts)
 
 - [Quick Start — vuejs.org](https://vuejs.org/guide/quick-start.html)
   - Quoted verbatim on slide 24: "This command will install and execute create-vue, the official
@@ -886,7 +896,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - **Its prompt list is stale.** See the rehearsal section above — slide 25 shows the real
     `create-vue@3.23.0` prompts and says so on the slide.
 
-### Vue — Single-File Components
+### Vue — Single-File Components  — (#ch4-the-sfc) (#ch4-which-api)
 
 - [Single-File Components — vuejs.org](https://vuejs.org/guide/scaling-up/sfc.html)
   - Quoted verbatim on slide 34: "The `<template>`, `<script>`, and `<style>` blocks encapsulate and
@@ -898,7 +908,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - Slide 34's framing — that the split moves from "by kind" to "by component" — is teaching
     commentary on the colocation sentence, not a quote.
 
-### Vue — Reactivity
+### Vue — Reactivity  — (#ch4-reactivity) (#ch4-reactivity-2)
 
 - [Reactivity Fundamentals — vuejs.org](https://vuejs.org/guide/essentials/reactivity-fundamentals.html)
   - Quoted verbatim on slide 36: "`ref()` takes the argument and returns it wrapped within a ref
@@ -921,7 +931,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     and be free of side effects … don't mutate other state, make async requests, or mutate the DOM
     inside a computed getter!"
 
-### Vue — Rendering and components
+### Vue — Rendering and components  — (#ch4-lists) (#ch4-props) (#ch4-lifecycle)
 
 - [List Rendering — vuejs.org](https://vuejs.org/guide/essentials/list.html)
   - Quoted verbatim on slide 39: "It is recommended to provide a `key` attribute with `v-for`
@@ -950,7 +960,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     has finished the initial rendering and created the DOM nodes" and "This requires these hooks to
     be registered **synchronously** during component setup."
 
-### Vue Router
+### Vue Router  — (#ch5-links)
 
 - [Getting Started — router.vuejs.org](https://router.vuejs.org/guide/)
   - Quoted verbatim on slide 47: "Instead of using regular `<a>` tags, we use the custom component
@@ -964,7 +974,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - Slide 47's takeaway — that a plain `<a href>` throws away the app's state — is the stated
     consequence of "without reloading the page", phrased as commentary rather than quoted.
 
-### Vue — Composables
+### Vue — Composables  — (#ch6-what-is-it)
 
 - [Composables — vuejs.org](https://vuejs.org/guide/reusability/composables.html)
   - Quoted verbatim on slide 51: "a function that leverages Vue's Composition API to encapsulate and
@@ -989,7 +999,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - The page's stateless/stateful contrast (formatters and lodash functions versus state that
     changes over time) is the basis for slide 51's two cards.
 
-### Pinia
+### Pinia  — (#ch7-three-parts) (#ch7-using-it)
 
 - [Core Concepts — pinia.vuejs.org](https://pinia.vuejs.org/core-concepts/)
   - Quoted verbatim on slide 58: "You can think of `state` as the `data` of the store, `getters` as
@@ -1003,7 +1013,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - The page documents both an Option Store form and a Setup Store form. Slide 58's footnote names
     both; the lecture writes the setup form.
 
-### Vite
+### Vite  — (#ch3-dev-server) (#ch3-build)
 
 - [Why Vite — vite.dev](https://vite.dev/guide/why.html)
   - Quoted on slide 30: "Source code … is served on-demand over native ESM." and "Vite used Hot
@@ -1013,7 +1023,7 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     page gives as the reason a dev-time ESM pipeline is not shipped as-is: "Shipping it in
     production is still inefficient due to additional network round trips from nested imports."
 
-## Stated Simplifications
+## Stated Simplifications  — (#what-we-build) (#ch1-translation) (#ch3-build)
 
 The deck marks these as teaching simplifications rather than facts:
 

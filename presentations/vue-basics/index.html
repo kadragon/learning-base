@@ -1252,15 +1252,16 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>script 안 — <code>.value</code>가 필요합니다</b></div>
-            <pre><code data-source="illustration"><span class="k">import</span> { computed, onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
+            <pre><code data-excerpt data-source="fixture:ch4-core/MemberListView.vue"><span class="k">import</span> { computed, onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
 
 <span class="c">// MemberListView.vue가 가진 상태 전부</span>
 <span class="k">const</span> members = ref&lt;Member[]&gt;([])
 <span class="k">const</span> keyword = ref(<span class="s">''</span>)
-<span class="k">const</span> bookmarked = ref&lt;<span class="k">number</span>[]&gt;([])
-
-keyword.value = <span class="s">'학사'</span>   <span class="c">// ✅</span>
-keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const에 재할당</span></code></pre>
+<span class="k">const</span> bookmarked = ref&lt;<span class="k">number</span>[]&gt;([])</code></pre>
+            <p class="code-card__caption">
+              <code>keyword.value = '학사'</code> ✅ · <code>keyword = '학사'</code> ❌ —
+              <code>const</code>에는 재할당할 수 없습니다
+            </p>
             <p class="code-card__caption">이 세 줄이 이 화면의 전부입니다 — 뒤에 나오는 코드는 모두 이 셋을 씁니다</p>
           </div>
           <div class="code-card" data-step="2">
@@ -1478,7 +1479,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>자식 — 올려 보냅니다</b></div>
-            <pre><code data-source="fixture:ch4-core/MemberCard.vue"><span class="k">const</span> emit = defineEmits&lt;{
+            <pre><code data-excerpt data-source="fixture:ch4-core/MemberCard.vue"><span class="k">const</span> emit = defineEmits&lt;{
   toggleBookmark: [id: <span class="k">number</span>]
 }&gt;()
 
@@ -1491,17 +1492,20 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>부모 — 받아서 상태를 바꿉니다</b></div>
-            <pre><code data-source="fixture:ch4-core/MemberListView.vue"><span class="c">// template — 39번 슬라이드의 그 태그입니다</span>
-&lt;MemberCard <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span> ... /&gt;
-
-<span class="c">// script</span>
+            <pre><code data-excerpt data-source="fixture:ch4-core/MemberListView.vue"><span class="c">// script</span>
 <span class="k">function</span> toggleBookmark(id: <span class="k">number</span>) {
   bookmarked.value = bookmarked.value.includes(id)
     ? bookmarked.value.filter(
         (bookmarkedId) =&gt; bookmarkedId !== id
       )
     : [...bookmarked.value, id]
-}</code></pre>
+}
+
+<span class="c">// template — 39번 슬라이드의 그 태그입니다</span>
+&lt;MemberCard
+  <span class="c">...</span>
+  <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span>
+/&gt;</code></pre>
           </div>
         </div>
         <div class="note-row">
@@ -1614,7 +1618,7 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — <code>routes</code> 배열</b></div>
-            <pre><code data-excerpt data-source="fixture:ch7-final/index.ts">{
+            <pre><code data-source="fixture:ch7-final/index.ts">{
   path: <span class="s">'/'</span>,
   name: <span class="s">'members'</span>,
   component: MemberListView,
@@ -1647,7 +1651,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 발췌 · 카드를 링크로</b></div>
-            <pre><code data-source="fixture:ch7-final/MemberCard.vue"><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberCard.vue"><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
 
 <span class="c">// template</span>
 &lt;RouterLink <span class="k">:to</span>=<span class="s">"`/members/${member.id}`"</span>&gt;
@@ -1888,7 +1892,9 @@ onMounted(<span class="k">async</span> () =&gt; {
 <span class="c">// template</span>
 &lt;p <span class="k">v-if</span>=<span class="s">"isLoading"</span>&gt;불러오는 중…&lt;/p&gt;
 &lt;p <span class="k">v-else-if</span>=<span class="s">"error"</span>&gt;{{ error }}&lt;/p&gt;
-&lt;template <span class="k">v-else</span>&gt; … 목록 … &lt;/template&gt;</code></pre>
+&lt;template <span class="k">v-else</span>&gt;
+  <span class="c">… 목록 …</span>
+&lt;/template&gt;</code></pre>
           </div>
           <div class="code-card code-card--dense" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — 발췌</b></div>
@@ -2065,7 +2071,7 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card code-card--dense" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — 발췌</b></div>
-            <pre><code data-source="fixture:ch7-final/MemberDetailView.vue"><span class="k">const</span> bookmarks = useBookmarkStore()
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberDetailView.vue"><span class="k">const</span> bookmarks = useBookmarkStore()
 
 <span class="c">// template</span>
 &lt;button type=<span class="s">"button"</span>

@@ -10,20 +10,33 @@ turns "the slide quotes the file" from a convention into an assertion.
 
 Contract
 --------
-Every `<pre><code>` in a deck's index.html carries `data-source`, one of:
+Every `<pre><code>` in an adopted deck's index.html carries `data-source`:
 
     fixture:<path>   text must be in presentations/<slug>/fixtures/<path>
-    capture:<name>   recorded command output; the name must appear in sources.md
-    uniweb:<path>    excerpt of the read-only uniweb checkout, named in sources.md
+    capture:<name>   recorded command output, listed under `### Recorded captures`
+    uniweb:<path>    excerpt of the read-only uniweb checkout, listed under
+                     `### Quoted uniweb paths`
     illustration     invented for teaching; nothing to match
 
-For `fixture:` blocks the comparison ignores whitespace entirely, so folding a
-long line for projector width passes, while removing, renaming, or adding a
-token fails. A block may elide with `...`, `…`, or a comment containing 생략 /
-발췌; each remaining segment must then appear contiguously in the fixture.
+For `fixture:` blocks the comparison ignores whitespace, so folding a long line
+for projector width passes while removing, renaming, or adding a token fails.
 
-Slides must also carry a unique `id`, and every `#id` cited in sources.md must
-exist — ordinals silently rot when a slide is inserted, which has happened.
+A block that skips part of its file must say so with `data-excerpt`; each
+contiguous run it then shows is checked in order. Without the marker a block must
+match as one unbroken run, so a comment line does not buy a free gap — and the
+marker must be *necessary*, so it cannot be used to opt out of the strict check.
+
+Slides carry a unique `id`. Every `(#id)` cited in sources.md must exist, no
+section may name a slide by number without an anchor, and where a heading gives
+both, the number must agree with that slide's own index.
+
+Known limits, so a green run is not read as more than it is:
+  * Deleting a line that sits beside an elision marker passes — the marker
+    already declares an omission there, and the two are indistinguishable.
+  * `capture:` and `uniweb:` text is not compared to anything; neither source is
+    committed. Only the declaration is checked.
+  * Naming the wrong chapter's fixture passes when the quoted lines exist in
+    both. Where that is possible the run prints a note.
 
 Usage: python3 tools/validate-slide-evidence.py [deck-slug ...]
 Exits 0 when clean, 1 with one line per problem otherwise.
@@ -39,12 +52,23 @@ import sys
 REPO = pathlib.Path(__file__).resolve().parent.parent
 DECKS = REPO / "presentations"
 
+# Decks that have adopted the contract. A deck is added here when it adopts and
+# is never dropped by deleting a directory, which would turn the guard off
+# silently. A new deck that grows a fixtures/ directory is picked up too.
+ADOPTED = {"vue-basics"}
+
 VALID_KINDS = ("fixture", "capture", "uniweb")
-ELISION = re.compile(r"\.\.\.|…|생략|발췌")
-# A line that is nothing but a comment is commentary, not code. Slides use such
-# lines to splice a template fragment under a script one, or to point at another
-# slide. Treat them as segment boundaries so the checker compares code to code.
+
+# A boundary is a line the slide added to say "something is skipped here". The
+# deck marks its own annotations with `<span class="c">`; take that at face value
+# rather than guessing from text, because a line like
+# `<p v-if="isLoading">불러오는 중…</p>` contains an ellipsis but is content, and
+# `[...ids.value, id]` contains `...` but is spread syntax.
+COMMENT_SPAN = re.compile(r'<span class="c">.*?</span>', re.S)
+ELISION_ONLY = re.compile(r"^[\s.…]*(\.\.\.|…)[\s.…]*$")
 COMMENT_ONLY = re.compile(r"^\s*(//|/\*|\*|#|<!--)")
+# A run this short matches almost anywhere, so it is evidence of nothing.
+MIN_CHUNK = 8
 
 
 def strip_markup(fragment: str) -> str:
@@ -52,61 +76,124 @@ def strip_markup(fragment: str) -> str:
     return html.unescape(re.sub(r"<[^>]+>", "", fragment))
 
 
-INLINE_COMMENT = re.compile(r"\s*(//|<!--).*$")
+def drop_trailing_comment(line: str) -> str:
+    """Cut a trailing `//` or `<!--` comment, but only outside a string.
+
+    `baseURL: 'https://api.example/v1'` must keep its URL — stripping from the
+    first `//` would make every URL in a fixture interchangeable.
+    """
+    quote = None
+    i = 0
+    while i < len(line):
+        ch = line[i]
+        if quote:
+            if ch == "\\":
+                i += 2
+                continue
+            if ch == quote:
+                quote = None
+        elif ch in "'\"`":
+            quote = ch
+        elif line.startswith("//", i) or line.startswith("<!--", i):
+            return line[:i]
+        i += 1
+    return line
 
 
 def squeeze(text: str) -> str:
-    """Drop whitespace and trailing commentary.
-
-    A fold cannot change the result, and neither can a comment a slide appends
-    to a real line to point at something. Code is what is being compared.
-    """
-    stripped = "\n".join(INLINE_COMMENT.sub("", line) for line in text.splitlines())
+    """Drop whitespace and trailing commentary, so a fold cannot change the result."""
+    stripped = "\n".join(drop_trailing_comment(line) for line in text.splitlines())
     return re.sub(r"\s+", "", stripped)
 
 
-def segments(block: str) -> list[str]:
-    """Split a block at its elision markers; each piece must match contiguously."""
-    pieces = [
-        line for line in block.splitlines() if line.strip()
-    ]
-    out: list[list[str]] = [[]]
-    for line in pieces:
-        if ELISION.search(line) or COMMENT_ONLY.match(line):
-            out.append([])
-        else:
-            out[-1].append(line)
-    return [squeeze("\n".join(seg)) for seg in out if squeeze("\n".join(seg))]
+def is_boundary(line: str) -> bool:
+    """True when the slide put this line there to mark an omission."""
+    if not strip_markup(COMMENT_SPAN.sub("", line)).strip():
+        return True
+    plain = strip_markup(line)
+    return bool(ELISION_ONLY.match(plain) or COMMENT_ONLY.match(plain))
 
 
-def chunks(block: str) -> list[tuple[str, str]]:
-    """Split an excerpt into the contiguous runs it actually shows.
+def runs(block: str, split_blank: bool) -> list[tuple[str, str]]:
+    """Split raw block markup into the contiguous pieces it shows.
 
-    Blank lines, comment-only lines, elision markers, and inline block comments
-    all end a run — those are exactly where a slide skips or annotates.
-    Returns (squeezed text, first source line) so a failure can be reported
-    against something a reader can find.
+    Boundary detection reads the deck's annotation spans, so it runs before the
+    markup is stripped. Returns (squeezed text, first source line) so a failure
+    can name something a reader can find.
     """
-    runs: list[list[str]] = [[]]
+    groups: list[list[str]] = [[]]
     for line in block.splitlines():
-        boundary = (
-            not line.strip()
-            or ELISION.search(line)
-            or COMMENT_ONLY.match(line)
-            or "/*" in line
-        )
-        if boundary:
-            runs.append([])
-        else:
-            runs[-1].append(line)
-    out = []
-    for run in runs:
-        if not run:
+        blank = not line.strip()
+        if blank and not split_blank:
             continue
-        squeezed = squeeze("\n".join(run))
+        if blank or is_boundary(line) or "/*" in line:
+            groups.append([])
+        else:
+            groups[-1].append(strip_markup(line))
+    out = []
+    for group in groups:
+        if not group:
+            continue
+        squeezed = squeeze("\n".join(group))
         if squeezed:
-            out.append((squeezed, run[0].strip()))
+            out.append((squeezed, group[0].strip()))
     return out
+
+
+def declared_names(sources: str, heading: str) -> set[str]:
+    """Names listed as backticked bullets under a `### <heading>` in sources.md."""
+    match = re.search(
+        rf"^### {re.escape(heading)}\s*$(.*?)(?=^#{{2,3}} |\Z)", sources, re.M | re.S
+    )
+    if not match:
+        return set()
+    return set(re.findall(r"^\s*-\s+`([^`]+)`", match.group(1), re.M))
+
+
+def check_ids(slug: str, markup: str, sources: str) -> tuple[list[str], list[str]]:
+    problems: list[str] = []
+    tags = re.findall(r"<section\b[^>]*\bdata-slide\b[^>]*>", markup)
+    ids: list[str] = []
+    for i, tag in enumerate(tags, 1):
+        found = re.search(r'\bid="([^"]+)"', tag)
+        if not found:
+            problems.append(f"{slug}: slide {i} has no id")
+        else:
+            ids.append(found.group(1))
+    for dup in sorted({i for i in ids if ids.count(i) > 1}):
+        problems.append(f"{slug}: duplicate slide id '{dup}'")
+
+    index_of = {
+        m.group(1): m.group(2)
+        for m in re.finditer(
+            r'<section\b[^>]*\bid="([^"]+)"[^>]*>\s*<div class="slide-index">(\d+)<',
+            markup,
+        )
+    }
+
+    for cited in sorted(set(re.findall(r"\(#([A-Za-z0-9][\w-]{2,})\)", sources))):
+        if cited not in ids:
+            problems.append(f"{slug}: sources.md cites #{cited}, which is not a slide id")
+
+    for section in re.split(r"^(?=#{2,3} )", sources, flags=re.M):
+        if not section.strip():
+            continue
+        heading = section.splitlines()[0].strip()
+        if re.search(r"슬라이드\s*\d|slides?\s+\d", section) and "(#" not in section:
+            problems.append(
+                f"{slug}: sources.md section '{heading[:60]}' names a slide by number "
+                "with no (#slide-id) anchor"
+            )
+            continue
+        # A verified id must not lend credit to a rotted ordinal beside it.
+        for num, anchor in re.findall(r"slides?\s+(\d{1,2})[^\n(]*\(#([\w-]+)\)", heading):
+            actual = index_of.get(anchor)
+            if actual and actual.lstrip("0") != num.lstrip("0"):
+                problems.append(
+                    f"{slug}: sources.md section '{heading[:50]}' says slide {num} "
+                    f"but #{anchor} is slide {actual}"
+                )
+    return problems, ids
 
 
 def check_deck(slug: str) -> list[str]:
@@ -114,33 +201,32 @@ def check_deck(slug: str) -> list[str]:
     index = deck / "index.html"
     if not index.is_file():
         return [f"{slug}: no index.html"]
+    if slug in ADOPTED and not (deck / "fixtures").is_dir():
+        return [
+            f"{slug}: adopted the evidence contract but has no fixtures/ directory — "
+            "restore it rather than dropping the check"
+        ]
 
-    problems: list[str] = []
     markup = index.read_text(encoding="utf-8")
-
-    # --- slide ids -------------------------------------------------------
-    sections = re.findall(r"<section\b[^>]*\bdata-slide\b[^>]*>", markup)
-    ids: list[str] = []
-    for i, tag in enumerate(sections, 1):
-        found = re.search(r'\bid="([^"]+)"', tag)
-        if not found:
-            problems.append(f"{slug}: slide {i} has no id")
-        else:
-            ids.append(found.group(1))
-    duplicates = {i for i in ids if ids.count(i) > 1}
-    for dup in sorted(duplicates):
-        problems.append(f"{slug}: duplicate slide id '{dup}'")
-
     sources_path = deck / "sources.md"
     sources = sources_path.read_text(encoding="utf-8") if sources_path.is_file() else ""
-    # Only `(#slide-id)` written as a link-style anchor counts as a citation; a
-    # bare `(#id)` in prose about the convention itself does not.
-    for cited in sorted(set(re.findall(r"\(#([a-z0-9][a-z0-9-]{2,})\)", sources))):
-        if cited not in ids:
-            problems.append(f"{slug}: sources.md cites #{cited}, which is not a slide id")
 
-    # --- code blocks -----------------------------------------------------
-    blocks = re.findall(r"<pre>\s*<code([^>]*)>(.*?)</code>\s*</pre>", markup, re.S)
+    problems, _ = check_ids(slug, markup, sources)
+
+    blocks = re.findall(
+        r"<pre\b[^>]*>\s*<code\b([^>]*)>(.*?)</code>\s*</pre>", markup, re.S
+    )
+    written = markup.count("<pre")
+    if len(blocks) != written:
+        problems.append(
+            f"{slug}: matched {len(blocks)} code blocks but the file has {written} "
+            "<pre> elements — an unmatched block would be skipped silently"
+        )
+
+    capture_names = declared_names(sources, "Recorded captures")
+    uniweb_paths = declared_names(sources, "Quoted uniweb paths")
+    fixtures_dir = deck / "fixtures"
+
     for n, (attrs, body) in enumerate(blocks, 1):
         declared = re.search(r'data-source="([^"]+)"', attrs)
         if not declared:
@@ -159,54 +245,87 @@ def check_deck(slug: str) -> list[str]:
             problems.append(f"{slug}: code block {n} data-source '{value}' names nothing")
             continue
 
-        if kind in ("capture", "uniweb"):
-            # Not machine-checkable here; require it to be accounted for in sources.md.
-            if target not in sources:
+        if kind == "capture":
+            if target not in capture_names:
                 problems.append(
-                    f"{slug}: code block {n} claims {kind} '{target}', "
-                    "which sources.md never mentions"
+                    f"{slug}: code block {n} claims capture '{target}', which is not "
+                    "listed under '### Recorded captures' in sources.md"
                 )
             continue
 
-        fixture = deck / "fixtures" / target
+        if kind == "uniweb":
+            if target not in uniweb_paths:
+                problems.append(
+                    f"{slug}: code block {n} claims uniweb path '{target}', which is not "
+                    "listed under '### Quoted uniweb paths' in sources.md"
+                )
+            continue
+
+        if target.startswith("/") or ".." in pathlib.PurePosixPath(target).parts:
+            problems.append(
+                f"{slug}: code block {n} names a fixture outside the deck: '{target}'"
+            )
+            continue
+
+        fixture = fixtures_dir / target
         if not fixture.is_file():
             problems.append(f"{slug}: code block {n} names missing fixture '{target}'")
             continue
 
-        raw = fixture.read_text(encoding="utf-8")
-        haystack = squeeze(raw)
-        text = strip_markup(body)
+        haystack = squeeze(fixture.read_text(encoding="utf-8"))
+        is_excerpt = "data-excerpt" in attrs
+        pieces = runs(body, split_blank=is_excerpt)
 
-        if "data-excerpt" in attrs:
-            # The block deliberately skips parts of the file. Each contiguous
-            # chunk it does show must still appear in the file, in order — that
-            # catches a stripped attribute, a renamed identifier, or an added
-            # token inside a chunk, while allowing the gaps an excerpt exists
-            # for. Blocks opt in, so the strict whole-block check stays the
-            # default for anything written later.
-            cursor = 0
-            failed = None
-            for chunk, first_line in chunks(text):
-                at = haystack.find(chunk, cursor)
-                if at < 0:
-                    failed = first_line
-                    break
-                cursor = at + len(chunk)
-            if failed is not None:
-                problems.append(
-                    f"{slug}: code block {n} is an excerpt of '{target}' but the chunk "
-                    f"starting '{failed[:60]}' is not in the file (or is out of order)"
-                )
+        if not is_excerpt and len(pieces) > 1:
+            problems.append(
+                f"{slug}: code block {n} skips part of '{target}' but is not marked "
+                "data-excerpt — add it, or show the block unbroken"
+            )
             continue
 
-        for seg in segments(text):
-            if seg not in haystack:
-                excerpt = seg[:60]
+        if is_excerpt and len(runs(body, split_blank=False)) == 1:
+            # The relaxation must be necessary, or it is just a way to opt out of
+            # the strict check. If the block matches unbroken, drop the marker.
+            whole = runs(body, split_blank=False)[0][0]
+            if whole in haystack:
                 problems.append(
-                    f"{slug}: code block {n} does not match fixture '{target}' — "
-                    f"segment starting '{excerpt}' is not in the file"
+                    f"{slug}: code block {n} is marked data-excerpt but matches "
+                    f"'{target}' unbroken — remove data-excerpt"
                 )
+
+        cursor = 0
+        matched = True
+        for chunk, first_line in pieces:
+            if len(chunk) < MIN_CHUNK:
+                continue  # too short to be evidence of anything
+            at = haystack.find(chunk, cursor)
+            if at < 0:
+                problems.append(
+                    f"{slug}: code block {n} does not match '{target}' — the run "
+                    f"starting '{first_line[:60]}' is not in the file (or is out of order)"
+                )
+                matched = False
                 break
+            cursor = at + len(chunk)
+
+        if matched:
+            # Naming the wrong chapter state passes when the lines are shared.
+            # Say so rather than implying the path itself was verified.
+            substantial = [c for c, _ in pieces if len(c) >= MIN_CHUNK]
+            if substantial:
+                others = []
+                for other in sorted(fixtures_dir.rglob("*")):
+                    if not other.is_file() or other == fixture:
+                        continue
+                    text = squeeze(other.read_text(encoding="utf-8"))
+                    if all(c in text for c in substantial):
+                        others.append(other.relative_to(fixtures_dir).as_posix())
+                if others:
+                    print(
+                        f"note: {slug} code block {n} also matches "
+                        f"{', '.join(others)} — '{target}' is not the only fixture "
+                        "it could name"
+                    )
 
     return problems
 
@@ -216,9 +335,10 @@ def main(argv: list[str]) -> int:
     all_decks = sorted(p.name for p in DECKS.iterdir() if (p / "index.html").is_file())
     slugs = requested or all_decks
 
-    # A deck opts in by having a fixtures/ directory. Naming one explicitly on the
-    # command line checks it regardless, so adoption can be driven from a failing run.
-    covered = [s for s in slugs if requested or (DECKS / s / "fixtures").is_dir()]
+    covered = [
+        s for s in slugs
+        if requested or s in ADOPTED or (DECKS / s / "fixtures").is_dir()
+    ]
     skipped = [s for s in slugs if s not in covered]
 
     problems: list[str] = []
@@ -226,7 +346,7 @@ def main(argv: list[str]) -> int:
         problems.extend(check_deck(slug))
 
     for slug in skipped:
-        print(f"Slide evidence: {slug} has no fixtures/ — not covered yet")
+        print(f"Slide evidence: {slug} has not adopted the contract — not covered yet")
 
     if problems:
         for line in problems:

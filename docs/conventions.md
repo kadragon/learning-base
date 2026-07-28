@@ -23,9 +23,15 @@ Each deck uses `presentations/<kebab-case-slug>/index.html` plus `sources.md`.
   a file under the deck's `fixtures/`, `capture:<name>` for recorded command output named in
   `sources.md`, `uniweb:<path>` for an excerpt of that read-only checkout, or `illustration` for
   something invented to teach. Add `data-excerpt` when the block deliberately skips part of its
-  file. `tools/validate-slide-evidence.py` enforces this.
+  file — and only when it is needed, since the checker rejects the marker on a block that matches
+  unbroken. `tools/validate-slide-evidence.py` enforces this.
 - Anchor `sources.md` entries to a slide `id`, not to a slide number. Ordinals move whenever a
-  slide is inserted; the checker verifies every cited `id` exists.
+  slide is inserted; the checker verifies every cited `id` exists **and rejects a section that
+  names a slide by number without one**. Keep the number for reading; the `id` is what is checked.
+- Mark an omission inside a code block with the deck's comment span
+  (`<span class="c">...</span>`), on its own line, at the point where the omission actually is.
+  The checker reads those spans to decide where a block may skip; an ellipsis written as plain
+  content is treated as content, not as a marker.
 
 ## Visual Design
 
