@@ -22,6 +22,58 @@ The deck is built one chapter per backlog ticket. As of this file's last update 
 
 **The deck is complete.** All eight parts are in place.
 
+## Machine-checked evidence
+
+`tools/validate-slide-evidence.py` runs over this deck on every sweep. Each `<pre><code>` in
+`index.html` declares where its text came from, and the checker enforces the declaration:
+
+| `data-source` | Meaning | What is checked |
+|---|---|---|
+| `fixture:<path>` | a file committed under `presentations/vue-basics/fixtures/` | the block's text must appear in that file once whitespace and comments are removed, so a fold passes but a stripped attribute, a renamed identifier, or an added token fails |
+| `capture:<name>` | recorded command output | the name must be listed below |
+| `uniweb:<path>` | an excerpt of the read-only `uniweb` checkout | the path must be named in this file |
+| `illustration` | invented for teaching | nothing to match |
+
+A block that skips part of its file adds `data-excerpt`; each contiguous run it *does* show is then
+checked in order. That opt-in keeps the strict whole-block check as the default.
+
+The checker also asserts every slide has a unique `id` and that every `(#id)` cited here exists.
+Slide ordinals move whenever a slide is inserted — that has already invalidated three reference
+blocks at once — so anchors are ids.
+
+### Fixtures
+
+`fixtures/` holds the rehearsal project's source at the chapter states the deck quotes:
+
+- `ch3-scaffold/` — what `pnpm create vue@latest` generated.
+- `ch4-core/` — the app at the end of chapter 4, before the router, composable and store exist.
+  Reconstructed from the chapter-4 slides and then **independently verified**: dropped into a copy
+  of the rehearsal project with `stores/`, `composables/`, `api/` and the detail view removed,
+  `pnpm type-check` exits 0, `pnpm build` transforms 30 modules, and the running app reproduces
+  6 cards → 2 on searching `학사` → the bookmark class flip. It is not a transcription of the
+  slides.
+- `ch7-final/` — the finished app, which Parts 5–7 quote.
+
+Adopting the checker surfaced three real drifts that five review rounds had left behind: the store
+slide's folded `defineStore(` call ended `},)` where the file had `})`; two `find(...)` folds had
+gained a trailing comma; and the router slide's first route had been collapsed in a way that dropped
+one. All three are now token-identical, with `bookmark.ts` reformatted in the rehearsal project and
+re-type-checked at exit 0 rather than the slide being quietly bent to match.
+
+### Recorded captures
+
+Command output the deck shows, all from the 2026-07-28 rehearsal and transcribed in the sections
+below:
+
+- `scaffolder-output` — `pnpm create vue@latest` completion banner
+- `pnpm-install` — the install summary excerpt
+- `generated-tree` — the generated file tree
+- `node-modules-root` — `ls node_modules` and its count
+- `pnpm-dev` — the dev-server banner and URL
+- `pnpm-build` — the production build output
+- `type-error-probe` — the deliberately broken `HomeView.vue` and the dev server still starting
+- `type-check-failure` — `vue-tsc` reporting `TS2322` and exiting 2
+
 ## Verification Rule
 
 Every command, prompt, file tree, version number, and code block in this deck is either read from
@@ -99,8 +151,8 @@ Listed on slide 02 as 14 entries, read with `ls src/main/`: `api`, `assets`, `co
 `i18n.ts` is a file, not a directory; the slide labels the group as "`src/main/` 항목" rather than
 "디렉터리" for that reason.
 
-### TypeScript configuration — slide 23
-
+### TypeScript configuration — slide 23 (#ch2-wrap-up)
+ (#ch2-wrap-up)
 - `tsconfig.json` sits at the repository root. Slide 23 quotes two of its settings: `"strict": true`
   and the `paths` entry mapping `@/*` to `src/*`. The file holds several more `paths` entries for
   `@/core`, which the slide does not show — `src/core/` is vendor code the lecture explicitly does
@@ -113,8 +165,8 @@ Listed on slide 02 as 14 entries, read with `ls src/main/`: `api`, `assets`, `co
   three.
 - The `type-check` script is `"vue-tsc --noEmit"`. Slide 23 quotes it.
 
-### `interface` example — slide 19
-
+### `interface` example — slide 19 (#ch2-shapes)
+ (#ch2-shapes)
 The right-hand card on slide 19 is an excerpt of `uniweb/src/main/types/user.ts`. The real
 declaration is `export interface LoginResponse extends LoginResponseBase` with the fields
 `userIdGb`, `userNm`, `userSt`, `daehakCd`, `hakjeokSt`, `buseoCd`, `buseoNm`, `hpNo`, and `email`.
@@ -122,7 +174,7 @@ The slide shows five of the nine and marks the elision with a comment. Its Korea
 ("KNUE 전용 로그인 응답") is the file's own comment, shortened — the file writes
 "KNUE 전용 로그인 응답 — 학교마다 달라지는 필드".
 
-### `enum` — slide 22 footnote
+### `enum` — slide 22 footnote (#ch2-out-of-scope)
 
 `src/main/types/user.ts` declares a four-member **string** enum:
 
@@ -138,8 +190,8 @@ export enum MenuUserRole {
 Slide 22's footnote names the file and the identifier — not the member list — as evidence that
 `enum` is a "read it, don't write it" topic rather than a purely hypothetical one.
 
-### Component directories and file naming — slide 44
-
+### Component directories and file naming — slide 44 (#ch4-wrap-up)
+ (#ch4-wrap-up)
 Read on 2026-07-28:
 
 - `src/main/components/` holds subdirectories (`alarm`, `base`, `bottom-navigation-icons`, `common`,
@@ -155,8 +207,8 @@ Read on 2026-07-28:
   the folder entry point" for that reason. An earlier draft claimed a flat "`.vue` is PascalCase",
   which the count does not support.
 
-### Composition API and prop naming in practice — slides 35 and 41
-
+### Composition API and prop naming in practice — slides 35 and 41 (#ch4-which-api) (#ch4-props)
+ (#ch4-which-api) (#ch4-props)
 Two claims Part 4 makes about `uniweb`, counted on 2026-07-28 rather than assumed:
 
 - Slide 35 says `uniweb` uses the Composition API with `<script setup>`. **All 326** `.vue` files
@@ -169,8 +221,8 @@ Two claims Part 4 makes about `uniweb`, counted on 2026-07-28 rather than assume
   that declare the camelCase form (`isActive`, and so on). The convention is observed, not stated
   in a style file.
 
-### Router, composables, and the HTTP client — slides 49, 52, and 55
-
+### Router, composables, and the HTTP client — slides 49, 52, and 55 (#ch5-wrap-up) (#ch6-the-client) (#ch6-wrap-up)
+ (#ch5-wrap-up) (#ch6-the-client) (#ch6-wrap-up)
 Read on 2026-07-28:
 
 - `src/main/router/` holds `index.ts` and a `routes/` directory containing `admin-routes.ts`,
@@ -185,8 +237,8 @@ Read on 2026-07-28:
   and `total-menu/` subdirectories. Re-read this session, as `docs/vue-lecture-plan.md` §4.6
   instructs, rather than copied from the plan.
 
-### `uniweb` does not use axios — slide 52
-
+### `uniweb` does not use axios — slide 52 (#ch6-the-client)
+ (#ch6-the-client)
 `docs/vue-lecture-plan.md` originally described `src/main/api/api-client.ts` as "the single
 configured axios client". **That is false, and the plan was corrected in the same change.** Verified
 this session:
@@ -206,8 +258,8 @@ Slide 52 therefore teaches axios as the library the audience will meet everywher
 Slide 10 (Part 1) still lists `axios` among `uniweb`'s `dependencies`, which is accurate: it is
 declared there. Nothing in Part 1 claims it is imported.
 
-### Stores, the entry point, and the daily commands — slides 61, 63, and 64
-
+### Stores, the entry point, and the daily commands — slides 61, 63, and 64 (#ch7-wrap-up) (#ch8-not-today) (#ch8-daily)
+ (#ch7-wrap-up) (#ch8-not-today) (#ch8-daily)
 Read on 2026-07-28:
 
 - `src/main/stores/` holds exactly four files: `bookmark.ts`, `file-extension.ts`, `id-card.ts`,
@@ -227,8 +279,8 @@ Read on 2026-07-28:
   no automated test suite and that `pnpm type-check`, `pnpm lint`, and the matching build must be
   run before a pull request, with the changed routes exercised by hand.
 
-### Where the 451 `.vue` files actually live — slide 62
-
+### Where the 451 `.vue` files actually live — slide 62 (#ch8-the-mapping)
+ (#ch8-the-mapping)
 Counted on 2026-07-28 with `find src -name '*.vue'`:
 
 | Location | Count |
@@ -247,8 +299,8 @@ Slide 62's mapping table has rows for `views/` and `components/` but not for `la
 table accounts for, and the slide says so. An earlier draft claimed all 451 fit the seven rows;
 review caught it and the counts above are what replaced it.
 
-### Scripts and the dev-server port — slide 32
-
+### Scripts and the dev-server port — slide 32 (#ch3-wrap-up)
+ (#ch3-wrap-up)
 Read from `uniweb/package.json` and `uniweb/vite.config.ts`:
 
 - `"loc": "vite --mode loc --host"`, `"dev": "vite --mode dev --host"`,
@@ -297,8 +349,8 @@ The flags were passed non-interactively so the run was reproducible. They corres
 answers slide 25 tells participants to give in the interactive flow: TypeScript, Router, Pinia,
 Linter, and Prettier selected; JSX, Vitest, and end-to-end testing not selected.
 
-### The `create-vue` prompt sequence — slide 25
-
+### The `create-vue` prompt sequence — slide 25 (#ch3-prompts)
+ (#ch3-prompts)
 **The official Quick Start page's prompt list is out of date, and the deck does not use it.** The
 page (fetched 2026-07-28) still shows the older per-feature `Add ~? … No / Yes` sequence. The
 installed `create-vue@3.23.0` asks a different set. Slide 25 shows the real one and states the
@@ -333,8 +385,8 @@ The multi-select hint quoted in the slide's instructor note is verbatim from the
 The `--help` output of `create-vue@3.23.0` was also read, and is what confirms the non-interactive
 flag names used above.
 
-### Scaffolder output — slide 26
-
+### Scaffolder output — slide 26 (#ch3-scaffold)
+ (#ch3-scaffold)
 Captured verbatim, with only the absolute path shortened (it pointed into a session temporary
 directory). The slide keeps the last two path segments, `.../rehearsal/member-directory`, wrapped
 over two lines:
@@ -356,8 +408,8 @@ The `pnpm install` card on the same slide is an **excerpt**: 6 of the 21 install
 the closing `Done in 3.7s using pnpm v11.17.0` line. The elision is marked in the block and stated
 in the slide's footnote.
 
-### Generated versions — slides 26 and 27
-
+### Generated versions — slides 26 and 27 (#ch3-scaffold) (#ch3-versions)
+ (#ch3-scaffold) (#ch3-versions)
 Read from the generated `package.json`. Slide 27 puts them beside `uniweb`'s ranges:
 
 | Package | Scaffolded (2026-07-28) | `uniweb` |
@@ -381,8 +433,8 @@ Slide 27's claim that "today's syntax works the same on both" is scoped to what 
 teaches — SFCs, reactivity, template syntax, router basics, composables, and a setup-style Pinia
 store. It is a **teaching judgement**, not a compatibility statement read from a changelog.
 
-### Generated file tree — slide 28
-
+### Generated file tree — slide 28 (#ch3-file-tree)
+ (#ch3-file-tree)
 The full generated tree, `node_modules/` excluded, is:
 
 ```text
@@ -410,8 +462,8 @@ the slide is absent from this list.
 "`AboutView` is a separate chunk" note — the generated route uses
 `component: () => import('../views/AboutView.vue')`.
 
-### `node_modules` layout — slide 29
-
+### `node_modules` layout — slide 29 (#ch3-strictness)
+ (#ch3-strictness)
 - `ls node_modules | wc -l` → **20**
 - `package.json` declares **21** packages (3 `dependencies` + 18 `devDependencies`). The count
   differs by one because `@vue/eslint-config-typescript` and `@vue/tsconfig` share the single
@@ -428,8 +480,8 @@ The slide's closing footnote — that npm would have hoisted many of the 289 to 
 pnpm motivation page's claim applied to this project, not a second measurement. It is marked on the
 slide as a comparison, and the npm layout was **not** reproduced during the rehearsal.
 
-### Dev server — slides 21 and 30
-
+### Dev server — slides 21 and 30 (#ch2-vue-tsc) (#ch3-dev-server)
+ (#ch2-vue-tsc) (#ch3-dev-server)
 Slide 30 quotes the clean run verbatim, including the two `Vue DevTools` lines:
 
 ```text
@@ -462,8 +514,8 @@ capture shows the server starting and staying up, not that the broken module ren
 
 The original `HomeView.vue` was restored before the build capture.
 
-### Build — slide 31
-
+### Build — slide 31 (#ch3-build)
+ (#ch3-build)
 Captured as below. The slide reproduces all five size rows in this order and elides two things,
 both named on its card bar: the `transforming...` / `rendering chunks...` / `computing gzip size...`
 progress lines, and the two echoed sub-commands `$ vue-tsc --build` / `$ vite build`, which the

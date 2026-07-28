@@ -62,7 +62,7 @@
 
     <main id="deck" class="deck" tabindex="-1" aria-live="polite">
       <!-- ============================ COVER ============================ -->
-      <section class="slide slide--cover is-active" data-slide data-chapter="OPENING">
+      <section class="slide slide--cover is-active" data-slide data-chapter="OPENING" id="opening">
         <div class="cover-kicker" data-step="1">다른 스택 경험자를 위한 180분</div>
         <h1 class="cover-title">
           Vue,
@@ -88,7 +88,7 @@
       </section>
 
       <!-- ======================= PART 0 · OPENING ======================= -->
-      <section class="slide" data-slide data-chapter="WHAT WE BUILD">
+      <section class="slide" data-slide data-chapter="WHAT WE BUILD" id="what-we-build">
         <div class="slide-index">01</div>
         <p class="eyebrow">WHAT WE BUILD</p>
         <h2>오늘 만들 것 — 부서 구성원 디렉터리</h2>
@@ -139,7 +139,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="DESTINATION">
+      <section class="slide" data-slide data-chapter="DESTINATION" id="destination">
         <div class="slide-index">02</div>
         <p class="eyebrow">THE DESTINATION</p>
         <h2>그리고 진짜 도착지는 <code>uniweb</code>입니다</h2>
@@ -164,7 +164,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="TODAY’S MAP">
+      <section class="slide" data-slide data-chapter="TODAY’S MAP" id="todays-map">
         <div class="slide-index">03</div>
         <p class="eyebrow">CENTRAL MESSAGE</p>
         <h2>Vue는 작습니다. 낯선 건 그 주변입니다</h2>
@@ -184,7 +184,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="OUT OF SCOPE">
+      <section class="slide" data-slide data-chapter="OUT OF SCOPE" id="out-of-scope">
         <div class="slide-index">04</div>
         <p class="eyebrow">OUT OF SCOPE</p>
         <h2>오늘 일부러 다루지 않는 것</h2>
@@ -203,7 +203,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="HOW WE WORK">
+      <section class="slide" data-slide data-chapter="HOW WE WORK" id="how-we-work">
         <div class="slide-index">05</div>
         <p class="eyebrow">HOW WE WORK</p>
         <h2>보지 말고, 같이 칩니다</h2>
@@ -229,7 +229,7 @@
       </section>
 
       <!-- ======================= PART 1 · TOOLING ======================= -->
-      <section class="slide" data-slide data-chapter="CH1 · WHY TOOLING">
+      <section class="slide" data-slide data-chapter="CH1 · WHY TOOLING" id="ch1-why-tooling">
         <div class="slide-index">06</div>
         <p class="eyebrow">CHAPTER 1 · WHY TOOLING</p>
         <h2>브라우저는 우리가 쓴 코드를 그대로 읽지 못합니다</h2>
@@ -254,7 +254,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · NODE">
+      <section class="slide" data-slide data-chapter="CH1 · NODE" id="ch1-node">
         <div class="slide-index">07</div>
         <p class="eyebrow">THE SECOND RUNTIME</p>
         <h2>그 “어딘가”가 Node.js입니다</h2>
@@ -279,7 +279,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · TRANSLATION">
+      <section class="slide" data-slide data-chapter="CH1 · TRANSLATION" id="ch1-translation">
         <div class="slide-index">08</div>
         <p class="eyebrow">TRANSLATION TABLE</p>
         <h2>새 도구가 아니라, 이미 아는 것의 다른 이름</h2>
@@ -325,13 +325,13 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · MANIFEST">
+      <section class="slide" data-slide data-chapter="CH1 · MANIFEST" id="ch1-manifest">
         <div class="slide-index">09</div>
         <p class="eyebrow">THE MANIFEST</p>
         <h2><code>package.json</code> — 프로젝트의 명세서</h2>
         <div class="code-card code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb/package.json — 발췌</b></div>
-          <pre><code>{
+          <pre><code data-source="uniweb:package.json">{
   <span class="k">"engines"</span>: {
     <span class="k">"node"</span>: <span class="s">"^24.13.0"</span>,
     <span class="k">"pnpm"</span>: <span class="s">"^11.1.3"</span>
@@ -358,7 +358,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · MANIFEST">
+      <section class="slide" data-slide data-chapter="CH1 · MANIFEST" id="ch1-manifest-2">
         <div class="slide-index">10</div>
         <p class="eyebrow">TWO LISTS</p>
         <h2>배포에 실리는 것과, 만들 때만 쓰는 것</h2>
@@ -394,7 +394,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · VERSIONS">
+      <section class="slide" data-slide data-chapter="CH1 · VERSIONS" id="ch1-versions">
         <div class="slide-index">11</div>
         <p class="eyebrow">VERSION RANGES</p>
         <h2>버전이 아니라 <strong>범위</strong>를 적습니다</h2>
@@ -421,7 +421,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · LOCKFILE">
+      <section class="slide" data-slide data-chapter="CH1 · LOCKFILE" id="ch1-lockfile">
         <div class="slide-index">12</div>
         <p class="eyebrow">LOCKFILE &amp; NODE_MODULES</p>
         <h2>하나는 반드시 커밋하고, 하나는 절대 커밋하지 않습니다</h2>
@@ -446,7 +446,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · PNPM">
+      <section class="slide" data-slide data-chapter="CH1 · PNPM" id="ch1-pnpm">
         <div class="slide-index">13</div>
         <p class="eyebrow">WHY PNPM</p>
         <h2>이 팀이 npm 대신 <code>pnpm</code>을 쓰는 이유</h2>
@@ -471,7 +471,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · PNPM">
+      <section class="slide" data-slide data-chapter="CH1 · PNPM" id="ch1-pnpm-2">
         <div class="slide-index">14</div>
         <p class="eyebrow">COMMAND MAP</p>
         <h2>npm 문장을 <code>pnpm</code>으로 읽는 법</h2>
@@ -524,7 +524,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · VERSIONS">
+      <section class="slide" data-slide data-chapter="CH1 · VERSIONS" id="ch1-versions-2">
         <div class="slide-index">15</div>
         <p class="eyebrow">THE VERSION PIN</p>
         <h2>버전은 세 군데에서 고정됩니다</h2>
@@ -547,7 +547,7 @@
         </div>
         <div class="code-card code-card--slim" data-step="4">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb 저장소 안에서</b></div>
-          <pre><code><span class="p">$</span> nvm use          <span class="c"># .nvmrc 첫 줄의 버전으로 전환</span>
+          <pre><code data-source="illustration"><span class="p">$</span> nvm use          <span class="c"># .nvmrc 첫 줄의 버전으로 전환</span>
 <span class="p">$</span> node --version    <span class="c"># v24.13.0 인지 확인</span>
 <span class="p">$</span> pnpm --version    <span class="c"># 11.1.3 이상인지 확인</span></code></pre>
         </div>
@@ -557,7 +557,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH1 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH1 · WRAP-UP" id="ch1-wrap-up">
         <div class="slide-index">16</div>
         <p class="eyebrow">CHAPTER 1 · WRAP-UP</p>
         <h2>방금 배운 것이 <code>uniweb</code>의 어디에 있는가</h2>
@@ -579,14 +579,14 @@
       </section>
 
       <!-- ===================== PART 2 · TYPESCRIPT ====================== -->
-      <section class="slide" data-slide data-chapter="CH2 · WHAT IT IS">
+      <section class="slide" data-slide data-chapter="CH2 · WHAT IT IS" id="ch2-what-it-is">
         <div class="slide-index">17</div>
         <p class="eyebrow">CHAPTER 2 · TYPESCRIPT</p>
         <h2>JavaScript에 <strong>타입 주석</strong>을 붙인 것, 그게 전부입니다</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>우리가 쓰는 것 · <code>.ts</code></b></div>
-            <pre><code><span class="k">type</span> Result = <span class="s">"pass"</span> | <span class="s">"fail"</span>
+            <pre><code data-source="illustration"><span class="k">type</span> Result = <span class="s">"pass"</span> | <span class="s">"fail"</span>
 
 <span class="k">function</span> verify(result: Result) {
   <span class="c">// ...</span>
@@ -594,7 +594,7 @@
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>브라우저가 받는 것 · <code>.js</code></b></div>
-            <pre><code><span class="c">// 타입 줄은 통째로 사라집니다</span>
+            <pre><code data-source="illustration"><span class="c">// 타입 줄은 통째로 사라집니다</span>
 
 <span class="k">function</span> verify(result) {
   <span class="c">// ...</span>
@@ -612,13 +612,13 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH2 · SYNTAX">
+      <section class="slide" data-slide data-chapter="CH2 · SYNTAX" id="ch2-syntax">
         <div class="slide-index">18</div>
         <p class="eyebrow">ANNOTATION SYNTAX</p>
         <h2>자리는 세 군데뿐입니다 — 변수 · 매개변수 · 반환값</h2>
         <div class="code-card code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>세 자리를 한 화면에</b></div>
-          <pre><code><span class="c">// 1. 변수 이름 뒤</span>
+          <pre><code data-source="illustration"><span class="c">// 1. 변수 이름 뒤</span>
 <span class="k">const</span> teamName: <span class="k">string</span> = <span class="s">"정보화본부"</span>
 <span class="k">let</span> memberCount: <span class="k">number</span> = 12
 
@@ -642,14 +642,14 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH2 · SHAPES">
+      <section class="slide" data-slide data-chapter="CH2 · SHAPES" id="ch2-shapes">
         <div class="slide-index">19</div>
         <p class="eyebrow">OBJECT SHAPES</p>
         <h2>객체의 <strong>모양</strong>에 이름을 붙입니다</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>오늘 만들 것</b></div>
-            <pre><code><span class="k">interface</span> Member {
+            <pre><code data-source="illustration"><span class="k">interface</span> Member {
   id: <span class="k">number</span>
   name: <span class="k">string</span>
   team: <span class="k">string</span>
@@ -666,7 +666,7 @@
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb/src/main/types/user.ts — 발췌</b></div>
-            <pre><code><span class="c">// KNUE 전용 로그인 응답</span>
+            <pre><code data-source="uniweb:src/main/types/user.ts"><span class="c">// KNUE 전용 로그인 응답</span>
 <span class="k">export interface</span> LoginResponse
   <span class="k">extends</span> LoginResponseBase {
   userIdGb: <span class="k">string</span>
@@ -688,14 +688,14 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH2 · MODULES">
+      <section class="slide" data-slide data-chapter="CH2 · MODULES" id="ch2-modules">
         <div class="slide-index">20</div>
         <p class="eyebrow">ES MODULES</p>
         <h2>파일 사이는 <code>import</code> / <code>export</code>로 잇습니다</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>내보내고, 가져오고</b></div>
-            <pre><code><span class="c">// src/types.ts — 내보내기</span>
+            <pre><code data-source="illustration"><span class="c">// src/types.ts — 내보내기</span>
 <span class="k">export interface</span> Member { <span class="c">/* ... */</span> }
 <span class="k">export const</span> TEAM = <span class="s">"정보화본부"</span>
 
@@ -705,7 +705,7 @@
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>스캐폴더가 만들어 준 src/main.ts</b></div>
-            <pre><code><span class="k">import</span> <span class="s">'./assets/main.css'</span>
+            <pre><code data-source="fixture:ch3-scaffold/main.ts"><span class="k">import</span> <span class="s">'./assets/main.css'</span>
 
 <span class="k">import</span> { createApp } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">import</span> { createPinia } <span class="k">from</span> <span class="s">'pinia'</span>
@@ -731,14 +731,14 @@ app.mount(<span class="s">'#app'</span>)</code></pre>
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH2 · VUE-TSC">
+      <section class="slide" data-slide data-chapter="CH2 · VUE-TSC" id="ch2-vue-tsc">
         <div class="slide-index">21</div>
         <p class="eyebrow">THE CHECK IS A SEPARATE COMMAND</p>
         <h2><code>pnpm dev</code>는 타입을 <strong>검사하지 않습니다</strong></h2>
         <div class="code-split">
           <div class="code-card code-card--slim" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/views/HomeView.vue — 오류를 하나 심어 두고</b></div>
-            <pre><code>&lt;script setup lang=<span class="s">"ts"</span>&gt;
+            <pre><code data-source="capture:type-error-probe">&lt;script setup lang=<span class="s">"ts"</span>&gt;
 <span class="k">import</span> { ref } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">const</span> count = ref&lt;<span class="k">number</span>&gt;(0)
 count.value = <span class="s">'3'</span>   <span class="c">// ← 4번째 줄</span>
@@ -752,7 +752,7 @@ count.value = <span class="s">'3'</span>   <span class="c">// ← 4번째 줄</s
           </div>
           <div class="code-card code-card--slim" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 상태에서 타입 검사</b></div>
-            <pre><code><span class="p">$</span> pnpm type-check
+            <pre><code data-source="capture:type-check-failure"><span class="p">$</span> pnpm type-check
 <span class="p">$</span> vue-tsc --build
 
 src/views/HomeView.vue(4,1): error TS2322:
@@ -774,7 +774,7 @@ src/views/HomeView.vue(4,1): error TS2322:
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH2 · OUT OF SCOPE">
+      <section class="slide" data-slide data-chapter="CH2 · OUT OF SCOPE" id="ch2-out-of-scope">
         <div class="slide-index">22</div>
         <p class="eyebrow">DELIBERATE OMISSIONS</p>
         <h2>TypeScript에서 오늘 건드리지 않는 것</h2>
@@ -802,7 +802,7 @@ src/views/HomeView.vue(4,1): error TS2322:
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH2 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH2 · WRAP-UP" id="ch2-wrap-up">
         <div class="slide-index">23</div>
         <p class="eyebrow">CHAPTER 2 · WRAP-UP</p>
         <h2>방금 배운 것이 <code>uniweb</code>의 어디에 있는가</h2>
@@ -824,13 +824,13 @@ src/views/HomeView.vue(4,1): error TS2322:
       </section>
 
       <!-- ================== PART 3 · CREATING THE PROJECT ================== -->
-      <section class="slide" data-slide data-chapter="CH3 · ONE COMMAND">
+      <section class="slide" data-slide data-chapter="CH3 · ONE COMMAND" id="ch3-one-command">
         <div class="slide-index">24</div>
         <p class="eyebrow">CHAPTER 3 · CREATING THE PROJECT</p>
         <h2>명령 <strong>한 줄</strong>로 시작합니다</h2>
         <div class="code-card code-card--slim" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>빈 디렉터리에서</b></div>
-          <pre><code><span class="p">$</span> pnpm create vue@latest</code></pre>
+          <pre><code data-source="illustration"><span class="p">$</span> pnpm create vue@latest</code></pre>
         </div>
         <blockquote class="quote" data-step="2">
           “This command will install and execute create-vue, the official Vue project scaffolding
@@ -849,7 +849,7 @@ src/views/HomeView.vue(4,1): error TS2322:
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · PROMPTS">
+      <section class="slide" data-slide data-chapter="CH3 · PROMPTS" id="ch3-prompts">
         <div class="slide-index">25</div>
         <p class="eyebrow">THE PROMPTS</p>
         <h2>묻는 것과, 오늘 우리가 답할 것</h2>
@@ -901,14 +901,14 @@ src/views/HomeView.vue(4,1): error TS2322:
           <strong>화면에 뜬 것을 믿으세요</strong>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · SCAFFOLD">
+      <section class="slide" data-slide data-chapter="CH3 · SCAFFOLD" id="ch3-scaffold">
         <div class="slide-index">26</div>
         <p class="eyebrow">WHAT IT PRINTS</p>
         <h2>다 답하면 이렇게 끝납니다</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>스캐폴더 출력 — 실제 리허설</b></div>
-            <pre><code>┌  Vue.js - The Progressive JavaScript Framework
+            <pre><code data-source="capture:scaffolder-output">┌  Vue.js - The Progressive JavaScript Framework
 
 Scaffolding project in
   .../rehearsal/member-directory...
@@ -922,7 +922,7 @@ Scaffolding project in
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b><code>pnpm install</code> — 발췌</b></div>
-            <pre><code><span class="p">$</span> pnpm install
+            <pre><code data-source="capture:pnpm-install"><span class="p">$</span> pnpm install
 
 dependencies:
 + pinia 4.0.2
@@ -949,7 +949,7 @@ Done in 3.7s using pnpm v11.17.0</code></pre>
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · VERSIONS">
+      <section class="slide" data-slide data-chapter="CH3 · VERSIONS" id="ch3-versions">
         <div class="slide-index">27</div>
         <p class="eyebrow">A CAUTION</p>
         <h2>스캐폴더는 <strong>언제나 최신</strong>을 가져옵니다</h2>
@@ -995,14 +995,14 @@ Done in 3.7s using pnpm v11.17.0</code></pre>
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · FILE TREE">
+      <section class="slide" data-slide data-chapter="CH3 · FILE TREE" id="ch3-file-tree">
         <div class="slide-index">28</div>
         <p class="eyebrow">WHAT GOT CREATED</p>
         <h2>무엇이 생겼는가</h2>
         <div class="code-split code-split--wide">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>member-directory/ — 주요 항목</b></div>
-            <pre><code>index.html          <span class="c">브라우저가 처음 받는 한 장</span>
+            <pre><code data-source="capture:generated-tree">index.html          <span class="c">브라우저가 처음 받는 한 장</span>
 package.json        <span class="c">명세서</span>
 pnpm-lock.yaml      <span class="c">잠금 파일</span>
 vite.config.ts      <span class="c">빌드·개발 서버 설정</span>
@@ -1034,13 +1034,13 @@ src/
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · STRICTNESS">
+      <section class="slide" data-slide data-chapter="CH3 · STRICTNESS" id="ch3-strictness">
         <div class="slide-index">29</div>
         <p class="eyebrow">CHAPTER 1’S PROMISE, MEASURED</p>
         <h2>1장의 “선언한 것만 보입니다”가 여기 있습니다</h2>
         <div class="code-card code-card--slim code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>설치 직후 node_modules 최상단</b></div>
-          <pre><code><span class="p">$</span> ls node_modules | wc -l
+          <pre><code data-source="capture:node-modules-root"><span class="p">$</span> ls node_modules | wc -l
       20
 
 <span class="p">$</span> ls node_modules
@@ -1066,13 +1066,13 @@ vue-router  vue-tsc</code></pre>
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · DEV SERVER">
+      <section class="slide" data-slide data-chapter="CH3 · DEV SERVER" id="ch3-dev-server">
         <div class="slide-index">30</div>
         <p class="eyebrow">RUNNING IT</p>
         <h2>개발 서버를 켭니다 — <code>pnpm dev</code></h2>
         <div class="code-card" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력</b></div>
-          <pre><code><span class="p">$</span> pnpm dev
+          <pre><code data-source="capture:pnpm-dev"><span class="p">$</span> pnpm dev
 <span class="p">$</span> vite
 
   VITE v8.1.5  ready in 889 ms
@@ -1094,13 +1094,13 @@ vue-router  vue-tsc</code></pre>
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · BUILD">
+      <section class="slide" data-slide data-chapter="CH3 · BUILD" id="ch3-build">
         <div class="slide-index">31</div>
         <p class="eyebrow">BUILDING FOR PRODUCTION</p>
         <h2>배포용으로 굽습니다 — <code>pnpm build</code></h2>
         <div class="code-card code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력 — 진행 표시 줄과 하위 명령 생략</b></div>
-          <pre><code><span class="p">$</span> pnpm build
+          <pre><code data-source="capture:pnpm-build"><span class="p">$</span> pnpm build
 <span class="p">$</span> run-p type-check "build-only {@}" --
 <span class="c">  ... vue-tsc --build, vite build</span>
 
@@ -1126,7 +1126,7 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH3 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH3 · WRAP-UP" id="ch3-wrap-up">
         <div class="slide-index">32</div>
         <p class="eyebrow">CHAPTER 3 · WRAP-UP</p>
         <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
@@ -1150,14 +1150,14 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
       </section>
 
       <!-- ==================== PART 4 · VUE CORE ==================== -->
-      <section class="slide" data-slide data-chapter="CH4 · THE DATA">
+      <section class="slide" data-slide data-chapter="CH4 · THE DATA" id="ch4-the-data">
         <div class="slide-index">33</div>
         <p class="eyebrow">BEFORE WE WRITE A COMPONENT</p>
         <h2>먼저 <strong>보여 줄 데이터</strong>를 만듭니다</h2>
         <div class="data-card">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>public/members.json — 전부</b></div>
-            <pre><code>[
+            <pre><code data-source="fixture:ch7-final/members.json">[
   { <span class="k">"id"</span>: 1, <span class="k">"name"</span>: <span class="s">"강동욱"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"kadragon@knue.ac.kr"</span> },
   { <span class="k">"id"</span>: 2, <span class="k">"name"</span>: <span class="s">"김서준"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"seojun@knue.ac.kr"</span> },
   { <span class="k">"id"</span>: 3, <span class="k">"name"</span>: <span class="s">"이하은"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"haeun@knue.ac.kr"</span> },
@@ -1178,14 +1178,14 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · THE SFC">
+      <section class="slide" data-slide data-chapter="CH4 · THE SFC" id="ch4-the-sfc">
         <div class="slide-index">34</div>
         <p class="eyebrow">CHAPTER 4 · VUE CORE</p>
         <h2>컴포넌트 하나는 <strong>파일 하나</strong>입니다</h2>
         <div class="code-split code-split--wide">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 세 블록</b></div>
-            <pre><code>&lt;<span class="k">script setup</span> lang=<span class="s">"ts"</span>&gt;
+            <pre><code data-source="illustration">&lt;<span class="k">script setup</span> lang=<span class="s">"ts"</span>&gt;
   <span class="c">// 이 컴포넌트가 무엇을 아는가</span>
 &lt;/script&gt;
 
@@ -1216,7 +1216,7 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · WHICH API">
+      <section class="slide" data-slide data-chapter="CH4 · WHICH API" id="ch4-which-api">
         <div class="slide-index">35</div>
         <p class="eyebrow">TWO APIS, ONE CHOICE</p>
         <h2>검색하면 두 가지 문법이 나옵니다</h2>
@@ -1245,14 +1245,14 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · REACTIVITY">
+      <section class="slide" data-slide data-chapter="CH4 · REACTIVITY" id="ch4-reactivity">
         <div class="slide-index">36</div>
         <p class="eyebrow">REACTIVITY · REF</p>
         <h2>바뀌면 화면이 따라오는 값 — <code>ref</code></h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>script 안 — <code>.value</code>가 필요합니다</b></div>
-            <pre><code><span class="k">import</span> { computed, onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
+            <pre><code data-source="illustration"><span class="k">import</span> { computed, onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
 
 <span class="c">// MemberListView.vue가 가진 상태 전부</span>
 <span class="k">const</span> members = ref&lt;Member[]&gt;([])
@@ -1265,7 +1265,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>template 안 — <code>.value</code>를 쓰지 않습니다</b></div>
-            <pre><code>&lt;template&gt;
+            <pre><code data-source="illustration">&lt;template&gt;
   &lt;p&gt;{{ keyword }}&lt;/p&gt;
   <span class="c">&lt;!-- keyword.value 아님 --&gt;</span>
 &lt;/template&gt;</code></pre>
@@ -1282,7 +1282,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · REACTIVITY">
+      <section class="slide" data-slide data-chapter="CH4 · REACTIVITY" id="ch4-reactivity-2">
         <div class="slide-index">37</div>
         <p class="eyebrow">REACTIVE &amp; COMPUTED</p>
         <h2>나머지 둘은 <strong>언제 쓰는지</strong>만 알면 됩니다</h2>
@@ -1302,7 +1302,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </div>
         <div class="code-card code-card--slim" data-step="3">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 검색 결과는 계산된 값입니다</b></div>
-          <pre><code><span class="k">const</span> visibleMembers = computed(() =&gt;
+          <pre><code data-source="fixture:ch4-core/MemberListView.vue"><span class="k">const</span> visibleMembers = computed(() =&gt;
   members.value.filter((member) =&gt; {
     <span class="k">const</span> query = keyword.value
     <span class="k">return</span> member.name.includes(query) || member.team.includes(query)
@@ -1316,7 +1316,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · TEMPLATE">
+      <section class="slide" data-slide data-chapter="CH4 · TEMPLATE" id="ch4-template">
         <div class="slide-index">38</div>
         <p class="eyebrow">TEMPLATE SYNTAX</p>
         <h2>템플릿 문법은 <strong>네 가지</strong>가 전부입니다</h2>
@@ -1354,14 +1354,14 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · LISTS">
+      <section class="slide" data-slide data-chapter="CH4 · LISTS" id="ch4-lists">
         <div class="slide-index">39</div>
         <p class="eyebrow">LIST &amp; CONDITIONAL RENDERING</p>
         <h2>목록을 그리고, 없을 때를 대비합니다</h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 목록</b></div>
-            <pre><code>&lt;ul&gt;
+            <pre><code data-source="fixture:ch4-core/MemberListView.vue">&lt;ul&gt;
   &lt;li <span class="k">v-for</span>=<span class="s">"member in visibleMembers"</span>
       <span class="k">:key</span>=<span class="s">"member.id"</span>&gt;
     &lt;MemberCard
@@ -1375,7 +1375,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           </div>
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — 결과가 없을 때</b></div>
-            <pre><code>&lt;p <span class="k">v-if</span>=<span class="s">"visibleMembers.length === 0"</span>&gt;
+            <pre><code data-source="fixture:ch4-core/MemberListView.vue">&lt;p <span class="k">v-if</span>=<span class="s">"visibleMembers.length === 0"</span>&gt;
   검색 결과가 없습니다.
 &lt;/p&gt;</code></pre>
             <p class="code-card__caption">“결과 0건”도 버그가 아니라 <strong>화면 하나</strong>입니다</p>
@@ -1387,14 +1387,14 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · FORMS">
+      <section class="slide" data-slide data-chapter="CH4 · FORMS" id="ch4-forms">
         <div class="slide-index">40</div>
         <p class="eyebrow">FORMS · V-MODEL</p>
         <h2>입력창과 값을 한 줄로 묶습니다 — <code>v-model</code></h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b><code>v-model</code> 한 줄</b></div>
-            <pre><code>&lt;input
+            <pre><code data-source="fixture:ch4-core/MemberListView.vue">&lt;input
   <span class="k">v-model</span>=<span class="s">"keyword"</span>
   type=<span class="s">"search"</span>
   placeholder=<span class="s">"이름 · 팀으로 검색"</span>
@@ -1402,7 +1402,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>직접 쓰면 이런 뜻입니다</b></div>
-            <pre><code>&lt;input
+            <pre><code data-source="illustration">&lt;input
   <span class="k">:value</span>=<span class="s">"keyword"</span>
   <span class="k">@input</span>=<span class="s">"keyword =
     ($event.target as HTMLInputElement).value"</span>
@@ -1434,14 +1434,14 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · PROPS">
+      <section class="slide" data-slide data-chapter="CH4 · PROPS" id="ch4-props">
         <div class="slide-index">41</div>
         <p class="eyebrow">COMPONENTS · PROPS</p>
         <h2>같은 모양이 반복되면 <strong>컴포넌트로 잘라냅니다</strong></h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 받는 쪽</b></div>
-            <pre><code><span class="k">import type</span> { Member } <span class="k">from</span> <span class="s">'@/types/member'</span>
+            <pre><code data-source="fixture:ch4-core/MemberCard.vue"><span class="k">import type</span> { Member } <span class="k">from</span> <span class="s">'@/types/member'</span>
 
 <span class="k">const</span> props = defineProps&lt;{
   member: Member
@@ -1451,7 +1451,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 주는 쪽</b></div>
-            <pre><code>&lt;MemberCard
+            <pre><code data-source="fixture:ch4-core/MemberListView.vue">&lt;MemberCard
   <span class="k">:member</span>=<span class="s">"member"</span>
   <span class="k">:is-bookmarked</span>=<span class="s">"bookmarked.includes(member.id)"</span>
   <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span>
@@ -1471,14 +1471,14 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · EMITS">
+      <section class="slide" data-slide data-chapter="CH4 · EMITS" id="ch4-emits">
         <div class="slide-index">42</div>
         <p class="eyebrow">EVENTS UP</p>
         <h2>자식은 <strong>바꾸지 않고, 알립니다</strong></h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>자식 — 올려 보냅니다</b></div>
-            <pre><code><span class="k">const</span> emit = defineEmits&lt;{
+            <pre><code data-source="fixture:ch4-core/MemberCard.vue"><span class="k">const</span> emit = defineEmits&lt;{
   toggleBookmark: [id: <span class="k">number</span>]
 }&gt;()
 
@@ -1491,7 +1491,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>부모 — 받아서 상태를 바꿉니다</b></div>
-            <pre><code><span class="c">// template — 39번 슬라이드의 그 태그입니다</span>
+            <pre><code data-source="fixture:ch4-core/MemberListView.vue"><span class="c">// template — 39번 슬라이드의 그 태그입니다</span>
 &lt;MemberCard <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span> ... /&gt;
 
 <span class="c">// script</span>
@@ -1514,13 +1514,13 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · LIFECYCLE">
+      <section class="slide" data-slide data-chapter="CH4 · LIFECYCLE" id="ch4-lifecycle">
         <div class="slide-index">43</div>
         <p class="eyebrow">LIFECYCLE</p>
         <h2>“화면이 뜬 다음에” 할 일 — <code>onMounted</code></h2>
         <div class="code-card" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 데이터는 여기서 들어옵니다</b></div>
-          <pre><code><span class="k">const</span> members = ref&lt;Member[]&gt;([])   <span class="c">// 처음엔 빈 배열</span>
+          <pre><code data-excerpt data-source="fixture:ch4-core/MemberListView.vue"><span class="k">const</span> members = ref&lt;Member[]&gt;([])   <span class="c">// 처음엔 빈 배열</span>
 
 onMounted(<span class="k">async</span> () =&gt; {
   <span class="k">const</span> response = <span class="k">await</span> fetch(<span class="s">'/members.json'</span>)
@@ -1543,7 +1543,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH4 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH4 · WRAP-UP" id="ch4-wrap-up">
         <div class="slide-index">44</div>
         <p class="eyebrow">CHAPTER 4 · WRAP-UP</p>
         <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
@@ -1567,7 +1567,7 @@ onMounted(<span class="k">async</span> () =&gt; {
       </section>
 
       <!-- ==================== PART 5 · ROUTER ==================== -->
-      <section class="slide" data-slide data-chapter="CH5 · THE SPA IDEA">
+      <section class="slide" data-slide data-chapter="CH5 · THE SPA IDEA" id="ch5-the-spa-idea">
         <div class="slide-index">45</div>
         <p class="eyebrow">CHAPTER 5 · PAGES</p>
         <h2>문서는 <strong>한 장</strong>뿐입니다</h2>
@@ -1593,14 +1593,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH5 · ROUTES">
+      <section class="slide" data-slide data-chapter="CH5 · ROUTES" id="ch5-routes">
         <div class="slide-index">46</div>
         <p class="eyebrow">THE ROUTE TABLE</p>
         <h2>주소와 컴포넌트를 짝지어 적습니다</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/router/index.ts — 바깥쪽</b></div>
-            <pre><code><span class="k">import</span> { createRouter, createWebHistory }
+            <pre><code data-excerpt data-source="fixture:ch7-final/index.ts"><span class="k">import</span> { createRouter, createWebHistory }
   <span class="k">from</span> <span class="s">'vue-router'</span>
 <span class="k">import</span> MemberListView
   <span class="k">from</span> <span class="s">'@/views/MemberListView.vue'</span>
@@ -1614,8 +1614,11 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — <code>routes</code> 배열</b></div>
-            <pre><code>{ path: <span class="s">'/'</span>, name: <span class="s">'members'</span>,
-  component: MemberListView },
+            <pre><code data-excerpt data-source="fixture:ch7-final/index.ts">{
+  path: <span class="s">'/'</span>,
+  name: <span class="s">'members'</span>,
+  component: MemberListView,
+},
 {
   path: <span class="s">'/members/:id'</span>,
   name: <span class="s">'member-detail'</span>,
@@ -1637,14 +1640,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH5 · LINKS">
+      <section class="slide" data-slide data-chapter="CH5 · LINKS" id="ch5-links">
         <div class="slide-index">47</div>
         <p class="eyebrow">ROUTERLINK &amp; ROUTERVIEW</p>
         <h2><code>&lt;a&gt;</code> 대신 <code>&lt;RouterLink&gt;</code>, 자리에는 <code>&lt;RouterView&gt;</code></h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 발췌 · 카드를 링크로</b></div>
-            <pre><code><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
+            <pre><code data-source="fixture:ch7-final/MemberCard.vue"><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
 
 <span class="c">// template</span>
 &lt;RouterLink <span class="k">:to</span>=<span class="s">"`/members/${member.id}`"</span>&gt;
@@ -1653,7 +1656,7 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>App.vue — 화면이 끼워지는 자리</b></div>
-            <pre><code>&lt;script setup lang=<span class="s">"ts"</span>&gt;
+            <pre><code data-source="fixture:ch7-final/App.vue">&lt;script setup lang=<span class="s">"ts"</span>&gt;
 <span class="k">import</span> { RouterView } <span class="k">from</span> <span class="s">'vue-router'</span>
 &lt;/script&gt;
 
@@ -1674,14 +1677,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH5 · PARAMS">
+      <section class="slide" data-slide data-chapter="CH5 · PARAMS" id="ch5-params">
         <div class="slide-index">48</div>
         <p class="eyebrow">ROUTE PARAMS</p>
         <h2>주소에 담긴 값을 읽습니다 — <code>useRoute()</code></h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — script</b></div>
-            <pre><code><span class="k">import</span> { computed } <span class="k">from</span> <span class="s">'vue'</span>
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberDetailView.vue"><span class="k">import</span> { computed } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">import</span> { RouterLink, useRoute } <span class="k">from</span> <span class="s">'vue-router'</span>
 <span class="k">import</span> { useMembers }
   <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
@@ -1692,14 +1695,14 @@ onMounted(<span class="k">async</span> () =&gt; {
 <span class="k">const</span> member = computed(() =&gt; {
   <span class="k">const</span> id = <span class="k">Number</span>(route.params.id)
   <span class="k">return</span> members.value.find(
-    (candidate) =&gt; candidate.id === id,
+    (candidate) =&gt; candidate.id === id
   )
 })</code></pre>
             <p class="code-card__caption"><code>useMembers()</code>는 <strong>6장</strong>에서 만듭니다 — 지금은 “목록을 준다”로 두세요</p>
           </div>
           <div class="code-card code-card--dense" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — template</b></div>
-            <pre><code>&lt;RouterLink to=<span class="s">"/"</span>&gt;← 목록으로&lt;/RouterLink&gt;
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberDetailView.vue">&lt;RouterLink to=<span class="s">"/"</span>&gt;← 목록으로&lt;/RouterLink&gt;
 
 &lt;p <span class="k">v-if</span>=<span class="s">"isLoading"</span>&gt;불러오는 중…&lt;/p&gt;
 &lt;p <span class="k">v-else-if</span>=<span class="s">"error"</span>&gt;{{ error }}&lt;/p&gt;
@@ -1707,6 +1710,7 @@ onMounted(<span class="k">async</span> () =&gt; {
   &lt;h1&gt;{{ member.name }}&lt;/h1&gt;
   &lt;p&gt;{{ member.role }} · {{ member.team }}&lt;/p&gt;
   &lt;p&gt;{{ member.email ?? <span class="s">'이메일 미등록'</span> }}&lt;/p&gt;
+  <span class="c">… 7장에서 여기에 즐겨찾기 버튼이 붙습니다</span>
 &lt;/template&gt;
 &lt;p <span class="k">v-else</span>&gt;
   {{ route.params.id }}번 구성원을 찾을 수 없습니다.
@@ -1720,7 +1724,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH5 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH5 · WRAP-UP" id="ch5-wrap-up">
         <div class="slide-index">49</div>
         <p class="eyebrow">CHAPTER 5 · WRAP-UP</p>
         <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
@@ -1741,7 +1745,7 @@ onMounted(<span class="k">async</span> () =&gt; {
       </section>
 
       <!-- ================= PART 6 · COMPOSABLES &amp; HTTP ================= -->
-      <section class="slide" data-slide data-chapter="CH6 · THE PROBLEM">
+      <section class="slide" data-slide data-chapter="CH6 · THE PROBLEM" id="ch6-the-problem">
         <div class="slide-index">50</div>
         <p class="eyebrow">CHAPTER 6 · COMPOSABLES</p>
         <h2>같은 데이터를 <strong>두 화면</strong>이 필요로 합니다</h2>
@@ -1768,7 +1772,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH6 · WHAT IS IT">
+      <section class="slide" data-slide data-chapter="CH6 · WHAT IS IT" id="ch6-what-is-it">
         <div class="slide-index">51</div>
         <p class="eyebrow">STATEFUL, NOT JUST REUSABLE</p>
         <h2>유틸 함수와 무엇이 다른가</h2>
@@ -1797,14 +1801,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH6 · THE CLIENT">
+      <section class="slide" data-slide data-chapter="CH6 · THE CLIENT" id="ch6-the-client">
         <div class="slide-index">52</div>
         <p class="eyebrow">ONE CONFIGURED CLIENT</p>
         <h2>요청은 <strong>한 곳에서</strong> 설정합니다</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/api/http.ts — 파일 전부</b></div>
-            <pre><code><span class="k">import</span> axios <span class="k">from</span> <span class="s">'axios'</span>
+            <pre><code data-source="fixture:ch7-final/http.ts"><span class="k">import</span> axios <span class="k">from</span> <span class="s">'axios'</span>
 
 <span class="k">export const</span> http = axios.create({
   baseURL: <span class="s">'/'</span>,
@@ -1827,14 +1831,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </aside>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH6 · THE COMPOSABLE">
+      <section class="slide" data-slide data-chapter="CH6 · THE COMPOSABLE" id="ch6-the-composable">
         <div class="slide-index">53</div>
         <p class="eyebrow">USEMEMBERS()</p>
         <h2>상태·요청·에러를 한 함수 안에</h2>
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>use-members.ts — 앞부분: 무엇을 들고 있는가</b></div>
-            <pre><code><span class="k">import</span> { onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
+            <pre><code data-source="fixture:ch7-final/use-members.ts"><span class="k">import</span> { onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">import</span> { http } <span class="k">from</span> <span class="s">'@/api/http'</span>
 <span class="k">import type</span> { Member } <span class="k">from</span> <span class="s">'@/types/member'</span>
 
@@ -1845,7 +1849,7 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>이어서 — 무엇을 하고, 무엇을 돌려주는가</b></div>
-            <pre><code>  onMounted(<span class="k">async</span> () =&gt; {
+            <pre><code data-source="fixture:ch7-final/use-members.ts">  onMounted(<span class="k">async</span> () =&gt; {
     isLoading.value = <span class="k">true</span>
     <span class="k">try</span> {
       <span class="k">const</span> response =
@@ -1869,14 +1873,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH6 · USING IT">
+      <section class="slide" data-slide data-chapter="CH6 · USING IT" id="ch6-using-it">
         <div class="slide-index">54</div>
         <p class="eyebrow">TWO VIEWS, ONE LINE EACH</p>
         <h2>쓰는 쪽은 <strong>한 줄</strong>이 됩니다</h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 발췌</b></div>
-            <pre><code><span class="k">import</span> { useMembers }
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberListView.vue"><span class="k">import</span> { useMembers }
   <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
 
 <span class="k">const</span> { members, isLoading, error } = useMembers()
@@ -1888,13 +1892,13 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card code-card--dense" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — 발췌</b></div>
-            <pre><code><span class="k">const</span> route = useRoute()
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberDetailView.vue"><span class="k">const</span> route = useRoute()
 <span class="k">const</span> { members, isLoading, error } = useMembers()
 
 <span class="k">const</span> member = computed(() =&gt; {
   <span class="k">const</span> id = <span class="k">Number</span>(route.params.id)
   <span class="k">return</span> members.value.find(
-    (candidate) =&gt; candidate.id === id,
+    (candidate) =&gt; candidate.id === id
   )
 })</code></pre>
           </div>
@@ -1911,7 +1915,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH6 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH6 · WRAP-UP" id="ch6-wrap-up">
         <div class="slide-index">55</div>
         <p class="eyebrow">CHAPTER 6 · WRAP-UP</p>
         <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
@@ -1935,7 +1939,7 @@ onMounted(<span class="k">async</span> () =&gt; {
       </section>
 
       <!-- ==================== PART 7 · PINIA ==================== -->
-      <section class="slide" data-slide data-chapter="CH7 · THE PROBLEM">
+      <section class="slide" data-slide data-chapter="CH7 · THE PROBLEM" id="ch7-the-problem">
         <div class="slide-index">56</div>
         <p class="eyebrow">CHAPTER 7 · SHARED STATE</p>
         <h2>즐겨찾기가 <strong>화면을 넘어가면</strong> 사라집니다</h2>
@@ -1956,14 +1960,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH7 · THE STORE">
+      <section class="slide" data-slide data-chapter="CH7 · THE STORE" id="ch7-the-store">
         <div class="slide-index">57</div>
         <p class="eyebrow">DEFINESTORE</p>
         <h2>스토어는 <code>&lt;script setup&gt;</code>처럼 씁니다</h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/stores/bookmark.ts — 앞부분</b></div>
-            <pre><code><span class="k">import</span> { computed, ref } <span class="k">from</span> <span class="s">'vue'</span>
+            <pre><code data-source="fixture:ch7-final/bookmark.ts"><span class="k">import</span> { computed, ref } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">import</span> { defineStore } <span class="k">from</span> <span class="s">'pinia'</span>
 
 <span class="k">export const</span> useBookmarkStore = defineStore(
@@ -1979,7 +1983,7 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>이어서 — 바꾸고, 돌려주고</b></div>
-            <pre><code>    <span class="k">function</span> toggle(id: <span class="k">number</span>) {
+            <pre><code data-source="fixture:ch7-final/bookmark.ts">    <span class="k">function</span> toggle(id: <span class="k">number</span>) {
       ids.value = ids.value.includes(id)
         ? ids.value.filter(
             (bookmarkedId) =&gt; bookmarkedId !== id
@@ -1999,7 +2003,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH7 · THREE PARTS">
+      <section class="slide" data-slide data-chapter="CH7 · THREE PARTS" id="ch7-three-parts">
         <div class="slide-index">58</div>
         <p class="eyebrow">STATE · GETTERS · ACTIONS</p>
         <h2>이미 아는 것의 다른 이름입니다</h2>
@@ -2038,14 +2042,14 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH7 · USING IT">
+      <section class="slide" data-slide data-chapter="CH7 · USING IT" id="ch7-using-it">
         <div class="slide-index">59</div>
         <p class="eyebrow">WIRING IT UP</p>
         <h2>두 화면이 <strong>같은 것</strong>을 봅니다</h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 발췌</b></div>
-            <pre><code><span class="k">import</span> { useBookmarkStore }
+            <pre><code data-excerpt data-source="fixture:ch7-final/MemberListView.vue"><span class="k">import</span> { useBookmarkStore }
   <span class="k">from</span> <span class="s">'@/stores/bookmark'</span>
 
 <span class="k">const</span> bookmarks = useBookmarkStore()
@@ -2054,13 +2058,14 @@ onMounted(<span class="k">async</span> () =&gt; {
 &lt;p&gt;즐겨찾기 {{ bookmarks.count }}명&lt;/p&gt;
 
 &lt;MemberCard
+  <span class="c">...</span>
   <span class="k">:is-bookmarked</span>=<span class="s">"bookmarks.isBookmarked(member.id)"</span>
   <span class="k">@toggle-bookmark</span>=<span class="s">"bookmarks.toggle"</span>
-  ... /&gt;</code></pre>
+/&gt;</code></pre>
           </div>
           <div class="code-card code-card--dense" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — 발췌</b></div>
-            <pre><code><span class="k">const</span> bookmarks = useBookmarkStore()
+            <pre><code data-source="fixture:ch7-final/MemberDetailView.vue"><span class="k">const</span> bookmarks = useBookmarkStore()
 
 <span class="c">// template</span>
 &lt;button type=<span class="s">"button"</span>
@@ -2085,7 +2090,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH7 · IT WORKS">
+      <section class="slide" data-slide data-chapter="CH7 · IT WORKS" id="ch7-it-works">
         <div class="slide-index">60</div>
         <p class="eyebrow">MEASURED, NOT PROMISED</p>
         <h2>정말로 화면을 넘어 살아남습니다</h2>
@@ -2120,7 +2125,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH7 · WRAP-UP">
+      <section class="slide" data-slide data-chapter="CH7 · WRAP-UP" id="ch7-wrap-up">
         <div class="slide-index">61</div>
         <p class="eyebrow">CHAPTER 7 · WRAP-UP</p>
         <h2>스토어에 넣을 것과, 넣지 말 것</h2>
@@ -2147,7 +2152,7 @@ onMounted(<span class="k">async</span> () =&gt; {
       </section>
 
       <!-- ================= PART 8 · MAPPING &amp; WRAP-UP ================= -->
-      <section class="slide" data-slide data-chapter="CH8 · THE MAPPING">
+      <section class="slide" data-slide data-chapter="CH8 · THE MAPPING" id="ch8-the-mapping">
         <div class="slide-index">62</div>
         <p class="eyebrow">CHAPTER 8 · WHERE IT ALL LANDS</p>
         <h2>오늘 만든 것과 <code>uniweb</code>을 나란히</h2>
@@ -2200,7 +2205,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH8 · NOT TODAY">
+      <section class="slide" data-slide data-chapter="CH8 · NOT TODAY" id="ch8-not-today">
         <div class="slide-index">63</div>
         <p class="eyebrow">WHAT WE DID NOT BUILD</p>
         <h2><code>uniweb</code>에 있고 오늘 없던 것</h2>
@@ -2220,13 +2225,13 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH8 · DAILY">
+      <section class="slide" data-slide data-chapter="CH8 · DAILY" id="ch8-daily">
         <div class="slide-index">64</div>
         <p class="eyebrow">YOUR DAILY COMMANDS</p>
         <h2>내일부터 칠 명령</h2>
         <div class="code-card" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb 저장소 안에서</b></div>
-          <pre><code><span class="p">$</span> nvm use          <span class="c"># Node 24.13.0으로 전환</span>
+          <pre><code data-source="uniweb:AGENTS.md"><span class="p">$</span> nvm use          <span class="c"># Node 24.13.0으로 전환</span>
 <span class="p">$</span> pnpm install     <span class="c"># 고정된 pnpm 버전으로 설치</span>
 <span class="p">$</span> pnpm dev         <span class="c"># 개발 서버 · http://localhost:3300</span>
 <span class="p">$</span> pnpm type-check  <span class="c"># vue-tsc, 파일은 만들지 않음</span>
@@ -2245,13 +2250,13 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CH8 · CHECKLIST">
+      <section class="slide" data-slide data-chapter="CH8 · CHECKLIST" id="ch8-checklist">
         <div class="slide-index">65</div>
         <p class="eyebrow">THE WHOLE LECTURE, NINE LINES</p>
         <h2>막히면 이 표로 돌아오세요</h2>
         <div class="code-card" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>오늘의 요약</b></div>
-          <pre><code>어디에 그리는가?   컴포넌트(.vue) — script setup / template / style
+          <pre><code data-source="illustration">어디에 그리는가?   컴포넌트(.vue) — script setup / template / style
 무엇이 바뀌는가?   반응형 상태 — ref, computed
 어떻게 그리는가?   템플릿 문법 — v-bind, v-if, v-for, v-on, v-model
 어떻게 나누는가?   props 아래로, emit 위로
@@ -2267,7 +2272,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         </p>
       </section>
 
-      <section class="slide slide--cover" data-slide data-chapter="THE END">
+      <section class="slide slide--cover" data-slide data-chapter="THE END" id="the-end">
         <div class="cover-kicker" data-step="1">수고하셨습니다</div>
         <h1 class="cover-title">
           이제

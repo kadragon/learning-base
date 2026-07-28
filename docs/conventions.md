@@ -19,6 +19,13 @@ Each deck uses `presentations/<kebab-case-slug>/index.html` plus `sources.md`.
 - Prefer executable examples and diagrams over dense prose.
 - Distinguish verified facts, simplifications for teaching, and opinions.
 - Record sources and verification notes in `sources.md`.
+- Every `<pre><code>` declares its origin with `data-source`: `fixture:<path>` for text quoted from
+  a file under the deck's `fixtures/`, `capture:<name>` for recorded command output named in
+  `sources.md`, `uniweb:<path>` for an excerpt of that read-only checkout, or `illustration` for
+  something invented to teach. Add `data-excerpt` when the block deliberately skips part of its
+  file. `tools/validate-slide-evidence.py` enforces this.
+- Anchor `sources.md` entries to a slide `id`, not to a slide number. Ordinals move whenever a
+  slide is inserted; the checker verifies every cited `id` exists.
 
 ## Visual Design
 

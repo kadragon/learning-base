@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- [done] Mechanical slide-evidence checker; vue-basics evidence anchored to slide ids (2026-07-28)
+  → docs/conventions.md
 - [done] Neutralise the git-basics status mock so it cannot be read as the participant's own state (2026-07-28)
 - [done] Vue deck Pinia and uniweb mapping chapters; deck complete at 67 slides (2026-07-28)
   → docs/vue-lecture-plan.md

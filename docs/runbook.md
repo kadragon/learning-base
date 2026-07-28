@@ -31,10 +31,22 @@ GitHub Project Pages deployment.
 ```bash
 bash tools/validate-presentations.sh
 bash tools/validate-harness.sh
+python3 tools/validate-slide-evidence.py
 bash tools/sweep.sh
 ```
 
-Both commands must exit 0.
+All must exit 0. `tools/sweep.sh` runs the evidence checker too.
+
+`validate-slide-evidence.py` covers any deck that has a `fixtures/` directory and names the ones
+that do not, so an unadopted deck is visible rather than silently unchecked. Pass a slug to check a
+deck regardless — `python3 tools/validate-slide-evidence.py git-basics` prints the work adoption
+would take.
+
+When a slide's code stops matching its fixture, the fix is almost always one of: the fixture is
+stale because a later chapter edited the file (commit the chapter state the slide actually quotes),
+the slide was reflowed in a way that changed a token (restore the token, or reflow the file and
+re-verify it compiles), or the slide legitimately skips lines (add `data-excerpt`, and put the
+elision marker where the omission actually is).
 
 ## Preview
 

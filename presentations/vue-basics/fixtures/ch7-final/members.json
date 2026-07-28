@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "강동욱", "role": "개발", "team": "정보화본부", "email": "kadragon@knue.ac.kr" },
+  { "id": 2, "name": "김서준", "role": "기획", "team": "정보화본부", "email": "seojun@knue.ac.kr" },
+  { "id": 3, "name": "이하은", "role": "운영", "team": "정보화본부", "email": "haeun@knue.ac.kr" },
+  { "id": 4, "name": "박지호", "role": "개발", "team": "학사지원본부" },
+  { "id": 5, "name": "최유진", "role": "운영", "team": "학사지원본부", "email": "yujin@knue.ac.kr" },
+  { "id": 6, "name": "정민서", "role": "기획", "team": "대외협력본부", "email": "minseo@knue.ac.kr" }
+]
