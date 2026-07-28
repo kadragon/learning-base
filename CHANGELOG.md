@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- [done] Vue deck core concepts chapter, built and verified as a running app first (2026-07-28)
+  → docs/vue-lecture-plan.md
 - [done] Vue deck TypeScript and project-scaffolding chapters, from a real rehearsal run (2026-07-28)
   → docs/vue-lecture-plan.md
 - [done] Vue deck foundation and tooling chapter (2026-07-28)

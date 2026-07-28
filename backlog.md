@@ -4,17 +4,11 @@ Ticket ids are the `(<n>-<slug>)` prefix on each item. `*(blocked by: ...)*` ref
 
 ## Now
 
-### Vue deck core concepts chapter
-
-- [ ] [FEAT] (4-vue-deck-core) Add Part 4 to the deck: SFC anatomy, reactivity
-      (`ref`/`reactive`/`computed`), template syntax, conditional and list rendering, event
-      handling, `v-model` forms, props/emit, and lifecycle hooks.
-
 ### Vue deck router and composable chapter
 
 - [ ] [FEAT] (5-vue-deck-router-composable) Add Part 5 (Vue Router: routes,
       `RouterLink`/`RouterView`, detail page) and Part 6 (composables + axios `useMembers()`) to
-      the deck. *(blocked by: 4-vue-deck-core)*
+      the deck.
 
 ### Vue deck Pinia and uniweb mapping chapter
 
