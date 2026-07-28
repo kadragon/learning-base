@@ -31,10 +31,34 @@ GitHub Project Pages deployment.
 ```bash
 bash tools/validate-presentations.sh
 bash tools/validate-harness.sh
+python3 tools/validate-slide-evidence.py
 bash tools/sweep.sh
 ```
 
-Both commands must exit 0.
+All must exit 0. `tools/sweep.sh` runs the evidence checker too.
+
+`validate-slide-evidence.py` covers any deck that has a `fixtures/` directory and names the ones
+that do not, so an unadopted deck is visible rather than silently unchecked. Pass a slug to check a
+deck regardless — `python3 tools/validate-slide-evidence.py git-basics` prints the work adoption
+would take.
+
+When a slide's code stops matching its fixture, the fix is almost always one of: the fixture is
+stale because a later chapter edited the file (commit the chapter state the slide actually quotes),
+the slide was reflowed in a way that changed a token (restore the token, or reflow the file and
+re-verify it compiles), or the slide legitimately skips lines (add `data-excerpt`, and put the
+elision marker where the omission actually is).
+
+**What the checker cannot catch**, stated so a green run is not read as more than it is:
+
+- Deleting a line that sits immediately beside an elision marker passes — the marker already
+  declares an omission at that point, and the two are indistinguishable. Keep markers where the
+  omission is, not where they are convenient.
+- `capture:` and `uniweb:` text is compared to nothing; neither source is committed. Only the
+  declaration is checked, against the lists in `sources.md`.
+- `illustration` is unchecked by design. Declaring real file content as `illustration` therefore
+  hides it — one block in this deck did exactly that until review caught it.
+- Naming the wrong chapter's fixture passes when the quoted lines exist in both. The run prints a
+  `note:` naming the alternatives whenever that is possible, so the ambiguity is visible.
 
 ## Preview
 

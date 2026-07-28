@@ -17,6 +17,7 @@ presentations/
     index.html       # Presentation entry point
     sources.md       # Claims, references, and further reading
     assets/          # Deck-specific styles, scripts, images, and data
+    fixtures/        # Optional. Source files a slide quotes, so the quoting is checkable
 docs/                # Repository knowledge and workflows
 tools/               # Validation and maintenance scripts
 ```
@@ -24,6 +25,10 @@ tools/               # Validation and maintenance scripts
 ## Boundaries
 
 - A deck owns everything below `presentations/<slug>/`.
+- A deck that quotes code from a project it built may commit that project's files under
+  `fixtures/`, grouped by the chapter state each slide quotes. They are evidence, not runtime
+  assets: nothing links to them and the deck works without them. Adding `fixtures/` opts the deck
+  into `tools/validate-slide-evidence.py`, which then requires a `data-source` on every code block.
 - Versioned fonts below `assets/fonts/` are shared across decks and keep their licenses beside the
   binaries.
 - A deck must work without network access after checkout.
