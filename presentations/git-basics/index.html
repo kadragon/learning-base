@@ -169,8 +169,8 @@
           하나라도 안 되면 <strong>지금 손을 들어 주세요.</strong> 실습은 30분 뒤에 시작하므로, 그 사이에 해결하면 늦지 않습니다.
         </p>
         <aside class="instructor-note" data-step="6">
-          <strong>강사 점검 · 실패 시 대안</strong>
-          <span>HTTPS/SSH 인증 · VPN · 내부 인증서 · <code>main</code> 보호 규칙 ／ 계정·권한 미해결자는
+          <strong>강사 점검 · 안 될 때 대안</strong>
+          <span>HTTPS/SSH 인증 · VPN · 내부 인증서 · <code>main</code> 보호 규칙 ／ 계정·권한이 안 풀린 사람은
           <strong>2인 1조 페어 실습</strong>, 서버 접속 자체가 막히면 <strong>부록의 <code>git init</code> 로컬 실습</strong>으로 대체</span>
         </aside>
       </section>
@@ -227,9 +227,9 @@
         <div class="translation-grid">
           <div class="translation-head"><span>SVN의 기존 개념</span><span>Git에서 새로 적용할 개념</span></div>
           <div class="translation-row" data-step="1"><span>checkout</span><strong>clone</strong><em>전체 이력까지 함께 복제</em></div>
-          <div class="translation-row" data-step="2"><span>commit</span><strong>commit + push</strong><em>기록과 공유 단계의 분리</em></div>
-          <div class="translation-row" data-step="3"><span>update</span><strong>fetch / pull</strong><em>조회와 반영 단계의 구분</em></div>
-          <div class="translation-row" data-step="4"><span>revision 1842</span><strong>commit a31f…</strong><em>전역 버전 번호 대신 고유 해시 사용</em></div>
+          <div class="translation-row" data-step="2"><span>commit</span><strong>commit + push</strong><em>기록 따로, 공유 따로</em></div>
+          <div class="translation-row" data-step="3"><span>update</span><strong>fetch / pull</strong><em>받아 두기 따로, 합치기 따로</em></div>
+          <div class="translation-row" data-step="4"><span>revision 1842</span><strong>commit a31f…</strong><em>전체를 훑는 번호 대신 커밋마다 다른 해시</em></div>
           <div class="translation-row" data-step="5"><span>branch = 디렉터리 복사</span><strong>branch = 포인터</strong><em>가볍고 빠른 포인터(이름표)</em></div>
           <div class="translation-row" data-step="6"><span>작업 사본 (Working Copy)</span><strong>Working Tree</strong><em>이름만 다름 · 지금 파일을 편집하는 그 폴더</em></div>
         </div>
@@ -239,7 +239,7 @@
       <section class="slide slide--graph" data-slide data-chapter="THE TREE" id="the-tree">
         <div class="slide-index">05</div>
         <p class="eyebrow">ONE REPOSITORY · THREE CONTRIBUTORS</p>
-        <h2>세 개발자가 각자 작업한 후, 순서대로 main에 통합합니다</h2>
+        <h2>세 사람이 각자 작업하고, 차례로 main에 합칩니다</h2>
         <div class="collab-timeline" role="group" aria-label="세 명이 각자 브랜치에서 커밋하고 순서대로 push와 merge하는 팀 타임라인">
           <svg viewBox="0 0 1000 360" preserveAspectRatio="none" role="img">
             <path class="graph-path is-drawn" d="M60 180 L950 180" />
@@ -283,7 +283,7 @@
           <div class="or" data-step="2">OR</div>
           <article class="entrance entrance--clone" data-step="3">
             <span class="entrance__number">B</span>
-            <p>원격 저장소에 이미 존재하는 프로젝트</p>
+            <p>원격 저장소에 이미 있는 프로젝트</p>
             <h3>Clone Repository</h3>
             <code>git clone &lt;url&gt;</code>
             <div class="clone-visual"><span>REMOTE</span><i>→</i><b>LOCAL + HISTORY</b></div>
@@ -450,7 +450,7 @@ Untracked files:
           </ol>
         </div>
         <p class="takeaway" data-step="5">
-          <strong>열어둔 폴더가 작업의 기준</strong>&nbsp;· 터미널 시작 위치 및 소스 제어 대상이 모두 이 폴더 기준입니다
+          <strong>열어둔 폴더가 작업의 기준</strong>&nbsp;· 터미널이 열리는 자리도, 소스 제어가 보는 곳도 모두 이 폴더입니다
         </p>
       </section>
 
@@ -534,7 +534,7 @@ fatal: not a git repository (or any of the parent directories): .git</pre>
           </div>
         </div>
         <p class="takeaway" data-step="5">
-          <strong>터미널은 현재 열린 폴더에서 시작</strong>&nbsp;· 별도 경로 이동 없이 바로&nbsp;<code>git</code>&nbsp;명령을 실행할 수 있습니다 · 아직 저장소가 아니라서 나오는 응답이며, 곧 <b>Initialize Repository</b>로 해결합니다
+          <strong>터미널은 현재 열린 폴더에서 시작</strong>&nbsp;· 경로를 옮기지 않고 바로&nbsp;<code>git</code>&nbsp;명령을 칠 수 있습니다 · 아직 저장소가 아니라서 나오는 응답이고, 곧 <b>Initialize Repository</b>로 해결합니다
         </p>
       </section>
 
@@ -592,7 +592,7 @@ fatal: not a git repository (or any of the parent directories): .git</pre>
           </ul>
         </div>
         <p class="footnote" data-step="5">
-          위 화면은 패널 구조를 설명하기 위한 예시입니다 · 파일 위 <b>＋</b> = stage · <b>−</b> = unstage · 원격 반영은 <b>Sync Changes</b> 또는 개별 Pull / Push
+          위 화면은 패널 구조를 보여 주려고 만든 예시입니다 · 파일 위 <b>＋</b> = stage · <b>−</b> = unstage · 원격 반영은 <b>Sync Changes</b> 또는 개별 Pull / Push
         </p>
       </section>
 
@@ -751,7 +751,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
       <section class="slide slide--graph" data-slide data-chapter="BRANCH" id="branch">
         <div class="slide-index">18</div>
         <p class="eyebrow">BRANCH</p>
-        <h2>독립된 작업을 위한 새 브랜치 만들기</h2>
+        <h2>내 작업만 따로 담을 새 브랜치 만들기</h2>
         <div class="branch-lab">
           <div class="branch-lab__graph">
             <svg
@@ -790,7 +790,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
       <section class="slide slide--ui" data-slide data-chapter="EDIT" id="edit">
         <div class="slide-index">19</div>
         <p class="eyebrow">EDIT & DIFF</p>
-        <h2>수정된 내용(Diff)을 커밋 전에 검토하기</h2>
+        <h2>커밋하기 전에 바뀐 내용(Diff) 훑어보기</h2>
         <div class="diff-window" data-step="1">
           <div class="diff-window__head">
             <span>team.md</span>
@@ -823,7 +823,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
       <section class="slide slide--ui" data-slide data-chapter="STAGE" id="stage">
         <div class="slide-index">20</div>
         <p class="eyebrow">STAGE & COMMIT</p>
-        <h2>커밋에 포함할 변경 사항을 선별하여 저장하기</h2>
+        <h2>커밋에 담을 변경만 골라서 저장하기</h2>
         <div class="vscode-window vscode-window--workflow" data-step="1">
           <div class="vscode-titlebar">
             <span class="window-dots"><i></i><i></i><i></i></span>
@@ -953,7 +953,7 @@ build/
           </div>
         </div>
         <div class="push-facts">
-          <p data-step="2"><strong>공유 완료</strong><span>팀원들이 해당 브랜치와 커밋을 볼 수 있음</span></p>
+          <p data-step="2"><strong>공유 완료</strong><span>팀원이 이 브랜치와 커밋을 볼 수 있음</span></p>
           <p data-step="3"><strong>병합 전</strong><span><code>main</code> 브랜치에는 아직 통합되지 않음</span></p>
         </div>
         <div class="checkpoint" data-step="4">
@@ -964,7 +964,7 @@ build/
       <section class="slide slide--ui" data-slide data-chapter="PULL REQUEST" id="pull-request">
         <div class="slide-index">24</div>
         <p class="eyebrow">OPEN PULL REQUEST</p>
-        <h2>코드 검토 및 병합 요청(Pull Request) 만들기</h2>
+        <h2>검토하고 합치자고 요청하기 — Pull Request</h2>
         <div class="pr-window" data-step="1" role="group" aria-label="Gitea에서 Pull Request를 작성하는 화면">
           <div class="pr-window__top">
             <span class="pr-logo">GITEA</span>
@@ -1001,7 +1001,7 @@ build/
       <section class="slide slide--graph" data-slide data-chapter="CONFLICT" id="conflict">
         <div class="slide-index">25</div>
         <p class="eyebrow">THE PLANNED CONFLICT</p>
-        <h2>동일한 파일과 줄을 서로 다르게 수정했을 때</h2>
+        <h2>같은 파일, 같은 줄을 서로 다르게 고쳤을 때</h2>
         <div class="conflict-branches">
           <article class="conflict-branch conflict-branch--main" data-step="1">
             <small>main · 강사가 먼저 병합</small>
@@ -1015,9 +1015,9 @@ build/
         </div>
         <div class="conflict-callout" data-step="3">
           <strong>Git이 병합을 중단한 이유</strong>
-          <span>두 변경 사항 중 어떤 것이 최종 결과물인지 사람이 직접 선택해야 하기 때문입니다</span>
+          <span>두 변경 중 무엇을 남길지는 사람이 직접 골라야 하기 때문입니다</span>
         </div>
-        <p class="takeaway" data-step="4">충돌은 오류가 아니라, <strong>최종 반영 내용을 개발자가 결정하도록 정지한 상태</strong>입니다</p>
+        <p class="takeaway" data-step="4">충돌은 오류가 아니라, <strong>무엇을 남길지 개발자가 정하도록 멈춰 선 상태</strong>입니다</p>
         <aside class="instructor-note" data-step="5">
           <strong>강사 진행 순서</strong>
           <span>① 전원이 <code>feature</code> 브랜치 커밋·푸시를 마쳤는지 확인 → ② 강사가 <code>main</code>에 “안전하게” 버전을 병합·푸시 →
@@ -1060,7 +1060,7 @@ build/
       <section class="slide" data-slide data-chapter="CONFLICT" id="conflict-2">
         <div class="slide-index">27</div>
         <p class="eyebrow">BRING MAIN IN</p>
-        <h2>내 작업 브랜치에 최신 main 변경 사항 반영하기</h2>
+        <h2>내 작업 브랜치로 최신 main 끌어오기</h2>
         <div class="merge-command-flow">
           <article data-step="1">
             <span>1</span>
@@ -1083,7 +1083,7 @@ build/
         <div class="merge-paused" data-step="4">
           <span>MERGE PAUSED</span>
           <strong>CONFLICT · team.md</strong>
-          <small>충돌을 확인하고 최종 코드를 선택할 차례</small>
+          <small>충돌을 열어 보고 어느 쪽을 남길지 고를 차례</small>
         </div>
       </section>
 
@@ -1164,13 +1164,13 @@ Message: 안전하게 함께 개발하기
           </div>
           <div class="abort-action" data-step="2">
             <code>git merge --abort</code>
-            <small>병합 시작 이전 상태로 복원</small>
+            <small>병합을 시작하기 전으로 되돌리기</small>
           </div>
           <div class="abort-state abort-state--clean" data-step="3">
             <span>BEFORE MERGE</span>
             <div class="abort-restored">
               <strong>feature/team-message</strong>
-              <small>병합 시작 전 작업 브랜치 상태로 원복 완료</small>
+              <small>병합 전 작업 브랜치 상태로 되돌아왔습니다</small>
             </div>
           </div>
         </div>
@@ -1212,7 +1212,7 @@ Message: 안전하게 함께 개발하기
       <section class="slide" data-slide data-chapter="CLEANUP" id="cleanup">
         <div class="slide-index">32</div>
         <p class="eyebrow">CLEAN UP THE LOCAL WORKSPACE</p>
-        <h2>병합 완료 후 로컬 작업 환경 정리하기</h2>
+        <h2>병합을 마쳤으면 내 컴퓨터를 정리하기</h2>
         <div class="cleanup-flow">
           <article data-step="1"><span>01</span><strong>메인 브랜치 이동</strong><code>git switch main</code></article>
           <article data-step="2"><span>02</span><strong>최신 이력 동기화</strong><code>git pull origin main</code></article>
@@ -1221,7 +1221,7 @@ Message: 안전하게 함께 개발하기
         </div>
         <div class="clean-result" data-step="5">
           <span class="pulse-dot"></span>
-          <div><strong>다음 작업을 시작할 준비 완료</strong><small>로컬 main 최신화 완료 · 작업 영역 정돈 · 병합된 브랜치 삭제</small></div>
+          <div><strong>다음 작업을 시작할 준비 완료</strong><small>로컬 main 최신 · 작업 영역 정돈 · 다 쓴 브랜치 삭제</small></div>
         </div>
         <p class="footnote" data-step="6">
           <code>git pull</code> = <code>git fetch</code>(받아 두기) + <code>git merge</code>(합치기) · 앞에서 두 단계로 나눠 했던 일을 한 번에 합니다
@@ -1240,32 +1240,32 @@ Message: 안전하게 함께 개발하기
       <section class="slide" data-slide data-chapter="TEAM RULES" id="team-rules-2">
         <div class="slide-index">33</div>
         <p class="eyebrow">RECOMMENDED WORKFLOW</p>
-        <h2>소규모 팀을 위한 권장 작업 흐름</h2>
+        <h2>소규모 팀에 권하는 작업 흐름</h2>
         <ol class="team-rules">
-          <li data-step="1"><span>01</span><strong><code>main</code> 최신화</strong><small>새 작업 시작 전 최신 상태로 동기화</small></li>
-          <li data-step="2"><span>02</span><strong>목적별 짧은 branch 생성</strong><small>기능 개발·버그 수정·문서 작성 분리</small></li>
-          <li data-step="3"><span>03</span><strong>작은 단위의 commit과 PR</strong><small>검토하기 적절한 크기로 나누어 전달</small></li>
-          <li data-step="4"><span>04</span><strong>최소 1인 이상의 코드 리뷰</strong><small>오류 예방을 위한 최소한의 검토 절차</small></li>
-          <li data-step="5"><span>05</span><strong>merge 후 작업 환경 정리</strong><small>로컬 main 최신화 및 사용 완료된 branch 삭제</small></li>
+          <li data-step="1"><span>01</span><strong><code>main</code> 최신화</strong><small>새 작업을 시작하기 전에 최신으로 맞추기</small></li>
+          <li data-step="2"><span>02</span><strong>목적별 짧은 branch</strong><small>기능·버그 수정·문서를 각각 따로</small></li>
+          <li data-step="3"><span>03</span><strong>작게 나눈 commit과 PR</strong><small>검토하기 좋은 크기로 나눠서 넘기기</small></li>
+          <li data-step="4"><span>04</span><strong>코드 리뷰는 적어도 한 사람</strong><small>실수를 미리 걸러 내는 최소한의 장치</small></li>
+          <li data-step="5"><span>05</span><strong>merge 뒤 뒷정리</strong><small>로컬 main을 최신으로 맞추고 다 쓴 branch 삭제</small></li>
         </ol>
       </section>
 
       <section class="slide" data-slide data-chapter="TEAM RULES" id="team-rules-3">
         <div class="slide-index">34</div>
         <p class="eyebrow">SHARED REPOSITORY, NOT FORKS</p>
-        <h2>사내 팀 협업 시 Shared Repository 모델 활용</h2>
+        <h2>팀끼리 일할 때는 Shared Repository 모델로</h2>
         <div class="fork-compare">
           <article class="fork-path fork-path--chosen" data-step="1">
             <span class="choice">OUR DEFAULT</span>
             <h3>Shared Repository</h3>
             <div><b>clone</b><i>→</i><b>feature branch</b><i>→</i><b>PR</b></div>
-            <p>원본 저장소에 직접 브랜치를 생성하고 push할 수 있는 팀 내부 방식</p>
+            <p>원본 저장소에 바로 브랜치를 만들고 push하는 팀 내부 방식</p>
           </article>
           <article class="fork-path" data-step="2">
             <span class="choice">WHEN NEEDED</span>
             <h3>Fork Workflow</h3>
             <div><b>upstream</b><i>→</i><b>fork</b><i>→</i><b>PR</b></div>
-            <p>원본 저장소 쓰기 권한이 없는 외부 기여자가 사용하는 방식</p>
+            <p>원본 저장소에 쓸 권한이 없는 외부 기여자가 쓰는 방식</p>
           </article>
         </div>
         <p class="takeaway" data-step="3"><code>main</code> 브랜치 직접 push만 제한하고, feature branch push는 허용합니다</p>
@@ -1277,9 +1277,9 @@ Message: 안전하게 함께 개발하기
         <h2>실수했을 때 대처하는 순서</h2>
         <div class="recovery-stack">
           <div data-step="1"><span>1</span><code>git status</code><small>현재 저장소 상태 확인</small></div>
-          <div data-step="2"><span>2</span><code>git diff</code><small>수정된 상세 내용 확인</small></div>
-          <div data-step="3"><span>3</span><code>git merge --abort</code><small>진행 중인 병합 중단 및 복원</small></div>
-          <div data-step="4"><span>4</span><code>git revert</code><small>공유된 커밋을 안전하게 되돌리기</small></div>
+          <div data-step="2"><span>2</span><code>git diff</code><small>무엇이 어떻게 바뀌었는지 확인</small></div>
+          <div data-step="3"><span>3</span><code>git merge --abort</code><small>진행 중인 병합 멈추고 되돌리기</small></div>
+          <div data-step="4"><span>4</span><code>git revert</code><small>이미 공유한 커밋을 안전하게 되돌리기</small></div>
         </div>
         <div class="danger-zone" data-step="5">
           <strong>초심자가 피해야 할 주의 명령</strong>
@@ -1433,7 +1433,7 @@ Message: 안전하게 함께 개발하기
           <div class="vscode-status"><span data-step="3">⑂ main · 강의 기준</span><span>LOCAL ONLY · no origin</span></div>
         </div>
         <p class="takeaway" data-step="4">
-          <strong>git init</strong>&nbsp;= 현재 폴더에 새 Git 이력 생성 (원격 없음) · 본 실습과&nbsp;<strong>별개 폴더</strong>&nbsp;에서 진행
+          <strong>git init</strong>&nbsp;= 지금 폴더에 새 Git 이력 만들기 (원격 없음) · 오늘 실습과&nbsp;<strong>다른 폴더</strong>&nbsp;에서 진행
         </p>
       </section>
     </main>
