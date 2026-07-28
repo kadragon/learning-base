@@ -1024,7 +1024,7 @@ src/
               <div class="map-row" data-step="2"><b><code>index.html</code></b><i aria-hidden="true">→</i><span>딱 한 장입니다 · 나머지 화면은 JavaScript가 이 안에서 갈아 끼웁니다 <span class="ahead">5장</span></span></div>
               <div class="map-row" data-step="3"><b><code>src/main.ts</code></b><i aria-hidden="true">→</i><span>앱을 만들고, 플러그인을 붙이고, <code>#app</code>에 붙이는 곳 — 20번 슬라이드에서 본 파일</span></div>
               <div class="map-row" data-step="4"><b><code>views/</code> vs <code>components/</code></b><i aria-hidden="true">→</i><span>화면 한 장이면 <code>views</code>, 여기저기 재사용하면 <code>components</code></span></div>
-              <div class="map-row" data-step="5"><b><code>public/</code></b><i aria-hidden="true">→</i><span>빌드가 건드리지 않고 그대로 복사 · 오늘의 <code>members.json</code>이 여기 들어갑니다 <span class="ahead">6장</span></span></div>
+              <div class="map-row" data-step="5"><b><code>public/</code></b><i aria-hidden="true">→</i><span>빌드가 건드리지 않고 그대로 복사 · 오늘의 <code>members.json</code>이 여기 들어갑니다 <span class="ahead">4장</span></span></div>
             </div>
           </div>
         </div>
@@ -1150,12 +1150,424 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
           이제 그 위에 컴포넌트를 올립니다
         </p>
       </section>
+
+      <!-- ==================== PART 4 · VUE CORE ==================== -->
+      <section class="slide" data-slide data-chapter="CH4 · THE DATA">
+        <div class="slide-index">33</div>
+        <p class="eyebrow">BEFORE WE WRITE A COMPONENT</p>
+        <h2>먼저 <strong>보여 줄 데이터</strong>를 만듭니다</h2>
+        <div class="data-card">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>public/members.json — 전부</b></div>
+            <pre><code>[
+  { <span class="k">"id"</span>: 1, <span class="k">"name"</span>: <span class="s">"강동욱"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"kadragon@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 2, <span class="k">"name"</span>: <span class="s">"김서준"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"seojun@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 3, <span class="k">"name"</span>: <span class="s">"이하은"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"haeun@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 4, <span class="k">"name"</span>: <span class="s">"박지호"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"학사지원본부"</span> },
+  { <span class="k">"id"</span>: 5, <span class="k">"name"</span>: <span class="s">"최유진"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"학사지원본부"</span>, <span class="k">"email"</span>: <span class="s">"yujin@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 6, <span class="k">"name"</span>: <span class="s">"정민서"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"대외협력본부"</span>, <span class="k">"email"</span>: <span class="s">"minseo@knue.ac.kr"</span> }
+]</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b>타입도 파일로</b><span>19번 슬라이드의 <code>Member</code>를 <code>src/types/member.ts</code>에 그대로 저장하세요</span></p>
+          <p data-step="3"><b>박지호는 <code>email</code>이 없습니다</b><span>일부러입니다 · <code>email?</code>의 <code>?</code>가 여기서 값을 합니다</span></p>
+          <p data-step="4"><b>서버는 없습니다</b><span><code>public/</code>은 3장에서 본 그 폴더 — 개발 서버가 정적 파일로 내어 줍니다 · <b>6장</b>에서 진짜 API로</span></p>
+        </div>
+        <p class="footnote" data-step="5">
+          지금 만들어 두세요 · 이 파일이 없으면 뒤에서 목록이 <strong>계속 비어 있습니다</strong> ·
+          이름은 아무거나 좋지만, <code>id</code>는 <strong>겹치지 않게</strong> 하세요
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · THE SFC">
+        <div class="slide-index">34</div>
+        <p class="eyebrow">CHAPTER 4 · VUE CORE</p>
+        <h2>컴포넌트 하나는 <strong>파일 하나</strong>입니다</h2>
+        <div class="code-split code-split--wide">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 세 블록</b></div>
+            <pre><code>&lt;<span class="k">script setup</span> lang=<span class="s">"ts"</span>&gt;
+  <span class="c">// 이 컴포넌트가 무엇을 아는가</span>
+&lt;/script&gt;
+
+&lt;<span class="k">template</span>&gt;
+  <span class="c">&lt;!-- 무엇을 그리는가 --&gt;</span>
+&lt;/template&gt;
+
+&lt;<span class="k">style</span> scoped&gt;
+  <span class="c">/* 이 컴포넌트만의 모양 */</span>
+&lt;/style&gt;</code></pre>
+          </div>
+          <div class="tree-notes">
+            <div class="map-grid">
+              <div class="map-row" data-step="2"><b><code>&lt;script setup&gt;</code></b><i aria-hidden="true">→</i><span>상태와 로직 · <code>lang="ts"</code>를 붙여야 타입이 붙습니다</span></div>
+              <div class="map-row" data-step="3"><b><code>&lt;template&gt;</code></b><i aria-hidden="true">→</i><span>HTML에 Vue 문법을 얹은 것 · 3장에서 본 <code>index.html</code>과는 다릅니다</span></div>
+              <div class="map-row" data-step="4"><b><code>&lt;style scoped&gt;</code></b><i aria-hidden="true">→</i><span><code>scoped</code>가 있으면 이 컴포넌트 밖으로 CSS가 새지 않습니다</span></div>
+            </div>
+            <blockquote class="quote" data-step="5">
+              “The <code>&lt;template&gt;</code>, <code>&lt;script&gt;</code>, and <code>&lt;style&gt;</code> blocks
+              encapsulate and colocate the view, logic and styling of a component in the same file.”
+              <cite>vuejs.org — SFC</cite>
+            </blockquote>
+          </div>
+        </div>
+        <p class="takeaway" data-step="6">
+          다른 스택에서 <strong>화면·로직·스타일을 세 파일로 나누던 것</strong>을, Vue는 한 파일 안에 세 블록으로 둡니다 ·
+          기준이 “종류”가 아니라 <strong>“어느 컴포넌트”</strong>로 바뀝니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · WHICH API">
+        <div class="slide-index">35</div>
+        <p class="eyebrow">TWO APIS, ONE CHOICE</p>
+        <h2>검색하면 두 가지 문법이 나옵니다</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card" data-step="1">
+            <h3>Options API</h3>
+            <p><code>data</code>, <code>methods</code>, <code>computed</code>를 <strong>객체의 키</strong>로 나열하는 방식.</p>
+            <p>Vue 2 시절 자료와 오래된 블로그 글이 대부분 이 문법입니다.</p>
+            <p class="card__quote">오늘 <strong>가르치지 않습니다</strong> — 다만 보면 알아볼 수 있게 이름은 알아 둡니다</p>
+          </div>
+          <div class="card card--accent" data-step="2">
+            <h3>Composition API + <code>&lt;script setup&gt;</code></h3>
+            <p>필요한 것을 <code>import</code>해서 <strong>그냥 변수와 함수로</strong> 쓰는 방식.</p>
+            <p>오늘 배우는 전부가 이쪽이고, <code>uniweb</code>도 이쪽입니다.</p>
+            <p class="card__quote">3장에서 만든 프로젝트의 생성 코드도 전부 이 문법이었습니다</p>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “SFC is a defining feature of Vue as a framework, and is the recommended approach for using
+          Vue in … Any non-trivial frontend where a build step can be justified.”
+          <cite>vuejs.org — SFC</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          <strong>자료를 읽을 때 문법이 낯설면 Options API인지부터 의심하세요</strong> ·
+          “틀린 자료”가 아니라 <strong>다른 시대의 자료</strong>입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · REACTIVITY">
+        <div class="slide-index">36</div>
+        <p class="eyebrow">REACTIVITY · REF</p>
+        <h2>바뀌면 화면이 따라오는 값 — <code>ref</code></h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>script 안 — <code>.value</code>가 필요합니다</b></div>
+            <pre><code><span class="k">import</span> { computed, onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
+
+<span class="c">// MemberListView.vue가 가진 상태 전부</span>
+<span class="k">const</span> members = ref&lt;Member[]&gt;([])
+<span class="k">const</span> keyword = ref(<span class="s">''</span>)
+<span class="k">const</span> bookmarked = ref&lt;<span class="k">number</span>[]&gt;([])
+
+keyword.value = <span class="s">'학사'</span>   <span class="c">// ✅</span>
+keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const에 재할당</span></code></pre>
+            <p class="code-card__caption">이 세 줄이 이 화면의 전부입니다 — 뒤에 나오는 코드는 모두 이 셋을 씁니다</p>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>template 안 — <code>.value</code>를 쓰지 않습니다</b></div>
+            <pre><code>&lt;template&gt;
+  &lt;p&gt;{{ keyword }}&lt;/p&gt;
+  <span class="c">&lt;!-- keyword.value 아님 --&gt;</span>
+&lt;/template&gt;</code></pre>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “<code>ref()</code> takes the argument and returns it wrapped within a ref object with a
+          <code>.value</code> property.” · “refs are automatically unwrapped when used inside templates …”
+          <cite>vuejs.org — Reactivity Fundamentals</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          <strong>규칙 하나만 외우세요 — script에서는 <code>.value</code>, template에서는 안 붙입니다</strong> ·
+          초보자가 가장 많이 만나는 에러가 여기서 나옵니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · REACTIVITY">
+        <div class="slide-index">37</div>
+        <p class="eyebrow">REACTIVE &amp; COMPUTED</p>
+        <h2>나머지 둘은 <strong>언제 쓰는지</strong>만 알면 됩니다</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card" data-step="1">
+            <h3><code>reactive()</code> — 오늘은 쓰지 않습니다</h3>
+            <p>객체 전용이고, <strong>구조 분해하면 반응성이 끊깁니다.</strong></p>
+            <p class="card__quote">“Due to these limitations, we recommend using <code>ref()</code> as the primary API for declaring reactive state.”</p>
+            <p class="range-use">그래서 오늘 만드는 코드는 전부 <code>ref</code>입니다</p>
+          </div>
+          <div class="card card--accent" data-step="2">
+            <h3><code>computed()</code> — 계산해서 나오는 값</h3>
+            <p>의존하는 값이 바뀔 때만 다시 계산하고, <strong>그 사이에는 결과를 재사용</strong>합니다.</p>
+            <p class="card__quote">“A computed property will only re-evaluate when some of its reactive dependencies have changed.”</p>
+            <p class="range-use">메서드로 쓰면 <strong>다시 그릴 때마다 매번</strong> 실행됩니다 — 문서 표현으로 “always run … whenever a re-render happens”</p>
+          </div>
+        </div>
+        <div class="code-card code-card--slim" data-step="3">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 검색 결과는 계산된 값입니다</b></div>
+          <pre><code><span class="k">const</span> visibleMembers = computed(() =&gt;
+  members.value.filter((member) =&gt; {
+    <span class="k">const</span> query = keyword.value
+    <span class="k">return</span> member.name.includes(query) || member.team.includes(query)
+  }),
+)</code></pre>
+        </div>
+        <p class="footnote" data-step="4">
+          <code>watch</code>는 “값이 바뀌면 <strong>무언가를 실행</strong>”할 때 쓰는 또 다른 도구입니다 ·
+          이름만 알아 두세요 — 오늘 만들 것에는 필요하지 않습니다 ·
+          computed 안에서는 <strong>계산만</strong> 하고 요청·DOM 조작은 하지 않습니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · TEMPLATE">
+        <div class="slide-index">38</div>
+        <p class="eyebrow">TEMPLATE SYNTAX</p>
+        <h2>템플릿 문법은 <strong>네 가지</strong>가 전부입니다</h2>
+        <div class="table-grid" role="table" aria-label="Vue 템플릿 문법 요약">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">쓰는 법</span>
+            <span role="columnheader">읽는 법</span>
+            <span role="columnheader">예시</span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell"><code>{{ }}</code></strong>
+            <span role="cell">값을 글자로 찍는다</span>
+            <em role="cell"><code>&lt;p&gt;{{ member.name }}&lt;/p&gt;</code></em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell"><code>:속성</code> <b class="cell-qualifier">v-bind</b></strong>
+            <span role="cell">속성 값을 <b>식으로</b> 준다</span>
+            <em role="cell"><code>:member="member"</code> · <code>:key="member.id"</code></em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell"><code>@이벤트</code> <b class="cell-qualifier">v-on</b></strong>
+            <span role="cell">이벤트가 나면 실행한다</span>
+            <em role="cell"><code>@click="..."</code> · <code>@submit.prevent="..."</code></em>
+          </div>
+          <div class="table-row" role="row" data-step="4">
+            <strong role="cell"><code>v-if</code> / <code>v-for</code></strong>
+            <span role="cell">그릴지 말지 · 몇 번 그릴지</span>
+            <em role="cell"><code>v-if</code> · <code>v-else-if</code> · <code>v-else</code> · <code>v-for="m in list"</code></em>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="5"><b><code>:</code>가 없으면 그냥 글자</b><span><code>member="member"</code>는 <b>문자열</b>, <code>:member="member"</code>는 <b>변수</b></span></p>
+          <p data-step="6"><b>수식어는 점 뒤에</b><span><code>@submit.prevent</code>는 기본 동작을 막고, <code>@click.once</code>는 한 번만</span></p>
+          <p data-step="7"><b><code>class</code>·<code>style</code>도 바인딩</b><span><code>:class="{ 'card--bookmarked': props.isBookmarked }"</code> — 참이면 붙습니다 · 배열 <code>:class="[a, b]"</code>도 되고, <code>:style</code>도 같은 두 형태</span></p>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · LISTS">
+        <div class="slide-index">39</div>
+        <p class="eyebrow">LIST &amp; CONDITIONAL RENDERING</p>
+        <h2>목록을 그리고, 없을 때를 대비합니다</h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 실제로 동작하는 코드</b></div>
+          <pre><code>&lt;ul&gt;
+  &lt;li <span class="k">v-for</span>=<span class="s">"member in visibleMembers"</span> <span class="k">:key</span>=<span class="s">"member.id"</span>&gt;
+    &lt;MemberCard
+      <span class="k">:member</span>=<span class="s">"member"</span>
+      <span class="k">:is-bookmarked</span>=<span class="s">"bookmarked.includes(member.id)"</span>
+      <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span>
+    /&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p <span class="k">v-if</span>=<span class="s">"visibleMembers.length === 0"</span>&gt;검색 결과가 없습니다.&lt;/p&gt;</code></pre>
+          <p class="code-card__caption">
+넘기는 세 가지는 <strong>41·42번</strong>에서 · 마지막 줄처럼 <strong>“결과 0건”도 화면 하나</strong>입니다
+          </p>
+        </div>
+        <blockquote class="quote" data-step="2">
+          “It is recommended to provide a <code>key</code> attribute with <code>v-for</code> whenever
+          possible” — 없으면 Vue는 “in-place patch” 전략으로 <strong>자리만 맞춰 덧칠</strong>합니다.
+          <cite>vuejs.org — List Rendering</cite>
+        </blockquote>
+        <div class="note-row">
+          <p data-step="3"><b><code>:key</code>는 <b>id</b>로</b><span>배열 인덱스를 쓰면 순서가 바뀔 때 엉뚱한 항목이 재사용됩니다</span></p>
+          <p data-step="4"><b><code>v-else</code>는 바로 옆에</b><span><code>MemberCard</code>는 <code>v-if="member.email"</code> 다음 줄에 <code>&lt;p v-else class="card__muted"&gt;이메일 미등록&lt;/p&gt;</code></span></p>
+          <p data-step="5"><b>거르는 건 <code>computed</code>가</b><span>공식 스타일 가이드 “Never use <code>v-if</code> on the same element as <code>v-for</code>” — 그래서 <code>visibleMembers</code>가 미리 걸러 둡니다</span></p>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · FORMS">
+        <div class="slide-index">40</div>
+        <p class="eyebrow">FORMS · V-MODEL</p>
+        <h2>입력창과 값을 한 줄로 묶습니다 — <code>v-model</code></h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b><code>v-model</code> 한 줄</b></div>
+            <pre><code>&lt;input
+  <span class="k">v-model</span>=<span class="s">"keyword"</span>
+  type=<span class="s">"search"</span>
+  placeholder=<span class="s">"이름 · 팀으로 검색"</span>
+/&gt;</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>직접 쓰면 이런 뜻입니다</b></div>
+            <pre><code>&lt;input
+  <span class="k">:value</span>=<span class="s">"keyword"</span>
+  <span class="k">@input</span>=<span class="s">"keyword = ($event.target as HTMLInputElement).value"</span>
+/&gt;</code></pre>
+            <p class="code-card__caption">
+              <code>as HTMLInputElement</code>가 없으면 <code>pnpm type-check</code>가 막습니다 —
+              2장에서 본 그 검사입니다
+            </p>
+          </div>
+        </div>
+        <div class="build-split">
+          <div class="app-window" data-step="3">
+            <div class="app-window__bar">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <b>리허설에서 실제로 확인한 동작</b>
+            </div>
+            <div class="app-window__body">
+              <div class="mock-search"><svg class="ic" aria-hidden="true"><use href="#ic-search" /></svg><span>학사</span></div>
+              <p class="code-card__caption">검색어를 <code>학사</code>로 바꾸자 <strong>6명 → 2명</strong> · 남은 카드는 박지호, 최유진</p>
+            </div>
+          </div>
+          <ul class="build-list">
+            <li data-step="4"><b>양방향입니다</b><span>사람이 타이핑하면 값이 바뀌고, 값이 바뀌면 입력창도 바뀝니다</span></li>
+            <li data-step="5"><b>목록은 건드리지 않았습니다</b><span><code>keyword</code>만 바꿨는데 <code>computed</code>가 따라 계산되고 <code>v-for</code>가 다시 그립니다</span></li>
+            <li data-step="6"><b>체크박스·셀렉트도 같습니다</b><span>묶이는 값의 <b>타입만</b> 달라집니다 —
+              <code>&lt;input type="checkbox" v-model="onlyDev"&gt;</code>는 <code>boolean</code>,
+              <code>&lt;select v-model="team"&gt;</code>는 고른 <code>&lt;option&gt;</code>의 값</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · PROPS">
+        <div class="slide-index">41</div>
+        <p class="eyebrow">COMPONENTS · PROPS</p>
+        <h2>같은 모양이 반복되면 <strong>컴포넌트로 잘라냅니다</strong></h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 받는 쪽</b></div>
+            <pre><code><span class="k">import type</span> { Member } <span class="k">from</span> <span class="s">'@/types/member'</span>
+
+<span class="k">const</span> props = defineProps&lt;{
+  member: Member
+  isBookmarked: <span class="k">boolean</span>
+}&gt;()</code></pre>
+            <p class="code-card__caption">2장의 <code>interface</code>가 여기서 쓰입니다 — 타입만으로 props를 선언합니다</p>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 주는 쪽</b></div>
+            <pre><code>&lt;MemberCard
+  <span class="k">:member</span>=<span class="s">"member"</span>
+  <span class="k">:is-bookmarked</span>=<span class="s">"bookmarked.includes(member.id)"</span>
+  <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span>
+/&gt;</code></pre>
+            <p class="code-card__caption">script에서는 <code>isBookmarked</code>, template에서는 <code>is-bookmarked</code> · 마지막 줄은 <strong>42번 슬라이드</strong>에서</p>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “All props form a <strong>one-way-down binding</strong> … when the parent property updates,
+          it will flow down to the child, but not the other way around.” ·
+          “you should <strong>not</strong> attempt to mutate a prop inside a child component.”
+          <cite>vuejs.org — Props</cite>
+        </blockquote>
+        <p class="footnote" data-step="4">
+          이름 규칙은 공식 문서와 <code>uniweb</code>이 같습니다 — 선언은 camelCase, 템플릿에서는 kebab-case ·
+          “the convention is using kebab-case in all cases to align with HTML attributes”
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · EMITS">
+        <div class="slide-index">42</div>
+        <p class="eyebrow">EVENTS UP</p>
+        <h2>자식은 <strong>바꾸지 않고, 알립니다</strong></h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>자식 — 올려 보냅니다</b></div>
+            <pre><code><span class="k">const</span> emit = defineEmits&lt;{
+  toggleBookmark: [id: <span class="k">number</span>]
+}&gt;()
+
+<span class="c">// template</span>
+&lt;button type=<span class="s">"button"</span> <span class="k">@click</span>=<span class="s">"emit('toggleBookmark', member.id)"</span>&gt;
+  {{ props.isBookmarked ? <span class="s">'★ 즐겨찾기 해제'</span> : <span class="s">'☆ 즐겨찾기'</span> }}
+&lt;/button&gt;</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>부모 — 받아서 상태를 바꿉니다</b></div>
+            <pre><code><span class="c">// template — 39번 슬라이드의 그 태그입니다</span>
+&lt;MemberCard <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span> ... /&gt;
+
+<span class="c">// script</span>
+<span class="k">function</span> toggleBookmark(id: <span class="k">number</span>) {
+  bookmarked.value = bookmarked.value.includes(id)
+    ? bookmarked.value.filter((bookmarkedId) =&gt; bookmarkedId !== id)
+    : [...bookmarked.value, id]
+}</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b>부모 → 자식 · props</b><span>상태를 <b>가진</b> 쪽이 값을 내려보냅니다</span></p>
+          <p data-step="4"><b>자식은 그리기만</b><span>받은 <code>isBookmarked</code>를 <b>고치지 않습니다</b></span></p>
+          <p data-step="5"><b>자식 → 부모 · emit</b><span>“눌렸다”만 올리고, <b>바꾸는 건 부모</b>가 합니다</span></p>
+        </div>
+        <p class="takeaway" data-step="6">
+          <strong>props는 아래로, 이벤트는 위로</strong> · 상태를 바꾸는 곳이 <strong>한 군데</strong>로 모입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · LIFECYCLE">
+        <div class="slide-index">43</div>
+        <p class="eyebrow">LIFECYCLE</p>
+        <h2>“화면이 뜬 다음에” 할 일 — <code>onMounted</code></h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 데이터는 여기서 들어옵니다</b></div>
+          <pre><code><span class="k">const</span> members = ref&lt;Member[]&gt;([])   <span class="c">// 처음엔 빈 배열</span>
+
+onMounted(<span class="k">async</span> () =&gt; {
+  <span class="k">const</span> response = <span class="k">await</span> fetch(<span class="s">'/members.json'</span>)
+  members.value = <span class="k">await</span> response.json()
+})</code></pre>
+        </div>
+        <blockquote class="quote" data-step="2">
+          “the <code>onMounted</code> hook can be used to run code after the component has finished the
+          initial rendering and created the DOM nodes.”
+          <cite>vuejs.org — Lifecycle Hooks</cite>
+        </blockquote>
+        <div class="note-row">
+          <p data-step="3"><b>빈 값으로 먼저 그립니다</b><span>그래서 <code>v-if</code>로 “없을 때 화면”이 필요했습니다</span></p>
+          <p data-step="4"><b><code>onUnmounted</code>는 치우는 쪽</b><span>타이머·구독처럼 <b>걸어 둔 것</b>을 여기서 해제합니다</span></p>
+          <p data-step="5"><b>등록은 반드시 setup 안에서</b><span>조건문이나 <code>await</code> 뒤에서 부르면 안 됩니다 — 문서 표현으로 <b>“synchronously”</b></span></p>
+        </div>
+        <p class="footnote" data-step="6">
+          지금은 <code>fetch</code>를 화면 파일 안에 두었습니다 · <strong>6장에서 이 블록을 통째로
+          composable로 옮깁니다</strong> — 상세 페이지도 같은 데이터가 필요해지기 때문입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH4 · WRAP-UP">
+        <div class="slide-index">44</div>
+        <p class="eyebrow">CHAPTER 4 · WRAP-UP</p>
+        <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
+        <div class="map-grid">
+          <div class="map-row" data-step="1"><b><code>src/components/</code></b><i aria-hidden="true">→</i><span><code>src/main/components/</code> — 여러 화면이 함께 쓰는 조각</span></div>
+          <div class="map-row" data-step="2"><b><code>src/views/</code></b><i aria-hidden="true">→</i><span><code>src/main/views/</code> — 라우트 하나에 대응하는 화면</span></div>
+          <div class="map-row" data-step="3"><b>(오늘 안 만듦)</b><i aria-hidden="true">→</i><span><code>src/main/layouts/</code> — 여러 화면이 공유하는 바깥 틀</span></div>
+          <div class="map-row" data-step="4"><b>파일 이름</b><i aria-hidden="true">→</i><span>컴포넌트 <code>.vue</code>는 PascalCase, <code>.ts</code>는 kebab-case · 폴더 진입점만 <code>index.vue</code></span></div>
+        </div>
+        <ol class="recap-list" data-step="5">
+          <li>파일 하나 = 컴포넌트 하나 → <b>세 블록</b></li>
+          <li>script는 <code>.value</code>, template은 안 붙임 → <b><code>ref</code></b></li>
+          <li>계산해서 나오는 값 → <b><code>computed</code></b></li>
+          <li><code>v-for</code>에는 <code>:key</code> → <b>id로</b></li>
+          <li>props 아래로, emit 위로 → <b>상태는 한 곳에</b></li>
+          <li>화면이 뜬 뒤 불러오기 → <b><code>onMounted</code></b></li>
+        </ol>
+        <p class="takeaway" data-step="6">
+          <strong>5분 쉬고, 5장에서 화면을 나눕니다</strong> · 카드를 누르면 주소가 바뀌는 상세 페이지를 붙입니다
+        </p>
+      </section>
     </main>
 
     <footer class="deck-controls" aria-label="프레젠테이션 탐색">
       <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
       <button id="previous" type="button" aria-label="이전 단계">←</button>
-      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">33</span></p>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">45</span></p>
       <button id="next" type="button" aria-label="다음 단계">→</button>
       <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
     </footer>

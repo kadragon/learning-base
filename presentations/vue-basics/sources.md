@@ -14,9 +14,10 @@ The deck is built one chapter per backlog ticket. As of this file's last update 
 - **Part 1 — Node, the registry, and pnpm** (slides 06–16).
 - **Part 2 — TypeScript, only what Vue needs** (slides 17–23).
 - **Part 3 — Creating the project with Vite** (slides 24–32).
+- **Part 4 — Vue core concepts** (slides 33–44).
 
-Parts 4–8 (Vue core concepts, Router, composables, Pinia, and the `uniweb` mapping chapter) are not
-in the deck yet. They are tracked in `backlog.md`.
+Parts 5–8 (Router, composables, Pinia, and the `uniweb` mapping chapter) are not in the deck yet.
+They are tracked in `backlog.md`.
 
 ## Verification Rule
 
@@ -133,6 +134,37 @@ export enum MenuUserRole {
 
 Slide 22's footnote names the file and the identifier — not the member list — as evidence that
 `enum` is a "read it, don't write it" topic rather than a purely hypothetical one.
+
+### Component directories and file naming — slide 44
+
+Read on 2026-07-28:
+
+- `src/main/components/` holds subdirectories (`alarm`, `base`, `bottom-navigation-icons`, `common`,
+  `home`, `main`, `setup`), not a flat file list. `src/main/views/` mixes `.vue` files
+  (`NativeHomeView.vue`, `WebHomeView.vue`) with feature subdirectories (`admin`, `alarm`, `auth`,
+  `knue`, `playground`, `profile`). `src/main/layouts/` holds `BaseHeader.vue` and
+  `DesignedAppView.vue`.
+- **File naming, counted rather than assumed.** Of 326 `.vue` files under `src/main`, 63 are not
+  PascalCase — but 60 of those are `index.vue`, a directory entry point rather than a component
+  name, leaving three outliers (`login.vue`, `check.vue`, `_PageIndex.vue`). All 122 `.ts` files
+  under `src/main` are kebab-case, with no exceptions.
+  Slide 44 states the rule as "components are PascalCase, `.ts` is kebab-case, and `index.vue` is
+  the folder entry point" for that reason. An earlier draft claimed a flat "`.vue` is PascalCase",
+  which the count does not support.
+
+### Composition API and prop naming in practice — slides 35 and 41
+
+Two claims Part 4 makes about `uniweb`, counted on 2026-07-28 rather than assumed:
+
+- Slide 35 says `uniweb` uses the Composition API with `<script setup>`. **All 326** `.vue` files
+  under `src/main` contain a `<script setup>` block — `grep -rl '<script setup' src/main
+  --include='*.vue' | wc -l` returns 326, the same as the total file count. Not one Options API
+  component remains, so the slide's "오늘 배우는 전부가 이쪽" is exact, not approximate.
+- Slide 41's footnote says the declaration/template naming split is the same in the docs and in
+  `uniweb`. Template bindings are kebab-case at scale — `:active-key=` appears 687 times,
+  `:is-mobile-size=` 360, `:model-value=` 276, `:is-loading=` 53 — against `defineProps` blocks
+  that declare the camelCase form (`isActive`, and so on). The convention is observed, not stated
+  in a style file.
 
 ### Scripts and the dev-server port — slide 32
 
@@ -371,6 +403,100 @@ check "runs together with" the build and that a failure fails `pnpm build` — d
 an ordering claim, because `run-p` is parallel. Content hashes in filenames change on every build;
 the slide shows one run's output rather than a stable expectation.
 
+## Rehearsal Run — Part 4
+
+Every Vue code block on slides 33–44 was written into the same rehearsal project used for Part 3,
+then compiled and run before it went on a slide. Same environment as above (Node `v24.13.0`, pnpm
+`11.17.0`), on **2026-07-28**.
+
+### What was built
+
+The chapter-4 state of the member directory — the point where the app renders a searchable,
+bookmarkable list but has no router, composable, or store yet:
+
+```text
+public/members.json                 6 records; one (박지호) deliberately has no email
+src/types/member.ts                 the Member interface slide 19 introduced
+src/components/MemberCard.vue       defineProps, defineEmits, v-if/v-else, :class
+src/views/MemberListView.vue        ref, computed, v-model, v-for/:key, onMounted
+src/router/index.ts                 '/' repointed from HomeView to MemberListView
+src/App.vue                         reduced to <RouterView />
+```
+
+### Verification
+
+- `pnpm type-check` → `vue-tsc --build` with **no output and exit 0**. Every typed construct on the
+  slides — `ref<Member[]>([])`, `defineProps<{...}>()`, `defineEmits<{ toggleBookmark: [id: number] }>()`
+  — is checked, not merely plausible.
+- `pnpm build` → `✓ 33 modules transformed`, `✓ built in 197ms`.
+- `pnpm dev`, then the running app driven in a real browser:
+
+| Checked | Result |
+|---|---|
+| initial render (`v-for`, `onMounted` fetch) | 6 cards, heading `구성원 디렉터리`, count `6명` |
+| `v-if` / `v-else` on a missing field | 박지호's card shows `이메일 미등록`; the others show an address |
+| `v-model` search | typing `학사` → count `2명`, cards 박지호 and 최유진 |
+| `emit` + `:class` binding | clicking the button → label flips to `★ 즐겨찾기 해제`, class becomes `card card--bookmarked` |
+| empty-result state | searching `zzz` → 0 cards, `0명`, `검색 결과가 없습니다.` |
+
+Slide 40's "6명 → 2명, 박지호·최유진" caption is that measurement, not an illustration.
+
+### What the slides abbreviate
+
+Slide numbers below are the current ones (Part 4 runs 33–44).
+
+- Slide 33 quotes `members.json` and `member.ts` **whole**. The data file is written one record per
+  line so all six fit on a projector without a horizontal scrollbar; that is the file's real
+  formatting, not a slide-only reflow. Showing all six matters because slide 40's verified
+  `6명 → 2명` result is only reproducible with the two 학사지원본부 records present, and 박지호's
+  missing `email` is what drives slide 39's `v-else` branch.
+- Slide 36 lists all three `ref` declarations — `members`, `keyword`, `bookmarked` — rather than
+  the two the reactivity lesson strictly needs. `bookmarked` is bound on slide 39 and mutated on
+  slide 42, so a participant assembling the file from the slides would otherwise hit
+  `Cannot find name 'bookmarked'`. Review caught this; the slide was widened rather than the
+  later slides trimmed.
+- Slide 34's three-block card is a **skeleton with comments**, not a compiled file — it exists to
+  name the blocks.
+- Slide 38's table cells are fragments, **some illustrative rather than quoted**: `v-if`, `v-else`,
+  `:class`, and the `{{ }}` form all appear in the project, but `@submit.prevent`,
+  `@click.once`, `v-for="m in list"`, and `:style` are generic examples — the project has no form
+  submit, no `.once`, and no inline style binding.
+- Slide 40's right-hand card shows the desugared form of `v-model` on a text input. It was written
+  for the slide, not lifted from the project, and it **was itself type-checked**: pasted into a
+  throwaway component in the same project, `pnpm type-check` exits 0 with the
+  `($event.target as HTMLInputElement)` cast and fails without it —
+  `error TS18047: '$event.target' is possibly 'null'` and
+  `error TS2339: Property 'value' does not exist on type 'EventTarget'`. That is why the cast is on
+  the slide and why its caption points back at chapter 2. The probe component was deleted and the
+  project re-verified at exit 0 afterwards.
+- Slide 42's two cards each splice a `// template` fragment under a `script` fragment from the same
+  file, with the boundary marked by that comment. The parent card writes the `MemberCard` tag as
+  `<MemberCard @toggle-bookmark="toggleBookmark" ... />` — the `...` stands for the two bindings
+  slide 41 already showed, and the comment on the line above says so.
+- Slide 43 shows the `onMounted` block and the `members` declaration together; in the file they are
+  separated by the other declarations.
+- Slide 39's fourth note paraphrases `MemberCard.vue`'s `v-else` line inline. It quotes the tag with
+  its `class="card__muted"`, which is the file's text, but the surrounding `v-if` line is described
+  in Korean rather than quoted.
+- Slide 40's checkbox and select examples (`onlyDev`, `team`) are **illustrative**. The project has
+  neither control; only the text input exists.
+- Slide 38's `v-else-if` and the array form of `:class` are named, not shown in a code block — the
+  project uses neither. `docs/vue-lecture-plan.md` §4.4.3 lists both, so they are named rather than
+  silently dropped.
+- Slide 44 carries no code block; the rehearsal claim above covers slides 33–43's code and slide
+  44's `uniweb` paths, which are read from the checkout rather than from the rehearsal project.
+
+Every other Vue block in Part 4 is character-for-character from a file listed above. An earlier
+draft silently stripped attributes from four component tags — `:is-bookmarked`,
+`@toggle-bookmark`, `type="button"`, `placeholder` — and renamed a callback parameter, while this
+section claimed the blocks were exact. Review caught it; the blocks were restored rather than the
+claim weakened, because a participant copying slide 39's tag would otherwise get a card whose
+bookmark button does nothing.
+
+`MemberCard.vue`'s `<style scoped>` block exists in the project (it is what makes the
+`card--bookmarked` border change observable) but is not quoted on any slide beyond slide 33's
+skeleton.
+
 ## Primary References
 
 All pages fetched **2026-07-28**.
@@ -471,6 +597,70 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - **Its prompt list is stale.** See the rehearsal section above — slide 25 shows the real
     `create-vue@3.23.0` prompts and says so on the slide.
 
+### Vue — Single-File Components
+
+- [Single-File Components — vuejs.org](https://vuejs.org/guide/scaling-up/sfc.html)
+  - Quoted verbatim on slide 34: "The `<template>`, `<script>`, and `<style>` blocks encapsulate and
+    colocate the view, logic and styling of a component in the same file."
+  - Quoted on slide 35: "SFC is a defining feature of Vue as a framework, and is the recommended
+    approach for using Vue in … Any non-trivial frontend where a build step can be justified." The
+    ellipsis drops two of the page's three listed scenarios (SPA and SSG); the kept one is the one
+    that applies to this project.
+  - Slide 34's framing — that the split moves from "by kind" to "by component" — is teaching
+    commentary on the colocation sentence, not a quote.
+
+### Vue — Reactivity
+
+- [Reactivity Fundamentals — vuejs.org](https://vuejs.org/guide/essentials/reactivity-fundamentals.html)
+  - Quoted verbatim on slide 36: "`ref()` takes the argument and returns it wrapped within a ref
+    object with a `.value` property." and "refs are automatically unwrapped when used inside
+    templates". The page qualifies the second with "(with a few caveats)"; the slide drops the
+    parenthetical because the caveats are outside this lecture, and the rule as taught —
+    `.value` in script, none in template — holds for every case in the project.
+  - Quoted verbatim on slide 37: "Due to these limitations, we recommend using `ref()` as the
+    primary API for declaring reactive state." This is the page's own conclusion, and it is why the
+    project uses no `reactive()` at all. (An earlier draft rewrote this into the passive voice while
+    leaving it inside quotation marks; review caught it before the deck shipped.)
+  - Basis for slide 37's `reactive()` card: the page lists three limitations — object types only,
+    cannot replace the whole object, and "Not destructure-friendly". The slide names the first and
+    third.
+- [Computed Properties — vuejs.org](https://vuejs.org/guide/essentials/computed.html)
+  - Quoted verbatim on slide 37: "A computed property will only re-evaluate when some of its
+    reactive dependencies have changed." and, of a method, "always run the function whenever a
+    re-render happens."
+  - Basis for slide 37's footnote: "computed getter functions should only perform pure computation
+    and be free of side effects … don't mutate other state, make async requests, or mutate the DOM
+    inside a computed getter!"
+
+### Vue — Rendering and components
+
+- [List Rendering — vuejs.org](https://vuejs.org/guide/essentials/list.html)
+  - Quoted verbatim on slide 39: "It is recommended to provide a `key` attribute with `v-for`
+    whenever possible" and the term "in-place patch".
+  - Basis for the slide's "use the id, not the array index" note: the page explains that without a
+    key Vue will "patch each element in-place and make sure it reflects what should be rendered at
+    that particular index", which is "only suitable when your list render output does not rely on
+    child component state or temporary DOM state (e.g. form input values)". The member list renders
+    a child component with its own bookmark styling, so it is exactly the case the page excludes.
+- [Style Guide, Priority A — vuejs.org](https://vuejs.org/style-guide/rules-essential.html)
+  - Quoted verbatim on slide 39: "Never use `v-if` on the same element as `v-for`."
+  - The page gives the computed-property filter as its first remedy — "replace `users` with a new
+    computed property that returns your filtered list" — which is exactly what `visibleMembers` is.
+    The slide makes that connection rather than teaching the `<template v-for>` wrapper, which the
+    page offers as the second option. An earlier draft named the wrapper and cited the List
+    Rendering page, which does not contain either remedy.
+- [Props — vuejs.org](https://vuejs.org/guide/components/props.html)
+  - Quoted verbatim on slide 41: "All props form a one-way-down binding … when the parent property
+    updates, it will flow down to the child, but not the other way around." and "you should **not**
+    attempt to mutate a prop inside a child component."
+  - Quoted in slide 41's footnote: "the convention is using kebab-case in all cases to align with
+    HTML attributes." The slide pairs this with `uniweb`'s own practice rather than presenting it as
+    a house rule.
+- [Lifecycle Hooks — vuejs.org](https://vuejs.org/guide/essentials/lifecycle.html)
+  - Quoted verbatim on slide 43: "the `onMounted` hook can be used to run code after the component
+    has finished the initial rendering and created the DOM nodes" and "This requires these hooks to
+    be registered **synchronously** during component setup."
+
 ### Vite
 
 - [Why Vite — vite.dev](https://vite.dev/guide/why.html)
@@ -518,7 +708,7 @@ The deck marks these as teaching simplifications rather than facts:
 
 ## Not Yet Verified
 
-- Nothing in Parts 0–3 is currently unverified. Parts 4–8 have not been authored; their evidence
+- Nothing in Parts 0–4 is currently unverified. Parts 5–8 have not been authored; their evidence
   will be recorded here as each ticket lands.
 - Timing: the schedule in `docs/vue-lecture-plan.md` §3 is still an estimate. The rehearsal timed
   commands, not teaching, so no chapter duration in this deck has been measured against a room.
