@@ -1766,6 +1766,13 @@ blockquote strong {
   color: var(--leaf);
 }
 
+.folder-tree__empty {
+  margin: 0.55rem 0 0 0.9rem;
+  color: #7d8a83;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
 .menu-drop {
   position: absolute;
   top: 12%;

@@ -422,18 +422,16 @@ Untracked files:
           <div class="vscode-window vscode-window--open" data-step="1">
             <div class="vscode-titlebar">
               <span class="window-dots"><i></i><i></i><i></i></span>
-              <b>Visual Studio Code · training</b>
+              <b>Visual Studio Code · git-practice</b>
             </div>
             <div class="vscode-body">
               <nav class="vscode-rail"><span class="active"><svg class="ic" aria-hidden="true"><use href="#ic-explorer" /></svg></span><span><svg class="ic" aria-hidden="true"><use href="#ic-search" /></svg></span><span><svg class="ic" aria-hidden="true"><use href="#ic-scm" /></svg></span></nav>
               <aside class="vscode-sidebar">
                 <small>EXPLORER</small>
                 <ul class="folder-tree">
-                  <li class="folder-tree__root">training</li>
-                  <li>docs</li>
-                  <li>team.md</li>
-                  <li>README.md</li>
+                  <li class="folder-tree__root">git-practice</li>
                 </ul>
+                <p class="folder-tree__empty">아직 비어 있는 폴더</p>
               </aside>
               <div class="vscode-editor">
                 <div class="menu-drop" data-step="2">
@@ -443,7 +441,7 @@ Untracked files:
                 </div>
               </div>
             </div>
-            <div class="vscode-status"><span>⑂ main</span><span>training</span></div>
+            <div class="vscode-status"><span>아직 Git 저장소 아님</span><span>git-practice</span></div>
           </div>
           <ol class="practice-checks open-steps">
             <li data-step="2"><b>File &gt; Open Folder…</b> 선택</li>
@@ -529,15 +527,14 @@ Untracked files:
             </article>
           </div>
           <div class="terminal-card" data-step="4">
-            <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal · training</span></div>
+            <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal · <mark>git-practice</mark></span></div>
             <pre><span class="prompt">$</span> git status
 
-On branch <mark>main</mark>
-nothing to commit, working tree clean</pre>
+fatal: not a git repository (or any of the parent directories): .git</pre>
           </div>
         </div>
         <p class="takeaway" data-step="5">
-          <strong>터미널은 현재 열린 폴더에서 시작</strong>&nbsp;· 별도 경로 이동 없이 바로&nbsp;<code>git</code>&nbsp;명령을 실행할 수 있습니다
+          <strong>터미널은 현재 열린 폴더에서 시작</strong>&nbsp;· 별도 경로 이동 없이 바로&nbsp;<code>git</code>&nbsp;명령을 실행할 수 있습니다 · 아직 저장소가 아니라서 나오는 응답이며, 곧 <b>Initialize Repository</b>로 해결합니다
         </p>
       </section>
 
@@ -551,7 +548,7 @@ nothing to commit, working tree clean</pre>
             <div class="scm-row" data-step="1">
               <i aria-hidden="true">①</i>
               <div>
-                <label class="scm-message">Message<strong>Update team introduction</strong></label>
+                <label class="scm-message">Message<strong>Update project notes</strong></label>
                 <button type="button">Commit</button>
               </div>
             </div>
@@ -559,7 +556,7 @@ nothing to commit, working tree clean</pre>
               <i aria-hidden="true">②</i>
               <div>
                 <p>CHANGES <b>2</b></p>
-                <span><em>M</em>team.md<u>＋</u></span>
+                <span><em>M</em>README.md<u>＋</u></span>
                 <span><em>U</em>notes.md<u>＋</u></span>
               </div>
             </div>
@@ -567,12 +564,12 @@ nothing to commit, working tree clean</pre>
               <i aria-hidden="true">③</i>
               <div>
                 <p>STAGED CHANGES <b>1</b></p>
-                <span><em>M</em>team.md<u>−</u></span>
+                <span><em>M</em>README.md<u>−</u></span>
               </div>
             </div>
             <div class="scm-row" data-step="4">
               <i aria-hidden="true">④</i>
-              <div class="scm-statusbar"><span>⑂ feature/team-message</span><span>↻ 0↓ 1↑</span></div>
+              <div class="scm-statusbar"><span>⑂ main</span><span>LOCAL ONLY · no origin</span></div>
             </div>
           </div>
           <ul class="scm-legend">
@@ -590,12 +587,12 @@ nothing to commit, working tree clean</pre>
             </li>
             <li data-step="4">
               <b>④</b>
-              <div><strong>상태 표시줄</strong><small>현재 브랜치와 원격과의 차이(↓ 받을 것 · ↑ 보낼 것)</small></div>
+              <div><strong>상태 표시줄</strong><small>현재 브랜치 · 원격이 연결된 저장소라면 차이(↓ 받을 것 · ↑ 보낼 것)가 함께 표시됩니다</small></div>
             </li>
           </ul>
         </div>
         <p class="footnote" data-step="5">
-          파일 위 <b>＋</b> = stage · <b>−</b> = unstage · 원격 반영은 <b>Sync Changes</b> 또는 개별 Pull / Push
+          위 화면은 패널 구조를 설명하기 위한 예시입니다 · 파일 위 <b>＋</b> = stage · <b>−</b> = unstage · 원격 반영은 <b>Sync Changes</b> 또는 개별 Pull / Push
         </p>
       </section>
 
@@ -715,7 +712,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
 
       <section class="slide slide--ui" data-slide data-chapter="CLONE">
         <div class="slide-index">17</div>
-        <p class="eyebrow">STEP 01 · CLONE</p>
+        <p class="eyebrow">CLONE</p>
         <h2>원격 저장소의 전체 이력 가져오기</h2>
         <div class="vscode-window" data-step="1">
           <div class="vscode-titlebar">
@@ -753,7 +750,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
 
       <section class="slide slide--graph" data-slide data-chapter="BRANCH">
         <div class="slide-index">18</div>
-        <p class="eyebrow">STEP 02 · BRANCH</p>
+        <p class="eyebrow">BRANCH</p>
         <h2>독립된 작업을 위한 새 브랜치 만들기</h2>
         <div class="branch-lab">
           <div class="branch-lab__graph">
@@ -792,7 +789,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
 
       <section class="slide slide--ui" data-slide data-chapter="EDIT">
         <div class="slide-index">19</div>
-        <p class="eyebrow">STEP 03 · EDIT & DIFF</p>
+        <p class="eyebrow">EDIT & DIFF</p>
         <h2>수정된 내용(Diff)을 커밋 전에 검토하기</h2>
         <div class="diff-window" data-step="1">
           <div class="diff-window__head">
@@ -825,7 +822,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
 
       <section class="slide slide--ui" data-slide data-chapter="STAGE">
         <div class="slide-index">20</div>
-        <p class="eyebrow">STEP 04 · STAGE & COMMIT</p>
+        <p class="eyebrow">STAGE & COMMIT</p>
         <h2>커밋에 포함할 변경 사항을 선별하여 저장하기</h2>
         <div class="vscode-window vscode-window--workflow" data-step="1">
           <div class="vscode-titlebar">
@@ -853,19 +850,19 @@ Deleted branch feature/hello (was b5f2735).</pre>
               </div>
             </div>
           </div>
-          <div class="vscode-status"><span>⑂ feature/team-message</span><span>1 staged change</span></div>
+          <div class="vscode-status"><span>⑂ feature/team-message</span><span>NOT PUBLISHED · no upstream</span></div>
         </div>
         <p class="takeaway" data-step="4">
           바람직한 커밋 =&nbsp;<strong>단일 목적</strong>&nbsp;+ 검토하기 적절한 크기 · 메시지는&nbsp;<strong>무엇을 왜</strong>&nbsp;바꿨는지 한 줄, 50자 안팎
         </p>
         <div class="checkpoint" data-step="5">
-          <b>✓ 통과 기준</b>CHANGES 목록이 비고, 상태 표시줄이 <code>↻ 0↓ 1↑</code>
+          <b>✓ 통과 기준</b>CHANGES 목록이 비고, 소스 제어 패널에 <b>Publish Branch</b>가 보이면 성공 · 아직 원격에 올리지 않은 가지라 <code>↓↑</code> 숫자는 나오지 않습니다
         </div>
       </section>
 
       <section class="slide" data-slide data-chapter="IGNORE">
         <div class="slide-index">21</div>
-        <p class="eyebrow">STEP 05 · GITIGNORE</p>
+        <p class="eyebrow">GITIGNORE</p>
         <h2>애초에 추적하지 않을 파일 정해 두기</h2>
         <div class="ignore-stage">
           <div class="terminal-card" data-step="1">
@@ -922,7 +919,7 @@ build/
 
       <section class="slide slide--graph" data-slide data-chapter="PUSH">
         <div class="slide-index">23</div>
-        <p class="eyebrow">STEP 06 · PUSH</p>
+        <p class="eyebrow">PUSH</p>
         <h2>작업한 브랜치를 팀 원격 저장소로 게시하기</h2>
         <div class="push-scene">
           <div class="repo-island repo-island--local">
@@ -966,7 +963,7 @@ build/
 
       <section class="slide slide--ui" data-slide data-chapter="PULL REQUEST">
         <div class="slide-index">24</div>
-        <p class="eyebrow">STEP 07 · OPEN PULL REQUEST</p>
+        <p class="eyebrow">OPEN PULL REQUEST</p>
         <h2>코드 검토 및 병합 요청(Pull Request) 만들기</h2>
         <div class="pr-window" data-step="1" role="group" aria-label="Gitea에서 Pull Request를 작성하는 화면">
           <div class="pr-window__top">
@@ -1126,7 +1123,7 @@ Message: 안전하게 함께 개발하기
 
       <section class="slide slide--ui" data-slide data-chapter="RESOLVE">
         <div class="slide-index">29</div>
-        <p class="eyebrow">STEP 08 · MERGE EDITOR</p>
+        <p class="eyebrow">MERGE EDITOR</p>
         <h2>VS Code Merge Editor로 충돌 해결하기</h2>
         <div class="merge-editor" data-step="1">
           <div class="merge-panel merge-panel--incoming">
@@ -1185,7 +1182,7 @@ Message: 안전하게 함께 개발하기
 
       <section class="slide slide--graph" data-slide data-chapter="MERGE">
         <div class="slide-index">31</div>
-        <p class="eyebrow">STEP 09 · REVIEW & MERGE</p>
+        <p class="eyebrow">REVIEW & MERGE</p>
         <h2>검토를 마친 브랜치를 main에 최종 병합하기</h2>
         <div class="merge-animation" aria-label="feature branch가 main에 병합되는 그래프">
           <svg viewBox="0 0 1000 360" role="img">
