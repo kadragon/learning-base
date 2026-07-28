@@ -17,9 +17,10 @@ The deck is built one chapter per backlog ticket. As of this file's last update 
 - **Part 4 — Vue core concepts** (slides 33–44).
 - **Part 5 — Pages with Vue Router** (slides 45–49).
 - **Part 6 — Composables and the HTTP client** (slides 50–55).
+- **Part 7 — Shared state with Pinia** (slides 56–61).
+- **Part 8 — Mapping onto `uniweb`, and wrap-up** (slides 62–65), plus a closing slide.
 
-Parts 7–8 (Pinia and the `uniweb` mapping chapter) are not in the deck yet. They are tracked in
-`backlog.md`.
+**The deck is complete.** All eight parts are in place.
 
 ## Verification Rule
 
@@ -204,6 +205,47 @@ Slide 52 therefore teaches axios as the library the audience will meet everywher
 
 Slide 10 (Part 1) still lists `axios` among `uniweb`'s `dependencies`, which is accurate: it is
 declared there. Nothing in Part 1 claims it is imported.
+
+### Stores, the entry point, and the daily commands — slides 61, 63, and 64
+
+Read on 2026-07-28:
+
+- `src/main/stores/` holds exactly four files: `bookmark.ts`, `file-extension.ts`, `id-card.ts`,
+  `menu.ts`. Slide 61 names all four.
+- **The two `defineStore` styles both appear**, counted rather than assumed:
+  `bookmark.ts` and `menu.ts` open with `defineStore("…", { state: () => ({ … }), getters: …`
+  (option form); `id-card.ts` opens with `defineStore("idCard", () => {` and `file-extension.ts`
+  spreads the same setup form over three lines (`defineStore(` / `"fileExtension",` / `() => {`). `docs/vue-lecture-plan.md` §4.7 says to teach the setup form, which the deck does —
+  slide 61 states the split so a participant opening the repository is not surprised.
+- `src/main.ts` wires Pinia at lines 134–136:
+  `const pinia = createPinia(); pinia.use(piniaPluginPersistatestate); app.use(pinia);` — the
+  persistence plugin slide 61 names but does not teach.
+- Slide 63's "what we did not build" list is `ls src` and `ls src/main` — `cartzilla`, `core`,
+  `docs`, `pub-only` at the top level; `i18n.ts`, `locales`, `layouts`, `plugins`, `constants`,
+  `utils` under `main`.
+- Slide 64's command list is copied from `uniweb/AGENTS.md`, including the statement that there is
+  no automated test suite and that `pnpm type-check`, `pnpm lint`, and the matching build must be
+  run before a pull request, with the changed routes exercised by hand.
+
+### Where the 451 `.vue` files actually live — slide 62
+
+Counted on 2026-07-28 with `find src -name '*.vue'`:
+
+| Location | Count |
+|---|---:|
+| `src/main/views/` | 279 |
+| `src/main/components/` | 45 |
+| `src/main/layouts/` | 2 |
+| `src/pub-only/` | 124 |
+| `src/App.vue` | 1 |
+| **total** | **451** |
+
+`src/cartzilla/` and `src/core/` hold no `.vue` files.
+
+Slide 62's mapping table has rows for `views/` and `components/` but not for `layouts/` or
+`pub-only/`, which slide 63 lists as deliberately not built. So **324**, not 451, is the number the
+table accounts for, and the slide says so. An earlier draft claimed all 451 fit the seven rows;
+review caught it and the counts above are what replaced it.
 
 ### Scripts and the dev-server port — slide 32
 
@@ -422,9 +464,11 @@ The original `HomeView.vue` was restored before the build capture.
 
 ### Build — slide 31
 
-Captured as below. The slide reproduces all five size rows in this order and drops only the
-`transforming...` / `rendering chunks...` / `computing gzip size...` progress lines, which its card
-bar states:
+Captured as below. The slide reproduces all five size rows in this order and elides two things,
+both named on its card bar: the `transforming...` / `rendering chunks...` / `computing gzip size...`
+progress lines, and the two echoed sub-commands `$ vue-tsc --build` / `$ vite build`, which the
+slide replaces with a single `... vue-tsc --build, vite build` comment so the card fits a
+projector:
 
 ```text
 vite v8.1.5 building client environment for production...
@@ -525,6 +569,10 @@ Slide numbers below are the current ones (Part 4 runs 33–44).
 - Slide 44 carries no code block; the rehearsal claim above covers slides 33–43's code and slide
   44's `uniweb` paths, which are read from the checkout rather than from the rehearsal project.
 
+Two Part 4 blocks are additionally **folded for projector width**, whitespace only: slide 40's
+desugared `@input` attribute value, and slide 42's `filter` call in `toggleBookmark`. No token is
+added, removed, or reordered by either fold.
+
 Every other Vue block in Part 4 is character-for-character from a file listed above. An earlier
 draft silently stripped attributes from four component tags — `:is-bookmarked`,
 `@toggle-bookmark`, `type="button"`, `placeholder` — and renamed a callback parameter, while this
@@ -616,7 +664,7 @@ cards. `http.ts` was restored to `baseURL: '/'` immediately afterwards, and the 
 - Slide 54's list-view template line `<template v-else> … 목록 … </template>` elides the list markup
   slide 39 already showed; the ellipsis is on the slide.
 
-**Line folding for projector width.** Several Part 5–6 cards break a statement across two lines
+**Line folding for projector width.** Cards in Parts 4–7 break a statement across lines
 where the file has one, so that no code needs a horizontal scrollbar at 1024×768: slide 47's
 `import` and `component:` lines (stated in that slide's own footnote), and the
 `import { useMembers } from '@/composables/use-members'` line plus the not-found `<p v-else>` on
@@ -630,6 +678,61 @@ a half-width card without a horizontal scrollbar. The project was re-type-checke
 the change, and slides 48 and 54 quote the new form. This is the same trade made for
 `visibleMembers` in Part 4: change the file so the slide can stay exact, rather than reformat only
 on the slide.
+
+## Rehearsal Run — Part 7
+
+The store was written into the same rehearsal project on **2026-07-28**, before any Part 7 slide.
+
+### What was built
+
+`src/stores/bookmark.ts` (the scaffolder's `counter.ts` was deleted), plus both views moved off
+their local `bookmarked` ref and onto the store. `createPinia()` and `app.use(pinia)` were already
+in `src/main.ts` — the scaffolder put them there in Part 3, which is why Part 7 adds no wiring.
+
+### The rehearsal project is a moving target — read this before tracing an earlier chapter
+
+One project carries all eight chapters, so **a later chapter's edits retroactively change the file
+an earlier chapter quotes.** Part 7 is the clearest case: it moved the bookmark state out of
+`MemberListView.vue` into the store, so the file now reads
+`:is-bookmarked="bookmarks.isBookmarked(member.id)"` and `@toggle-bookmark="bookmarks.toggle"`.
+
+Slides 39 and 41 still show the pre-Part-7 form — `bookmarked.includes(member.id)` and
+`toggleBookmark` — deliberately: slide 59 is where the room watches that migration happen. But it
+means Part 4's statement "every other Vue block is character-for-character from a file listed
+above" is true **of the file as it stood at the end of chapter 4**, not of the file on disk now.
+The same applies to Part 6's `MemberListView.vue` excerpts.
+
+When re-verifying an earlier chapter's blocks, rebuild the project up to that chapter rather than
+reading the finished one. Committing a per-chapter fixture set is the alternative, recorded as an
+open follow-up in `tasks.md`.
+
+### Verification
+
+`pnpm type-check` exits 0 with no diagnostics. `pnpm build` reports `✓ 88 modules transformed`.
+
+Slide 60's four rows are a single browser session, read from the DOM at each step:
+
+| Action | Read back |
+|---|---|
+| bookmark the first card **from the list** | `즐겨찾기 1명`; the card's class becomes `card card--bookmarked` |
+| follow that card's link to `/members/1` | the detail button already reads `★ 즐겨찾기 해제` |
+| un-bookmark **from the detail page** | the button flips to `☆ 즐겨찾기` |
+| follow the back link to `/` | `즐겨찾기 0명`; the card's class is back to `card` |
+
+That round trip is the whole argument for a store, so it is measured rather than asserted.
+
+### What the slides abbreviate
+
+- Slide 57 splits `bookmark.ts` across two cards at the `toggle` boundary; together they are the
+  **whole file**, and neither card omits a line. Two statements are folded to fit a projector
+  column — the `defineStore(` call and the `filter` call, each broken the way Prettier breaks a
+  call. Only whitespace differs; no token is added, removed, or reordered.
+- Slide 59's two cards each splice a `// template` fragment under a `script` fragment from the same
+  file. The list card's `<MemberCard ... />` ends in a literal `...` standing for the `:member`
+  binding slide 41 already showed; `:key` sits on the `<li>`, not on the component.
+- Slide 65's checklist is the closing table from `docs/vue-lecture-plan.md` §4.8, byte for byte.
+  Its `api-client` line already carries the axios correction recorded above, because the plan was
+  fixed in the same change that found it.
 
 ## Primary References
 
@@ -833,6 +936,20 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     would have taught the room to reject valid code. Slide 51's footnote quotes the exception.
   - The page's stateless/stateful contrast (formatters and lodash functions versus state that
     changes over time) is the basis for slide 51's two cards.
+
+### Pinia
+
+- [Core Concepts — pinia.vuejs.org](https://pinia.vuejs.org/core-concepts/)
+  - Quoted verbatim on slide 58: "You can think of `state` as the `data` of the store, `getters` as
+    the `computed` properties of the store, and `actions` as the `methods`."
+  - Quoted verbatim in slide 59's instructor note: "like `props` in `setup`, **we cannot
+    destructure it**", from "Note that `store` is an object wrapped with `reactive`, meaning there is
+    no need to write `.value` after getters but, like `props` in `setup`, we cannot destructure it".
+    The page adds: "In order to extract properties from the store while keeping its reactivity, you
+    need to use `storeToRefs()`." That is why the lecture's code writes `bookmarks.count` rather
+    than destructuring.
+  - The page documents both an Option Store form and a Setup Store form. Slide 58's footnote names
+    both; the lecture writes the setup form.
 
 ### Vite
 

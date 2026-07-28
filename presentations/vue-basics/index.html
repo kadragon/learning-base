@@ -329,7 +329,7 @@
         <div class="slide-index">09</div>
         <p class="eyebrow">THE MANIFEST</p>
         <h2><code>package.json</code> — 프로젝트의 명세서</h2>
-        <div class="code-card" data-step="1">
+        <div class="code-card code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb/package.json — 발췌</b></div>
           <pre><code>{
   <span class="k">"engines"</span>: {
@@ -616,7 +616,7 @@
         <div class="slide-index">18</div>
         <p class="eyebrow">ANNOTATION SYNTAX</p>
         <h2>자리는 세 군데뿐입니다 — 변수 · 매개변수 · 반환값</h2>
-        <div class="code-card" data-step="1">
+        <div class="code-card code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>세 자리를 한 화면에</b></div>
           <pre><code><span class="c">// 1. 변수 이름 뒤</span>
 <span class="k">const</span> teamName: <span class="k">string</span> = <span class="s">"정보화본부"</span>
@@ -1038,7 +1038,7 @@ src/
         <div class="slide-index">29</div>
         <p class="eyebrow">CHAPTER 1’S PROMISE, MEASURED</p>
         <h2>1장의 “선언한 것만 보입니다”가 여기 있습니다</h2>
-        <div class="code-card code-card--slim" data-step="1">
+        <div class="code-card code-card--slim code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>설치 직후 node_modules 최상단</b></div>
           <pre><code><span class="p">$</span> ls node_modules | wc -l
       20
@@ -1098,16 +1098,14 @@ vue-router  vue-tsc</code></pre>
         <div class="slide-index">31</div>
         <p class="eyebrow">BUILDING FOR PRODUCTION</p>
         <h2>배포용으로 굽습니다 — <code>pnpm build</code></h2>
-        <div class="code-card" data-step="1">
-          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력 — 진행 표시 줄만 생략</b></div>
+        <div class="code-card code-card--dense" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력 — 진행 표시 줄과 하위 명령 생략</b></div>
           <pre><code><span class="p">$</span> pnpm build
 <span class="p">$</span> run-p type-check "build-only {@}" --
-<span class="p">$</span> vue-tsc --build
-<span class="p">$</span> vite build
+<span class="c">  ... vue-tsc --build, vite build</span>
 
 vite v8.1.5 building client environment for production...
 ✓ 44 modules transformed.
-
 dist/index.html                      0.42 kB │ gzip:  0.28 kB
 dist/assets/AboutView-CXtZgaLf.css   0.08 kB │ gzip:  0.10 kB
 dist/assets/index-DEm2-gV0.css       4.05 kB │ gzip:  1.27 kB
@@ -1299,7 +1297,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
             <h3><code>computed()</code> — 계산해서 나오는 값</h3>
             <p>의존하는 값이 바뀔 때만 다시 계산하고, <strong>그 사이에는 결과를 재사용</strong>합니다.</p>
             <p class="card__quote">“A computed property will only re-evaluate when some of its reactive dependencies have changed.”</p>
-            <p class="range-use">메서드로 쓰면 <strong>다시 그릴 때마다 매번</strong> 실행됩니다 — 문서 표현으로 “always run … whenever a re-render happens”</p>
+            <p class="range-use">메서드로 쓰면 <strong>다시 그릴 때마다 매번</strong> 실행됩니다</p>
           </div>
         </div>
         <div class="code-card code-card--slim" data-step="3">
@@ -1360,32 +1358,32 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         <div class="slide-index">39</div>
         <p class="eyebrow">LIST &amp; CONDITIONAL RENDERING</p>
         <h2>목록을 그리고, 없을 때를 대비합니다</h2>
-        <div class="code-card" data-step="1">
-          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 실제로 동작하는 코드</b></div>
-          <pre><code>&lt;ul&gt;
-  &lt;li <span class="k">v-for</span>=<span class="s">"member in visibleMembers"</span> <span class="k">:key</span>=<span class="s">"member.id"</span>&gt;
+        <div class="code-split">
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 목록</b></div>
+            <pre><code>&lt;ul&gt;
+  &lt;li <span class="k">v-for</span>=<span class="s">"member in visibleMembers"</span>
+      <span class="k">:key</span>=<span class="s">"member.id"</span>&gt;
     &lt;MemberCard
       <span class="k">:member</span>=<span class="s">"member"</span>
       <span class="k">:is-bookmarked</span>=<span class="s">"bookmarked.includes(member.id)"</span>
       <span class="k">@toggle-bookmark</span>=<span class="s">"toggleBookmark"</span>
     /&gt;
   &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p <span class="k">v-if</span>=<span class="s">"visibleMembers.length === 0"</span>&gt;검색 결과가 없습니다.&lt;/p&gt;</code></pre>
-          <p class="code-card__caption">
-넘기는 세 가지는 <strong>41·42번</strong>에서 · 마지막 줄처럼 <strong>“결과 0건”도 화면 하나</strong>입니다
-          </p>
+&lt;/ul&gt;</code></pre>
+            <p class="code-card__caption">넘기는 세 가지는 <strong>41·42번</strong>에서 봅니다</p>
+          </div>
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — 결과가 없을 때</b></div>
+            <pre><code>&lt;p <span class="k">v-if</span>=<span class="s">"visibleMembers.length === 0"</span>&gt;
+  검색 결과가 없습니다.
+&lt;/p&gt;</code></pre>
+            <p class="code-card__caption">“결과 0건”도 버그가 아니라 <strong>화면 하나</strong>입니다</p>
+          </div>
         </div>
-        <blockquote class="quote" data-step="2">
-          “It is recommended to provide a <code>key</code> attribute with <code>v-for</code> whenever
-          possible” — 없으면 Vue는 “in-place patch” 전략으로 <strong>자리만 맞춰 덧칠</strong>합니다.
-          <cite>vuejs.org — List Rendering</cite>
-        </blockquote>
         <div class="note-row">
-          <p data-step="3"><b><code>:key</code>는 <b>id</b>로</b><span>배열 인덱스를 쓰면 순서가 바뀔 때 엉뚱한 항목이 재사용됩니다</span></p>
-          <p data-step="4"><b><code>v-else</code>는 바로 옆에</b><span><code>MemberCard</code>는 <code>v-if="member.email"</code> 다음 줄에 <code>&lt;p v-else class="card__muted"&gt;이메일 미등록&lt;/p&gt;</code></span></p>
-          <p data-step="5"><b>거르는 건 <code>computed</code>가</b><span>공식 스타일 가이드 “Never use <code>v-if</code> on the same element as <code>v-for</code>” — 그래서 <code>visibleMembers</code>가 미리 걸러 둡니다</span></p>
+          <p data-step="2"><b><code>:key</code>는 <b>id</b>로</b><span>공식 문서 “It is recommended to provide a <code>key</code> attribute with <code>v-for</code> whenever possible” · 없으면 자리만 맞춰 덧칠(“in-place patch”)하므로, 인덱스를 쓰면 순서가 바뀔 때 엉뚱한 항목이 재사용됩니다 · <code>MemberCard</code> 안에서는 <code>v-if="member.email"</code> 다음 줄이 <code>&lt;p v-else class="card__muted"&gt;</code>입니다</span></p>
+          <p data-step="3"><b>거르는 건 <code>computed</code>가</b><span>공식 스타일 가이드 “Never use <code>v-if</code> on the same element as <code>v-for</code>” — 그래서 <code>visibleMembers</code>가 미리 걸러 둡니다</span></p>
         </div>
       </section>
 
@@ -1406,7 +1404,8 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>직접 쓰면 이런 뜻입니다</b></div>
             <pre><code>&lt;input
   <span class="k">:value</span>=<span class="s">"keyword"</span>
-  <span class="k">@input</span>=<span class="s">"keyword = ($event.target as HTMLInputElement).value"</span>
+  <span class="k">@input</span>=<span class="s">"keyword =
+    ($event.target as HTMLInputElement).value"</span>
 /&gt;</code></pre>
             <p class="code-card__caption">
               <code>as HTMLInputElement</code>가 없으면 <code>pnpm type-check</code>가 막습니다 —
@@ -1484,8 +1483,10 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
 }&gt;()
 
 <span class="c">// template</span>
-&lt;button type=<span class="s">"button"</span> <span class="k">@click</span>=<span class="s">"emit('toggleBookmark', member.id)"</span>&gt;
-  {{ props.isBookmarked ? <span class="s">'★ 즐겨찾기 해제'</span> : <span class="s">'☆ 즐겨찾기'</span> }}
+&lt;button type=<span class="s">"button"</span>
+  <span class="k">@click</span>=<span class="s">"emit('toggleBookmark', member.id)"</span>&gt;
+  {{ props.isBookmarked
+     ? <span class="s">'★ 즐겨찾기 해제'</span> : <span class="s">'☆ 즐겨찾기'</span> }}
 &lt;/button&gt;</code></pre>
           </div>
           <div class="code-card" data-step="2">
@@ -1496,7 +1497,9 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
 <span class="c">// script</span>
 <span class="k">function</span> toggleBookmark(id: <span class="k">number</span>) {
   bookmarked.value = bookmarked.value.includes(id)
-    ? bookmarked.value.filter((bookmarkedId) =&gt; bookmarkedId !== id)
+    ? bookmarked.value.filter(
+        (bookmarkedId) =&gt; bookmarkedId !== id
+      )
     : [...bookmarked.value, id]
 }</code></pre>
           </div>
@@ -1930,12 +1933,366 @@ onMounted(<span class="k">async</span> () =&gt; {
           <strong>7장에서 마지막 조각 — 화면을 넘어 사는 상태</strong> · 즐겨찾기가 아직 목록 화면에만 남아 있습니다
         </p>
       </section>
+
+      <!-- ==================== PART 7 · PINIA ==================== -->
+      <section class="slide" data-slide data-chapter="CH7 · THE PROBLEM">
+        <div class="slide-index">56</div>
+        <p class="eyebrow">CHAPTER 7 · SHARED STATE</p>
+        <h2>즐겨찾기가 <strong>화면을 넘어가면</strong> 사라집니다</h2>
+        <div class="flow">
+          <div class="flow__node" data-step="1"><b>목록에서 ★</b><span><code>bookmarked</code>는<br />목록 컴포넌트의 <code>ref</code></span></div>
+          <i class="flow__arrow" data-step="2" aria-hidden="true">→</i>
+          <div class="flow__node flow__node--gap" data-step="2"><b>상세로 이동</b><span>목록 컴포넌트가<br /><b>사라집니다</b></span></div>
+          <i class="flow__arrow" data-step="3" aria-hidden="true">→</i>
+          <div class="flow__node" data-step="3"><b>상세 화면</b><span>즐겨찾기 상태를<br /><b>알 방법이 없습니다</b></span></div>
+        </div>
+        <div class="note-row">
+          <p data-step="4"><b>props로 내리면?</b><span>둘은 <b>부모·자식이 아닙니다</b> · 라우터가 갈아 끼우는 형제 화면입니다</span></p>
+          <p data-step="5"><b>composable로 빼면?</b><span>각 화면이 <code>useMembers()</code>를 <b>따로</b> 부르듯, 상태도 <b>따로</b> 생깁니다</span></p>
+          <p data-step="6"><b>그래서 스토어</b><span>컴포넌트 트리 <b>바깥</b>에 두고, 누구나 같은 것을 봅니다</span></p>
+        </div>
+        <p class="takeaway" data-step="7">
+          6장에서 <code>useMembers()</code>를 두 화면이 각각 불러 <strong>각자의 상태</strong>를 가졌던 것 — 그게 여기서는 문제가 됩니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH7 · THE STORE">
+        <div class="slide-index">57</div>
+        <p class="eyebrow">DEFINESTORE</p>
+        <h2>스토어는 <code>&lt;script setup&gt;</code>처럼 씁니다</h2>
+        <div class="code-split">
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/stores/bookmark.ts — 앞부분</b></div>
+            <pre><code><span class="k">import</span> { computed, ref } <span class="k">from</span> <span class="s">'vue'</span>
+<span class="k">import</span> { defineStore } <span class="k">from</span> <span class="s">'pinia'</span>
+
+<span class="k">export const</span> useBookmarkStore = defineStore(
+  <span class="s">'bookmark'</span>,
+  () =&gt; {
+    <span class="k">const</span> ids = ref&lt;<span class="k">number</span>[]&gt;([])
+
+    <span class="k">const</span> count = computed(() =&gt; ids.value.length)
+
+    <span class="k">function</span> isBookmarked(id: <span class="k">number</span>) {
+      <span class="k">return</span> ids.value.includes(id)
+    }</code></pre>
+          </div>
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>이어서 — 바꾸고, 돌려주고</b></div>
+            <pre><code>    <span class="k">function</span> toggle(id: <span class="k">number</span>) {
+      ids.value = ids.value.includes(id)
+        ? ids.value.filter(
+            (bookmarkedId) =&gt; bookmarkedId !== id
+          )
+        : [...ids.value, id]
+    }
+
+    <span class="k">return</span> { ids, count, isBookmarked, toggle }
+  },
+)</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b><code>'bookmark'</code></b><span>스토어의 <b>고유 이름</b> — 앱 안에서 겹치면 안 됩니다</span></p>
+          <p data-step="3"><b><code>ref</code> · <code>computed</code></b><span>state와 getter — 4장의 그 둘입니다</span></p>
+          <p data-step="4"><b><code>function</code></b><span>action — 4장의 <code>toggleBookmark</code>가 <b>그대로</b> 왔습니다</span></p>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH7 · THREE PARTS">
+        <div class="slide-index">58</div>
+        <p class="eyebrow">STATE · GETTERS · ACTIONS</p>
+        <h2>이미 아는 것의 다른 이름입니다</h2>
+        <div class="table-grid" role="table" aria-label="스토어의 세 부분과 컴포넌트 대응">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">스토어</span>
+            <span role="columnheader">컴포넌트에서는</span>
+            <span role="columnheader">우리 스토어에서는</span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell">state</strong>
+            <span role="cell"><code>ref</code> / <code>data</code></span>
+            <em role="cell"><code>ids</code> — 즐겨찾기한 <code>id</code> 목록</em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell">getters</strong>
+            <span role="cell"><code>computed</code></span>
+            <em role="cell"><code>count</code> — 몇 명인지</em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell">actions</strong>
+            <span role="cell">메서드</span>
+            <em role="cell"><code>toggle</code>, <code>isBookmarked</code></em>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="4">
+          “You can think of <code>state</code> as the <code>data</code> of the store,
+          <code>getters</code> as the <code>computed</code> properties of the store, and
+          <code>actions</code> as the <code>methods</code>.”
+          <cite>pinia.vuejs.org — Core Concepts</cite>
+        </blockquote>
+        <p class="footnote" data-step="5">
+          Pinia는 두 가지 문법을 지원합니다 — 우리가 쓴 <strong>setup 방식</strong>과, 위 인용문이 설명하는
+          <strong>옵션 방식</strong>(<code>{ state, getters, actions }</code> 객체) ·
+          <code>uniweb</code>에는 <strong>둘 다 있습니다</strong> <span class="ahead">다음 슬라이드</span>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH7 · USING IT">
+        <div class="slide-index">59</div>
+        <p class="eyebrow">WIRING IT UP</p>
+        <h2>두 화면이 <strong>같은 것</strong>을 봅니다</h2>
+        <div class="code-split">
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 발췌</b></div>
+            <pre><code><span class="k">import</span> { useBookmarkStore }
+  <span class="k">from</span> <span class="s">'@/stores/bookmark'</span>
+
+<span class="k">const</span> bookmarks = useBookmarkStore()
+
+<span class="c">// template</span>
+&lt;p&gt;즐겨찾기 {{ bookmarks.count }}명&lt;/p&gt;
+
+&lt;MemberCard
+  <span class="k">:is-bookmarked</span>=<span class="s">"bookmarks.isBookmarked(member.id)"</span>
+  <span class="k">@toggle-bookmark</span>=<span class="s">"bookmarks.toggle"</span>
+  ... /&gt;</code></pre>
+          </div>
+          <div class="code-card code-card--dense" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — 발췌</b></div>
+            <pre><code><span class="k">const</span> bookmarks = useBookmarkStore()
+
+<span class="c">// template</span>
+&lt;button type=<span class="s">"button"</span>
+  <span class="k">@click</span>=<span class="s">"bookmarks.toggle(member.id)"</span>&gt;
+  {{ bookmarks.isBookmarked(member.id)
+     ? <span class="s">'★ 즐겨찾기 해제'</span> : <span class="s">'☆ 즐겨찾기'</span> }}
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        <aside class="instructor-note" data-step="3">
+          <strong>구조 분해하지 마세요</strong>
+          <span>스토어는 <code>reactive</code>로 감싸여 있어 <code>.value</code>가 필요 없는 대신,
+          “like <code>props</code> in <code>setup</code>, <strong>we cannot destructure it</strong>” ·
+          꺼내 쓰려면 <code>storeToRefs()</code>가 필요합니다 — 그래서 우리는 <code>bookmarks.count</code>처럼
+          <strong>점으로</strong> 씁니다 · 정확히는 <strong>액션은 꺼내도 됩니다</strong>(스토어에 묶여 있어서) ·
+          <b>하나로 외우려고</b> 오늘은 전부 점으로 씁니다</span>
+        </aside>
+        <p class="footnote" data-step="4">
+          붙이는 코드는 <strong>3장에서 이미</strong> <code>src/main.ts</code>에 있었습니다 —
+          스캐폴더가 넣어 준 <code>app.use(createPinia())</code> 한 줄입니다 ·
+          <code>uniweb</code>은 플러그인 한 줄을 끼우느라 <strong>세 줄</strong>로 풀어 씁니다 <span class="ahead">61번</span>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH7 · IT WORKS">
+        <div class="slide-index">60</div>
+        <p class="eyebrow">MEASURED, NOT PROMISED</p>
+        <h2>정말로 화면을 넘어 살아남습니다</h2>
+        <div class="pin-grid">
+          <div class="pin-row" data-step="1">
+            <b>목록에서 ★를 누르면</b>
+            <code class="pin-value">즐겨찾기 1명</code>
+            <span>카드에 <code>card--bookmarked</code>가 붙습니다</span>
+          </div>
+          <div class="pin-row" data-step="2">
+            <b>상세 페이지로 이동하면</b>
+            <code class="pin-value">★ 즐겨찾기 해제</code>
+            <span>같은 상태를 <b>이미 알고</b> 있습니다</span>
+          </div>
+          <div class="pin-row" data-step="3">
+            <b>상세에서 해제하고</b>
+            <code class="pin-value">☆ 즐겨찾기</code>
+            <span>버튼이 바로 바뀝니다</span>
+          </div>
+          <div class="pin-row" data-step="4">
+            <b>목록으로 돌아오면</b>
+            <code class="pin-value">즐겨찾기 0명</code>
+            <span>카드의 강조도 <b>함께</b> 풀려 있습니다</span>
+          </div>
+        </div>
+        <p class="takeaway" data-step="5">
+          <strong>어느 화면에서 바꾸든 한 곳이 바뀝니다</strong> · 그게 “컴포넌트 트리 바깥에 둔다”의 실제 의미입니다
+        </p>
+        <p class="footnote" data-step="6">
+          네 줄 모두 리허설에서 브라우저를 직접 조작해 읽은 값입니다 ·
+          다만 <strong>새로고침하면 사라집니다</strong> — 메모리에만 있기 때문입니다 <span class="ahead">다음 슬라이드</span>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH7 · WRAP-UP">
+        <div class="slide-index">61</div>
+        <p class="eyebrow">CHAPTER 7 · WRAP-UP</p>
+        <h2>스토어에 넣을 것과, 넣지 말 것</h2>
+        <div class="rule-grid">
+          <div class="rule-card rule-card--do" data-step="1">
+            <span class="rule-tag">스토어로</span>
+            <h3>화면을 넘어 사는 상태</h3>
+            <p>즐겨찾기, 로그인 사용자, 열려 있는 메뉴 — <strong>여러 화면이 같은 값을 봐야 할 때.</strong></p>
+          </div>
+          <div class="rule-card rule-card--dont" data-step="2">
+            <span class="rule-tag">컴포넌트로</span>
+            <h3>그 화면만 쓰는 상태</h3>
+            <p>검색어, 열림/닫힘, 입력 중인 값 — <strong>스토어에 넣으면 오히려 추적이 어려워집니다.</strong></p>
+          </div>
+        </div>
+        <div class="map-grid">
+          <div class="map-row" data-step="3"><b><code>src/stores/</code></b><i aria-hidden="true">→</i><span><code>src/main/stores/</code> — <code>bookmark.ts</code>, <code>menu.ts</code>, <code>id-card.ts</code>, <code>file-extension.ts</code></span></div>
+          <div class="map-row" data-step="4"><b>문법이 섞여 있습니다</b><i aria-hidden="true">→</i><span><code>bookmark.ts</code>·<code>menu.ts</code>는 <b>옵션 방식</b>, <code>id-card.ts</code>·<code>file-extension.ts</code>는 <b>setup 방식</b> — 둘 다 정상입니다</span></div>
+          <div class="map-row" data-step="5"><b>새로고침 후에도 남는 이유</b><i aria-hidden="true">→</i><span><code>uniweb</code>은 <code>pinia-plugin-persistedstate</code>를 붙입니다 — 오늘은 이름만</span></div>
+        </div>
+        <p class="takeaway" data-step="6">
+          <strong>8장에서 마무리 — 오늘 만든 것을 진짜 저장소에 포갭니다</strong>
+        </p>
+      </section>
+
+      <!-- ================= PART 8 · MAPPING &amp; WRAP-UP ================= -->
+      <section class="slide" data-slide data-chapter="CH8 · THE MAPPING">
+        <div class="slide-index">62</div>
+        <p class="eyebrow">CHAPTER 8 · WHERE IT ALL LANDS</p>
+        <h2>오늘 만든 것과 <code>uniweb</code>을 나란히</h2>
+        <div class="table-grid" role="table" aria-label="member-directory와 uniweb 디렉터리 대응">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">오늘 만든 것</span>
+            <span role="columnheader"><code>uniweb</code></span>
+            <span role="columnheader">담는 것</span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell"><code>src/views/</code></strong>
+            <span role="cell"><code>src/main/views/</code></span>
+            <em role="cell">라우트 하나당 하나</em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell"><code>src/components/</code></strong>
+            <span role="cell"><code>src/main/components/</code></span>
+            <em role="cell">재사용하는 조각</em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell"><code>src/composables/</code></strong>
+            <span role="cell"><code>src/main/composables/</code></span>
+            <em role="cell">상태를 가진 로직</em>
+          </div>
+          <div class="table-row" role="row" data-step="4">
+            <strong role="cell"><code>src/stores/</code></strong>
+            <span role="cell"><code>src/main/stores/</code></span>
+            <em role="cell">Pinia 스토어</em>
+          </div>
+          <div class="table-row" role="row" data-step="5">
+            <strong role="cell"><code>src/api/http.ts</code></strong>
+            <span role="cell"><code>src/main/api/api-client.ts</code></span>
+            <em role="cell">설정된 HTTP 클라이언트 <b>하나</b></em>
+          </div>
+          <div class="table-row" role="row" data-step="6">
+            <strong role="cell"><code>src/router/</code></strong>
+            <span role="cell"><code>src/main/router/</code> + <code>routes/</code></span>
+            <em role="cell">라우트 표</em>
+          </div>
+          <div class="table-row" role="row" data-step="7">
+            <strong role="cell"><code>src/main.ts</code></strong>
+            <span role="cell"><code>src/main.ts</code></span>
+            <em role="cell">진입점 — 만들고, 붙이고, 마운트</em>
+          </div>
+        </div>
+        <p class="takeaway" data-step="8">
+          <code>.vue</code> 451개 중 <strong>324개</strong>가 위 표의 <code>views</code>(279)·<code>components</code>(45)
+          두 칸입니다 · 나머지는 <code>pub-only</code> 124, <code>layouts</code> 2, 루트 <code>App.vue</code> 1 —
+          <strong>낯선 것은 규모지, 구조가 아닙니다</strong>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH8 · NOT TODAY">
+        <div class="slide-index">63</div>
+        <p class="eyebrow">WHAT WE DID NOT BUILD</p>
+        <h2><code>uniweb</code>에 있고 오늘 없던 것</h2>
+        <div class="omit-grid">
+          <div class="omit-item" data-step="1"><b><code>i18n.ts</code> · <code>locales/</code></b><span><code>vue-i18n</code> 다국어 UI</span></div>
+          <div class="omit-item" data-step="1"><b><code>layouts/</code></b><span>여러 화면이 공유하는 바깥 틀</span></div>
+          <div class="omit-item" data-step="2"><b><code>plugins/</code> · <code>constants/</code> · <code>utils/</code></b><span>전역 설정과 공용 함수</span></div>
+          <div class="omit-item" data-step="2"><b><code>src/cartzilla/</code></b><span>구매한 테마의 CSS·JS</span></div>
+          <div class="omit-item" data-step="3"><b><code>src/pub-only/</code></b><span>퍼블리싱용 마크업</span></div>
+          <div class="omit-item" data-step="3"><b><code>src/core/</code></b><span>벤더 제공 코드 — <strong>수정 금지</strong></span></div>
+          <div class="omit-item" data-step="4"><b><code>src/docs/frontend/</code></b><span>저장소 자체 문서 — <strong>먼저 읽으세요</strong></span></div>
+          <div class="omit-item" data-step="4"><b>Bootstrap · Tailwind · Sass<br />VueUse · WebSocket · 앱 브리지</b><span>후속 세션</span></div>
+        </div>
+        <p class="footnote" data-step="5">
+          <code>src/main.ts</code>만 봐도 위의 절반이 <code>import</code>되어 있습니다 ·
+          <strong>지금 다 이해할 필요는 없습니다</strong> — “아직 안 배운 것”의 목록으로 두세요
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH8 · DAILY">
+        <div class="slide-index">64</div>
+        <p class="eyebrow">YOUR DAILY COMMANDS</p>
+        <h2>내일부터 칠 명령</h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb 저장소 안에서</b></div>
+          <pre><code><span class="p">$</span> nvm use          <span class="c"># Node 24.13.0으로 전환</span>
+<span class="p">$</span> pnpm install     <span class="c"># 고정된 pnpm 버전으로 설치</span>
+<span class="p">$</span> pnpm dev         <span class="c"># 개발 서버 · http://localhost:3300</span>
+<span class="p">$</span> pnpm type-check  <span class="c"># vue-tsc, 파일은 만들지 않음</span>
+<span class="p">$</span> pnpm lint        <span class="c"># ESLint --fix</span>
+<span class="p">$</span> pnpm format      <span class="c"># Prettier로 src/ 정리</span>
+<span class="p">$</span> pnpm build-dev   <span class="c"># 타입 검사 + 빌드</span></code></pre>
+        </div>
+        <aside class="instructor-note" data-step="2">
+          <strong>자동 테스트가 없습니다</strong>
+          <span>저장소 자체 규칙 — PR을 올리기 전에 <code>pnpm type-check</code>, <code>pnpm lint</code>,
+          그리고 <strong>바뀐 환경에 맞는 빌드</strong>를 돌리고, 바뀐 화면을 <strong>직접 눌러 보라</strong>고 되어 있습니다</span>
+        </aside>
+        <p class="footnote" data-step="3">
+          목록은 <code>uniweb/AGENTS.md</code>에서 그대로 옮겼습니다 ·
+          <code>pnpm loc</code>·<code>pnpm proc</code>는 각각 로컬·운영 API 설정으로 띄웁니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH8 · CHECKLIST">
+        <div class="slide-index">65</div>
+        <p class="eyebrow">THE WHOLE LECTURE, NINE LINES</p>
+        <h2>막히면 이 표로 돌아오세요</h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>오늘의 요약</b></div>
+          <pre><code>어디에 그리는가?   컴포넌트(.vue) — script setup / template / style
+무엇이 바뀌는가?   반응형 상태 — ref, computed
+어떻게 그리는가?   템플릿 문법 — v-bind, v-if, v-for, v-on, v-model
+어떻게 나누는가?   props 아래로, emit 위로
+어느 페이지인가?   라우터 — routes, RouterLink, RouterView
+로직은 어디에?     composable — use* 함수가 상태와 부수효과를 소유
+데이터는 어디서?   설정된 클라이언트 하나 — 우리는 axios, uniweb은 api-client
+공유 상태는?       Pinia 스토어 — 화면을 넘어 사는 상태만
+확인은 어떻게?     pnpm type-check, pnpm lint, 그리고 직접 눌러보기</code></pre>
+        </div>
+        <p class="takeaway" data-step="2">
+          <strong>Vue는 작았습니다</strong> · 오늘 시간을 가장 많이 쓴 것은 Node·pnpm·TypeScript·Vite였고,
+          그건 여러분이 이미 <strong>통과했습니다</strong>
+        </p>
+      </section>
+
+      <section class="slide slide--cover" data-slide data-chapter="THE END">
+        <div class="cover-kicker" data-step="1">수고하셨습니다</div>
+        <h1 class="cover-title">
+          이제
+          <span>읽을 수 있습니다</span>
+        </h1>
+        <p class="cover-copy" data-step="2">
+          <code>uniweb</code>을 열고 <strong>“이 폴더는 무엇을 담는가”</strong>를 말할 수 있다면 성공입니다
+        </p>
+        <div class="cover-mark" aria-hidden="true">
+          <svg viewBox="0 0 520 400" role="img">
+            <path class="mark-line draw-line" d="M60 80 L260 350 L460 80" />
+            <path class="mark-line mark-line--accent draw-line draw-line--delay" d="M155 80 L260 222 L365 80" />
+            <circle class="mark-node node-pop" cx="60" cy="80" r="9" />
+            <circle class="mark-node node-pop node-pop--2" cx="460" cy="80" r="9" />
+            <circle class="mark-node mark-node--accent node-pop node-pop--3" cx="260" cy="350" r="12" />
+          </svg>
+        </div>
+        <p class="cover-foot">KNUE · DEVELOPER PRACTICE</p>
+      </section>
     </main>
 
     <footer class="deck-controls" aria-label="프레젠테이션 탐색">
       <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
       <button id="previous" type="button" aria-label="이전 단계">←</button>
-      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">56</span></p>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">67</span></p>
       <button id="next" type="button" aria-label="다음 단계">→</button>
       <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
     </footer>

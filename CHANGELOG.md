@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- [done] Vue deck Pinia and uniweb mapping chapters; deck complete at 67 slides (2026-07-28)
+  → docs/vue-lecture-plan.md
 - [done] Vue deck router and composable chapters, with the axios claim corrected (2026-07-28)
   → docs/vue-lecture-plan.md
 - [done] Vue deck core concepts chapter, built and verified as a running app first (2026-07-28)
