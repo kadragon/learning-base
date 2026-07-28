@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- [done] Neutralise the git-basics status mock so it cannot be read as the participant's own state (2026-07-28)
 - [done] Vue deck Pinia and uniweb mapping chapters; deck complete at 67 slides (2026-07-28)
   → docs/vue-lecture-plan.md
 - [done] Vue deck router and composable chapters, with the axios claim corrected (2026-07-28)
