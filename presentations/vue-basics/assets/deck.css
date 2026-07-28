@@ -1432,6 +1432,20 @@ kbd {
 .code-split--wide {
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
 }
+
+/*
+ * A wide data file beside a short type declaration. The JSON rows run to ~110
+ * characters and must not need a horizontal scrollbar on a projector, so give
+ * them most of the width and let the interface take what is left.
+ */
+.data-card .code-card {
+  width: 100%;
+}
+.data-card .code-card pre {
+  padding: clamp(0.7rem, 1.2vw, 1.15rem);
+  font-size: clamp(0.56rem, 0.66vw, 0.78rem);
+  line-height: 1.55;
+}
 .tree-notes {
   display: grid;
   align-content: start;
@@ -1465,6 +1479,17 @@ kbd {
     padding: clamp(0.7rem, 1.4vw, 1.2rem);
     font-size: clamp(0.68rem, 0.88vw, 0.92rem);
     line-height: 1.45;
+  }
+
+  /*
+   * 1366x768 is the narrowest projector this deck targets, and a paired code
+   * card there is only ~600px wide. Code must never need a horizontal
+   * scrollbar on a projector, so drop the paired-card size again below 1440.
+   */
+  @media (max-width: 1440px) {
+    .code-split .code-card pre {
+      font-size: clamp(0.6rem, 0.78vw, 0.82rem);
+    }
   }
 
   .table-row {

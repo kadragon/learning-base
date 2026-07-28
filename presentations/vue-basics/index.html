@@ -89,7 +89,7 @@
 
       <!-- ======================= PART 0 · OPENING ======================= -->
       <section class="slide" data-slide data-chapter="WHAT WE BUILD">
-        <div class="slide-index">1</div>
+        <div class="slide-index">01</div>
         <p class="eyebrow">WHAT WE BUILD</p>
         <h2>오늘 만들 것 — 부서 구성원 디렉터리</h2>
         <div class="build-split">
@@ -140,7 +140,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="DESTINATION">
-        <div class="slide-index">2</div>
+        <div class="slide-index">02</div>
         <p class="eyebrow">THE DESTINATION</p>
         <h2>그리고 진짜 도착지는 <code>uniweb</code>입니다</h2>
         <div class="stat-row">
@@ -165,7 +165,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="TODAY’S MAP">
-        <div class="slide-index">3</div>
+        <div class="slide-index">03</div>
         <p class="eyebrow">CENTRAL MESSAGE</p>
         <h2>Vue는 작습니다. 낯선 건 그 주변입니다</h2>
         <blockquote class="message-quote" data-step="1">
@@ -185,7 +185,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="OUT OF SCOPE">
-        <div class="slide-index">4</div>
+        <div class="slide-index">04</div>
         <p class="eyebrow">OUT OF SCOPE</p>
         <h2>오늘 일부러 다루지 않는 것</h2>
         <div class="omit-grid">
@@ -204,7 +204,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="HOW WE WORK">
-        <div class="slide-index">5</div>
+        <div class="slide-index">05</div>
         <p class="eyebrow">HOW WE WORK</p>
         <h2>보지 말고, 같이 칩니다</h2>
         <div class="card-grid card-grid--3">
@@ -230,7 +230,7 @@
 
       <!-- ======================= PART 1 · TOOLING ======================= -->
       <section class="slide" data-slide data-chapter="CH1 · WHY TOOLING">
-        <div class="slide-index">6</div>
+        <div class="slide-index">06</div>
         <p class="eyebrow">CHAPTER 1 · WHY TOOLING</p>
         <h2>브라우저는 우리가 쓴 코드를 그대로 읽지 못합니다</h2>
         <div class="flow">
@@ -255,7 +255,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="CH1 · NODE">
-        <div class="slide-index">7</div>
+        <div class="slide-index">07</div>
         <p class="eyebrow">THE SECOND RUNTIME</p>
         <h2>그 “어딘가”가 Node.js입니다</h2>
         <div class="card-grid card-grid--2">
@@ -280,7 +280,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="CH1 · TRANSLATION">
-        <div class="slide-index">8</div>
+        <div class="slide-index">08</div>
         <p class="eyebrow">TRANSLATION TABLE</p>
         <h2>새 도구가 아니라, 이미 아는 것의 다른 이름</h2>
         <div class="table-grid" role="table" aria-label="프론트엔드 도구와 익숙한 대응물">
@@ -326,7 +326,7 @@
       </section>
 
       <section class="slide" data-slide data-chapter="CH1 · MANIFEST">
-        <div class="slide-index">9</div>
+        <div class="slide-index">09</div>
         <p class="eyebrow">THE MANIFEST</p>
         <h2><code>package.json</code> — 프로젝트의 명세서</h2>
         <div class="code-card" data-step="1">
@@ -1156,43 +1156,25 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         <div class="slide-index">33</div>
         <p class="eyebrow">BEFORE WE WRITE A COMPONENT</p>
         <h2>먼저 <strong>보여 줄 데이터</strong>를 만듭니다</h2>
-        <div class="code-split">
+        <div class="data-card">
           <div class="code-card" data-step="1">
-            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>public/members.json — 6명 중 2명만</b></div>
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>public/members.json — 전부</b></div>
             <pre><code>[
-  {
-    <span class="k">"id"</span>: 1,
-    <span class="k">"name"</span>: <span class="s">"강동욱"</span>,
-    <span class="k">"role"</span>: <span class="s">"개발"</span>,
-    <span class="k">"team"</span>: <span class="s">"정보화본부"</span>,
-    <span class="k">"email"</span>: <span class="s">"kadragon@knue.ac.kr"</span>
-  },
-  {
-    <span class="k">"id"</span>: 4,
-    <span class="k">"name"</span>: <span class="s">"박지호"</span>,
-    <span class="k">"role"</span>: <span class="s">"개발"</span>,
-    <span class="k">"team"</span>: <span class="s">"학사지원본부"</span>
-  }
+  { <span class="k">"id"</span>: 1, <span class="k">"name"</span>: <span class="s">"강동욱"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"kadragon@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 2, <span class="k">"name"</span>: <span class="s">"김서준"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"seojun@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 3, <span class="k">"name"</span>: <span class="s">"이하은"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"haeun@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 4, <span class="k">"name"</span>: <span class="s">"박지호"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"학사지원본부"</span> },
+  { <span class="k">"id"</span>: 5, <span class="k">"name"</span>: <span class="s">"최유진"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"학사지원본부"</span>, <span class="k">"email"</span>: <span class="s">"yujin@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 6, <span class="k">"name"</span>: <span class="s">"정민서"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"대외협력본부"</span>, <span class="k">"email"</span>: <span class="s">"minseo@knue.ac.kr"</span> }
 ]</code></pre>
-          </div>
-          <div class="code-card" data-step="2">
-            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/types/member.ts</b></div>
-            <pre><code><span class="k">export interface</span> Member {
-  id: <span class="k">number</span>
-  name: <span class="k">string</span>
-  role: <span class="s">'개발'</span> | <span class="s">'기획'</span> | <span class="s">'운영'</span>
-  team: <span class="k">string</span>
-  email?: <span class="k">string</span>
-}</code></pre>
-            <p class="code-card__caption">19번 슬라이드에서 본 그 <code>interface</code>입니다 — 이제 진짜 파일로 만듭니다</p>
           </div>
         </div>
         <div class="note-row">
-          <p data-step="3"><b><code>public/</code>에 둡니다</b><span>3장에서 본 그 폴더 — 빌드가 건드리지 않고 그대로 복사합니다</span></p>
-          <p data-step="4"><b>박지호는 <code>email</code>이 없습니다</b><span>일부러입니다 · <code>email?</code>의 <code>?</code>가 여기서 값을 합니다</span></p>
-          <p data-step="5"><b>서버는 없습니다</b><span>개발 서버가 정적 파일로 내어 줍니다 — <b>6장</b>에서 진짜 API로 바꿉니다</span></p>
+          <p data-step="2"><b>타입도 파일로</b><span>19번 슬라이드의 <code>Member</code>를 <code>src/types/member.ts</code>에 그대로 저장하세요</span></p>
+          <p data-step="3"><b>박지호는 <code>email</code>이 없습니다</b><span>일부러입니다 · <code>email?</code>의 <code>?</code>가 여기서 값을 합니다</span></p>
+          <p data-step="4"><b>서버는 없습니다</b><span><code>public/</code>은 3장에서 본 그 폴더 — 개발 서버가 정적 파일로 내어 줍니다 · <b>6장</b>에서 진짜 API로</span></p>
         </div>
-        <p class="footnote" data-step="6">
+        <p class="footnote" data-step="5">
           지금 만들어 두세요 · 이 파일이 없으면 뒤에서 목록이 <strong>계속 비어 있습니다</strong> ·
           이름은 아무거나 좋지만, <code>id</code>는 <strong>겹치지 않게</strong> 하세요
         </p>
@@ -1272,13 +1254,16 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
         <div class="code-split">
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>script 안 — <code>.value</code>가 필요합니다</b></div>
-            <pre><code><span class="k">import</span> { ref } <span class="k">from</span> <span class="s">'vue'</span>
+            <pre><code><span class="k">import</span> { computed, onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
 
-<span class="k">const</span> keyword = ref(<span class="s">''</span>)
+<span class="c">// MemberListView.vue가 가진 상태 전부</span>
 <span class="k">const</span> members = ref&lt;Member[]&gt;([])
+<span class="k">const</span> keyword = ref(<span class="s">''</span>)
+<span class="k">const</span> bookmarked = ref&lt;<span class="k">number</span>[]&gt;([])
 
 keyword.value = <span class="s">'학사'</span>   <span class="c">// ✅</span>
 keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const에 재할당</span></code></pre>
+            <p class="code-card__caption">이 세 줄이 이 화면의 전부입니다 — 뒤에 나오는 코드는 모두 이 셋을 씁니다</p>
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>template 안 — <code>.value</code>를 쓰지 않습니다</b></div>
@@ -1320,9 +1305,10 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         <div class="code-card code-card--slim" data-step="3">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 검색 결과는 계산된 값입니다</b></div>
           <pre><code><span class="k">const</span> visibleMembers = computed(() =&gt;
-  members.value.filter(
-    (member) =&gt; member.name.includes(keyword.value) || member.team.includes(keyword.value),
-  ),
+  members.value.filter((member) =&gt; {
+    <span class="k">const</span> query = keyword.value
+    <span class="k">return</span> member.name.includes(query) || member.team.includes(query)
+  }),
 )</code></pre>
         </div>
         <p class="footnote" data-step="4">
@@ -1360,13 +1346,13 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           <div class="table-row" role="row" data-step="4">
             <strong role="cell"><code>v-if</code> / <code>v-for</code></strong>
             <span role="cell">그릴지 말지 · 몇 번 그릴지</span>
-            <em role="cell"><code>v-if="member.email"</code> · <code>v-else</code> · <code>v-for="m in list"</code></em>
+            <em role="cell"><code>v-if</code> · <code>v-else-if</code> · <code>v-else</code> · <code>v-for="m in list"</code></em>
           </div>
         </div>
         <div class="note-row">
           <p data-step="5"><b><code>:</code>가 없으면 그냥 글자</b><span><code>member="member"</code>는 <b>문자열</b>, <code>:member="member"</code>는 <b>변수</b></span></p>
           <p data-step="6"><b>수식어는 점 뒤에</b><span><code>@submit.prevent</code>는 기본 동작을 막고, <code>@click.once</code>는 한 번만</span></p>
-          <p data-step="7"><b><code>class</code>·<code>style</code>도 바인딩</b><span><code>:class="{ 'card--bookmarked': props.isBookmarked }"</code> — 참이면 붙습니다 · <code>:style</code>도 같은 객체 형태</span></p>
+          <p data-step="7"><b><code>class</code>·<code>style</code>도 바인딩</b><span><code>:class="{ 'card--bookmarked': props.isBookmarked }"</code> — 참이면 붙습니다 · 배열 <code>:class="[a, b]"</code>도 되고, <code>:style</code>도 같은 두 형태</span></p>
         </div>
       </section>
 
@@ -1398,7 +1384,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
         </blockquote>
         <div class="note-row">
           <p data-step="3"><b><code>:key</code>는 <b>id</b>로</b><span>배열 인덱스를 쓰면 순서가 바뀔 때 엉뚱한 항목이 재사용됩니다</span></p>
-          <p data-step="4"><b><code>v-else</code>는 바로 옆에</b><span><code>MemberCard</code>는 <code>v-if="member.email"</code> 다음 줄에 <code>&lt;p v-else&gt;이메일 미등록&lt;/p&gt;</code>을 둡니다</span></p>
+          <p data-step="4"><b><code>v-else</code>는 바로 옆에</b><span><code>MemberCard</code>는 <code>v-if="member.email"</code> 다음 줄에 <code>&lt;p v-else class="card__muted"&gt;이메일 미등록&lt;/p&gt;</code></span></p>
           <p data-step="5"><b>거르는 건 <code>computed</code>가</b><span>공식 스타일 가이드 “Never use <code>v-if</code> on the same element as <code>v-for</code>” — 그래서 <code>visibleMembers</code>가 미리 걸러 둡니다</span></p>
         </div>
       </section>
@@ -1442,7 +1428,9 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
           <ul class="build-list">
             <li data-step="4"><b>양방향입니다</b><span>사람이 타이핑하면 값이 바뀌고, 값이 바뀌면 입력창도 바뀝니다</span></li>
             <li data-step="5"><b>목록은 건드리지 않았습니다</b><span><code>keyword</code>만 바꿨는데 <code>computed</code>가 따라 계산되고 <code>v-for</code>가 다시 그립니다</span></li>
-            <li data-step="6"><b>체크박스·셀렉트도 같습니다</b><span>같은 <code>v-model</code>이 각 입력 종류에 맞게 동작합니다</span></li>
+            <li data-step="6"><b>체크박스·셀렉트도 같습니다</b><span>묶이는 값의 <b>타입만</b> 달라집니다 —
+              <code>&lt;input type="checkbox" v-model="onlyDev"&gt;</code>는 <code>boolean</code>,
+              <code>&lt;select v-model="team"&gt;</code>는 고른 <code>&lt;option&gt;</code>의 값</span></li>
           </ul>
         </div>
       </section>
