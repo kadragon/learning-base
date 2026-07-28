@@ -1754,3 +1754,23 @@ kbd {
     transition-delay: 0.01ms !important;
   }
 }
+
+/*
+ * .code-card sets overflow:hidden, so a block taller or wider than its box is
+ * silently cut with no scrollbar — a presenter cannot reveal it live. Use this
+ * on cards whose real file content will not otherwise fit at 1920x1080.
+ */
+.code-card--dense pre {
+  padding: clamp(0.55rem, 1vw, 0.9rem);
+  font-size: clamp(0.68rem, 0.78vw, 0.86rem);
+  line-height: 1.42;
+}
+.code-split .code-card--dense pre {
+  font-size: clamp(0.68rem, 0.74vw, 0.82rem);
+}
+.code-card--dense .code-card__bar {
+  padding: 0.4rem 0.8rem;
+}
+.code-card--dense .code-card__caption {
+  padding: 0.35rem 0.8rem 0.5rem;
+}

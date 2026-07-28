@@ -1562,12 +1562,380 @@ onMounted(<span class="k">async</span> () =&gt; {
           <strong>5분 쉬고, 5장에서 화면을 나눕니다</strong> · 카드를 누르면 주소가 바뀌는 상세 페이지를 붙입니다
         </p>
       </section>
+
+      <!-- ==================== PART 5 · ROUTER ==================== -->
+      <section class="slide" data-slide data-chapter="CH5 · THE SPA IDEA">
+        <div class="slide-index">45</div>
+        <p class="eyebrow">CHAPTER 5 · PAGES</p>
+        <h2>문서는 <strong>한 장</strong>뿐입니다</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card" data-step="1">
+            <h3>익숙한 방식</h3>
+            <p>링크를 누르면 <strong>서버에 새 HTML을 요청</strong>하고, 화면이 통째로 다시 그려집니다.</p>
+            <p class="range-use">주소 하나 = 파일 하나</p>
+          </div>
+          <div class="card card--accent" data-step="2">
+            <h3>단일 페이지 앱(SPA)</h3>
+            <p>3장에서 본 <code>index.html</code> <strong>한 장</strong>만 받고, 그 뒤로는 JavaScript가 화면을 갈아 끼웁니다.</p>
+            <p class="range-use">주소가 바뀌어도 <strong>새로고침이 없습니다</strong></p>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b>주소는 진짜로 바뀝니다</b><span>뒤로 가기·북마크·새로고침이 모두 동작해야 합니다 — 그걸 라우터가 맡습니다</span></p>
+          <p data-step="4"><b>화면 = 컴포넌트</b><span>4장에서 만든 <code>.vue</code>를 주소에 <b>연결</b>하는 것이 전부입니다</span></p>
+          <p data-step="5"><b>오늘 붙일 것</b><span>목록 <code>/</code> 과 상세 <code>/members/:id</code>, 두 개</span></p>
+        </div>
+        <p class="takeaway" data-step="6">
+          <code>uniweb</code>도 같은 구조입니다 · 화면이 수백 개라도 <strong>HTML 문서는 여전히 한 장</strong>입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH5 · ROUTES">
+        <div class="slide-index">46</div>
+        <p class="eyebrow">THE ROUTE TABLE</p>
+        <h2>주소와 컴포넌트를 짝지어 적습니다</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/router/index.ts — 바깥쪽</b></div>
+            <pre><code><span class="k">import</span> { createRouter, createWebHistory }
+  <span class="k">from</span> <span class="s">'vue-router'</span>
+<span class="k">import</span> MemberListView
+  <span class="k">from</span> <span class="s">'@/views/MemberListView.vue'</span>
+
+<span class="k">const</span> router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [ <span class="c">/* 오른쪽 */</span> ],
+})
+
+<span class="k">export default</span> router</code></pre>
+          </div>
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — <code>routes</code> 배열</b></div>
+            <pre><code>{ path: <span class="s">'/'</span>, name: <span class="s">'members'</span>,
+  component: MemberListView },
+{
+  path: <span class="s">'/members/:id'</span>,
+  name: <span class="s">'member-detail'</span>,
+  component: () =&gt;
+    <span class="k">import</span>(<span class="s">'@/views/MemberDetailView.vue'</span>),
+},</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b><code>:id</code>는 자리표시자</b><span><code>/members/1</code>도 <code>/members/4</code>도 이 라우트에 걸립니다</span></p>
+          <p data-step="3"><b><code>name</code>은 별명</b><span>주소를 직접 쓰는 대신 이름으로 이동할 수 있습니다</span></p>
+          <p data-step="4"><b>두 번째는 <code>() =&gt; import(...)</code></b><span><b>지연 로딩</b> — 그 페이지에 갈 때 비로소 받습니다</span></p>
+        </div>
+        <p class="footnote" data-step="5">
+          두 카드는 <strong>한 파일</strong>입니다 — 오른쪽 배열이 왼쪽 <code>routes:</code> 자리에 들어갑니다 ·
+          투영 폭에 맞추려고 <code>import</code>와 <code>component:</code> 줄을 접었습니다 ·
+          <code>createWebHistory</code>는 <code>#</code> 없는 보통 주소를 쓰겠다는 뜻이고, 그러려면 배포 서버가
+          “모르는 주소는 <code>index.html</code>로” 응답해야 합니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH5 · LINKS">
+        <div class="slide-index">47</div>
+        <p class="eyebrow">ROUTERLINK &amp; ROUTERVIEW</p>
+        <h2><code>&lt;a&gt;</code> 대신 <code>&lt;RouterLink&gt;</code>, 자리에는 <code>&lt;RouterView&gt;</code></h2>
+        <div class="code-split">
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 발췌 · 카드를 링크로</b></div>
+            <pre><code><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
+
+<span class="c">// template</span>
+&lt;RouterLink <span class="k">:to</span>=<span class="s">"`/members/${member.id}`"</span>&gt;
+  {{ member.name }}
+&lt;/RouterLink&gt;</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>App.vue — 화면이 끼워지는 자리</b></div>
+            <pre><code>&lt;script setup lang=<span class="s">"ts"</span>&gt;
+<span class="k">import</span> { RouterView } <span class="k">from</span> <span class="s">'vue-router'</span>
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;RouterView /&gt;
+&lt;/template&gt;</code></pre>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “Instead of using regular <code>&lt;a&gt;</code> tags, we use the custom component
+          <code>RouterLink</code> to create links.” ·
+          “The <code>RouterView</code> component tells Vue Router where to render the current route component.”
+          <cite>router.vuejs.org — Getting Started</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          <code>&lt;a href&gt;</code>를 쓰면 <strong>페이지가 통째로 새로 뜹니다</strong> ·
+          앱이 들고 있던 상태가 전부 날아가므로, 앱 안에서는 반드시 <code>RouterLink</code>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH5 · PARAMS">
+        <div class="slide-index">48</div>
+        <p class="eyebrow">ROUTE PARAMS</p>
+        <h2>주소에 담긴 값을 읽습니다 — <code>useRoute()</code></h2>
+        <div class="code-split">
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — script</b></div>
+            <pre><code><span class="k">import</span> { computed } <span class="k">from</span> <span class="s">'vue'</span>
+<span class="k">import</span> { RouterLink, useRoute } <span class="k">from</span> <span class="s">'vue-router'</span>
+<span class="k">import</span> { useMembers }
+  <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
+
+<span class="k">const</span> route = useRoute()
+<span class="k">const</span> { members, isLoading, error } = useMembers()
+
+<span class="k">const</span> member = computed(() =&gt; {
+  <span class="k">const</span> id = <span class="k">Number</span>(route.params.id)
+  <span class="k">return</span> members.value.find(
+    (candidate) =&gt; candidate.id === id,
+  )
+})</code></pre>
+            <p class="code-card__caption"><code>useMembers()</code>는 <strong>6장</strong>에서 만듭니다 — 지금은 “목록을 준다”로 두세요</p>
+          </div>
+          <div class="code-card code-card--dense" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — template</b></div>
+            <pre><code>&lt;RouterLink to=<span class="s">"/"</span>&gt;← 목록으로&lt;/RouterLink&gt;
+
+&lt;p <span class="k">v-if</span>=<span class="s">"isLoading"</span>&gt;불러오는 중…&lt;/p&gt;
+&lt;p <span class="k">v-else-if</span>=<span class="s">"error"</span>&gt;{{ error }}&lt;/p&gt;
+&lt;template <span class="k">v-else-if</span>=<span class="s">"member"</span>&gt;
+  &lt;h1&gt;{{ member.name }}&lt;/h1&gt;
+  &lt;p&gt;{{ member.role }} · {{ member.team }}&lt;/p&gt;
+  &lt;p&gt;{{ member.email ?? <span class="s">'이메일 미등록'</span> }}&lt;/p&gt;
+&lt;/template&gt;
+&lt;p <span class="k">v-else</span>&gt;
+  {{ route.params.id }}번 구성원을 찾을 수 없습니다.
+&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b><code>route.params.id</code></b><span>라우트에 적은 <code>:id</code>와 <b>이름이 같습니다</b> · 주소에서 온 값은 <b>언제나 문자열</b>이라 <code>Number(...)</code>가 필요합니다</span></p>
+          <p data-step="4"><b>못 찾은 화면도 준비합니다</b><span><code>/members/999</code>로 직접 들어올 수 있습니다</span></p>
+          <p data-step="5"><b>리허설 확인</b><span><code>/members/1</code> → 강동욱 · <code>/members/4</code> → 박지호, 이메일 미등록 · <code>/members/999</code> → <b>“찾을 수 없습니다”</b></span></p>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH5 · WRAP-UP">
+        <div class="slide-index">49</div>
+        <p class="eyebrow">CHAPTER 5 · WRAP-UP</p>
+        <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
+        <div class="map-grid">
+          <div class="map-row" data-step="1"><b><code>src/router/index.ts</code></b><i aria-hidden="true">→</i><span><code>src/main/router/index.ts</code> — 같은 <code>createRouter</code>, 같은 <code>createWebHistory</code></span></div>
+          <div class="map-row" data-step="2"><b><code>routes: [...]</code></b><i aria-hidden="true">→</i><span><code>src/main/router/routes/</code> — <code>knue.ts</code>, <code>admin-routes.ts</code>, <code>pub-only.ts</code>로 <b>쪼개져</b> 있습니다</span></div>
+          <div class="map-row" data-step="3"><b><code>() =&gt; import(...)</code></b><i aria-hidden="true">→</i><span>같은 지연 로딩이 <code>knue.ts</code>에 <b>70곳</b>, <code>pub-only.ts</code>에 <b>74곳</b></span></div>
+          <div class="map-row" data-step="4"><b><code>app.use(router)</code></b><i aria-hidden="true">→</i><span><code>src/main.ts</code> — 3장에서 본 그 진입점, 같은 한 줄</span></div>
+        </div>
+        <p class="takeaway" data-step="5">
+          <strong>화면이 수백 개면 라우트 표도 수백 줄입니다</strong> · 그래서 <code>uniweb</code>은 파일로 나눴을 뿐,
+          한 줄 한 줄은 방금 쓴 것과 <strong>같은 모양</strong>입니다
+        </p>
+        <p class="footnote" data-step="6">
+          지연 로딩 개수는 2026-07-28 체크아웃에서 <code>() =&gt; import(</code>를 센 값입니다 ·
+          <code>uniweb</code>의 <code>router/index.ts</code>는 이 밖에도 네이티브 브리지·인증 같은 것을 다룹니다 — 오늘 범위 밖입니다
+        </p>
+      </section>
+
+      <!-- ================= PART 6 · COMPOSABLES &amp; HTTP ================= -->
+      <section class="slide" data-slide data-chapter="CH6 · THE PROBLEM">
+        <div class="slide-index">50</div>
+        <p class="eyebrow">CHAPTER 6 · COMPOSABLES</p>
+        <h2>같은 데이터를 <strong>두 화면</strong>이 필요로 합니다</h2>
+        <div class="flow">
+          <div class="flow__node" data-step="1">
+            <b>MemberListView</b>
+            <span>목록을 그리려면<br />구성원 배열이 필요</span>
+          </div>
+          <i class="flow__arrow" data-step="2" aria-hidden="true">→</i>
+          <div class="flow__node flow__node--gap" data-step="2">
+            <b>같은 코드</b>
+            <span><code>onMounted</code> + 요청 +<br />로딩·에러 처리</span>
+          </div>
+          <i class="flow__arrow" data-step="3" aria-hidden="true">→</i>
+          <div class="flow__node" data-step="3">
+            <b>MemberDetailView</b>
+            <span>한 명을 찾으려면<br />역시 같은 배열이 필요</span>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="4"><b>복사·붙여넣기는 답이 아닙니다</b><span>고칠 일이 생기면 <b>두 군데</b>를 고쳐야 합니다</span></p>
+          <p data-step="5"><b>컴포넌트로도 안 됩니다</b><span>공유하려는 건 <b>화면이 아니라 로직</b>입니다</span></p>
+          <p data-step="6"><b>그래서 함수로 빼냅니다</b><span>단, <code>ref</code>와 <code>onMounted</code>를 <b>가진 채로</b> — 그게 composable입니다</span></p>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH6 · WHAT IS IT">
+        <div class="slide-index">51</div>
+        <p class="eyebrow">STATEFUL, NOT JUST REUSABLE</p>
+        <h2>유틸 함수와 무엇이 다른가</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card" data-step="1">
+            <h3>유틸 함수</h3>
+            <p>넣으면 바로 답이 나옵니다. <strong>기억하는 것이 없습니다.</strong></p>
+            <p class="range-use">예: 날짜 포맷, 문자열 자르기</p>
+          </div>
+          <div class="card card--accent" data-step="2">
+            <h3>composable</h3>
+            <p><strong>시간에 따라 변하는 상태</strong>를 들고 있습니다 — 로딩 중인지, 실패했는지, 지금 몇 명인지.</p>
+            <p class="card__quote">“a function that leverages Vue's Composition API to encapsulate and reuse stateful logic”</p>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b>이름은 <code>use</code>로 시작</b><span>“It is a convention to name composable functions with camelCase names that start with <code>use</code>.”</span></p>
+          <p data-step="4"><b><code>ref</code>를 담아 돌려줍니다</b><span>구조 분해해도 반응성이 살아 있도록 — 객체째 반응형으로 주면 끊깁니다</span></p>
+          <p data-step="5"><b>부르는 자리가 정해져 있습니다</b><span><code>&lt;script setup&gt;</code>이나 <code>setup()</code> 안에서 <b>동기적으로</b> · 조건문 안에서는 안 됩니다</span></p>
+        </div>
+        <p class="footnote" data-step="6">
+          출처 <code>vuejs.org</code> — Composables · 마지막 규칙의 이유는 4장 <code>onMounted</code>와 같습니다 ·
+          Vue가 <strong>어느 컴포넌트에 붙일지</strong>를 그 순간에 알아야 하기 때문입니다 ·
+          예외 하나 — <code>&lt;script setup&gt;</code>은 “the only place where you can call composables
+          <strong>after</strong> using <code>await</code>”입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH6 · THE CLIENT">
+        <div class="slide-index">52</div>
+        <p class="eyebrow">ONE CONFIGURED CLIENT</p>
+        <h2>요청은 <strong>한 곳에서</strong> 설정합니다</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/api/http.ts — 파일 전부</b></div>
+            <pre><code><span class="k">import</span> axios <span class="k">from</span> <span class="s">'axios'</span>
+
+<span class="k">export const</span> http = axios.create({
+  baseURL: <span class="s">'/'</span>,
+  timeout: 5000,
+})</code></pre>
+            <p class="code-card__caption"><code>pnpm add axios</code>로 먼저 설치합니다 — 1장의 그 명령입니다</p>
+          </div>
+          <div class="tree-notes">
+            <div class="map-grid">
+              <div class="map-row" data-step="2"><b>왜 파일로?</b><i aria-hidden="true">→</i><span>주소·타임아웃·인증 헤더를 <b>한 번만</b> 정하고 어디서나 같은 걸 씁니다</span></div>
+              <div class="map-row" data-step="3"><b>컴포넌트마다 <code>fetch</code>는 왜 아닌가</b><i aria-hidden="true">→</i><span>설정이 화면마다 흩어집니다 · <code>fetch</code>를 똑같이 한 파일로 감싸도 됩니다 — <b>도구가 아니라 “한 곳”이 핵심</b>입니다</span></div>
+              <div class="map-row" data-step="4"><b>바꿀 곳이 한 군데</b><i aria-hidden="true">→</i><span>운영 서버 주소가 바뀌면 <b>이 파일만</b> 고칩니다</span></div>
+            </div>
+          </div>
+        </div>
+        <aside class="instructor-note" data-step="5">
+          <strong><code>uniweb</code>은 axios를 쓰지 않습니다</strong>
+          <span><code>package.json</code>에 <code>axios ^1.13.4</code>가 있지만 <code>src</code> 어디에서도 <code>import</code>하지 않습니다(2026-07-28 확인, 0건) ·
+          <code>api-client.ts</code>는 벤더 <code>@/core</code>의 래퍼입니다 · <strong>옮겨 가는 것은 라이브러리가 아니라 “설정된 클라이언트 하나” 라는 형태</strong>입니다</span>
+        </aside>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH6 · THE COMPOSABLE">
+        <div class="slide-index">53</div>
+        <p class="eyebrow">USEMEMBERS()</p>
+        <h2>상태·요청·에러를 한 함수 안에</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>use-members.ts — 앞부분: 무엇을 들고 있는가</b></div>
+            <pre><code><span class="k">import</span> { onMounted, ref } <span class="k">from</span> <span class="s">'vue'</span>
+<span class="k">import</span> { http } <span class="k">from</span> <span class="s">'@/api/http'</span>
+<span class="k">import type</span> { Member } <span class="k">from</span> <span class="s">'@/types/member'</span>
+
+<span class="k">export function</span> useMembers() {
+  <span class="k">const</span> members = ref&lt;Member[]&gt;([])
+  <span class="k">const</span> isLoading = ref(<span class="k">false</span>)
+  <span class="k">const</span> error = ref&lt;<span class="k">string</span> | <span class="k">null</span>&gt;(<span class="k">null</span>)</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>이어서 — 무엇을 하고, 무엇을 돌려주는가</b></div>
+            <pre><code>  onMounted(<span class="k">async</span> () =&gt; {
+    isLoading.value = <span class="k">true</span>
+    <span class="k">try</span> {
+      <span class="k">const</span> response =
+        <span class="k">await</span> http.get&lt;Member[]&gt;(<span class="s">'/members.json'</span>)
+      members.value = response.data
+    } <span class="k">catch</span> {
+      error.value = <span class="s">'구성원 목록을 불러오지 못했습니다.'</span>
+    } <span class="k">finally</span> {
+      isLoading.value = <span class="k">false</span>
+    }
+  })
+
+  <span class="k">return</span> { members, isLoading, error }
+}</code></pre>
+          </div>
+        </div>
+        <p class="takeaway" data-step="3">
+          4장의 <code>onMounted</code> 블록이 자리를 옮기면서 <strong><code>fetch</code>가 앞 슬라이드의 <code>http</code>로</strong> 바뀌었습니다
+          (<code>response.json()</code> → <code>response.data</code>) · <code>isLoading</code>·<code>error</code>와
+          마지막 <code>return</code> 줄은 <strong>새로 생긴 것</strong>입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH6 · USING IT">
+        <div class="slide-index">54</div>
+        <p class="eyebrow">TWO VIEWS, ONE LINE EACH</p>
+        <h2>쓰는 쪽은 <strong>한 줄</strong>이 됩니다</h2>
+        <div class="code-split">
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 발췌</b></div>
+            <pre><code><span class="k">import</span> { useMembers }
+  <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
+
+<span class="k">const</span> { members, isLoading, error } = useMembers()
+
+<span class="c">// template</span>
+&lt;p <span class="k">v-if</span>=<span class="s">"isLoading"</span>&gt;불러오는 중…&lt;/p&gt;
+&lt;p <span class="k">v-else-if</span>=<span class="s">"error"</span>&gt;{{ error }}&lt;/p&gt;
+&lt;template <span class="k">v-else</span>&gt; … 목록 … &lt;/template&gt;</code></pre>
+          </div>
+          <div class="code-card code-card--dense" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — 발췌</b></div>
+            <pre><code><span class="k">const</span> route = useRoute()
+<span class="k">const</span> { members, isLoading, error } = useMembers()
+
+<span class="k">const</span> member = computed(() =&gt; {
+  <span class="k">const</span> id = <span class="k">Number</span>(route.params.id)
+  <span class="k">return</span> members.value.find(
+    (candidate) =&gt; candidate.id === id,
+  )
+})</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b>구조 분해해도 살아 있습니다</b><span><code>ref</code>를 담은 <b>보통 객체</b>를 돌려주기 때문입니다</span></p>
+          <p data-step="4"><b>로딩·에러도 화면입니다</b><span>4장의 <code>v-if</code>/<code>v-else-if</code>가 <b>여기서</b> 값을 합니다</span></p>
+          <p data-step="5"><b>각자 따로 부릅니다</b><span>두 화면이 각각 <code>useMembers()</code>를 호출하고, <b>각자의 상태</b>를 갖습니다</span></p>
+        </div>
+        <p class="footnote" data-step="6">
+          에러 화면은 리허설에서 실제로 확인했습니다 — 요청 주소를 열려 있지 않은 포트로 바꾸자
+          <strong>“구성원 목록을 불러오지 못했습니다.”</strong>가 떴습니다 ·
+          <code>members.json</code>만 지우면 개발 서버가 <code>index.html</code>을 대신 내주기 때문에 이 분기가 타지 않습니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH6 · WRAP-UP">
+        <div class="slide-index">55</div>
+        <p class="eyebrow">CHAPTER 6 · WRAP-UP</p>
+        <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
+        <div class="map-grid">
+          <div class="map-row" data-step="1"><b><code>src/composables/</code></b><i aria-hidden="true">→</i><span><code>src/main/composables/</code> — <code>use-breakpoint.ts</code>, <code>use-login.ts</code>, <code>use-timetable.ts</code>, <code>use-user-role.ts</code> …</span></div>
+          <div class="map-row" data-step="2"><b>이름 규칙</b><i aria-hidden="true">→</i><span>파일은 kebab-case, 내보내는 함수는 camelCase — 방금 배운 <code>use</code> 규칙 그대로</span></div>
+          <div class="map-row" data-step="3"><b><code>src/api/http.ts</code></b><i aria-hidden="true">→</i><span><code>src/main/api/api-client.ts</code> — <b>같은 자리, 다른 도구</b>(<code>@/core</code> 래퍼)</span></div>
+          <div class="map-row" data-step="4"><b>폴더도 더 나뉩니다</b><i aria-hidden="true">→</i><span><code>common/</code>, <code>forms/</code>, <code>knue/</code>, <code>total-menu/</code> — 도메인별로</span></div>
+        </div>
+        <ol class="recap-list" data-step="5">
+          <li>주소 ↔ 컴포넌트 → <b>라우트 표</b></li>
+          <li><code>&lt;a&gt;</code> 대신 → <b><code>RouterLink</code></b></li>
+          <li>주소의 값은 문자열 → <b><code>Number(...)</code></b></li>
+          <li>상태를 가진 로직 → <b>composable</b></li>
+          <li>요청 설정은 한 곳 → <b>클라이언트 하나</b></li>
+          <li>로딩·에러도 → <b>화면입니다</b></li>
+        </ol>
+        <p class="takeaway" data-step="6">
+          <strong>7장에서 마지막 조각 — 화면을 넘어 사는 상태</strong> · 즐겨찾기가 아직 목록 화면에만 남아 있습니다
+        </p>
+      </section>
     </main>
 
     <footer class="deck-controls" aria-label="프레젠테이션 탐색">
       <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
       <button id="previous" type="button" aria-label="이전 단계">←</button>
-      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">45</span></p>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">56</span></p>
       <button id="next" type="button" aria-label="다음 단계">→</button>
       <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
     </footer>

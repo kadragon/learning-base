@@ -15,9 +15,11 @@ The deck is built one chapter per backlog ticket. As of this file's last update 
 - **Part 2 — TypeScript, only what Vue needs** (slides 17–23).
 - **Part 3 — Creating the project with Vite** (slides 24–32).
 - **Part 4 — Vue core concepts** (slides 33–44).
+- **Part 5 — Pages with Vue Router** (slides 45–49).
+- **Part 6 — Composables and the HTTP client** (slides 50–55).
 
-Parts 5–8 (Router, composables, Pinia, and the `uniweb` mapping chapter) are not in the deck yet.
-They are tracked in `backlog.md`.
+Parts 7–8 (Pinia and the `uniweb` mapping chapter) are not in the deck yet. They are tracked in
+`backlog.md`.
 
 ## Verification Rule
 
@@ -165,6 +167,43 @@ Two claims Part 4 makes about `uniweb`, counted on 2026-07-28 rather than assume
   `:is-mobile-size=` 360, `:model-value=` 276, `:is-loading=` 53 — against `defineProps` blocks
   that declare the camelCase form (`isActive`, and so on). The convention is observed, not stated
   in a style file.
+
+### Router, composables, and the HTTP client — slides 49, 52, and 55
+
+Read on 2026-07-28:
+
+- `src/main/router/` holds `index.ts` and a `routes/` directory containing `admin-routes.ts`,
+  `knue.ts`, and `pub-only.ts`. Slide 49 names all three.
+- Lazy-loaded routes, counted with `grep -c "() => import(" src/main/router/routes/*.ts`:
+  `knue.ts` **70**, `pub-only.ts` **74**, `admin-routes.ts` **0**. Slide 49 quotes the first two.
+- `src/main/router/index.ts` opens with `createRouter` and `createWebHistory` from `vue-router`,
+  the same two imports the lecture's file uses. It also imports native-bridge, auth, and menu-store
+  concerns from `@/core`, which slide 49's footnote names as out of scope rather than showing.
+- `src/main/composables/` holds `use-breakpoint.ts`, `use-file-upload.ts`, `use-login-error.ts`,
+  `use-login.ts`, `use-timetable.ts`, and `use-user-role.ts`, plus `common/`, `forms/`, `knue/`,
+  and `total-menu/` subdirectories. Re-read this session, as `docs/vue-lecture-plan.md` §4.6
+  instructs, rather than copied from the plan.
+
+### `uniweb` does not use axios — slide 52
+
+`docs/vue-lecture-plan.md` originally described `src/main/api/api-client.ts` as "the single
+configured axios client". **That is false, and the plan was corrected in the same change.** Verified
+this session:
+
+- `package.json` declares `axios: ^1.13.4` under `dependencies`.
+- `grep -rn "from ['\"]axios['\"]" src` returns **zero** matches. So does a plain `grep -rl axios
+  src/core`, so the vendor bundle does not pull it in either.
+- `src/main/api/api-client.ts` imports `useAPI` and `useClientAPI` from `@/core` and builds a
+  `request<T>()` that returns a discriminated result:
+  `{ ok: true; data: T; status } | { ok: false; data: null; status; error? }`.
+
+Slide 52 therefore teaches axios as the library the audience will meet everywhere and maps only the
+**pattern** — one configured client, imported everywhere, never a bare `fetch` per component — onto
+`api-client.ts`, stating the discrepancy in an instructor note. Slide 55's mapping row says "같은
+자리, 다른 도구" for the same reason.
+
+Slide 10 (Part 1) still lists `axios` among `uniweb`'s `dependencies`, which is accurate: it is
+declared there. Nothing in Part 1 claims it is imported.
 
 ### Scripts and the dev-server port — slide 32
 
@@ -497,6 +536,101 @@ bookmark button does nothing.
 `card--bookmarked` border change observable) but is not quoted on any slide beyond slide 33's
 skeleton.
 
+## Rehearsal Run — Parts 5 and 6
+
+The same rehearsal project was grown to its chapter-5/6 state on **2026-07-28** before any Part 5 or
+Part 6 slide was written. `axios` was added with `pnpm add axios` and resolved to **1.18.1**.
+
+### What was built
+
+```text
+src/api/http.ts                 the configured axios instance
+src/composables/use-members.ts  useMembers() → { members, isLoading, error }
+src/views/MemberDetailView.vue  the /members/:id page
+src/router/index.ts             '/' plus a lazily-loaded '/members/:id'
+src/components/MemberCard.vue   the name became a RouterLink
+src/views/MemberListView.vue    refactored onto useMembers(), gained loading/error branches
+src/App.vue                     <RouterView />
+```
+
+`HomeView.vue` and `AboutView.vue` — the scaffolder's examples quoted in Part 3 — were deleted at
+this point, which is the swap slide 28's footnote promised.
+
+### Verification
+
+- `pnpm type-check` → `vue-tsc --build`, no output, exit 0.
+- `pnpm build` → `✓ 87 modules transformed`, `✓ built in 141ms`, and crucially a **separate chunk**
+  `dist/assets/MemberDetailView-Cwg_fj3E.js` (0.75 kB) beside `dist/assets/index-B-CPiCkl.js`
+  (136.63 kB). That split is the evidence for slide 46's lazy-loading note — it is what
+  `() => import(...)` produced, not an assertion about what it should produce.
+- Driven in a real browser:
+
+| Checked | Result |
+|---|---|
+| list → card link | `/` renders 6 cards; the first card's link is `href="/members/1"` |
+| navigate to detail | clicking it moves to `/members/1` and renders `강동욱`, `개발 · 정보화본부`, the email |
+| back link | `<RouterLink to="/">` returns to `/` with all 6 cards, no full reload |
+| param → missing field | `/members/4` renders 박지호 with `이메일 미등록` |
+| param → no match | `/members/999` renders `999번 구성원을 찾을 수 없습니다.` and no `<h1>` |
+| error branch | see below |
+
+### The error branch, and a trap worth knowing
+
+Slide 54's footnote records a real finding. **Deleting `public/members.json` does not exercise the
+error path.** Vite's dev server answers the missing path with its SPA fallback — measured
+`status: 200`, `content-type: text/html` — so axios resolves, `members.value` becomes an HTML
+string, and the view breaks in the `computed` instead of rendering `error`.
+
+The branch was verified properly by pointing the client at a port with nothing listening:
+
+```ts
+baseURL: 'http://127.0.0.1:59999/'   // probe only
+```
+
+With that in place the list view rendered exactly `구성원 목록을 불러오지 못했습니다.` and zero
+cards. `http.ts` was restored to `baseURL: '/'` immediately afterwards, and the project re-verified
+— `pnpm type-check` exit 0 and 6 cards rendering.
+
+### What the slides abbreviate
+
+- Slide 46 collapses the `'/'` route onto one line; the file spreads it over three. Its card bar
+  says `— 발췌` and the slide's footnote states the reformatting.
+- Slide 47's left card and slide 54's cards splice a `// template` fragment under a `script`
+  fragment from the same file, with the boundary marked by that comment.
+- Slide 48 shows `MemberDetailView.vue` in two cards — script then template — and between them the
+  file's own blank lines and `<main>` wrapper are dropped. Both cards otherwise match the file,
+  including the three-symbol `vue-router` import an earlier draft had narrowed to `{ useRoute }`.
+- Slide 53 splits `use-members.ts` across two cards at the `onMounted` boundary. Together they are
+  the whole file; neither card omits a line. An earlier draft put the file in one card, where
+  `.code-card`'s `overflow: hidden` silently cut the final
+  `return { members, isLoading, error }` — the line slides 51 and 54 both depend on.
+- Slide 52's `http.ts` is quoted **whole**.
+- Slide 47's `MemberCard.vue` card is a two-fragment splice — the `vue-router` import above a
+  template fragment — and omits the file's `import type { Member } from '@/types/member'`, which
+  slide 41 already showed. Its bar says `— 발췌` for that reason.
+- Slide 53's takeaway names the one substantive change the refactor makes: chapter 4's
+  `fetch('/members.json')` + `response.json()` became `http.get<Member[]>(...)` + `response.data`.
+  An earlier draft said the block moved "통째로" and listed only `isLoading`, `error`, and the
+  `return` line as new, which hid the very swap slide 52 argues for while both slides are visible
+  to the room.
+- Slide 54's list-view template line `<template v-else> … 목록 … </template>` elides the list markup
+  slide 39 already showed; the ellipsis is on the slide.
+
+**Line folding for projector width.** Several Part 5–6 cards break a statement across two lines
+where the file has one, so that no code needs a horizontal scrollbar at 1024×768: slide 47's
+`import` and `component:` lines (stated in that slide's own footnote), and the
+`import { useMembers } from '@/composables/use-members'` line plus the not-found `<p v-else>` on
+slides 49 and 55. Only whitespace differs; no token is added, removed, or reordered. Where the file
+could carry the shorter form instead, it was changed there rather than only on the slide — see the
+next paragraph and `MemberCard.vue`'s `RouterLink`, which now spans three lines in the project too.
+
+`MemberDetailView.vue`'s `member` computed was reformatted in the rehearsal project — the id
+conversion is now its own `const id = Number(route.params.id)` line — so that the quoted block fits
+a half-width card without a horizontal scrollbar. The project was re-type-checked at exit 0 after
+the change, and slides 48 and 54 quote the new form. This is the same trade made for
+`visibleMembers` in Part 4: change the file so the slide can stay exact, rather than reformat only
+on the slide.
+
 ## Primary References
 
 All pages fetched **2026-07-28**.
@@ -660,6 +794,45 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
   - Quoted verbatim on slide 43: "the `onMounted` hook can be used to run code after the component
     has finished the initial rendering and created the DOM nodes" and "This requires these hooks to
     be registered **synchronously** during component setup."
+
+### Vue Router
+
+- [Getting Started — router.vuejs.org](https://router.vuejs.org/guide/)
+  - Quoted verbatim on slide 47: "Instead of using regular `<a>` tags, we use the custom component
+    `RouterLink` to create links." and "The `RouterView` component tells Vue Router where to render
+    the current route component."
+  - An earlier draft welded the first sentence to a later clause — "…to change the URL without
+    reloading the page" — deleting nine words with no ellipsis while `sources.md` called it
+    verbatim. Review caught it. The page's actual continuation is "This allows Vue Router to change
+    the URL without reloading the page, handle URL generation, encoding, and various other
+    features."
+  - Slide 47's takeaway — that a plain `<a href>` throws away the app's state — is the stated
+    consequence of "without reloading the page", phrased as commentary rather than quoted.
+
+### Vue — Composables
+
+- [Composables — vuejs.org](https://vuejs.org/guide/reusability/composables.html)
+  - Quoted verbatim on slide 51: "a function that leverages Vue's Composition API to encapsulate and
+    reuse stateful logic" and "It is a convention to name composable functions with camelCase names
+    that start with \"use\"."
+  - The second sentence had been paraphrased in an earlier draft ("composable function names start
+    with `use` and use camelCase") while still sitting inside quotation marks. That wording is on
+    neither cited page; the page's prose is the sentence now quoted.
+  - Basis for slide 51's third note: "The recommended convention is for composables to always return
+    a plain, non-reactive object containing multiple refs … Returning a reactive object from a
+    composable will cause such destructures to lose the reactivity connection to the state inside
+    the composable, while the refs will retain that connection."
+  - Basis for slide 51's fourth note: "Composables should only be called in `<script setup>` or the
+    `setup()` hook. They should also be called synchronously in these contexts." The slide's stated
+    *reason* — that Vue must know which component instance is active — is the page's own
+    explanation, paraphrased rather than quoted.
+  - **The synchronous rule has a documented exception, and the slide now carries it.** The page
+    states: "`<script setup>` is the only place where you can call composables **after** using
+    `await`. The compiler automatically restores the active instance context for you after the async
+    operation." An earlier draft said flatly that a composable cannot be called after `await`, which
+    would have taught the room to reject valid code. Slide 51's footnote quotes the exception.
+  - The page's stateless/stateful contrast (formatters and lodash functions versus state that
+    changes over time) is the basis for slide 51's two cards.
 
 ### Vite
 

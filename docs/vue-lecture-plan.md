@@ -418,9 +418,17 @@ reading `public/members.json`.
 As read on 2026-07-28, the directory holds `use-breakpoint.ts`, `use-file-upload.ts`,
 `use-login-error.ts`, `use-login.ts`, `use-timetable.ts`, and `use-user-role.ts`, plus the
 `common/`, `forms/`, `knue/`, and `total-menu/` subdirectories. Re-read the directory when
-authoring the slide rather than copying this list — it grows. Then `src/main/api/api-client.ts` as the
-single configured axios client, and note that `uniweb` names TypeScript files in kebab-case while
-naming the exported function in camelCase.
+authoring the slide rather than copying this list — it grows. Note that `uniweb` names TypeScript
+files in kebab-case while naming the exported function in camelCase.
+
+**Correction, verified 2026-07-28: `uniweb` does not use axios.** `axios ^1.13.4` is declared in
+`package.json`, but `grep -rn "from 'axios'" src` returns **zero** matches — including the vendor
+`src/core/`. `src/main/api/api-client.ts` wraps `useAPI` / `useClientAPI` imported from `@/core`
+and exposes a `request<T>()` returning a discriminated `ApiResult<T>`
+(`{ ok: true; data; status } | { ok: false; data: null; status; error? }`). Teach axios as the
+common choice the audience will meet everywhere, and map the *pattern* — one configured client,
+imported everywhere, never a bare `fetch` per component — onto `api-client.ts`. Do not tell the
+room that `api-client.ts` is an axios instance.
 
 ### 4.7 Shared state with Pinia (10 minutes)
 
@@ -466,7 +474,7 @@ Put the project just built beside the real repository, side by side:
 | `src/components/` | `src/main/components/` | Reusable pieces |
 | `src/composables/` | `src/main/composables/` | Reusable stateful logic |
 | `src/stores/` | `src/main/stores/` | Pinia stores |
-| `src/api/` | `src/main/api/api-client.ts` | The configured HTTP client |
+| `src/api/` | `src/main/api/api-client.ts` | The configured HTTP client (a `@/core` wrapper, not axios) |
 | `src/router/` | `src/main/router/` (`index.ts` + `routes/`) | Route table |
 | `src/main.ts` | `src/main.ts` | Entry point: create, register plugins, mount |
 
@@ -510,7 +518,7 @@ exercise the changed routes by hand.
 어떻게 나누는가?   props 아래로, emit 위로
 어느 페이지인가?   라우터 — routes, RouterLink, RouterView
 로직은 어디에?     composable — use* 함수가 상태와 부수효과를 소유
-데이터는 어디서?   api-client — 설정된 axios 인스턴스 하나
+데이터는 어디서?   설정된 클라이언트 하나 — 우리는 axios, uniweb은 api-client
 공유 상태는?       Pinia 스토어 — 화면을 넘어 사는 상태만
 확인은 어떻게?     pnpm type-check, pnpm lint, 그리고 직접 눌러보기
 ```
@@ -613,7 +621,7 @@ Two deliberate departures from all four:
 1. **Tooling comes first.** Every surveyed course starts at Vue and assumes Node is present. This
    audience does not have that assumption, so chapters 1 to 3 precede any Vue content.
 2. **Router, composables, and Pinia are included.** Beginner courses defer them. This audience
-   needs them, because `uniweb` depends on `vue-router`, `pinia`, and `axios`, and its
+   needs them, because `uniweb` depends on `vue-router` and `pinia` (and declares `axios`), and its
    `src/main/composables/` directory is one of the first places a maintainer will land.
 
 ## 8. Deferred Topics
