@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="다른 스택 경험자를 위한 Vue 입문 강의 — 프론트엔드 생태계(Node·pnpm)부터 uniweb까지"
+    />
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+    <title>Vue, 생태계부터 프레임워크까지</title>
+    <link
+      rel="preload"
+      href="../../assets/fonts/pretendard/1.3.9/PretendardVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../../assets/fonts/fraunces/1.0/FrauncesVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../../assets/fonts/jetendard/0.1.0/Jetendard-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../../assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="./assets/deck.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#deck">슬라이드 본문으로 이동</a>
+
+    <svg class="icon-defs" aria-hidden="true" focusable="false">
+      <symbol id="ic-search" viewBox="0 0 24 24">
+        <circle cx="10.4" cy="10.4" r="6.2" />
+        <path d="m15.1 15.1 5.3 5.3" />
+      </symbol>
+      <symbol id="ic-star" viewBox="0 0 24 24">
+        <path d="m12 4 2.5 5.1 5.6.8-4 3.9 1 5.6-5.1-2.7-5.1 2.7 1-5.6-4-3.9 5.6-.8z" />
+      </symbol>
+    </svg>
+
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient__ring ambient__ring--one"></span>
+      <span class="ambient__ring ambient__ring--two"></span>
+      <span class="ambient__grain"></span>
+    </div>
+
+    <header class="deck-header">
+      <div class="deck-header__brand">
+        <span class="brand-mark" aria-hidden="true">▼</span>
+        <span>VUE / FIELD NOTES</span>
+      </div>
+      <div class="deck-header__chapter" id="chapter-label">OPENING</div>
+    </header>
+
+    <main id="deck" class="deck" tabindex="-1" aria-live="polite">
+      <!-- ============================ COVER ============================ -->
+      <section class="slide slide--cover is-active" data-slide data-chapter="OPENING">
+        <div class="cover-kicker" data-step="1">다른 스택 경험자를 위한 180분</div>
+        <h1 class="cover-title">
+          Vue,
+          <span>생태계부터</span>
+          프레임워크까지
+        </h1>
+        <p class="cover-copy" data-step="2">
+          <strong>Node → pnpm → TypeScript → Vite</strong>를 먼저 세우고, 그 위에 Vue를 올린 뒤,
+          우리가 맡을 <strong>uniweb</strong>에 그대로 포갭니다
+        </p>
+        <div class="cover-mark" aria-hidden="true">
+          <svg viewBox="0 0 520 400" role="img">
+            <path class="mark-line draw-line" d="M60 80 L260 350 L460 80" />
+            <path class="mark-line mark-line--accent draw-line draw-line--delay" d="M155 80 L260 222 L365 80" />
+            <path class="mark-line mark-line--faint draw-line draw-line--delay-2" d="M60 80 L155 80" />
+            <path class="mark-line mark-line--faint draw-line draw-line--delay-2" d="M365 80 L460 80" />
+            <circle class="mark-node node-pop" cx="60" cy="80" r="9" />
+            <circle class="mark-node node-pop node-pop--2" cx="460" cy="80" r="9" />
+            <circle class="mark-node mark-node--accent node-pop node-pop--3" cx="260" cy="350" r="12" />
+          </svg>
+        </div>
+        <p class="cover-foot">KNUE · DEVELOPER PRACTICE</p>
+      </section>
+
+      <!-- ======================= PART 0 · OPENING ======================= -->
+      <section class="slide" data-slide data-chapter="WHAT WE BUILD">
+        <div class="slide-index">01</div>
+        <p class="eyebrow">WHAT WE BUILD</p>
+        <h2>오늘 만들 것 — 부서 구성원 디렉터리</h2>
+        <div class="build-split">
+          <div class="app-window" data-step="1">
+            <div class="app-window__bar">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <b>member-directory · localhost</b>
+            </div>
+            <div class="app-window__body">
+              <div class="mock-search" data-step="2">
+                <svg class="ic" aria-hidden="true"><use href="#ic-search" /></svg>
+                <span>이름 · 팀으로 검색</span>
+              </div>
+              <div class="mock-grid">
+                <div class="mock-card is-bookmarked" data-step="3">
+                  <strong>강동욱</strong>
+                  <small>개발 · 정보화본부</small>
+                  <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
+                </div>
+                <div class="mock-card" data-step="3">
+                  <strong>구성원 B</strong>
+                  <small>기획 · 정보화본부</small>
+                  <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
+                </div>
+                <div class="mock-card" data-step="4">
+                  <strong>구성원 C</strong>
+                  <small>운영 · 정보화본부</small>
+                  <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
+                </div>
+                <div class="mock-card" data-step="4">
+                  <strong>구성원 D</strong>
+                  <small>개발 · 정보화본부</small>
+                  <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="build-list">
+            <li data-step="2"><b>검색창</b><span>입력한 글자로 목록이 즉시 줄어듭니다 — <code>v-model</code></span></li>
+            <li data-step="3"><b>구성원 카드</b><span>같은 모양을 반복해 그립니다 — <code>v-for</code>, props</span></li>
+            <li data-step="4"><b>즐겨찾기</b><span>화면을 넘어가도 유지됩니다 — Pinia</span></li>
+            <li data-step="5"><b>상세 페이지</b><span>카드를 누르면 주소가 바뀝니다 — Vue Router</span></li>
+          </ul>
+        </div>
+        <p class="simplification" data-step="6">
+          위 그림은 <strong>개념도</strong>입니다. 실제 실행 화면은 3장에서 여러분 노트북에 직접 띄웁니다.
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="DESTINATION">
+        <div class="slide-index">02</div>
+        <p class="eyebrow">THE DESTINATION</p>
+        <h2>그리고 진짜 도착지는 <code>uniweb</code>입니다</h2>
+        <div class="stat-row">
+          <div class="stat" data-step="1"><b>451</b><span><code>.vue</code> 파일</span></div>
+          <div class="stat" data-step="2"><b>499</b><span><code>.ts</code> 파일</span></div>
+          <div class="stat" data-step="3"><b>14</b><span><code>src/main/</code> 항목</span></div>
+        </div>
+        <div class="chip-row" data-step="4" aria-label="uniweb src/main 디렉터리 목록">
+          <span class="chip">api</span><span class="chip">assets</span><span class="chip">components</span>
+          <span class="chip">composables</span><span class="chip">constants</span><span class="chip">i18n.ts</span>
+          <span class="chip">layouts</span><span class="chip">locales</span><span class="chip">plugins</span>
+          <span class="chip">router</span><span class="chip">stores</span><span class="chip">types</span>
+          <span class="chip">utils</span><span class="chip">views</span>
+        </div>
+        <p class="takeaway" data-step="5">
+          <strong>오늘 이 저장소를 이해할 필요는 없습니다</strong> · 마지막 장에서 “어느 폴더가 무엇을 담는가”를
+          말할 수 있으면 성공입니다
+        </p>
+        <p class="footnote" data-step="6">
+          숫자는 2026-07-28 <code>uniweb</code> 체크아웃에서 직접 센 값입니다 · 출처는 <code>sources.md</code>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="TODAY’S MAP">
+        <div class="slide-index">03</div>
+        <p class="eyebrow">CENTRAL MESSAGE</p>
+        <h2>Vue는 작습니다. 낯선 건 그 주변입니다</h2>
+        <blockquote class="message-quote" data-step="1">
+          그래서 순서를 뒤집습니다 — <strong>생태계를 먼저 설치하고</strong>, 그 다음 프레임워크,
+          마지막에 <strong>여러분이 맡을 저장소</strong>에 포갭니다.
+        </blockquote>
+        <div class="roadmap" aria-label="오늘의 8개 챕터">
+          <div class="roadmap__item is-now" data-step="2"><span>0–1</span><strong>도구</strong><small>Node · 레지스트리 · pnpm</small><i>35분</i></div>
+          <div class="roadmap__item" data-step="3"><span>2–3</span><strong>준비</strong><small>TypeScript · 프로젝트 생성</small><i>40분</i></div>
+          <div class="roadmap__item" data-step="4"><span>4</span><strong>Vue 핵심</strong><small>SFC · 반응형 · 템플릿</small><i>45분</i></div>
+          <div class="roadmap__item" data-step="5"><span>5–7</span><strong>구조</strong><small>라우터 · composable · Pinia</small><i>40분</i></div>
+          <div class="roadmap__item" data-step="6"><span>8</span><strong>uniweb</strong><small>실제 저장소에 대응</small><i>10분</i></div>
+        </div>
+        <p class="takeaway" data-step="7">
+          <strong>1–3장은 Vue가 아닙니다</strong> · Vue를 켜기 위해 반드시 통과해야 하는 관문입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="OUT OF SCOPE">
+        <div class="slide-index">04</div>
+        <p class="eyebrow">OUT OF SCOPE</p>
+        <h2>오늘 일부러 다루지 않는 것</h2>
+        <div class="omit-grid">
+          <div class="omit-item" data-step="1"><b>Options API · Vue 2</b><span>오래된 자료에 나옵니다. <code>uniweb</code>은 쓰지 않습니다</span></div>
+          <div class="omit-item" data-step="1"><b><code>watch</code> · <code>provide</code>/<code>inject</code> · 슬롯</b><span>이름만 압니다</span></div>
+          <div class="omit-item" data-step="2"><b>테스트 (Vitest)</b><span>후속 세션</span></div>
+          <div class="omit-item" data-step="2"><b><code>vue-i18n</code> 다국어</b><span>후속 세션</span></div>
+          <div class="omit-item" data-step="3"><b>Bootstrap · Tailwind · Sass</b><span><code>uniweb</code>에 있지만 오늘은 건너뜁니다</span></div>
+          <div class="omit-item" data-step="3"><b>WebSocket · 네이티브 브리지</b><span>후속 세션</span></div>
+          <div class="omit-item" data-step="4"><b>SSR · Nuxt</b><span>다른 주제입니다</span></div>
+          <div class="omit-item" data-step="4"><b><code>@/core</code> 내부</b><span>벤더 제공 코드 — 수정 금지</span></div>
+        </div>
+        <p class="footnote" data-step="5">
+          이름만 들어두면 충분합니다 · 나중에 마주쳐도 <strong>“모르는 것”이 아니라 “아직 안 배운 것”</strong>이 됩니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="HOW WE WORK">
+        <div class="slide-index">05</div>
+        <p class="eyebrow">HOW WE WORK</p>
+        <h2>보지 말고, 같이 칩니다</h2>
+        <div class="card-grid card-grid--3">
+          <div class="card" data-step="1">
+            <h3>버리는 프로젝트에서</h3>
+            <p>모든 명령과 모든 컴포넌트를 직접 타이핑합니다. 오늘 만든 프로젝트는 <strong>끝나면 지웁니다.</strong></p>
+          </div>
+          <div class="card" data-step="2">
+            <h3>실패가 안전한 곳에서</h3>
+            <p>깨뜨려도 잃을 게 없습니다. 에러 메시지를 읽는 연습이 오늘의 절반입니다.</p>
+          </div>
+          <div class="card card--accent" data-step="3">
+            <h3><code>uniweb</code>은 마지막에</h3>
+            <p>실제 저장소는 8장에서 <strong>읽기 위해서만</strong> 엽니다. 오늘 거기에 아무것도 쓰지 않습니다.</p>
+          </div>
+        </div>
+        <aside class="instructor-note" data-step="4">
+          <strong>막히면 즉시 손</strong>
+          <span>설치·프록시 문제는 다음 단계로 넘어가면 복구가 어렵습니다 · 설치가 끝내 안 되면
+          <strong>2인 1조</strong>로 한 화면을 같이 봅니다</span>
+        </aside>
+      </section>
+
+      <!-- ======================= PART 1 · TOOLING ======================= -->
+      <section class="slide" data-slide data-chapter="CH1 · WHY TOOLING">
+        <div class="slide-index">06</div>
+        <p class="eyebrow">CHAPTER 1 · WHY TOOLING</p>
+        <h2>브라우저는 우리가 쓴 코드를 그대로 읽지 못합니다</h2>
+        <div class="flow">
+          <div class="flow__node" data-step="1">
+            <b>우리가 쓰는 것</b>
+            <span><code>.vue</code> 파일<br />TypeScript<br /><code>import</code> 문</span>
+          </div>
+          <i class="flow__arrow" data-step="2" aria-hidden="true">→</i>
+          <div class="flow__node flow__node--gap" data-step="2">
+            <b>???</b>
+            <span>여기서 무언가가<br />변환해 줘야 합니다</span>
+          </div>
+          <i class="flow__arrow" data-step="3" aria-hidden="true">→</i>
+          <div class="flow__node" data-step="3">
+            <b>브라우저가 읽는 것</b>
+            <span>HTML<br />CSS<br />JavaScript</span>
+          </div>
+        </div>
+        <p class="takeaway" data-step="4">
+          <strong>그 변환(빌드)은 브라우저 밖 어딘가에서 돌아야 합니다</strong> · 그 “어딘가”가 1장의 주제입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · NODE">
+        <div class="slide-index">07</div>
+        <p class="eyebrow">THE SECOND RUNTIME</p>
+        <h2>그 “어딘가”가 Node.js입니다</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card" data-step="1">
+            <h3>브라우저 안</h3>
+            <p>JavaScript 엔진이 이미 들어 있습니다. 하지만 여기서는 <strong>완성된 결과물</strong>만 돌아갑니다.</p>
+          </div>
+          <div class="card card--accent" data-step="2">
+            <h3>브라우저 밖 — Node.js</h3>
+            <p>내 컴퓨터에 <strong>따로 설치하는 두 번째 런타임</strong>입니다. 빌드·린트·타입 검사 같은 도구가 여기서 돕니다.</p>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable
+          network applications.”
+          <cite>nodejs.org — About Node.js</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          JVM이나 CPython처럼 <strong>설치해서 쓰는 런타임</strong>입니다 · 다만 오늘은 서버를 만들지 않고,
+          <strong>도구를 돌리는 데만</strong> 씁니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · TRANSLATION">
+        <div class="slide-index">08</div>
+        <p class="eyebrow">TRANSLATION TABLE</p>
+        <h2>새 도구가 아니라, 이미 아는 것의 다른 이름</h2>
+        <div class="table-grid" role="table" aria-label="프론트엔드 도구와 익숙한 대응물">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">프론트엔드</span>
+            <span role="columnheader">이미 아는 것</span>
+            <span role="columnheader">주의할 점</span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell">Node.js</strong>
+            <span role="cell">JVM, CPython</span>
+            <em role="cell">브라우저의 JS 엔진과 <b>별개</b>인 두 번째 런타임</em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell">npm 레지스트리</strong>
+            <span role="cell">Maven Central, PyPI, NuGet</span>
+            <em role="cell">—</em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell"><code>package.json</code></strong>
+            <span role="cell"><code>pom.xml</code>, <code>pyproject.toml</code></span>
+            <em role="cell">정확한 버전이 아니라 <b>범위</b>를 적습니다</em>
+          </div>
+          <div class="table-row" role="row" data-step="4">
+            <strong role="cell"><code>pnpm-lock.yaml</code></strong>
+            <span role="cell">버전이 고정된 잠금 파일, <code>poetry.lock</code></span>
+            <em role="cell">재현 가능한 설치를 만드는 파일 · <b>커밋합니다</b></em>
+          </div>
+          <div class="table-row" role="row" data-step="5">
+            <strong role="cell"><code>node_modules</code></strong>
+            <span role="cell">프로젝트 안에 풀어놓은 의존성 캐시</span>
+            <em role="cell">일회용 · <b>커밋 금지, 직접 수정 금지</b></em>
+          </div>
+          <div class="table-row" role="row" data-step="6">
+            <strong role="cell">Vite</strong>
+            <span role="cell">빌드 도구</span>
+            <em role="cell">개발 중에는 <b>서버 역할</b>도 겸합니다 <span class="ahead">3장</span></em>
+          </div>
+        </div>
+        <p class="simplification" data-step="7">
+          이 표는 <strong>교육용 단순화</strong>입니다 · 시작하기에는 충분하고, 깊이 밀면 어긋납니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · MANIFEST">
+        <div class="slide-index">09</div>
+        <p class="eyebrow">THE MANIFEST</p>
+        <h2><code>package.json</code> — 프로젝트의 명세서</h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb/package.json — 발췌</b></div>
+          <pre><code>{
+  <span class="k">"engines"</span>: {
+    <span class="k">"node"</span>: <span class="s">"^24.13.0"</span>,
+    <span class="k">"pnpm"</span>: <span class="s">"^11.1.3"</span>
+  },
+  <span class="k">"packageManager"</span>: <span class="s">"pnpm@11.1.3"</span>,
+  <span class="k">"scripts"</span>: {
+    <span class="k">"dev"</span>: <span class="s">"vite --mode dev --host"</span>,
+    <span class="k">"type-check"</span>: <span class="s">"vue-tsc --noEmit"</span><span class="c">,   // 전체 16개 중 2개</span>
+  }<span class="c">,
+  // "dependencies", "devDependencies" 생략 — 다음 장에서</span>
+}</code></pre>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b><code>engines</code></b><span>이 프로젝트가 요구하는 런타임 버전</span></p>
+          <p data-step="3"><b><code>packageManager</code></b><span>패키지 매니저 자체를 한 버전으로 고정</span></p>
+          <p data-step="4"><b><code>scripts</code></b><span>팀이 합의한 명령의 이름표 — <code>pnpm dev</code>가 실제로 무엇인지</span></p>
+        </div>
+        <p class="footnote" data-step="5">
+          npm 문서 기준 <code>engines</code>는 <code>engine-strict</code> 설정이 없으면 <strong>경고만</strong> 냅니다 ·
+          강제하려면 별도 설정이 필요합니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · MANIFEST">
+        <div class="slide-index">10</div>
+        <p class="eyebrow">TWO LISTS</p>
+        <h2>배포에 실리는 것과, 만들 때만 쓰는 것</h2>
+        <div class="dep-split">
+          <div class="dep-col" data-step="1">
+            <h3><code>dependencies</code></h3>
+            <p class="dep-col__lead">앱이 <strong>실행될 때</strong> 필요한 것</p>
+            <ul>
+              <li><code>vue</code><b>^3.5.27</b></li>
+              <li><code>vue-router</code><b>^5.0.2</b></li>
+              <li><code>pinia</code><b>^3.0.4</b></li>
+              <li><code>axios</code><b>^1.13.4</b></li>
+            </ul>
+          </div>
+          <div class="dep-col dep-col--dev" data-step="2">
+            <h3><code>devDependencies</code></h3>
+            <p class="dep-col__lead">앱을 <strong>만들 때만</strong> 필요한 것</p>
+            <ul>
+              <li><code>vite</code><b>^7.3.1</b></li>
+              <li><code>typescript</code><b>~5.9.3</b></li>
+              <li><code>vue-tsc</code><b>^3.2.4</b></li>
+              <li><code>eslint</code><b>^9.39.2</b></li>
+            </ul>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “Please do not put test harnesses or transpilers or other ‘development’ time tools in your
+          <code>dependencies</code> object.”
+          <cite>docs.npmjs.com — package.json</cite>
+        </blockquote>
+        <p class="footnote" data-step="4">
+          목록은 2026-07-28 <code>uniweb/package.json</code>에서 그대로 옮겼습니다 · 오늘 만들 프로젝트도 같은 네 가지를 씁니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · VERSIONS">
+        <div class="slide-index">11</div>
+        <p class="eyebrow">VERSION RANGES</p>
+        <h2>버전이 아니라 <strong>범위</strong>를 적습니다</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card card--accent" data-step="1">
+            <h3><code>^3.5.27</code></h3>
+            <p class="range-line"><b>minor · patch</b> 올라가는 건 허용</p>
+            <p><code>3.5.27</code> → <code>3.9.0</code> ✅ &nbsp; <code>4.0.0</code> ❌</p>
+            <p class="range-use"><code>vue</code>가 이 방식입니다</p>
+          </div>
+          <div class="card" data-step="2">
+            <h3><code>~5.9.3</code></h3>
+            <p class="range-line"><b>patch</b>만 허용</p>
+            <p><code>5.9.3</code> → <code>5.9.9</code> ✅ &nbsp; <code>5.10.0</code> ❌</p>
+            <p class="range-use"><code>typescript</code>가 이 방식입니다 — 마이너 업데이트로도 타입 검사 결과가 바뀔 수 있어서</p>
+          </div>
+        </div>
+        <p class="takeaway" data-step="3">
+          <strong><code>package.json</code>은 범위, lockfile은 딱 하나</strong> · 그래서 같은 <code>package.json</code>으로도
+          설치 결과가 달라질 수 있고, lockfile이 그걸 막습니다
+        </p>
+        <p class="footnote" data-step="4">
+          npm 문서의 semver 표기 기준 — <code>^</code>는 minor·patch, <code>~</code>는 patch까지 허용
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · LOCKFILE">
+        <div class="slide-index">12</div>
+        <p class="eyebrow">LOCKFILE &amp; NODE_MODULES</p>
+        <h2>하나는 반드시 커밋하고, 하나는 절대 커밋하지 않습니다</h2>
+        <div class="rule-grid">
+          <div class="rule-card rule-card--do" data-step="1">
+            <span class="rule-tag">커밋</span>
+            <h3><code>pnpm-lock.yaml</code></h3>
+            <p>각 패키지가 <strong>정확히 어떤 버전으로</strong> 설치됐는지 기록한 파일. 이게 있어야 내 노트북과 CI가 같은 걸 설치합니다.</p>
+          </div>
+          <div class="rule-card rule-card--dont" data-step="2">
+            <span class="rule-tag">커밋 금지</span>
+            <h3><code>node_modules/</code></h3>
+            <p>lockfile로부터 <strong>언제든 다시 만들 수 있는</strong> 결과물. 지워도 됩니다 — <code>pnpm install</code>로 복구됩니다.</p>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “You should always commit the lockfile (<code>pnpm-lock.yaml</code>).”
+          <cite>pnpm.io — Working with Git</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          <strong>이상하면 <code>node_modules</code>를 지우고 다시 설치하세요</strong> · 그게 안전한 이유가 바로 이 구분입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · PNPM">
+        <div class="slide-index">13</div>
+        <p class="eyebrow">WHY PNPM</p>
+        <h2>이 팀이 npm 대신 <code>pnpm</code>을 쓰는 이유</h2>
+        <div class="card-grid card-grid--2">
+          <div class="card" data-step="1">
+            <h3>디스크에 한 번만</h3>
+            <p>같은 패키지를 프로젝트마다 복사하지 않고, <strong>한 곳(content-addressable store)</strong>에 저장합니다.</p>
+            <p class="card__quote">“all the files are saved in a single place on the disk”</p>
+          </div>
+          <div class="card card--accent" data-step="2">
+            <h3>선언한 것만 보입니다</h3>
+            <p><code>node_modules</code> 최상단에는 <strong>직접 선언한 의존성만</strong> 심볼릭 링크로 올라옵니다.</p>
+            <p class="card__quote">“pnpm uses symlinks to add only the direct dependencies of the project into the root of the modules directory”</p>
+          </div>
+        </div>
+        <p class="takeaway" data-step="3">
+          기본 설정에서는 <strong><code>package.json</code>에 적지 않은 패키지가 <code>import</code>되지 않습니다</strong> ·
+          npm에서는 다른 패키지가 끌어온 것까지 우연히 import되곤 합니다
+        </p>
+        <p class="footnote" data-step="4">
+          <strong>속도가 아니라 엄격함</strong>으로 기억하세요 · 출처 <code>pnpm.io/motivation</code>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · PNPM">
+        <div class="slide-index">14</div>
+        <p class="eyebrow">COMMAND MAP</p>
+        <h2>npm 문장을 <code>pnpm</code>으로 읽는 법</h2>
+        <div class="table-grid table-grid--cmd" role="table" aria-label="npm 명령과 pnpm 대응">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">npm</span>
+            <span role="columnheader">pnpm</span>
+            <span role="columnheader">하는 일</span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell"><code>npm install</code></strong>
+            <span role="cell"><code>pnpm install</code></span>
+            <em role="cell">lockfile대로 전부 설치</em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell"><code>npm install &lt;pkg&gt;</code></strong>
+            <span role="cell"><code>pnpm add &lt;pkg&gt;</code></span>
+            <em role="cell">의존성 추가</em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell"><code>npm install -D &lt;pkg&gt;</code></strong>
+            <span role="cell"><code>pnpm add -D &lt;pkg&gt;</code></span>
+            <em role="cell">개발용 의존성 추가</em>
+          </div>
+          <div class="table-row" role="row" data-step="4">
+            <strong role="cell"><code>npm run &lt;script&gt;</code></strong>
+            <span role="cell"><code>pnpm run &lt;script&gt;</code></span>
+            <em role="cell">스크립트 실행</em>
+          </div>
+          <div class="table-row" role="row" data-step="5">
+            <strong role="cell"><code>npx &lt;bin&gt;</code></strong>
+            <span role="cell"><code>pnpm dlx &lt;bin&gt;</code></span>
+            <em role="cell">설치 없이 일회성 실행</em>
+          </div>
+        </div>
+        <aside class="instructor-note" data-step="6">
+          <strong><code>pnpm dev</code>는 되는데 왜 어떤 건 안 되나</strong>
+          <span><code>run</code>은 대개 생략됩니다. 단 <strong>스크립트 이름이 pnpm 자체 명령과 겹치면</strong> 안 됩니다 —
+          공식 문서 표현으로 “ONLY for scripts that do not share the same name as already existing pnpm commands”.
+          예: <code>add</code>라는 스크립트는 반드시 <code>pnpm run add</code></span>
+        </aside>
+        <p class="footnote" data-step="7">
+          세상의 문서와 README는 대부분 npm으로 쓰여 있습니다 · 가려서 쓰는 게 아니라 <strong>번역해서 읽는 것</strong>이 목표입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · VERSIONS">
+        <div class="slide-index">15</div>
+        <p class="eyebrow">THE VERSION PIN</p>
+        <h2>버전은 세 군데에서 고정됩니다</h2>
+        <div class="pin-grid">
+          <div class="pin-row" data-step="1">
+            <b><code>package.json</code> → <code>engines.node</code></b>
+            <code class="pin-value">^24.13.0</code>
+            <span>이 저장소가 요구하는 Node</span>
+          </div>
+          <div class="pin-row" data-step="2">
+            <b><code>package.json</code> → <code>packageManager</code></b>
+            <code class="pin-value">pnpm@11.1.3</code>
+            <span>패키지 매니저 버전까지 고정</span>
+          </div>
+          <div class="pin-row" data-step="3">
+            <b><code>.nvmrc</code> 첫 줄</b>
+            <code class="pin-value">24.13.0</code>
+            <span><code>nvm use</code>가 읽어서 런타임을 바꿔 줍니다</span>
+          </div>
+        </div>
+        <div class="code-card code-card--slim" data-step="4">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb 저장소 안에서</b></div>
+          <pre><code><span class="p">$</span> nvm use          <span class="c"># .nvmrc 첫 줄의 버전으로 전환</span>
+<span class="p">$</span> node --version    <span class="c"># v24.13.0 인지 확인</span>
+<span class="p">$</span> pnpm --version    <span class="c"># 11.1.3 이상인지 확인</span></code></pre>
+        </div>
+        <p class="footnote" data-step="5">
+          강의 전 체크리스트가 Node <code>24.13.0</code>을 못 박은 이유입니다 ·
+          출력값은 각자 환경에 따라 다를 수 있으니 <strong>직접 확인</strong>하세요
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH1 · WRAP-UP">
+        <div class="slide-index">16</div>
+        <p class="eyebrow">CHAPTER 1 · WRAP-UP</p>
+        <h2>방금 배운 것이 <code>uniweb</code>의 어디에 있는가</h2>
+        <div class="map-grid">
+          <div class="map-row" data-step="1"><b><code>package.json</code></b><i aria-hidden="true">→</i><span>저장소 루트 — <code>engines</code>, <code>packageManager</code>, <code>scripts</code></span></div>
+          <div class="map-row" data-step="2"><b><code>pnpm-lock.yaml</code></b><i aria-hidden="true">→</i><span>그 옆에 함께 커밋되어 있습니다</span></div>
+          <div class="map-row" data-step="3"><b><code>.nvmrc</code></b><i aria-hidden="true">→</i><span>같은 위치 — <code>nvm use</code> 한 줄로 런타임 정렬</span></div>
+          <div class="map-row" data-step="4"><b><code>node_modules/</code></b><i aria-hidden="true">→</i><span>저장소에 없습니다 — <code>pnpm install</code>로 각자 만듭니다</span></div>
+        </div>
+        <ol class="recap-list" data-step="5">
+          <li>브라우저는 우리 소스를 못 읽습니다 → <b>빌드가 필요</b></li>
+          <li>빌드는 브라우저 밖에서 돕니다 → <b>Node.js</b></li>
+          <li><code>package.json</code>은 범위, lockfile은 하나 → <b>lockfile을 커밋</b></li>
+          <li>선언한 것만 import됩니다 → <b>pnpm의 엄격함</b></li>
+        </ol>
+        <p class="takeaway" data-step="6">
+          <strong>5분 쉬고, 2장에서 TypeScript로</strong> · 다음 장부터는 코드가 나옵니다
+        </p>
+      </section>
+    </main>
+
+    <footer class="deck-controls" aria-label="프레젠테이션 탐색">
+      <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+      <button id="previous" type="button" aria-label="이전 단계">←</button>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">17</span></p>
+      <button id="next" type="button" aria-label="다음 단계">→</button>
+      <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
+    </footer>
+
+    <div class="key-hint" id="key-hint" aria-hidden="true">
+      <kbd>←</kbd><kbd>→</kbd> 단계 이동 · <kbd>F</kbd> 전체 화면
+    </div>
+
+    <script src="./assets/deck.js"></script>
+    <script>
+      document.addEventListener("keydown", window.vueDeck.handleKeydown);
+    </script>
+  </body>
+</html>

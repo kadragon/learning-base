@@ -4,18 +4,11 @@ Ticket ids are the `(<n>-<slug>)` prefix on each item. `*(blocked by: ...)*` ref
 
 ## Now
 
-### Vue deck foundation and tooling chapter
-
-- [ ] [FEAT] (2-vue-deck-foundation) Create `presentations/vue-basics/` (`index.html`,
-      `assets/deck.css`, `assets/deck.js`, `sources.md`) with Part 0 orientation and Part 1 (why
-      frontend tooling exists, Node, npm as concept, pnpm as this team's tool);
-      `bash tools/validate-presentations.sh` passes.
-
 ### Vue deck TypeScript and scaffolding chapter
 
 - [ ] [FEAT] (3-vue-deck-ts-scaffold) Add Part 2 (TypeScript essentials for Vue SFCs) and Part 3
       (`pnpm create vue@latest` project creation) to the deck, with command output and file tree
-      captured from one real rehearsal run. *(blocked by: 2-vue-deck-foundation)*
+      captured from one real rehearsal run.
 
 ### Vue deck core concepts chapter
 
