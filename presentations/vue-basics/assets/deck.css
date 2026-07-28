@@ -205,7 +205,8 @@ a:focus-visible {
   position: absolute;
   left: clamp(24px, 4.2vw, 76px);
   top: 46%;
-  color: rgba(234, 242, 240, 0.2);
+  /* 0.2 alpha measured 1.78:1 on --ink; large text needs 3:1. */
+  color: rgba(234, 242, 240, 0.4);
   font-family: var(--display);
   font-size: clamp(2rem, 3vw, 4rem);
   writing-mode: vertical-rl;
@@ -987,7 +988,7 @@ strong {
   padding: 0.1rem 0.4rem;
   border: 1px solid rgba(100, 126, 255, 0.5);
   border-radius: 999px;
-  color: var(--indigo);
+  color: #8b9dff; /* --indigo lifted: 4.49:1 -> AA on --ink */
   font-family: var(--mono);
   font-size: 0.86em;
   white-space: nowrap;
@@ -1043,7 +1044,7 @@ strong {
 
 .code-card .k { color: var(--indigo); }
 .code-card .s { color: var(--vue); }
-.code-card .c { color: rgba(157, 178, 189, 0.62); }
+.code-card .c { color: #8fa6b3; } /* AA on the card's #07121a — measured 5.1:1 */
 .code-card .p { color: var(--amber); }
 
 .code-card__caption {
@@ -1443,8 +1444,8 @@ kbd {
 }
 .data-card .code-card pre {
   padding: clamp(0.7rem, 1.2vw, 1.15rem);
-  font-size: clamp(0.56rem, 0.66vw, 0.78rem);
-  line-height: 1.55;
+  font-size: clamp(0.64rem, 0.66vw, 0.78rem);
+  line-height: 1.5;
 }
 .tree-notes {
   display: grid;
@@ -1488,7 +1489,7 @@ kbd {
    */
   @media (max-width: 1440px) {
     .code-split .code-card pre {
-      font-size: clamp(0.6rem, 0.78vw, 0.82rem);
+      font-size: clamp(0.68rem, 0.78vw, 0.82rem);
     }
   }
 
@@ -1739,6 +1740,25 @@ kbd {
 
   .progress {
     display: none;
+  }
+}
+
+/*
+ * Both cover slides overflow a 4:3 projector because the mark keeps its full
+ * height there. Shrink the art rather than the title.
+ */
+@media (max-aspect-ratio: 4 / 3) {
+  .cover-mark svg {
+    width: min(100%, 230px);
+  }
+
+  .slide--cover {
+    padding-top: clamp(64px, 9vh, 96px);
+    padding-bottom: clamp(64px, 8vh, 88px);
+  }
+
+  .cover-copy {
+    margin-bottom: 0.6rem;
   }
 }
 

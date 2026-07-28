@@ -17,9 +17,10 @@ The deck is built one chapter per backlog ticket. As of this file's last update 
 - **Part 4 — Vue core concepts** (slides 33–44).
 - **Part 5 — Pages with Vue Router** (slides 45–49).
 - **Part 6 — Composables and the HTTP client** (slides 50–55).
+- **Part 7 — Shared state with Pinia** (slides 56–61).
+- **Part 8 — Mapping onto `uniweb`, and wrap-up** (slides 62–65), plus a closing slide.
 
-Parts 7–8 (Pinia and the `uniweb` mapping chapter) are not in the deck yet. They are tracked in
-`backlog.md`.
+**The deck is complete.** All eight parts are in place.
 
 ## Verification Rule
 
@@ -204,6 +205,27 @@ Slide 52 therefore teaches axios as the library the audience will meet everywher
 
 Slide 10 (Part 1) still lists `axios` among `uniweb`'s `dependencies`, which is accurate: it is
 declared there. Nothing in Part 1 claims it is imported.
+
+### Stores, the entry point, and the daily commands — slides 61, 63, and 64
+
+Read on 2026-07-28:
+
+- `src/main/stores/` holds exactly four files: `bookmark.ts`, `file-extension.ts`, `id-card.ts`,
+  `menu.ts`. Slide 61 names all four.
+- **The two `defineStore` styles both appear**, counted rather than assumed:
+  `bookmark.ts` and `menu.ts` open with `defineStore("…", { state: () => ({ … }), getters: …`
+  (option form); `id-card.ts` opens with `defineStore("idCard", () => {` and `file-extension.ts`
+  spreads the same setup form over three lines (`defineStore(` / `"fileExtension",` / `() => {`). `docs/vue-lecture-plan.md` §4.7 says to teach the setup form, which the deck does —
+  slide 61 states the split so a participant opening the repository is not surprised.
+- `src/main.ts` wires Pinia at lines 134–136:
+  `const pinia = createPinia(); pinia.use(piniaPluginPersistatestate); app.use(pinia);` — the
+  persistence plugin slide 61 names but does not teach.
+- Slide 63's "what we did not build" list is `ls src` and `ls src/main` — `cartzilla`, `core`,
+  `docs`, `pub-only` at the top level; `i18n.ts`, `locales`, `layouts`, `plugins`, `constants`,
+  `utils` under `main`.
+- Slide 64's command list is copied from `uniweb/AGENTS.md`, including the statement that there is
+  no automated test suite and that `pnpm type-check`, `pnpm lint`, and the matching build must be
+  run before a pull request, with the changed routes exercised by hand.
 
 ### Scripts and the dev-server port — slide 32
 
@@ -631,6 +653,60 @@ the change, and slides 48 and 54 quote the new form. This is the same trade made
 `visibleMembers` in Part 4: change the file so the slide can stay exact, rather than reformat only
 on the slide.
 
+## Rehearsal Run — Part 7
+
+The store was written into the same rehearsal project on **2026-07-28**, before any Part 7 slide.
+
+### What was built
+
+`src/stores/bookmark.ts` (the scaffolder's `counter.ts` was deleted), plus both views moved off
+their local `bookmarked` ref and onto the store. `createPinia()` and `app.use(pinia)` were already
+in `src/main.ts` — the scaffolder put them there in Part 3, which is why Part 7 adds no wiring.
+
+### The rehearsal project is a moving target — read this before tracing an earlier chapter
+
+One project carries all eight chapters, so **a later chapter's edits retroactively change the file
+an earlier chapter quotes.** Part 7 is the clearest case: it moved the bookmark state out of
+`MemberListView.vue` into the store, so the file now reads
+`:is-bookmarked="bookmarks.isBookmarked(member.id)"` and `@toggle-bookmark="bookmarks.toggle"`.
+
+Slides 39 and 41 still show the pre-Part-7 form — `bookmarked.includes(member.id)` and
+`toggleBookmark` — deliberately: slide 59 is where the room watches that migration happen. But it
+means Part 4's statement "every other Vue block is character-for-character from a file listed
+above" is true **of the file as it stood at the end of chapter 4**, not of the file on disk now.
+The same applies to Part 6's `MemberListView.vue` excerpts.
+
+When re-verifying an earlier chapter's blocks, rebuild the project up to that chapter rather than
+reading the finished one. Committing a per-chapter fixture set is the alternative, recorded as an
+open follow-up in `tasks.md`.
+
+### Verification
+
+`pnpm type-check` exits 0 with no diagnostics. `pnpm build` reports `✓ 88 modules transformed`.
+
+Slide 60's four rows are a single browser session, read from the DOM at each step:
+
+| Action | Read back |
+|---|---|
+| bookmark the first card **from the list** | `즐겨찾기 1명`; the card's class becomes `card card--bookmarked` |
+| follow that card's link to `/members/1` | the detail button already reads `★ 즐겨찾기 해제` |
+| un-bookmark **from the detail page** | the button flips to `☆ 즐겨찾기` |
+| follow the back link to `/` | `즐겨찾기 0명`; the card's class is back to `card` |
+
+That round trip is the whole argument for a store, so it is measured rather than asserted.
+
+### What the slides abbreviate
+
+- Slide 57 quotes `bookmark.ts` **whole**. Two statements are folded to fit a projector column:
+  the `defineStore(` line across two lines, and the `filter` call across three. Only whitespace
+  differs — no token is added, removed, or reordered.
+- Slide 59's two cards each splice a `// template` fragment under a `script` fragment from the same
+  file. The list card's `<MemberCard ... />` ends in a literal `...` standing for the `:member`
+  binding slide 41 already showed; `:key` sits on the `<li>`, not on the component.
+- Slide 65's checklist is the closing table from `docs/vue-lecture-plan.md` §4.8, byte for byte.
+  Its `api-client` line already carries the axios correction recorded above, because the plan was
+  fixed in the same change that found it.
+
 ## Primary References
 
 All pages fetched **2026-07-28**.
@@ -833,6 +909,20 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     would have taught the room to reject valid code. Slide 51's footnote quotes the exception.
   - The page's stateless/stateful contrast (formatters and lodash functions versus state that
     changes over time) is the basis for slide 51's two cards.
+
+### Pinia
+
+- [Core Concepts — pinia.vuejs.org](https://pinia.vuejs.org/core-concepts/)
+  - Quoted verbatim on slide 58: "You can think of `state` as the `data` of the store, `getters` as
+    the `computed` properties of the store, and `actions` as the `methods`."
+  - Quoted verbatim in slide 59's instructor note: "like `props` in `setup`, **we cannot
+    destructure it**", from "Note that `store` is an object wrapped with `reactive`, meaning there is
+    no need to write `.value` after getters but, like `props` in `setup`, we cannot destructure it".
+    The page adds: "In order to extract properties from the store while keeping its reactivity, you
+    need to use `storeToRefs()`." That is why the lecture's code writes `bookmarks.count` rather
+    than destructuring.
+  - The page documents both an Option Store form and a Setup Store form. Slide 58's footnote names
+    both; the lecture writes the setup form.
 
 ### Vite
 

@@ -646,7 +646,10 @@ natural follow-up.
 
 ### Slide budget
 
-Roughly 55 to 65 slides for 180 minutes, weighted toward chapter 4.
+Roughly 55 to 65 slides for 180 minutes, weighted toward chapter 4. **The built deck came to 67**
+(two of them covers), which is within a slide or two of the estimate; the extra weight sits in
+chapters 5 and 6, where the router and the composable each needed a worked file rather than a
+fragment.
 
 ### Repeating slide pattern
 
