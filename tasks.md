@@ -3,8 +3,11 @@
 _No open follow-ups._
 
 The five `vue-basics` items recorded here during the PR #15 review were each checked against the
-tree and none reproduced — they described the deck as it stood before earlier PRs in the same
-session landed. Retired without a code change:
+tree and none reproduced. They were not overtaken by later work: `presentations/vue-basics/` has
+not changed since PR #13, which is an ancestor of the commit that recorded them, and repo-root
+`assets/` has not changed since PR #3 — the deck the reviewer described is byte-for-byte the deck
+checked here. So these were five inaccurate findings, not stale ones, which is a review-quality
+signal worth keeping visible rather than smoothing over. Retired without a code change:
 
 | Recorded finding | What the tree actually contains |
 |---|---|
