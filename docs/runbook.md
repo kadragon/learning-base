@@ -88,6 +88,9 @@ For each changed deck:
      room, so shortening or splitting the block is the fix, never shrinking it further.
    - the gap between the lowest `[data-step]` and `#previous`. Compare against the button, not
      `.deck-controls` — the footer's box extends above its visible controls.
+   Exclude `aria-hidden` decoration that is positioned to bleed off an edge on purpose — the
+   `git-basics` closing slide does this with `.final-tree { bottom: -8vh }`, and counting it reads
+   as a 61px overflow that no reader ever loses anything to.
 5. Disable network and reload; presentation must remain functional.
 6. Check visible focus and reduced-motion behavior.
 
