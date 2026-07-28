@@ -10,7 +10,8 @@ turns "the slide quotes the file" from a convention into an assertion.
 
 Contract
 --------
-Every `<pre><code>` in an adopted deck's index.html carries `data-source`:
+Every code block in an adopted deck's index.html carries `data-source` — on the
+`<pre>` or on a `<code>` child, whichever the deck writes:
 
     fixture:<path>   text must be in presentations/<slug>/fixtures/<path>
     capture:<name>   recorded command output, listed under `### Recorded captures`
@@ -55,7 +56,7 @@ DECKS = REPO / "presentations"
 # Decks that have adopted the contract. A deck is added here when it adopts and
 # is never dropped by deleting a directory, which would turn the guard off
 # silently. A new deck that grows a fixtures/ directory is picked up too.
-ADOPTED = {"vue-basics"}
+ADOPTED = {"vue-basics", "git-basics"}
 
 VALID_KINDS = ("fixture", "capture", "uniweb")
 
@@ -201,9 +202,13 @@ def check_deck(slug: str) -> list[str]:
     index = deck / "index.html"
     if not index.is_file():
         return [f"{slug}: no index.html"]
-    if slug in ADOPTED and not (deck / "fixtures").is_dir():
+    # A deck only needs fixtures/ if it declares a fixture. Losing the directory
+    # while blocks still name one must fail rather than silently drop the check;
+    # a deck whose blocks are all captures or illustrations legitimately has none.
+    markup_probe = index.read_text(encoding="utf-8")
+    if 'data-source="fixture:' in markup_probe and not (deck / "fixtures").is_dir():
         return [
-            f"{slug}: adopted the evidence contract but has no fixtures/ directory — "
+            f"{slug}: declares fixture-backed blocks but has no fixtures/ directory — "
             "restore it rather than dropping the check"
         ]
 
@@ -213,9 +218,16 @@ def check_deck(slug: str) -> list[str]:
 
     problems, _ = check_ids(slug, markup, sources)
 
-    blocks = re.findall(
-        r"<pre\b[^>]*>\s*<code\b([^>]*)>(.*?)</code>\s*</pre>", markup, re.S
-    )
+    # A deck may write `<pre><code …>` or a bare `<pre …>`. Take the attributes
+    # from whichever element carries them, so neither shape is invisible.
+    blocks = []
+    for m in re.finditer(r"<pre\b([^>]*)>(.*?)</pre>", markup, re.S):
+        pre_attrs, inner = m.group(1), m.group(2)
+        code = re.match(r"\s*<code\b([^>]*)>(.*)</code>\s*$", inner, re.S)
+        if code:
+            blocks.append((pre_attrs + code.group(1), code.group(2)))
+        else:
+            blocks.append((pre_attrs, inner))
     written = markup.count("<pre")
     if len(blocks) != written:
         problems.append(

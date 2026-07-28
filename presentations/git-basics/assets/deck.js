@@ -36,7 +36,12 @@
     history.replaceState(null, "", `#${slideIndex + 1}${suffix}`);
   };
 
+  let renderedSlideIndex = -1;
+  let enteredBackward = false;
+
   const render = () => {
+    const enteringNewSlide = renderedSlideIndex !== slideIndex;
+
     slides.forEach((slide, index) => {
       const active = index === slideIndex;
       slide.classList.toggle("is-active", active);
@@ -53,6 +58,19 @@
     });
 
     const slide = slides[slideIndex];
+
+    /*
+     * A slide keeps its scroll position, so place it deliberately on entry: at
+     * the top going forward, at the end going backward — otherwise stepping
+     * back leaves the last reveal below the fold on a scrollable slide. Do this
+     * after the step classes are applied so the height is the final one.
+     */
+    if (enteringNewSlide) {
+      slide.scrollTop = enteredBackward ? slide.scrollHeight : 0;
+      renderedSlideIndex = slideIndex;
+      enteredBackward = false;
+    }
+
     const progress = ((slideIndex + stepIndex / Math.max(slideStepCount(slide), 1)) /
       slides.length) * 100;
 
@@ -85,6 +103,7 @@
     } else if (slideIndex > 0) {
       slideIndex -= 1;
       stepIndex = slideStepCount(slides[slideIndex]);
+      enteredBackward = true;
     }
     render();
   };
@@ -113,20 +132,60 @@
     hintTimer = window.setTimeout(() => keyHint.classList.remove("is-visible"), 2600);
   };
 
+  /*
+   * Below 900px the stylesheet lets a slide scroll instead of clipping. The
+   * vertical keys drive the step sequence, so without this a reader can reveal
+   * a step that sits past the fold and has no key to reach it. Let those keys
+   * scroll first and only advance once the slide is at its end.
+   */
+  const scrollWithinSlide = (direction) => {
+    const slide = slides[slideIndex];
+
+    /*
+     * Hidden steps are opacity:0, not display:none, so they occupy layout and
+     * the slide is already at full height with none revealed. Reveal the whole
+     * slide before scrolling, or a forward key would drag the reader through
+     * blank space instead of advancing.
+     */
+    if (direction > 0 && stepIndex < slideStepCount(slide)) return false;
+
+    const room = slide.scrollHeight - slide.clientHeight;
+    if (room <= 2) return false;
+
+    const atEnd = direction > 0
+      ? slide.scrollTop >= room - 2
+      : slide.scrollTop <= 2;
+    if (atEnd) return false;
+
+    // CSS cannot suppress an explicit behavior:"smooth", so honour the setting here.
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    slide.scrollBy({
+      top: direction * slide.clientHeight * 0.8,
+      behavior: reduced ? "auto" : "smooth",
+    });
+    return true;
+  };
+
   const handleKeydown = (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
 
     switch (event.key) {
-      case "ArrowRight":
       case "ArrowDown":
       case "PageDown":
       case " ":
         event.preventDefault();
+        if (!scrollWithinSlide(1)) moveForward();
+        break;
+      case "ArrowRight":
+        event.preventDefault();
         moveForward();
         break;
-      case "ArrowLeft":
       case "ArrowUp":
       case "PageUp":
+        event.preventDefault();
+        if (!scrollWithinSlide(-1)) moveBackward();
+        break;
+      case "ArrowLeft":
         event.preventDefault();
         moveBackward();
         break;

@@ -1,5 +1,23 @@
 # Sources and Verification Notes
 
+## Machine-checked evidence
+
+`tools/validate-slide-evidence.py` runs over this deck on every sweep. Each code block declares
+where its text came from with `data-source`, every slide carries a unique `id`, and any section of
+this file that names a slide by number must anchor it with the slide's id in parentheses. See
+`docs/conventions.md` for the vocabulary and `docs/runbook.md` for what the checker cannot catch.
+
+This deck quotes no project of its own, so it commits no `fixtures/`: its code blocks are either
+recorded command output or teaching examples.
+
+### Recorded captures
+
+Real command output, each reproduced in a throwaway repository and described in the sections below:
+
+- `git-status-three-states`
+- `git-status-outside-repo`
+- `git-merge-warmup`
+
 ## Scope
 
 This deck teaches SVN-experienced members of a small internal team how to use Git through

@@ -82,7 +82,7 @@
     </header>
 
     <main id="deck" class="deck" tabindex="-1" aria-live="polite">
-      <section class="slide slide--cover is-active" data-slide data-chapter="OPENING">
+      <section class="slide slide--cover is-active" data-slide data-chapter="OPENING" id="opening">
         <div class="cover-kicker" data-step="1">SVN 사용자를 위한 110분의 전환</div>
         <h1 class="cover-title">
           Git,
@@ -107,7 +107,7 @@
         <p class="cover-foot">KNUE · DEVELOPER PRACTICE</p>
       </section>
 
-      <section class="slide" data-slide data-chapter="DESTINATION">
+      <section class="slide" data-slide data-chapter="DESTINATION" id="destination">
         <div class="slide-index">01</div>
         <p class="eyebrow">TODAY’S DESTINATION</p>
         <h2>오늘 함께 다룰 핵심 과정</h2>
@@ -155,7 +155,7 @@
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="PREFLIGHT">
+      <section class="slide" data-slide data-chapter="PREFLIGHT" id="preflight">
         <div class="slide-index">02</div>
         <p class="eyebrow">FIRST FIVE MINUTES</p>
         <h2>지금 확인하고, 막히면 개념 설명 시간에 해결합니다</h2>
@@ -175,7 +175,7 @@
         </aside>
       </section>
 
-      <section class="slide" data-slide data-chapter="SVN → GIT">
+      <section class="slide" data-slide data-chapter="SVN → GIT" id="svn-git">
         <div class="slide-index">03</div>
         <p class="eyebrow">MENTAL MODEL SHIFT</p>
         <h2>같은 목적, 달라진 작동 방식</h2>
@@ -220,7 +220,7 @@
         </blockquote>
       </section>
 
-      <section class="slide" data-slide data-chapter="SVN → GIT">
+      <section class="slide" data-slide data-chapter="SVN → GIT" id="svn-git-2">
         <div class="slide-index">04</div>
         <p class="eyebrow">TRANSLATION GUIDE</p>
         <h2>익숙한 개념을 새로운 용어로</h2>
@@ -236,7 +236,7 @@
         <p class="footnote" data-step="7">이번 강의에서는 여러 기능을 겸하는 <code>checkout</code> 대신 직관적인 <code>switch</code>를 사용합니다.</p>
       </section>
 
-      <section class="slide slide--graph" data-slide data-chapter="THE TREE">
+      <section class="slide slide--graph" data-slide data-chapter="THE TREE" id="the-tree">
         <div class="slide-index">05</div>
         <p class="eyebrow">ONE REPOSITORY · THREE CONTRIBUTORS</p>
         <h2>세 개발자가 각자 작업한 후, 순서대로 main에 통합합니다</h2>
@@ -268,7 +268,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="START">
+      <section class="slide" data-slide data-chapter="START" id="start">
         <div class="slide-index">06</div>
         <p class="eyebrow">TWO ENTRANCES</p>
         <h2>프로젝트를 시작하는 두 가지 방법</h2>
@@ -298,7 +298,7 @@
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CORE LOOP">
+      <section class="slide" data-slide data-chapter="CORE LOOP" id="core-loop">
         <div class="slide-index">07</div>
         <p class="eyebrow">FOUR AREAS</p>
         <h2>변경 사항은 4가지 공간을 순서대로 이동합니다</h2>
@@ -339,7 +339,7 @@
         </p>
       </section>
 
-      <section class="slide slide--statement" data-slide data-chapter="CORE LOOP">
+      <section class="slide slide--statement" data-slide data-chapter="CORE LOOP" id="core-loop-2">
         <div class="slide-index">08</div>
         <p class="eyebrow">ONE DISTINCTION TO KEEP</p>
         <div class="big-equation">
@@ -358,13 +358,13 @@
         <p class="statement-foot" data-step="4">커밋만 해서는 팀원에게 변경 사항이 보이지 않습니다. (push 필요)</p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CORE LOOP">
+      <section class="slide" data-slide data-chapter="CORE LOOP" id="core-loop-3">
         <div class="slide-index">09</div>
         <p class="eyebrow">FIRST DIAGNOSTIC</p>
         <h2>작업 중 막혔을 때는 현재 상태부터 확인</h2>
         <div class="terminal-card terminal-card--status" data-step="1">
           <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal</span></div>
-          <pre><span class="prompt">$</span> git status
+          <pre data-source="capture:git-status-three-states"><span class="prompt">$</span> git status
 
 On branch <mark>feature/print-layout</mark>
 Your branch is ahead of 'origin/feature/print-layout' by <span class="accent">1 commit</span>.
@@ -392,7 +392,7 @@ Untracked files:
         </p>
       </section>
 
-      <section class="slide slide--chapter" data-slide data-chapter="PRACTICE">
+      <section class="slide slide--chapter" data-slide data-chapter="PRACTICE" id="practice">
         <div class="chapter-number">02</div>
         <p class="eyebrow">GUIDED PRACTICE</p>
         <h2>이제 작업 가지를<br />직접 원격까지 보냅니다</h2>
@@ -414,7 +414,7 @@ Untracked files:
         <p data-step="5">VS Code + <strong>git.knue.ac.kr</strong></p>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE" id="vs-code">
         <div class="slide-index">10</div>
         <p class="eyebrow">VS CODE 01 · OPEN THE PROJECT</p>
         <h2>프로젝트 폴더를 열어 작업 시작하기</h2>
@@ -454,7 +454,7 @@ Untracked files:
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="VS CODE">
+      <section class="slide" data-slide data-chapter="VS CODE" id="vs-code-2">
         <div class="slide-index">11</div>
         <p class="eyebrow">VS CODE 02 · ACTIVITY BAR</p>
         <h2>왼쪽 사이드바(Activity Bar) 주요 기능</h2>
@@ -504,7 +504,7 @@ Untracked files:
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="VS CODE">
+      <section class="slide" data-slide data-chapter="VS CODE" id="vs-code-3">
         <div class="slide-index">12</div>
         <p class="eyebrow">VS CODE 03 · TERMINAL</p>
         <h2>명령어를 입력할 터미널 열기</h2>
@@ -528,7 +528,7 @@ Untracked files:
           </div>
           <div class="terminal-card" data-step="4">
             <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal · <mark>git-practice</mark></span></div>
-            <pre><span class="prompt">$</span> git status
+            <pre data-source="capture:git-status-outside-repo"><span class="prompt">$</span> git status
 
 fatal: not a git repository (or any of the parent directories): .git</pre>
           </div>
@@ -538,7 +538,7 @@ fatal: not a git repository (or any of the parent directories): .git</pre>
         </p>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE" id="vs-code-4">
         <div class="slide-index">13</div>
         <p class="eyebrow">VS CODE 04 · SOURCE CONTROL VIEW</p>
         <h2>소스 제어 패널의 4가지 핵심 영역</h2>
@@ -596,7 +596,7 @@ fatal: not a git repository (or any of the parent directories): .git</pre>
         </p>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE" id="vs-code-5">
         <div class="slide-index">14</div>
         <p class="eyebrow">VS CODE 05 · LOCAL WARM-UP</p>
         <h2>예행연습 저장소에 첫 커밋 남기기</h2>
@@ -644,7 +644,7 @@ fatal: not a git repository (or any of the parent directories): .git</pre>
         </div>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="VS CODE">
+      <section class="slide slide--ui" data-slide data-chapter="VS CODE" id="vs-code-6">
         <div class="slide-index">15</div>
         <p class="eyebrow">VS CODE 06 · CREATE BRANCH</p>
         <h2>하단 상태 표시줄에서 새 브랜치 만들기</h2>
@@ -676,14 +676,14 @@ fatal: not a git repository (or any of the parent directories): .git</pre>
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="VS CODE">
+      <section class="slide" data-slide data-chapter="VS CODE" id="vs-code-7">
         <div class="slide-index">16</div>
         <p class="eyebrow">VS CODE 07 · MERGE BACK</p>
         <h2>만든 가지를 main에 합치고 정리하기</h2>
         <div class="ignore-stage">
           <div class="terminal-card" data-step="1">
             <div class="terminal-card__bar"><i></i><i></i><i></i><span>terminal · git-practice</span></div>
-            <pre><span class="prompt">$</span> git switch main
+            <pre data-source="capture:git-merge-warmup"><span class="prompt">$</span> git switch main
 Switched to branch 'main'
 
 <span class="prompt">$</span> git merge feature/hello
@@ -710,7 +710,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
         </p>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="CLONE">
+      <section class="slide slide--ui" data-slide data-chapter="CLONE" id="clone">
         <div class="slide-index">17</div>
         <p class="eyebrow">CLONE</p>
         <h2>원격 저장소의 전체 이력 가져오기</h2>
@@ -748,7 +748,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
         </div>
       </section>
 
-      <section class="slide slide--graph" data-slide data-chapter="BRANCH">
+      <section class="slide slide--graph" data-slide data-chapter="BRANCH" id="branch">
         <div class="slide-index">18</div>
         <p class="eyebrow">BRANCH</p>
         <h2>독립된 작업을 위한 새 브랜치 만들기</h2>
@@ -787,7 +787,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
         </div>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="EDIT">
+      <section class="slide slide--ui" data-slide data-chapter="EDIT" id="edit">
         <div class="slide-index">19</div>
         <p class="eyebrow">EDIT & DIFF</p>
         <h2>수정된 내용(Diff)을 커밋 전에 검토하기</h2>
@@ -799,14 +799,14 @@ Deleted branch feature/hello (was b5f2735).</pre>
           <div class="diff-columns">
             <div class="diff-old">
               <small>BEFORE</small>
-              <pre><span>1</span> # Team Introduction
+              <pre data-source="illustration"><span>1</span> # Team Introduction
 <span>2</span>
 <span>3</span> Department: 정보전산원
 <span>4</span> <del>Message: 함께 만드는 서비스</del></pre>
             </div>
             <div class="diff-new">
               <small>AFTER</small>
-              <pre><span>1</span> # Team Introduction
+              <pre data-source="illustration"><span>1</span> # Team Introduction
 <span>2</span>
 <span>3</span> Department: 정보전산원
 <span>4</span> <ins>Message: 안전하게 함께 개발하기</ins></pre>
@@ -820,7 +820,7 @@ Deleted branch feature/hello (was b5f2735).</pre>
         </div>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="STAGE">
+      <section class="slide slide--ui" data-slide data-chapter="STAGE" id="stage">
         <div class="slide-index">20</div>
         <p class="eyebrow">STAGE & COMMIT</p>
         <h2>커밋에 포함할 변경 사항을 선별하여 저장하기</h2>
@@ -860,14 +860,14 @@ Deleted branch feature/hello (was b5f2735).</pre>
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="IGNORE">
+      <section class="slide" data-slide data-chapter="IGNORE" id="ignore">
         <div class="slide-index">21</div>
         <p class="eyebrow">GITIGNORE</p>
         <h2>애초에 추적하지 않을 파일 정해 두기</h2>
         <div class="ignore-stage">
           <div class="terminal-card" data-step="1">
             <div class="terminal-card__bar"><i></i><i></i><i></i><span>.gitignore</span></div>
-            <pre># 개인 설정 · 비밀 값
+            <pre data-source="illustration"># 개인 설정 · 비밀 값
 .env
 
 # 빌드 결과물
@@ -893,7 +893,7 @@ build/
         </div>
       </section>
 
-      <section class="slide slide--graph" data-slide data-chapter="COMMIT">
+      <section class="slide slide--graph" data-slide data-chapter="COMMIT" id="commit">
         <div class="slide-index">22</div>
         <p class="eyebrow">LOCAL HISTORY</p>
         <h2>커밋을 남기면 로컬 브랜치 이력이 늘어납니다</h2>
@@ -917,7 +917,7 @@ build/
         <p class="statement-foot" data-step="3">원격 서버에는 아직 이 커밋이 반영되지 않았습니다.</p>
       </section>
 
-      <section class="slide slide--graph" data-slide data-chapter="PUSH">
+      <section class="slide slide--graph" data-slide data-chapter="PUSH" id="push">
         <div class="slide-index">23</div>
         <p class="eyebrow">PUSH</p>
         <h2>작업한 브랜치를 팀 원격 저장소로 게시하기</h2>
@@ -961,7 +961,7 @@ build/
         </div>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="PULL REQUEST">
+      <section class="slide slide--ui" data-slide data-chapter="PULL REQUEST" id="pull-request">
         <div class="slide-index">24</div>
         <p class="eyebrow">OPEN PULL REQUEST</p>
         <h2>코드 검토 및 병합 요청(Pull Request) 만들기</h2>
@@ -998,7 +998,7 @@ build/
         </p>
       </section>
 
-      <section class="slide slide--graph" data-slide data-chapter="CONFLICT">
+      <section class="slide slide--graph" data-slide data-chapter="CONFLICT" id="conflict">
         <div class="slide-index">25</div>
         <p class="eyebrow">THE PLANNED CONFLICT</p>
         <h2>동일한 파일과 줄을 서로 다르게 수정했을 때</h2>
@@ -1025,7 +1025,7 @@ build/
         </aside>
       </section>
 
-      <section class="slide" data-slide data-chapter="REMOTE MODEL">
+      <section class="slide" data-slide data-chapter="REMOTE MODEL" id="remote-model">
         <div class="slide-index">26</div>
         <p class="eyebrow">WHAT FETCH ACTUALLY CHANGES</p>
         <h2>내 컴퓨터 안에는 원격의 사본이 따로 있습니다</h2>
@@ -1057,7 +1057,7 @@ build/
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CONFLICT">
+      <section class="slide" data-slide data-chapter="CONFLICT" id="conflict-2">
         <div class="slide-index">27</div>
         <p class="eyebrow">BRING MAIN IN</p>
         <h2>내 작업 브랜치에 최신 main 변경 사항 반영하기</h2>
@@ -1087,14 +1087,14 @@ build/
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="CONFLICT">
+      <section class="slide" data-slide data-chapter="CONFLICT" id="conflict-3">
         <div class="slide-index">28</div>
         <p class="eyebrow">WHAT THE FILE LOOKS LIKE</p>
         <h2>충돌한 파일을 열면 이렇게 보입니다</h2>
         <div class="marker-stage">
           <div class="terminal-card" data-step="1">
             <div class="terminal-card__bar"><i></i><i></i><i></i><span>team.md</span></div>
-            <pre># Team Introduction
+            <pre data-source="illustration"># Team Introduction
 
 Department: 정보전산원
 <mark>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</mark>
@@ -1121,7 +1121,7 @@ Message: 안전하게 함께 개발하기
         </p>
       </section>
 
-      <section class="slide slide--ui" data-slide data-chapter="RESOLVE">
+      <section class="slide slide--ui" data-slide data-chapter="RESOLVE" id="resolve">
         <div class="slide-index">29</div>
         <p class="eyebrow">MERGE EDITOR</p>
         <h2>VS Code Merge Editor로 충돌 해결하기</h2>
@@ -1149,7 +1149,7 @@ Message: 안전하게 함께 개발하기
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="RESOLVE">
+      <section class="slide" data-slide data-chapter="RESOLVE" id="resolve-2">
         <div class="slide-index">30</div>
         <p class="eyebrow">ESCAPE HATCH</p>
         <h2>병합 도중 작업을 중단하고 되돌리기</h2>
@@ -1180,7 +1180,7 @@ Message: 안전하게 함께 개발하기
         </div>
       </section>
 
-      <section class="slide slide--graph" data-slide data-chapter="MERGE">
+      <section class="slide slide--graph" data-slide data-chapter="MERGE" id="merge">
         <div class="slide-index">31</div>
         <p class="eyebrow">REVIEW & MERGE</p>
         <h2>검토를 마친 브랜치를 main에 최종 병합하기</h2>
@@ -1209,7 +1209,7 @@ Message: 안전하게 함께 개발하기
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="CLEANUP">
+      <section class="slide" data-slide data-chapter="CLEANUP" id="cleanup">
         <div class="slide-index">32</div>
         <p class="eyebrow">CLEAN UP THE LOCAL WORKSPACE</p>
         <h2>병합 완료 후 로컬 작업 환경 정리하기</h2>
@@ -1228,7 +1228,7 @@ Message: 안전하게 함께 개발하기
         </p>
       </section>
 
-      <section class="slide slide--chapter" data-slide data-chapter="TEAM RULES">
+      <section class="slide slide--chapter" data-slide data-chapter="TEAM RULES" id="team-rules">
         <div class="chapter-number">03</div>
         <p class="eyebrow">A SMALL TEAM’S DEFAULT</p>
         <h2>복잡한 전략보다<br />짧은 가지</h2>
@@ -1237,7 +1237,7 @@ Message: 안전하게 함께 개발하기
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="TEAM RULES">
+      <section class="slide" data-slide data-chapter="TEAM RULES" id="team-rules-2">
         <div class="slide-index">33</div>
         <p class="eyebrow">RECOMMENDED WORKFLOW</p>
         <h2>소규모 팀을 위한 권장 작업 흐름</h2>
@@ -1250,7 +1250,7 @@ Message: 안전하게 함께 개발하기
         </ol>
       </section>
 
-      <section class="slide" data-slide data-chapter="TEAM RULES">
+      <section class="slide" data-slide data-chapter="TEAM RULES" id="team-rules-3">
         <div class="slide-index">34</div>
         <p class="eyebrow">SHARED REPOSITORY, NOT FORKS</p>
         <h2>사내 팀 협업 시 Shared Repository 모델 활용</h2>
@@ -1271,7 +1271,7 @@ Message: 안전하게 함께 개발하기
         <p class="takeaway" data-step="3"><code>main</code> 브랜치 직접 push만 제한하고, feature branch push는 허용합니다</p>
       </section>
 
-      <section class="slide" data-slide data-chapter="SAFETY">
+      <section class="slide" data-slide data-chapter="SAFETY" id="safety">
         <div class="slide-index">35</div>
         <p class="eyebrow">RECOVERY BEFORE PANIC</p>
         <h2>실수했을 때 대처하는 순서</h2>
@@ -1289,7 +1289,7 @@ Message: 안전하게 함께 개발하기
         </div>
       </section>
 
-      <section class="slide" data-slide data-chapter="SAFETY">
+      <section class="slide" data-slide data-chapter="SAFETY" id="safety-2">
         <div class="slide-index">36</div>
         <p class="eyebrow">READ THE MESSAGE FIRST</p>
         <h2>자주 만나는 오류 메시지와 대응</h2>
@@ -1331,7 +1331,7 @@ Message: 안전하게 함께 개발하기
         </p>
       </section>
 
-      <section class="slide" data-slide data-chapter="SCOPE">
+      <section class="slide" data-slide data-chapter="SCOPE" id="scope">
         <div class="slide-index">37</div>
         <p class="eyebrow">NOT TODAY</p>
         <h2>오늘 다루지 않은 것과, 언제 필요해지는지</h2>
@@ -1355,7 +1355,7 @@ Message: 안전하게 함께 개발하기
         <p class="footnote" data-step="6"><code>.gitignore</code>는 첫 주에 바로 필요해지므로 오늘 실습에 포함했습니다.</p>
       </section>
 
-      <section class="slide slide--recap" data-slide data-chapter="RECAP">
+      <section class="slide slide--recap" data-slide data-chapter="RECAP" id="recap">
         <div class="slide-index">38</div>
         <p class="eyebrow">THE WHOLE JOURNEY</p>
         <h2>처음에 본 6단계를, 손이 하는 10단계로 펼치면</h2>
@@ -1387,7 +1387,7 @@ Message: 안전하게 함께 개발하기
         </p>
       </section>
 
-      <section class="slide slide--final" data-slide data-chapter="Q&A">
+      <section class="slide slide--final" data-slide data-chapter="Q&A" id="qa">
         <p class="eyebrow">ONE QUESTION TO KEEP</p>
         <h2>지금,<br />내 작업 영역과 브랜치는<br /><span>어떤 상태인가?</span></h2>
         <div class="final-command" data-step="1"><span>$</span> git status</div>
