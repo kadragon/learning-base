@@ -40,17 +40,7 @@
   let enteredBackward = false;
 
   const render = () => {
-    /*
-     * A slide keeps its scroll position, so place it deliberately on entry:
-     * at the top going forward, at the end going backward — otherwise stepping
-     * back reveals the last step below the fold on a scrollable slide.
-     */
-    if (renderedSlideIndex !== slideIndex) {
-      const slide = slides[slideIndex];
-      slide.scrollTop = enteredBackward ? slide.scrollHeight : 0;
-      renderedSlideIndex = slideIndex;
-      enteredBackward = false;
-    }
+    const enteringNewSlide = renderedSlideIndex !== slideIndex;
 
     slides.forEach((slide, index) => {
       const active = index === slideIndex;
@@ -68,6 +58,19 @@
     });
 
     const slide = slides[slideIndex];
+
+    /*
+     * A slide keeps its scroll position, so place it deliberately on entry: at
+     * the top going forward, at the end going backward — otherwise stepping
+     * back leaves the last reveal below the fold on a scrollable slide. Do this
+     * after the step classes are applied so the height is the final one.
+     */
+    if (enteringNewSlide) {
+      slide.scrollTop = enteredBackward ? slide.scrollHeight : 0;
+      renderedSlideIndex = slideIndex;
+      enteredBackward = false;
+    }
+
     const progress = ((slideIndex + stepIndex / Math.max(slideStepCount(slide), 1)) /
       slides.length) * 100;
 
@@ -137,6 +140,15 @@
    */
   const scrollWithinSlide = (direction) => {
     const slide = slides[slideIndex];
+
+    /*
+     * Hidden steps are opacity:0, not display:none, so they occupy layout and
+     * the slide is already at full height with none revealed. Reveal the whole
+     * slide before scrolling, or a forward key would drag the reader through
+     * blank space instead of advancing.
+     */
+    if (direction > 0 && stepIndex < slideStepCount(slide)) return false;
+
     const room = slide.scrollHeight - slide.clientHeight;
     if (room <= 2) return false;
 

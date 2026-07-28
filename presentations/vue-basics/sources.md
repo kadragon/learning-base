@@ -220,6 +220,26 @@ Read on 2026-07-28:
 - `src/main.ts` wires Pinia at lines 134–136:
   `const pinia = createPinia(); pinia.use(piniaPluginPersistatestate); app.use(pinia);` — the
   persistence plugin slide 61 names but does not teach.
+### Where the 451 `.vue` files actually live — slide 62
+
+Counted on 2026-07-28 with `find src -name '*.vue'`:
+
+| Location | Count |
+|---|---:|
+| `src/main/views/` | 279 |
+| `src/main/components/` | 45 |
+| `src/main/layouts/` | 2 |
+| `src/pub-only/` | 124 |
+| `src/App.vue` | 1 |
+| **total** | **451** |
+
+`src/cartzilla/` and `src/core/` hold no `.vue` files.
+
+Slide 62's mapping table has rows for `views/` and `components/` but not for `layouts/` or
+`pub-only/`, which slide 63 lists as deliberately not built. So **324**, not 451, is the number the
+table accounts for, and the slide says so. An earlier draft claimed all 451 fit the seven rows;
+review caught it and the counts above are what replaced it.
+
 - Slide 63's "what we did not build" list is `ls src` and `ls src/main` — `cartzilla`, `core`,
   `docs`, `pub-only` at the top level; `i18n.ts`, `locales`, `layouts`, `plugins`, `constants`,
   `utils` under `main`.
