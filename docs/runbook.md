@@ -49,7 +49,8 @@ Open `http://localhost:8000/presentations/<slug>/`. Port `8000` is explicit in t
 For each changed deck:
 
 1. Verify forward and backward keyboard navigation.
-2. Inspect 1920×1080, 1366×768, and one narrow viewport.
+2. Inspect 1920×1080, 1366×768, 1024×768, and one narrow viewport. 1024×768 is the only listed
+   size that exercises the `max-aspect-ratio: 4 / 3` branch in a deck stylesheet.
 3. Confirm no clipped content, unintended scrollbars, or console errors.
 4. Disable network and reload; presentation must remain functional.
 5. Check visible focus and reduced-motion behavior.

@@ -972,6 +972,15 @@ strong {
   font-weight: 700;
 }
 
+/* Distinguishes the two npx rows, whose first cell is otherwise identical. */
+.cell-qualifier {
+  color: var(--paper-dim);
+  font-family: var(--body);
+  font-size: 0.82em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 /* Marks a row whose subject is only previewed here and taught in a later chapter. */
 .ahead {
   margin-left: 0.4rem;
@@ -1036,6 +1045,15 @@ strong {
 .code-card .s { color: var(--vue); }
 .code-card .c { color: rgba(157, 178, 189, 0.62); }
 .code-card .p { color: var(--amber); }
+
+.code-card__caption {
+  margin: 0;
+  padding: 0.55rem clamp(0.9rem, 2vw, 1.8rem) 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--paper-dim);
+  font-size: clamp(0.7rem, 0.84vw, 0.9rem);
+  line-height: 1.5;
+}
 
 .code-card--slim pre {
   padding: clamp(0.8rem, 1.5vw, 1.3rem);
@@ -1479,6 +1497,16 @@ kbd {
     font-size: clamp(2.8rem, 9vw, 4.6rem);
   }
 
+  .progress {
+    right: 12rem;
+  }
+}
+
+/*
+ * Genuinely narrow viewports only. Stacking these layouts costs a lot of
+ * vertical space, which a 4:3 projector cannot spare — see the block below.
+ */
+@media (max-width: 900px) {
   .build-split,
   .dep-split,
   .rule-grid,
@@ -1533,9 +1561,60 @@ kbd {
   .map-row i {
     display: none;
   }
+}
 
-  .progress {
-    right: 12rem;
+/*
+ * 4:3 (and taller) projectors at desktop widths — 1024x768 is the case that
+ * matters. There is width to spare, so keep every layout multi-column and buy
+ * the missing height back from padding and vertical rhythm instead. Stacking
+ * here pushed the last reveal step of the flow and manifest slides below the
+ * fold, where a presenter pressing the arrow key sees nothing happen.
+ */
+@media (min-width: 901px) and (max-aspect-ratio: 4 / 3) {
+  h2 {
+    margin-bottom: clamp(0.8rem, 1.8vh, 1.4rem);
+  }
+
+  .card,
+  .flow__node,
+  .dep-col,
+  .rule-card {
+    padding: clamp(0.7rem, 1.4vw, 1.15rem);
+  }
+
+  .card-grid,
+  .flow,
+  .dep-split,
+  .rule-grid {
+    gap: clamp(0.6rem, 1.3vw, 1.1rem);
+  }
+
+  .flow__node span {
+    line-height: 1.5;
+  }
+
+  .dep-col li {
+    padding-top: 0.3rem;
+  }
+
+  .dep-col__lead {
+    margin-bottom: 0.6rem;
+  }
+
+  .takeaway {
+    margin-top: 0.9rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .quote,
+  .instructor-note {
+    margin-top: 0.8rem;
+    padding: 0.65rem 0.95rem;
+  }
+
+  .footnote,
+  .simplification {
+    margin-top: 0.9rem;
   }
 }
 

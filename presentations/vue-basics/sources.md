@@ -39,8 +39,14 @@ Quoted verbatim on slide 09:
 "packageManager": "pnpm@11.1.3"
 ```
 
-Scripts quoted on slides 09 and 15: `"dev": "vite --mode dev --host"` and
-`"type-check": "vue-tsc --noEmit"`.
+Scripts quoted on slide 09: `"dev": "vite --mode dev --host"` and
+`"type-check": "vue-tsc --noEmit"`. Slide 09's card is an excerpt of 2 of the file's 16 scripts,
+with `dependencies` and `devDependencies` omitted; the elision is stated in a caption below the
+card rather than inside the block, because JSON accepts no comments.
+
+Slide 15 quotes no scripts. It quotes `engines.node` (`^24.13.0`), `packageManager`
+(`pnpm@11.1.3`), and the `.nvmrc` first line (`24.13.0`), alongside the `nvm use` /
+`node --version` / `pnpm --version` commands a participant runs to check their own machine.
 
 Dependency versions quoted on slides 10 and 11:
 
@@ -130,6 +136,17 @@ All pages fetched **2026-07-28**.
   - Quoted verbatim on slide 12: "You should always commit the lockfile (`pnpm-lock.yaml`)."
   - Also states the lockfile "enforces consistent installations and resolution between development,
     testing, and production environments".
+- [`pnpm exec` — pnpm CLI](https://pnpm.io/cli/exec)
+  - Basis for slide 14's first `npx` row: "`node_modules/.bin` is added to the `PATH`, so
+    `pnpm exec` allows executing commands of dependencies."
+- [`pnpm dlx` — pnpm CLI](https://pnpm.io/cli/dlx)
+  - Basis for slide 14's second `npx` row: "Fetches a package from the registry without installing
+    it as a dependency, hotloads it, and runs whatever default command binary it exposes."
+  - Slide 14 splits `npx <bin>` into two rows because `npx` picks between these two behaviours by
+    itself while pnpm does not. Mapping `npx` to `pnpm dlx` alone — as `docs/vue-lecture-plan.md`
+    originally did — would teach participants to re-download a package that is already pinned in
+    the project, and so possibly run a version the lockfile does not name. The plan document was
+    corrected in the same change.
 - [`pnpm run` — pnpm CLI](https://pnpm.io/cli/run)
   - Quoted verbatim on slide 14: "(ONLY for scripts that do not share the same name as already
     existing pnpm commands)", supporting the caution that `pnpm dev` works but a script named
