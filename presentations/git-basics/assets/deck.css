@@ -193,7 +193,8 @@ a:focus-visible {
   position: absolute;
   left: clamp(24px, 4.2vw, 76px);
   top: 46%;
-  color: rgba(238, 233, 221, 0.22);
+  /* 0.22 measured 1.85:1; large text still needs 3:1. */
+  color: rgba(238, 233, 221, 0.45);
   font-family: var(--display);
   font-size: clamp(2rem, 3vw, 4rem);
   writing-mode: vertical-rl;
@@ -999,7 +1000,12 @@ blockquote strong {
   position: absolute;
   top: 1rem;
   right: 1.2rem;
-  color: rgba(238, 233, 221, 0.12);
+  /*
+   * Not decoration: the footnote on this slide reads "오늘 실습은 B(clone)
+   * 하나로만 진행합니다", so the room has to be able to tell A from B.
+   * 0.12 measured 1.37:1.
+   */
+  color: rgba(238, 233, 221, 0.45);
   font-family: var(--display);
   font-size: 4rem;
 }
@@ -1787,7 +1793,8 @@ blockquote strong {
 }
 
 .menu-drop span {
-  color: #849189;
+  /* #849189 measured 4.45:1, just under the 4.5:1 bar. */
+  color: #8a938e;
   font-size: 0.7rem;
   letter-spacing: 0.16em;
 }
@@ -2254,7 +2261,8 @@ kbd {
 .diff-columns pre span {
   display: inline-block;
   width: 2rem;
-  color: #58645e;
+  /* Line numbers are content, not chrome; #58645e measured 2.89:1. */
+  color: #8a938e;
 }
 
 .diff-old del {
@@ -2383,7 +2391,15 @@ kbd {
   padding: 0.7rem 1rem;
   border: 0;
   border-radius: 2px;
-  background: var(--leaf-deep);
+  /*
+   * White on --leaf-deep (#4fa96b) measures 2.91:1. The bar moves with the
+   * viewport: at 1366x768 the label is bold 19px and needs 3:1, but at
+   * 1024x768 it drops under the large-text cutoff and needs 4.5:1. #327f48
+   * clears the stricter one at 4.92:1 and still reads as the same green.
+   * Scoped to the button, not to --leaf-deep, which is a background wash
+   * elsewhere in the deck.
+   */
+  background: #327f48;
   color: white;
   font-weight: 800;
 }
@@ -2675,14 +2691,15 @@ kbd {
   margin-top: 1.2rem;
 }
 
+/*
+ * Only `align-self` and `font-family` survive here: `.pr-meta button` above
+ * carries higher specificity, so its padding, border, background, colour and
+ * weight win. The declarations that used to sit here described a light-on-dark
+ * button the deck has never rendered.
+ */
 .pr-action {
   align-self: stretch;
-  padding: 0.7rem 1rem;
-  border: 1px solid var(--leaf);
-  background: var(--leaf);
-  color: var(--ink);
   font-family: var(--mono);
-  font-weight: 900;
 }
 
 .pr-meta p {
@@ -4206,4 +4223,58 @@ kbd {
 #branch .checkpoint,
 #ignore .warning-strip {
   padding: 0.55rem 0.9rem;
+}
+
+/*
+ * #clone and #appendix-init cut their own editor chrome on a 768px-tall
+ * projector. Both windows are grid rows of a fixed-height slide and set
+ * `overflow: hidden`, so what does not fit is dropped with no scrollbar: the
+ * `⑂ main` status bar — the branch indicator this whole deck is about — was
+ * gone entirely on #clone (30px) and half-cut on #appendix-init (9px).
+ * Reclaim the height from the editor's own generous spacing, never from the
+ * bars, and never by letting the editor clip in their place.
+ */
+@media (max-height: 860px) {
+  #clone .vscode-titlebar {
+    padding: 0.45rem 1rem;
+  }
+
+  #clone .vscode-editor {
+    padding: 0.8rem 2rem;
+  }
+
+  #clone .clone-result {
+    margin-top: 17%;
+  }
+
+  /*
+   * `⑂ main · 강의 기준` and `LOCAL ONLY · no origin` are wider than the window
+   * here, so each span wrapped to a second line and the bar outgrew its row.
+   */
+  #appendix-init .vscode-status {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+}
+
+/*
+ * #pull-request cuts the bottom 18px off its own PR window on a 768px-tall
+ * projector — the row the branch selector and the Create Pull Request button
+ * sit on. Same cause and same remedy as #clone above: the window is a grid row
+ * of a fixed-height slide with `overflow: hidden`, so take the height out of
+ * the body's generous padding rather than let it swallow the controls.
+ */
+@media (max-height: 860px) {
+  #pull-request .pr-window__body {
+    padding: 0.9rem 1.4rem;
+  }
+
+  #pull-request .branch-selector {
+    margin-bottom: 0.9rem;
+  }
+
+  #pull-request .pr-window label {
+    padding: 0.7rem 0;
+  }
 }
