@@ -169,7 +169,13 @@ README they meet; they need to translate, not to be sheltered.
 | `npm install <pkg>` | `pnpm add <pkg>` |
 | `npm install -D <pkg>` | `pnpm add -D <pkg>` |
 | `npm run <script>` | `pnpm run <script>`, or `pnpm <script>` |
-| `npx <bin>` | `pnpm dlx <bin>` |
+| `npx <bin>`, binary already installed | `pnpm exec <bin>` |
+| `npx <bin>`, binary not installed | `pnpm dlx <bin>` |
+
+The two `npx` rows are deliberate. `npx` picks between "run the copy already in `node_modules`"
+and "fetch it and run it" on its own; pnpm splits those into two commands. Teaching
+`npx` → `pnpm dlx` alone would send participants to the registry for a binary the lockfile
+already pins, so state both rows.
 
 The shorthand in the third row has one restriction worth stating, because it will bite someone:
 pnpm aliases every script as a top-level command **only** when the script name does not collide

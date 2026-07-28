@@ -30,7 +30,10 @@ How to test: review slide order from the stated audience's starting knowledge.
 | 3 | Readable with minor density or spacing issues |
 | 1 | Critical content clips, overlaps, or is unreadable |
 
-How to test: inspect at 1920×1080 and 1366×768, then at one narrow viewport.
+How to test: inspect at 1920×1080, 1366×768, and 1024×768, then at one narrow viewport. Include
+1024×768: deck stylesheets branch on `max-aspect-ratio: 4 / 3`, and no 16:9 or narrow size
+reaches that branch. Check that every `[data-step]` element stays above `slide.clientHeight` —
+a step that reveals below the fold looks to a presenter like the key press did nothing.
 
 ## 4. Presentation Operation (20%)
 
