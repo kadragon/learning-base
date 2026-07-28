@@ -2,7 +2,8 @@
 
 ## Problem Statement
 
-Department members will take over maintenance of `/Users/kadragon/dev/knue/uniweb` — a
+Department members will take over maintenance of `uniweb`, the KNUE Vue application (local
+checkout `<uniweb-checkout>`, `~/dev/knue/uniweb` on the machine used here) — a
 production Vue 3 + TypeScript + Vite single-page application (451 `.vue` files, 499 `.ts`
 files). The people who must maintain it have development experience in other stacks but have
 never used the Node.js frontend ecosystem: Node, npm/pnpm, TypeScript, bundlers, and Vue itself
@@ -76,7 +77,7 @@ breadth over depth, every basic covered once.
 
 ### Stack pinned to `uniweb`, not to generic tutorials
 
-Verified from `/Users/kadragon/dev/knue/uniweb` (`package.json`, `AGENTS.md`, `src/main.ts`):
+Verified from the `uniweb` checkout (`package.json`, `AGENTS.md`, `src/main.ts`):
 
 | Choice | Value | Why |
 |---|---|---|
@@ -178,7 +179,7 @@ Golden Principle 4.
   the `@/core` vendor package.
 - Advanced Vue: SSR/Nuxt, `<Suspense>`, Teleport, custom directives, render functions, plugin
   authoring, provide/inject beyond a naming mention, and testing with Vitest.
-- Modifying `/Users/kadragon/dev/knue/uniweb` in any way. It is read-only reference material.
+- Modifying the `uniweb` repository in any way. It is read-only reference material.
 - Extracting a shared deck runtime out of `presentations/git-basics/` and `presentations/vue-basics/`.
 - Resolving the three pre-existing `git-basics` follow-up items already recorded in `tasks.md`.
 

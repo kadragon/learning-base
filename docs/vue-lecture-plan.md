@@ -1,8 +1,10 @@
 # Vue Lecture Plan for Developers New to the Frontend Ecosystem
 
 Design source: `docs/design/vue-basics-lecture.md`.
-Reference repository: `/Users/kadragon/dev/knue/uniweb` (read-only; every stack claim below was
-read from that repository on 2026-07-28).
+Reference repository: **`uniweb`**, the KNUE Vue application the audience will maintain. It is
+read-only for this lecture. Every stack claim below was read from it on 2026-07-28, from the
+author's local checkout at `<uniweb-checkout>` (`~/dev/knue/uniweb` on the machine used here).
+Paths written as `src/main/...` are relative to that checkout.
 
 ## 1. Lecture Overview
 
@@ -375,9 +377,11 @@ reading `public/members.json`.
 
 #### `uniweb` mapping
 
-`src/main/composables/` — show the real names, which follow exactly the convention just taught:
-`use-login.ts`, `use-timetable.ts`, `use-breakpoint.ts`, `use-file-upload.ts`, `use-user-role.ts`,
-plus the `common/`, `forms/`, and `knue/` subdirectories. Then `src/main/api/api-client.ts` as the
+`src/main/composables/` — show the real names, which follow exactly the convention just taught.
+As read on 2026-07-28, the directory holds `use-breakpoint.ts`, `use-file-upload.ts`,
+`use-login-error.ts`, `use-login.ts`, `use-timetable.ts`, and `use-user-role.ts`, plus the
+`common/`, `forms/`, `knue/`, and `total-menu/` subdirectories. Re-read the directory when
+authoring the slide rather than copying this list — it grows. Then `src/main/api/api-client.ts` as the
 single configured axios client, and note that `uniweb` names TypeScript files in kebab-case while
 naming the exported function in camelCase.
 
