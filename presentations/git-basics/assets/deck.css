@@ -4122,57 +4122,56 @@ kbd {
   font-size: 0.88em;
 }
 
-#svn-git .statement-foot,
-#svn-git > p:last-child {
-  margin-top: 0.55rem;
-  line-height: 1.42;
+/*
+ * #core-loop-3 shows 14 lines of `git status`, and its card is a grid row of a
+ * fixed-height slide, so it cannot grow. Measured on a 768px-tall projector:
+ * the row is 306px and the title bar takes 48px, leaving 258px for 14 lines —
+ * 13.5px type at 1.28 leading is what actually fits. This slide cannot reach
+ * the deck's 15.7px terminal norm without clipping the output. What it must
+ * not do is go the other way: the shared `max-height: 860px` rule left it at
+ * 12.3px, the smallest type in the deck, on the one slide whose entire purpose
+ * is that the room reads this output.
+ */
+@media (max-height: 860px) {
+  #core-loop-3 .terminal-card--status pre {
+    padding: 0.35rem 0.9rem;
+    font-size: clamp(0.7rem, 0.95vw, 0.9rem);
+    line-height: 1.28;
+  }
 }
 
 /*
  * #vs-code-3: `fatal: not a git repository (or any of the parent directories):
- * .git` is one unbreakable line, wider than its 560px card at the base size.
+ * .git` is one long line, 117px wider than its column of the two-column stage
+ * at the deck's normal terminal type. Wrap it rather than shrink it — a real
+ * terminal wraps that line too, and one extra line of height is far cheaper
+ * than either the reflow to full width or type the back row cannot read.
  */
-/*
- * The card sits in a two-column stage. At 1024x768 the column is too narrow for
- * the one unbreakable `fatal: …` line at a readable size, so give the card the
- * full width there rather than shrinking the type below what a room can read.
- */
-@media (max-width: 1100px) {
-  #vs-code-3 .terminal-card {
-    grid-column: 1 / -1;
-  }
-
-  /* Full width costs a row of height; take it back from the card and the note. */
-  /* #core-loop-3's status card clips its last line by 6px at 1366x768. */
-#core-loop-3 .terminal-card--status pre {
-  line-height: 1.32;
+#vs-code-3 .terminal-card pre {
+  padding: 0.55rem 0.9rem;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
-#vs-code-3 .terminal-card pre {
-    padding: 0.55rem 0.8rem;
-  }
+#vs-code-3 .terminal-card__bar {
+  padding: 0.35rem 0.9rem;
+}
 
-  #vs-code-3 .terminal-card__bar {
-    padding: 0.35rem 0.8rem;
-  }
+#vs-code-3 .takeaway {
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  line-height: 1.38;
+  font-size: 0.92em;
+}
 
-  #vs-code-3 .takeaway {
-    margin-top: 0.5rem;
-    padding: 0.45rem 0.8rem;
-    line-height: 1.38;
-    font-size: 0.92em;
-  }
+#vs-code-3 article {
+  gap: 0.25rem;
+  padding: 0.6rem 0.8rem;
+}
 
-  #vs-code-3 article {
-    padding: 0.6rem 0.8rem;
-  }
-
+@media (max-width: 1100px) {
   #vs-code-3 article small {
     line-height: 1.32;
-  }
-
-  #vs-code-3 article {
-    gap: 0.25rem;
   }
 
   #vs-code-3 h2 {
@@ -4184,26 +4183,14 @@ kbd {
   }
 }
 
-/* #core-loop-3's status card clips its last line by 6px at 1366x768. */
-#core-loop-3 .terminal-card--status pre {
-  line-height: 1.32;
-}
-
-#vs-code-3 .terminal-card pre {
-  padding: clamp(0.6rem, 1vw, 0.9rem);
-  /*
-   * The floor matters more than the ceiling here: at 1024x768 the root font is
-   * already at its minimum, so a rem-based floor is what actually applies. Keep
-   * it at or above the deck's readable minimum and let the vw term do the rest.
-   */
-  font-size: clamp(0.68rem, 0.72vw, 0.78rem);
-}
-
 /*
- * #qa is deliberately not fixed here. Its `.final-tree` is absolutely
- * positioned at `bottom: -8vh` — the art bleeds off the bottom edge by design,
- * which reads as a 61px slide overflow to a naive measurement. Nothing is
- * clipped that carries meaning, and `aria-hidden` already marks it decorative.
+ * Two slides are deliberately not fixed here, because what hangs past their
+ * bottom edge is art, not content. #qa's `.final-tree` is absolutely positioned
+ * at `bottom: -8vh` and bleeds off the edge by design (61px at 1366x768, 86px at
+ * 1920x1080); #opening's cover art does the same at 1024x768 (29px). Both sit
+ * inside `aria-hidden="true"` subtrees, and in both cases every element that
+ * carries meaning clears the edge. A measurement that counts raw scroll height
+ * will flag them; one that excludes `aria-hidden` decoration will not.
  */
 
 /* Slides whose last step lands on the control line; rhythm only, no type change. */
