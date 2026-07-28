@@ -1099,7 +1099,7 @@ vue-router  vue-tsc</code></pre>
         <p class="eyebrow">BUILDING FOR PRODUCTION</p>
         <h2>배포용으로 굽습니다 — <code>pnpm build</code></h2>
         <div class="code-card code-card--dense" data-step="1">
-          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력 — 진행 표시 줄만 생략</b></div>
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력 — 진행 표시 줄과 하위 명령 생략</b></div>
           <pre><code><span class="p">$</span> pnpm build
 <span class="p">$</span> run-p type-check "build-only {@}" --
 <span class="c">  ... vue-tsc --build, vite build</span>
@@ -1498,7 +1498,7 @@ keyword = <span class="s">'학사'</span>         <span class="c">// ❌ const�
 <span class="k">function</span> toggleBookmark(id: <span class="k">number</span>) {
   bookmarked.value = bookmarked.value.includes(id)
     ? bookmarked.value.filter(
-        (bookmarkedId) =&gt; bookmarkedId !== id,
+        (bookmarkedId) =&gt; bookmarkedId !== id
       )
     : [...bookmarked.value, id]
 }</code></pre>
@@ -1962,43 +1962,40 @@ onMounted(<span class="k">async</span> () =&gt; {
         <h2>스토어는 <code>&lt;script setup&gt;</code>처럼 씁니다</h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
-            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/stores/bookmark.ts — 파일 전부</b></div>
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/stores/bookmark.ts — 앞부분</b></div>
             <pre><code><span class="k">import</span> { computed, ref } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">import</span> { defineStore } <span class="k">from</span> <span class="s">'pinia'</span>
 
-<span class="k">export const</span> useBookmarkStore =
-  defineStore(<span class="s">'bookmark'</span>, () =&gt; {
-  <span class="k">const</span> ids = ref&lt;<span class="k">number</span>[]&gt;([])
+<span class="k">export const</span> useBookmarkStore = defineStore(
+  <span class="s">'bookmark'</span>,
+  () =&gt; {
+    <span class="k">const</span> ids = ref&lt;<span class="k">number</span>[]&gt;([])
 
-  <span class="k">const</span> count = computed(() =&gt; ids.value.length)
+    <span class="k">const</span> count = computed(() =&gt; ids.value.length)
 
-  <span class="k">function</span> isBookmarked(id: <span class="k">number</span>) {
-    <span class="k">return</span> ids.value.includes(id)
-  }
-
-  <span class="k">function</span> toggle(id: <span class="k">number</span>) {
-    ids.value = ids.value.includes(id)
-      ? ids.value.filter(
-          (bookmarkedId) =&gt; bookmarkedId !== id
-        )
-      : [...ids.value, id]
-  }
-
-  <span class="k">return</span> { ids, count, isBookmarked, toggle }
-})</code></pre>
+    <span class="k">function</span> isBookmarked(id: <span class="k">number</span>) {
+      <span class="k">return</span> ids.value.includes(id)
+    }</code></pre>
           </div>
-          <div class="tree-notes">
-            <div class="map-grid">
-              <div class="map-row" data-step="2"><b><code>'bookmark'</code></b><i aria-hidden="true">→</i><span>스토어의 <b>고유 이름</b> — 앱 안에서 겹치면 안 됩니다</span></div>
-              <div class="map-row" data-step="3"><b><code>ref</code></b><i aria-hidden="true">→</i><span>state — 4장의 그 <code>ref</code>입니다</span></div>
-              <div class="map-row" data-step="4"><b><code>computed</code></b><i aria-hidden="true">→</i><span>getter — 파생 값</span></div>
-              <div class="map-row" data-step="5"><b><code>function</code></b><i aria-hidden="true">→</i><span>action — 상태를 바꾸는 곳</span></div>
-            </div>
-            <p class="footnote" data-step="6">
-              4장의 <code>toggleBookmark</code>가 <strong>그대로</strong> 옮겨 왔습니다 ·
-              달라진 건 <strong>어디에 사는가</strong>뿐입니다
-            </p>
+          <div class="code-card code-card--dense" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>이어서 — 바꾸고, 돌려주고</b></div>
+            <pre><code>    <span class="k">function</span> toggle(id: <span class="k">number</span>) {
+      ids.value = ids.value.includes(id)
+        ? ids.value.filter(
+            (bookmarkedId) =&gt; bookmarkedId !== id
+          )
+        : [...ids.value, id]
+    }
+
+    <span class="k">return</span> { ids, count, isBookmarked, toggle }
+  },
+)</code></pre>
           </div>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b><code>'bookmark'</code></b><span>스토어의 <b>고유 이름</b> — 앱 안에서 겹치면 안 됩니다</span></p>
+          <p data-step="3"><b><code>ref</code> · <code>computed</code></b><span>state와 getter — 4장의 그 둘입니다</span></p>
+          <p data-step="4"><b><code>function</code></b><span>action — 4장의 <code>toggleBookmark</code>가 <b>그대로</b> 왔습니다</span></p>
         </div>
       </section>
 
@@ -2084,7 +2081,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         <p class="footnote" data-step="4">
           붙이는 코드는 <strong>3장에서 이미</strong> <code>src/main.ts</code>에 있었습니다 —
           스캐폴더가 넣어 준 <code>app.use(createPinia())</code> 한 줄입니다 ·
-          <code>uniweb</code>은 여기에 플러그인을 끼우느라 두 줄로 풀어 씁니다 <span class="ahead">61번</span>
+          <code>uniweb</code>은 플러그인 한 줄을 끼우느라 <strong>세 줄</strong>로 풀어 씁니다 <span class="ahead">61번</span>
         </p>
       </section>
 

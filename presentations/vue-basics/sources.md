@@ -220,6 +220,13 @@ Read on 2026-07-28:
 - `src/main.ts` wires Pinia at lines 134–136:
   `const pinia = createPinia(); pinia.use(piniaPluginPersistatestate); app.use(pinia);` — the
   persistence plugin slide 61 names but does not teach.
+- Slide 63's "what we did not build" list is `ls src` and `ls src/main` — `cartzilla`, `core`,
+  `docs`, `pub-only` at the top level; `i18n.ts`, `locales`, `layouts`, `plugins`, `constants`,
+  `utils` under `main`.
+- Slide 64's command list is copied from `uniweb/AGENTS.md`, including the statement that there is
+  no automated test suite and that `pnpm type-check`, `pnpm lint`, and the matching build must be
+  run before a pull request, with the changed routes exercised by hand.
+
 ### Where the 451 `.vue` files actually live — slide 62
 
 Counted on 2026-07-28 with `find src -name '*.vue'`:
@@ -239,13 +246,6 @@ Slide 62's mapping table has rows for `views/` and `components/` but not for `la
 `pub-only/`, which slide 63 lists as deliberately not built. So **324**, not 451, is the number the
 table accounts for, and the slide says so. An earlier draft claimed all 451 fit the seven rows;
 review caught it and the counts above are what replaced it.
-
-- Slide 63's "what we did not build" list is `ls src` and `ls src/main` — `cartzilla`, `core`,
-  `docs`, `pub-only` at the top level; `i18n.ts`, `locales`, `layouts`, `plugins`, `constants`,
-  `utils` under `main`.
-- Slide 64's command list is copied from `uniweb/AGENTS.md`, including the statement that there is
-  no automated test suite and that `pnpm type-check`, `pnpm lint`, and the matching build must be
-  run before a pull request, with the changed routes exercised by hand.
 
 ### Scripts and the dev-server port — slide 32
 
@@ -464,9 +464,11 @@ The original `HomeView.vue` was restored before the build capture.
 
 ### Build — slide 31
 
-Captured as below. The slide reproduces all five size rows in this order and drops only the
-`transforming...` / `rendering chunks...` / `computing gzip size...` progress lines, which its card
-bar states:
+Captured as below. The slide reproduces all five size rows in this order and elides two things,
+both named on its card bar: the `transforming...` / `rendering chunks...` / `computing gzip size...`
+progress lines, and the two echoed sub-commands `$ vue-tsc --build` / `$ vite build`, which the
+slide replaces with a single `... vue-tsc --build, vite build` comment so the card fits a
+projector:
 
 ```text
 vite v8.1.5 building client environment for production...
@@ -567,6 +569,10 @@ Slide numbers below are the current ones (Part 4 runs 33–44).
 - Slide 44 carries no code block; the rehearsal claim above covers slides 33–43's code and slide
   44's `uniweb` paths, which are read from the checkout rather than from the rehearsal project.
 
+Two Part 4 blocks are additionally **folded for projector width**, whitespace only: slide 40's
+desugared `@input` attribute value, and slide 42's `filter` call in `toggleBookmark`. No token is
+added, removed, or reordered by either fold.
+
 Every other Vue block in Part 4 is character-for-character from a file listed above. An earlier
 draft silently stripped attributes from four component tags — `:is-bookmarked`,
 `@toggle-bookmark`, `type="button"`, `placeholder` — and renamed a callback parameter, while this
@@ -658,7 +664,7 @@ cards. `http.ts` was restored to `baseURL: '/'` immediately afterwards, and the 
 - Slide 54's list-view template line `<template v-else> … 목록 … </template>` elides the list markup
   slide 39 already showed; the ellipsis is on the slide.
 
-**Line folding for projector width.** Several Part 5–6 cards break a statement across two lines
+**Line folding for projector width.** Cards in Parts 4–7 break a statement across lines
 where the file has one, so that no code needs a horizontal scrollbar at 1024×768: slide 47's
 `import` and `component:` lines (stated in that slide's own footnote), and the
 `import { useMembers } from '@/composables/use-members'` line plus the not-found `<p v-else>` on
@@ -717,9 +723,10 @@ That round trip is the whole argument for a store, so it is measured rather than
 
 ### What the slides abbreviate
 
-- Slide 57 quotes `bookmark.ts` **whole**. Two statements are folded to fit a projector column:
-  the `defineStore(` line across two lines, and the `filter` call across three. Only whitespace
-  differs — no token is added, removed, or reordered.
+- Slide 57 splits `bookmark.ts` across two cards at the `toggle` boundary; together they are the
+  **whole file**, and neither card omits a line. Two statements are folded to fit a projector
+  column — the `defineStore(` call and the `filter` call, each broken the way Prettier breaks a
+  call. Only whitespace differs; no token is added, removed, or reordered.
 - Slide 59's two cards each splice a `// template` fragment under a `script` fragment from the same
   file. The list card's `<MemberCard ... />` ends in a literal `...` standing for the `:member`
   binding slide 41 already showed; `:key` sits on the `<li>`, not on the component.
