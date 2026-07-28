@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- [done] Vue deck TypeScript and project-scaffolding chapters, from a real rehearsal run (2026-07-28)
+  → docs/vue-lecture-plan.md
 - [done] Vue deck foundation and tooling chapter (2026-07-28)
   → docs/vue-lecture-plan.md
 - [done] Fix git-basics practice framing, publish-state checkpoint, and step numbering (2026-07-28)
