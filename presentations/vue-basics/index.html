@@ -1594,24 +1594,32 @@ onMounted(<span class="k">async</span> () =&gt; {
         <div class="slide-index">46</div>
         <p class="eyebrow">THE ROUTE TABLE</p>
         <h2>주소와 컴포넌트를 짝지어 적습니다</h2>
-        <div class="code-card code-card--dense" data-step="1">
-          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/router/index.ts — 발췌</b></div>
-          <pre><code><span class="k">import</span> { createRouter, createWebHistory } <span class="k">from</span> <span class="s">'vue-router'</span>
-<span class="k">import</span> MemberListView <span class="k">from</span> <span class="s">'@/views/MemberListView.vue'</span>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/router/index.ts — 바깥쪽</b></div>
+            <pre><code><span class="k">import</span> { createRouter, createWebHistory }
+  <span class="k">from</span> <span class="s">'vue-router'</span>
+<span class="k">import</span> MemberListView
+  <span class="k">from</span> <span class="s">'@/views/MemberListView.vue'</span>
 
 <span class="k">const</span> router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    { path: <span class="s">'/'</span>, name: <span class="s">'members'</span>, component: MemberListView },
-    {
-      path: <span class="s">'/members/:id'</span>,
-      name: <span class="s">'member-detail'</span>,
-      component: () =&gt; <span class="k">import</span>(<span class="s">'@/views/MemberDetailView.vue'</span>),
-    },
-  ],
+  routes: [ <span class="c">/* 오른쪽 */</span> ],
 })
 
 <span class="k">export default</span> router</code></pre>
+          </div>
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 파일 — <code>routes</code> 배열</b></div>
+            <pre><code>{ path: <span class="s">'/'</span>, name: <span class="s">'members'</span>,
+  component: MemberListView },
+{
+  path: <span class="s">'/members/:id'</span>,
+  name: <span class="s">'member-detail'</span>,
+  component: () =&gt;
+    <span class="k">import</span>(<span class="s">'@/views/MemberDetailView.vue'</span>),
+},</code></pre>
+          </div>
         </div>
         <div class="note-row">
           <p data-step="2"><b><code>:id</code>는 자리표시자</b><span><code>/members/1</code>도 <code>/members/4</code>도 이 라우트에 걸립니다</span></p>
@@ -1619,7 +1627,8 @@ onMounted(<span class="k">async</span> () =&gt; {
           <p data-step="4"><b>두 번째는 <code>() =&gt; import(...)</code></b><span><b>지연 로딩</b> — 그 페이지에 갈 때 비로소 받습니다</span></p>
         </div>
         <p class="footnote" data-step="5">
-          위 카드는 첫 라우트만 한 줄로 붙인 <strong>발췌</strong>입니다 — 실제 파일은 세 줄로 펼쳐 씁니다 ·
+          두 카드는 <strong>한 파일</strong>입니다 — 오른쪽 배열이 왼쪽 <code>routes:</code> 자리에 들어갑니다 ·
+          투영 폭에 맞추려고 <code>import</code>와 <code>component:</code> 줄을 접었습니다 ·
           <code>createWebHistory</code>는 <code>#</code> 없는 보통 주소를 쓰겠다는 뜻이고, 그러려면 배포 서버가
           “모르는 주소는 <code>index.html</code>로” 응답해야 합니다
         </p>
@@ -1635,7 +1644,9 @@ onMounted(<span class="k">async</span> () =&gt; {
             <pre><code><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
 
 <span class="c">// template</span>
-&lt;RouterLink <span class="k">:to</span>=<span class="s">"`/members/${member.id}`"</span>&gt;{{ member.name }}&lt;/RouterLink&gt;</code></pre>
+&lt;RouterLink <span class="k">:to</span>=<span class="s">"`/members/${member.id}`"</span>&gt;
+  {{ member.name }}
+&lt;/RouterLink&gt;</code></pre>
           </div>
           <div class="code-card" data-step="2">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>App.vue — 화면이 끼워지는 자리</b></div>
@@ -1669,14 +1680,17 @@ onMounted(<span class="k">async</span> () =&gt; {
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberDetailView.vue — script</b></div>
             <pre><code><span class="k">import</span> { computed } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">import</span> { RouterLink, useRoute } <span class="k">from</span> <span class="s">'vue-router'</span>
-<span class="k">import</span> { useMembers } <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
+<span class="k">import</span> { useMembers }
+  <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
 
 <span class="k">const</span> route = useRoute()
 <span class="k">const</span> { members, isLoading, error } = useMembers()
 
 <span class="k">const</span> member = computed(() =&gt; {
   <span class="k">const</span> id = <span class="k">Number</span>(route.params.id)
-  <span class="k">return</span> members.value.find((candidate) =&gt; candidate.id === id)
+  <span class="k">return</span> members.value.find(
+    (candidate) =&gt; candidate.id === id,
+  )
 })</code></pre>
             <p class="code-card__caption"><code>useMembers()</code>는 <strong>6장</strong>에서 만듭니다 — 지금은 “목록을 준다”로 두세요</p>
           </div>
@@ -1691,7 +1705,9 @@ onMounted(<span class="k">async</span> () =&gt; {
   &lt;p&gt;{{ member.role }} · {{ member.team }}&lt;/p&gt;
   &lt;p&gt;{{ member.email ?? <span class="s">'이메일 미등록'</span> }}&lt;/p&gt;
 &lt;/template&gt;
-&lt;p <span class="k">v-else</span>&gt;{{ route.params.id }}번 구성원을 찾을 수 없습니다.&lt;/p&gt;</code></pre>
+&lt;p <span class="k">v-else</span>&gt;
+  {{ route.params.id }}번 구성원을 찾을 수 없습니다.
+&lt;/p&gt;</code></pre>
           </div>
         </div>
         <div class="note-row">
@@ -1768,11 +1784,13 @@ onMounted(<span class="k">async</span> () =&gt; {
         <div class="note-row">
           <p data-step="3"><b>이름은 <code>use</code>로 시작</b><span>“It is a convention to name composable functions with camelCase names that start with <code>use</code>.”</span></p>
           <p data-step="4"><b><code>ref</code>를 담아 돌려줍니다</b><span>구조 분해해도 반응성이 살아 있도록 — 객체째 반응형으로 주면 끊깁니다</span></p>
-          <p data-step="5"><b>부르는 자리가 정해져 있습니다</b><span><code>&lt;script setup&gt;</code> 안에서, <b>동기적으로</b> · 조건문이나 <code>await</code> 뒤는 안 됩니다</span></p>
+          <p data-step="5"><b>부르는 자리가 정해져 있습니다</b><span><code>&lt;script setup&gt;</code>이나 <code>setup()</code> 안에서 <b>동기적으로</b> · 조건문 안에서는 안 됩니다</span></p>
         </div>
         <p class="footnote" data-step="6">
           출처 <code>vuejs.org</code> — Composables · 마지막 규칙의 이유는 4장 <code>onMounted</code>와 같습니다 ·
-          Vue가 <strong>어느 컴포넌트에 붙일지</strong>를 그 순간에 알아야 하기 때문입니다
+          Vue가 <strong>어느 컴포넌트에 붙일지</strong>를 그 순간에 알아야 하기 때문입니다 ·
+          예외 하나 — <code>&lt;script setup&gt;</code>은 “the only place where you can call composables
+          <strong>after</strong> using <code>await</code>”입니다
         </p>
       </section>
 
@@ -1794,7 +1812,7 @@ onMounted(<span class="k">async</span> () =&gt; {
           <div class="tree-notes">
             <div class="map-grid">
               <div class="map-row" data-step="2"><b>왜 파일로?</b><i aria-hidden="true">→</i><span>주소·타임아웃·인증 헤더를 <b>한 번만</b> 정하고 어디서나 같은 걸 씁니다</span></div>
-              <div class="map-row" data-step="3"><b><code>fetch</code>는 왜 아닌가</b><i aria-hidden="true">→</i><span>컴포넌트마다 설정을 되풀이하게 됩니다 · 나중에 헤더 하나 바꾸려면 전부 찾아야 합니다</span></div>
+              <div class="map-row" data-step="3"><b>컴포넌트마다 <code>fetch</code>는 왜 아닌가</b><i aria-hidden="true">→</i><span>설정이 화면마다 흩어집니다 · <code>fetch</code>를 똑같이 한 파일로 감싸도 됩니다 — <b>도구가 아니라 “한 곳”이 핵심</b>입니다</span></div>
               <div class="map-row" data-step="4"><b>바꿀 곳이 한 군데</b><i aria-hidden="true">→</i><span>운영 서버 주소가 바뀌면 <b>이 파일만</b> 고칩니다</span></div>
             </div>
           </div>
@@ -1827,7 +1845,8 @@ onMounted(<span class="k">async</span> () =&gt; {
             <pre><code>  onMounted(<span class="k">async</span> () =&gt; {
     isLoading.value = <span class="k">true</span>
     <span class="k">try</span> {
-      <span class="k">const</span> response = <span class="k">await</span> http.get&lt;Member[]&gt;(<span class="s">'/members.json'</span>)
+      <span class="k">const</span> response =
+        <span class="k">await</span> http.get&lt;Member[]&gt;(<span class="s">'/members.json'</span>)
       members.value = response.data
     } <span class="k">catch</span> {
       error.value = <span class="s">'구성원 목록을 불러오지 못했습니다.'</span>
@@ -1853,7 +1872,8 @@ onMounted(<span class="k">async</span> () =&gt; {
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberListView.vue — 발췌</b></div>
-            <pre><code><span class="k">import</span> { useMembers } <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
+            <pre><code><span class="k">import</span> { useMembers }
+  <span class="k">from</span> <span class="s">'@/composables/use-members'</span>
 
 <span class="k">const</span> { members, isLoading, error } = useMembers()
 
@@ -1869,7 +1889,9 @@ onMounted(<span class="k">async</span> () =&gt; {
 
 <span class="k">const</span> member = computed(() =&gt; {
   <span class="k">const</span> id = <span class="k">Number</span>(route.params.id)
-  <span class="k">return</span> members.value.find((candidate) =&gt; candidate.id === id)
+  <span class="k">return</span> members.value.find(
+    (candidate) =&gt; candidate.id === id,
+  )
 })</code></pre>
           </div>
         </div>

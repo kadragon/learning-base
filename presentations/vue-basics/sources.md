@@ -608,6 +608,14 @@ cards. `http.ts` was restored to `baseURL: '/'` immediately afterwards, and the 
 - Slide 54's list-view template line `<template v-else> … 목록 … </template>` elides the list markup
   slide 39 already showed; the ellipsis is on the slide.
 
+**Line folding for projector width.** Several Part 5–6 cards break a statement across two lines
+where the file has one, so that no code needs a horizontal scrollbar at 1024×768: slide 47's
+`import` and `component:` lines (stated in that slide's own footnote), and the
+`import { useMembers } from '@/composables/use-members'` line plus the not-found `<p v-else>` on
+slides 49 and 55. Only whitespace differs; no token is added, removed, or reordered. Where the file
+could carry the shorter form instead, it was changed there rather than only on the slide — see the
+next paragraph and `MemberCard.vue`'s `RouterLink`, which now spans three lines in the project too.
+
 `MemberDetailView.vue`'s `member` computed was reformatted in the rehearsal project — the id
 conversion is now its own `const id = Number(route.params.id)` line — so that the quoted block fits
 a half-width card without a horizontal scrollbar. The project was re-type-checked at exit 0 after
@@ -809,6 +817,11 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     `setup()` hook. They should also be called synchronously in these contexts." The slide's stated
     *reason* — that Vue must know which component instance is active — is the page's own
     explanation, paraphrased rather than quoted.
+  - **The synchronous rule has a documented exception, and the slide now carries it.** The page
+    states: "`<script setup>` is the only place where you can call composables **after** using
+    `await`. The compiler automatically restores the active instance context for you after the async
+    operation." An earlier draft said flatly that a composable cannot be called after `await`, which
+    would have taught the room to reject valid code. Slide 51's footnote quotes the exception.
   - The page's stateless/stateful contrast (formatters and lodash functions versus state that
     changes over time) is the basis for slide 51's two cards.
 

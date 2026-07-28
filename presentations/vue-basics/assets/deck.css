@@ -1761,12 +1761,12 @@ kbd {
  * on cards whose real file content will not otherwise fit at 1920x1080.
  */
 .code-card--dense pre {
-  padding: clamp(0.5rem, 0.9vw, 0.85rem);
-  font-size: clamp(0.5rem, 0.62vw, 0.72rem);
-  line-height: 1.4;
+  padding: clamp(0.55rem, 1vw, 0.9rem);
+  font-size: clamp(0.68rem, 0.78vw, 0.86rem);
+  line-height: 1.42;
 }
 .code-split .code-card--dense pre {
-  font-size: clamp(0.48rem, 0.56vw, 0.66rem);
+  font-size: clamp(0.68rem, 0.74vw, 0.82rem);
 }
 .code-card--dense .code-card__bar {
   padding: 0.4rem 0.8rem;
