@@ -206,6 +206,28 @@ license copies retain their copyright and reserved-name notices.
   the team repository does this merge through push → PR → review instead, so the warm-up is not read
   as the recommended team workflow. The warm-up branch is named `feature/hello` to keep it distinct
   from `feature/team-message` used in the real exercise.
+- The four **VS Code basics** slides that open the practice chapter (open folder, Activity Bar,
+  terminal, Source Control panel) are set in the throwaway `git-practice` folder, not in the team
+  repository. They run before `clone`, so a mock showing `training` already open — or a branch and
+  ahead/behind counts that only exist after cloning — would depict state the participant cannot
+  have yet. The terminal slide therefore shows `git status` answering
+  `fatal: not a git repository (or any of the parent directories): .git`, which is the verified
+  output for a folder that has not been initialized and sets up **Initialize Repository** on the
+  next slide.
+- The stage-and-commit checkpoint asks for the **Publish Branch** affordance in the Source Control
+  view rather than an `↻ 0↓ 1↑` status-bar reading. The exercise branch has no upstream until the
+  push step, and VS Code's docs describe Publish Branch for exactly that state; ahead/behind counts
+  presuppose an upstream. The status-bar placement of that affordance is not quoted from the
+  product docs, so the checkpoint names the Source Control view, which is.
+- The right-hand text in every mock status bar (`NOT PUBLISHED · no upstream`,
+  `LOCAL ONLY · no origin`, `아직 Git 저장소 아님`) is a **stylized annotation naming the repository
+  state**, not product text. VS Code renders that region as icons and counts. The annotations exist
+  because the state they describe — no upstream, no remote, not yet a repository — is exactly what
+  the surrounding slides must not misstate; the checkpoints are worded against documented UI
+  instead.
+- The guided-practice slide eyebrows carry no step numbers. The recap's ten-step track is the
+  deck's only numbering; numbering the practice slides too produced a second, conflicting scheme
+  because `.gitignore` is a full practice slide but not one of the recap's ten steps.
 - The team-timeline slide marks a `main 최신 반영` step for the second and third contributors,
   because `main` already moved before their merge. It names the deck's own fetch-then-merge path
   (`git fetch origin` → `git merge origin/main`) rather than rebase, which stays on the "not today"
