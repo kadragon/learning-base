@@ -13,6 +13,8 @@ Repository for Korean HTML presentations that explain developer knowledge to dep
 | `docs/eval-criteria.md` | Before reviewing a completed deck |
 | `docs/runbook.md` | For validation, preview, and troubleshooting commands |
 | `docs/harness-log.md` | When changing harness roles or skills |
+| `docs/git-lecture-plan.md` | Before changing the `git-basics` deck's teaching content |
+| `docs/vue-lecture-plan.md` | Before changing the `vue-basics` deck's teaching content |
 
 ## Golden Principles
 
