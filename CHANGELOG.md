@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- [done] git-basics per-slide projection pass; clean geometry and AA contrast at three projector sizes (2026-07-29)
+  → docs/runbook.md
 - [done] git-basics adopts the slide-evidence checker; both decks now covered (2026-07-28)
   → docs/conventions.md
 - [done] Mechanical slide-evidence checker; vue-basics evidence anchored to slide ids (2026-07-28)
