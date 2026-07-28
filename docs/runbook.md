@@ -91,8 +91,14 @@ For each changed deck:
 
    Then, with every `[data-step]` revealed on each slide in turn, check all four of these; the
    first two are the ones repeatedly missed:
-   - `card.scrollHeight - card.clientHeight` for every `.code-card`. Cards set `overflow: hidden`,
-     so a too-tall block is cut with **no scrollbar** and a presenter cannot reveal it live.
+   - whether any child's bottom edge passes the card's clip edge, for every `.code-card` and mock
+     window. Cards set `overflow: hidden`, so a too-tall block is cut with **no scrollbar** and a
+     presenter cannot reveal it live. Compare rectangles —
+     `child.getBoundingClientRect().bottom` against
+     `card.getBoundingClientRect().bottom - borderBottomWidth`. Do **not** use
+     `card.scrollHeight - card.clientHeight`: in-flight step-reveal transforms inflate it for a few
+     hundred milliseconds after a slide change, so it reports phantom clips that vanish on the next
+     run and it has already sent one fix chasing a defect that did not exist.
    - `pre.scrollWidth - pre.clientWidth` for every `<pre>` — code must never need a horizontal
      scrollbar on a projector.
    - the computed `font-size` of every `<pre>`; below ~11.5px it is unreadable from the back of a
