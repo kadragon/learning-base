@@ -104,6 +104,11 @@ safe there. `uniweb` itself is opened only in the last chapter, and only for rea
 | 8 | Mapping onto `uniweb`, and wrap-up | 10 minutes |
 | | **Total** | **180 minutes** |
 
+**These durations are still estimates.** The ticket-3 rehearsal timed *commands* — the scaffold,
+install, dev server, and build all complete in well under a minute — not *teaching*. No chapter has
+been run against a room, so the instructor checklist item "run the whole hands-on project end to
+end and time each chapter" remains open.
+
 ### If the room falls behind
 
 Compress in this order, and no other:
@@ -266,10 +271,22 @@ Select features to include in your project:
     Prettier (code formatting)
 ```
 
-Three further prompts are conditional and this lecture's answers never reach them: an end-to-end
-framework picker, an experimental-features group (Vue 3.6 RC, Oxfmt), and a barebone-template
-question. A `Package name:` prompt appears only when the directory name is not a valid package
-name.
+**Two more prompts always follow, and participants will hit both.** Read from `create-vue@3.23.0`'s
+`bundle.js`: inside the `if (!isFeatureFlagsUsed)` branch, the experimental-features multi-select is
+unconditional, and the barebone question runs whenever no feature flags were passed. Only the
+end-to-end framework picker (asked when End-to-End Testing was selected) and the package-manager
+picker (asked when the Vue 3.6 RC is selected) are conditional, along with `Package name:`, which
+appears only when the directory name is not a valid package name.
+
+```text
+Select experimental features to include in your project:   → select nothing, press enter
+  Vue 3.6 (Release Candidate)
+  Replace Prettier with Oxfmt
+Skip all example code and start with a blank Vue project?   → No
+```
+
+Answering `Yes` to the barebone question would delete the generated example components, which
+chapter 4 replaces one at a time — so the answer is `No`.
 
 | Prompt | Answer | Reason |
 |---|---|---|

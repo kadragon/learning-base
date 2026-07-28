@@ -636,8 +636,9 @@
           <p data-step="4"><b>반환값</b><span>괄호를 닫은 뒤 <code>: 타입</code></span></p>
         </div>
         <p class="footnote" data-step="5">
-          <strong>다 적을 필요는 없습니다</strong> · 초기값이 있으면 추론되므로, 실무 코드에서 변수 주석은
-          오히려 드뭅니다 · 반드시 적는 자리는 <strong>매개변수</strong>입니다 — 추론할 근거가 없으니까요
+          <strong>다 적을 필요는 없습니다</strong> · 초기값이 있으면 추론되므로 실무 코드에서 변수 주석은
+          오히려 드뭅니다 · 주석이 필요한 건 <strong>추론할 근거가 없는 매개변수</strong>입니다 —
+          <code>members.map(m =&gt; …)</code>처럼 문맥에서 타입이 정해지는 자리는 적지 않습니다
         </p>
       </section>
 
@@ -741,13 +742,12 @@ app.mount(<span class="s">'#app'</span>)</code></pre>
 <span class="k">import</span> { ref } <span class="k">from</span> <span class="s">'vue'</span>
 <span class="k">const</span> count = ref&lt;<span class="k">number</span>&gt;(0)
 count.value = <span class="s">'3'</span>   <span class="c">// ← 4번째 줄</span>
-
+&lt;/script&gt;
+<span class="c">──────────────── 터미널 ────────────────</span>
 <span class="p">$</span> pnpm dev
 <span class="p">$</span> vite
 
-  VITE v8.1.5  ready in 201 ms
-
-  ➜  Local:   http://localhost:5173/</code></pre>
+  VITE v8.1.5  ready in 201 ms</code></pre>
             <p class="code-card__caption">서버는 그냥 뜹니다 · 브라우저도 <code>200</code>을 돌려줍니다</p>
           </div>
           <div class="code-card code-card--slim" data-step="2">
@@ -879,17 +879,26 @@ src/views/HomeView.vue(4,1): error TS2322:
             <span role="cell">JSX · Vitest · End-to-End Testing</span>
             <em role="cell">테스트는 후속 세션 · JSX는 <code>uniweb</code>이 쓰지 않습니다</em>
           </div>
+          <div class="table-row" role="row" data-step="5">
+            <strong role="cell"><code>Select experimental features…</code></strong>
+            <span role="cell">아무것도 고르지 않고 <b class="cell-qualifier">엔터</b></span>
+            <em role="cell">Vue 3.6 RC와 Oxfmt — 오늘 범위 밖입니다</em>
+          </div>
+          <div class="table-row" role="row" data-step="6">
+            <strong role="cell"><code>Skip all example code…?</code></strong>
+            <span role="cell">No</span>
+            <em role="cell">예제 컴포넌트를 남겨 두고 <b>4장에서 하나씩 갈아 끼웁니다</b></em>
+          </div>
         </div>
-        <aside class="instructor-note" data-step="5">
-          <strong>다중 선택 조작법</strong>
-          <span>화면에 그대로 뜹니다 — “↑/↓ to navigate, <strong>space to select</strong>, a to toggle all,
-          <strong>enter to confirm</strong>” · 스페이스를 안 누르고 엔터부터 치면 아무것도 선택되지 않습니다</span>
+        <aside class="instructor-note" data-step="7">
+          <strong>마지막 두 질문에서 멈추지 마세요</strong>
+          <span>기능 선택 뒤에 <strong>반드시 두 번 더</strong> 묻습니다 · 다중 선택 조작법은 화면에 그대로 뜹니다 —
+          “↑/↓ to navigate, <strong>space to select</strong>, a to toggle all, <strong>enter to confirm</strong>”</span>
         </aside>
-        <p class="footnote" data-step="6">
+        <p class="footnote" data-step="8">
           <strong>공식 문서의 프롬프트 목록은 이것과 다릅니다</strong> · Quick Start 문서는 항목마다
-          <code>Add ~? … No / Yes</code>를 따로 묻는 예전 형태로 적혀 있지만, create-vue <code>3.23.0</code>은
-          TypeScript만 따로 묻고 나머지는 다중 선택 하나로 묶습니다 · <strong>화면에 뜬 것을 믿으세요</strong>
-        </p>
+          <code>Add ~? … No / Yes</code>를 따로 묻는 예전 형태로 적혀 있습니다 ·
+          <strong>화면에 뜬 것을 믿으세요</strong>
       </section>
 
       <section class="slide" data-slide data-chapter="CH3 · SCAFFOLD">
@@ -920,11 +929,10 @@ dependencies:
 + vue 3.5.40
 + vue-router 5.2.0
 
-devDependencies:
-+ vite 8.1.5
+devDependencies:  <span class="c">// 18개 중 3개</span>
 + typescript 6.0.3
++ vite 8.1.5
 + vue-tsc 3.3.8
-  <span class="c">... 외 15개</span>
 
 Done in 3.7s using pnpm v11.17.0</code></pre>
           </div>
@@ -935,8 +943,9 @@ Done in 3.7s using pnpm v11.17.0</code></pre>
           <p data-step="5"><b><code>pnpm format</code></b><span>Prettier가 첫 정렬을 합니다 — 건너뛰어도 동작에는 지장 없습니다</span></p>
         </div>
         <p class="footnote" data-step="6">
-          경로는 리허설 환경의 임시 폴더라 줄여 적었습니다 · 나머지 줄은 실제 출력 그대로이고,
-          설치 목록은 21개 중 6개만 보인 <strong>발췌</strong>입니다
+          경로는 리허설 환경의 임시 폴더라 줄여 적었습니다 · 설치 목록은 21개 중 6개만 남긴
+          <strong>발췌</strong>이고, <code>dependencies</code> 3개는 전부입니다 ·
+          줄 순서는 실제 출력(알파벳 순) 그대로입니다
         </p>
       </section>
 
@@ -1045,14 +1054,14 @@ vue-router  vue-tsc</code></pre>
         <div class="stat-row">
           <div class="stat" data-step="2"><b>21</b><span><code>package.json</code>이 선언한 패키지</span></div>
           <div class="stat" data-step="3"><b>20</b><span>최상단 항목 — <code>@vue/</code> 둘이 한 폴더</span></div>
-          <div class="stat" data-step="4"><b>289</b><span><code>.pnpm/</code>에 실제로 설치된 것</span></div>
+          <div class="stat" data-step="4"><b>287</b><span><code>.pnpm/</code>에 풀린 패키지</span></div>
         </div>
         <p class="takeaway" data-step="5">
           <code>vue</code>가 내부적으로 쓰는 <code>@vue/runtime-core</code>는 최상단에 <strong>없습니다</strong> —
           <code>.pnpm/</code> 안에만 있습니다 · 그래서 <code>import</code>할 수 없습니다
         </p>
         <p class="footnote" data-step="6">
-          셋 다 리허설 프로젝트에서 직접 센 값입니다 · npm이었다면 289개 중 상당수가 최상단으로 올라와,
+          셋 다 리허설 프로젝트에서 직접 센 값입니다 · npm이었다면 287개 중 상당수가 최상단으로 올라와,
           선언하지 않은 패키지도 <code>import</code>됐을 겁니다 <span class="ahead">13번 슬라이드</span>
         </p>
       </section>
@@ -1090,7 +1099,7 @@ vue-router  vue-tsc</code></pre>
         <p class="eyebrow">BUILDING FOR PRODUCTION</p>
         <h2>배포용으로 굽습니다 — <code>pnpm build</code></h2>
         <div class="code-card" data-step="1">
-          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력</b></div>
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력 — 진행 표시 줄만 생략</b></div>
           <pre><code><span class="p">$</span> pnpm build
 <span class="p">$</span> run-p type-check "build-only {@}" --
 <span class="p">$</span> vue-tsc --build
@@ -1100,9 +1109,10 @@ vite v8.1.5 building client environment for production...
 ✓ 44 modules transformed.
 
 dist/index.html                      0.42 kB │ gzip:  0.28 kB
+dist/assets/AboutView-CXtZgaLf.css   0.08 kB │ gzip:  0.10 kB
 dist/assets/index-DEm2-gV0.css       4.05 kB │ gzip:  1.27 kB
-dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
 dist/assets/AboutView-DU7XtDBM.js    0.22 kB │ gzip:  0.20 kB
+dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
 
 ✓ built in 345ms</code></pre>
         </div>

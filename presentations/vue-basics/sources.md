@@ -201,14 +201,21 @@ wording, and the order of `language.*` references in `bundle.js`:
    `Router (SPA development)`, `Pinia (state management)`, `Vitest (unit testing)`,
    `End-to-End Testing`, `Linter (error prevention)`, `Prettier (code formatting)`
 5. `Select an End-to-End testing framework:` — only when end-to-end testing was selected
-6. `Enable experimental features` and the experimental sub-selection
+6. `Select experimental features to include in your project:` — **always**, when no feature flags
+   were passed; the options are `Vue 3.6 (Release Candidate)` and `Replace Prettier with Oxfmt`
 7. `Which package manager will you use?` — only for the Vue 3.6 release-candidate path
-8. `Skip all example code and start with a blank Vue project?`
+8. `Skip all example code and start with a blank Vue project?` — **always**, when no feature flags
+   were passed
 
-Slide 25 shows steps 1, 3, and 4 — the ones this lecture's answers reach — and folds the rest into
-"the tool may ask more; read the screen". The multi-select hint quoted in the slide's instructor
-note is verbatim from the same locale file: "(↑/↓ to navigate, space to select, a to toggle all,
-enter to confirm)".
+Which of these are conditional was read from `bundle.js`, not guessed: prompts 6 and 8 sit
+unconditionally inside the `if (!isFeatureFlagsUsed)` branch, while 5 is guarded by
+`features.includes("e2e")` and 7 by `experimentFeatures.includes("vue-rc")`. Slide 25 therefore
+carries all five prompts a participant actually meets — 1, 3, 4, 6, and 8 — with the answers to
+give. An earlier draft of this file and of `docs/vue-lecture-plan.md` §4.3 wrongly listed 6 and 8
+as conditional; the error was caught in review before the deck shipped, and both were corrected.
+
+The multi-select hint quoted in the slide's instructor note is verbatim from the same locale file:
+"(↑/↓ to navigate, space to select, a to toggle all, enter to confirm)".
 
 The `--help` output of `create-vue@3.23.0` was also read, and is what confirms the non-interactive
 flag names used above.
@@ -297,7 +304,9 @@ the slide is absent from this list.
   differs by one because `@vue/eslint-config-typescript` and `@vue/tsconfig` share the single
   `@vue` directory. The four scoped directories at the root are `@tsconfig`, `@types`, `@vitejs`,
   and `@vue`.
-- `ls node_modules/.pnpm | wc -l` → **289**
+- `ls node_modules/.pnpm | wc -l` → **289**, of which two entries — `node_modules` and `lock.yaml` —
+  are not packages. Slide 29 therefore shows **287** and labels it "`.pnpm/`에 풀린 패키지", not
+  "installed things".
 - `node_modules/@vue/` at the root holds only `eslint-config-typescript` and `tsconfig`;
   `@vue/runtime-core@3.5.40` exists only under `node_modules/.pnpm/`. This is the concrete evidence
   for the slide's claim that a package `vue` depends on is not importable from application code.
@@ -315,6 +324,8 @@ Slide 30 quotes the clean run verbatim, including the two `Vue DevTools` lines:
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
+  ➜  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Option(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
 ```
 
 `5173` is Vite's default and was free on the rehearsal machine; the slide's caption says to read
@@ -340,10 +351,9 @@ The original `HomeView.vue` was restored before the build capture.
 
 ### Build — slide 31
 
-Captured as below. The slide drops the `AboutView` CSS line and the `transforming...` /
-`rendering chunks...` / `computing gzip size...` progress lines, and **reorders the two JavaScript
-rows** so the main bundle reads before the split chunk — every character on the slide is from this
-capture, but the row order is not:
+Captured as below. The slide reproduces all five size rows in this order and drops only the
+`transforming...` / `rendering chunks...` / `computing gzip size...` progress lines, which its card
+bar states:
 
 ```text
 vite v8.1.5 building client environment for production...
@@ -497,8 +507,11 @@ The deck marks these as teaching simplifications rather than facts:
   that slide is real `uniweb` code, and its title bar says so.
 - Slide 22 reduces the plan's five deferred TypeScript topics to four cards by pairing `enum` with
   declaration merging. Nothing was dropped; the pairing is a layout decision.
-- Slide 26's scaffolder card shortens one absolute path to `.../member-directory`. Every other
-  character in the terminal cards across Part 3 is the captured output.
+- **No character in Part 3's terminal cards was invented, but rows were elided.** Slide 26's
+  scaffolder card shortens one absolute path; its install card keeps 6 of 21 packages in the
+  capture's own alphabetical order and marks the elision inline and in the footnote; slide 31 drops
+  only the three progress lines. Each affected card says on the slide what was left out. Read this
+  bullet as "nothing fabricated, some rows dropped" — not as "byte-identical".
 - Slide 29's closing comparison with npm's hoisted layout is quoted reasoning from pnpm's
   motivation page, not a measurement — an npm install was not run during the rehearsal. The slide
   frames it as a comparison rather than as a captured number.
