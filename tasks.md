@@ -20,11 +20,16 @@
       Below 900px wide, `deck.css` sets `overflow-y: auto` on `.slide`, so a long slide scrolls
       instead of clipping. But `deck.js` consumes `ArrowDown`, `PageDown`, and `Space` to advance
       the step, so a reader cannot use those keys to reach content that fell below the fold —
-      pressing the key reveals a step they cannot see. At 820×1180 and every projector size the
-      deck is clean, so this is narrow-viewport only.
+      pressing the key reveals a step they cannot see. Every projector size is clean, so this is
+      narrow-viewport only.
+      **Measured at 680×900 on 2026-07-28, after Parts 5–6 landed** — 17 of 56 slides overflow, in
+      `[data-slide]` ordinals: 02 (71px), 04 (208px), 05 (140px), 11 (31px), 20 (228px), 21 (35px),
+      22 (96px), 27 (212px), 29 (66px), 35 (58px), 41 (28px), 43 (77px), 47 (146px), 49 (161px),
+      51 (16px), 54 (178px), 55 (97px). Re-measure before fixing; the list moves with every chapter.
       Fix options: split the densest slides, let the deck's key handler fall through to scrolling
       when the active slide has scrollable overflow, or accept the limit and say so in the runbook.
-      Raised by Codex and the Claude reviewer on PR #8.
+      Raised by Codex and the Claude reviewer on PR #8; the slide list was re-measured after a
+      reviewer noted PR #10 had dropped the previous one without replacing it.
 
 ## From review of PR #9 (vue-basics Part 4)
 

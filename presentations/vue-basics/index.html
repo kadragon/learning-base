@@ -1640,7 +1640,7 @@ onMounted(<span class="k">async</span> () =&gt; {
         <h2><code>&lt;a&gt;</code> 대신 <code>&lt;RouterLink&gt;</code>, 자리에는 <code>&lt;RouterView&gt;</code></h2>
         <div class="code-split">
           <div class="code-card code-card--dense" data-step="1">
-            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 카드를 링크로</b></div>
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>MemberCard.vue — 발췌 · 카드를 링크로</b></div>
             <pre><code><span class="k">import</span> { RouterLink } <span class="k">from</span> <span class="s">'vue-router'</span>
 
 <span class="c">// template</span>
@@ -1860,8 +1860,9 @@ onMounted(<span class="k">async</span> () =&gt; {
           </div>
         </div>
         <p class="takeaway" data-step="3">
-          4장에서 <code>MemberListView</code> 안에 있던 <code>onMounted</code> 블록이 <strong>통째로 여기로</strong> 왔습니다 ·
-          <code>isLoading</code>·<code>error</code>와 <strong>마지막 <code>return</code> 줄</strong>이 새로 생긴 것입니다
+          4장의 <code>onMounted</code> 블록이 자리를 옮기면서 <strong><code>fetch</code>가 앞 슬라이드의 <code>http</code>로</strong> 바뀌었습니다
+          (<code>response.json()</code> → <code>response.data</code>) · <code>isLoading</code>·<code>error</code>와
+          마지막 <code>return</code> 줄은 <strong>새로 생긴 것</strong>입니다
         </p>
       </section>
 

@@ -605,6 +605,14 @@ cards. `http.ts` was restored to `baseURL: '/'` immediately afterwards, and the 
   `.code-card`'s `overflow: hidden` silently cut the final
   `return { members, isLoading, error }` — the line slides 51 and 54 both depend on.
 - Slide 52's `http.ts` is quoted **whole**.
+- Slide 47's `MemberCard.vue` card is a two-fragment splice — the `vue-router` import above a
+  template fragment — and omits the file's `import type { Member } from '@/types/member'`, which
+  slide 41 already showed. Its bar says `— 발췌` for that reason.
+- Slide 53's takeaway names the one substantive change the refactor makes: chapter 4's
+  `fetch('/members.json')` + `response.json()` became `http.get<Member[]>(...)` + `response.data`.
+  An earlier draft said the block moved "통째로" and listed only `isLoading`, `error`, and the
+  `return` line as new, which hid the very swap slide 52 argues for while both slides are visible
+  to the room.
 - Slide 54's list-view template line `<template v-else> … 목록 … </template>` elides the list markup
   slide 39 already showed; the ellipsis is on the slide.
 
@@ -812,7 +820,8 @@ The npm ↔ pnpm command table on slide 14 pairs each npm form with the pnpm equ
     neither cited page; the page's prose is the sentence now quoted.
   - Basis for slide 51's third note: "The recommended convention is for composables to always return
     a plain, non-reactive object containing multiple refs … Returning a reactive object from a
-    composable will cause destructures to lose the reactivity connection."
+    composable will cause such destructures to lose the reactivity connection to the state inside
+    the composable, while the refs will retain that connection."
   - Basis for slide 51's fourth note: "Composables should only be called in `<script setup>` or the
     `setup()` hook. They should also be called synchronously in these contexts." The slide's stated
     *reason* — that Vue must know which component instance is active — is the page's own
