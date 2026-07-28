@@ -248,38 +248,52 @@ Name them as existing; do not teach them.
 
 #### Prompt answers
 
-The prompt list below is quoted from the official Vue Quick Start, fetched 2026-07-28:
+**The official Quick Start page's prompt list is out of date.** It still shows a per-feature
+`Add ~? … No / Yes` sequence. The tool that actually runs — `create-vue@3.23.0`, rehearsed
+2026-07-28 — asks TypeScript on its own and folds the rest into one multi-select:
 
 ```text
-✔ Project name: … <your-project-name>
-✔ Add TypeScript? … No / Yes
-✔ Add JSX Support? … No / Yes
-✔ Add Vue Router for Single Page Application development? … No / Yes
-✔ Add Pinia for state management? … No / Yes
-✔ Add Vitest for Unit testing? … No / Yes
-✔ Add an End-to-End Testing Solution? … No / Cypress / Nightwatch / Playwright
-✔ Add ESLint for code quality? … No / Yes
-✔ Add Prettier for code formatting? … No / Yes
-✔ Add Vue DevTools 7 extension for debugging? (experimental) … No / Yes
+Project name (target directory):
+Use TypeScript?
+Select features to include in your project:
+  (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
+    JSX Support
+    Router (SPA development)
+    Pinia (state management)
+    Vitest (unit testing)
+    End-to-End Testing
+    Linter (error prevention)
+    Prettier (code formatting)
 ```
+
+Three further prompts are conditional and this lecture's answers never reach them: an end-to-end
+framework picker, an experimental-features group (Vue 3.6 RC, Oxfmt), and a barebone-template
+question. A `Package name:` prompt appears only when the directory name is not a valid package
+name.
 
 | Prompt | Answer | Reason |
 |---|---|---|
 | Project name | `member-directory` | — |
-| TypeScript | Yes | `uniweb` is TypeScript throughout |
-| JSX Support | No | `uniweb` does not use JSX |
-| Vue Router | Yes | Chapter 5 needs it, and `uniweb` depends on it |
-| Pinia | Yes | Chapter 7 needs it, and `uniweb` depends on it |
-| Vitest | No | Testing is deferred to a follow-up session |
-| End-to-End Testing | No | Same |
-| ESLint | Yes | `uniweb` runs ESLint |
-| Prettier | Yes | `uniweb` runs Prettier |
-| Vue DevTools 7 | No | Marked experimental; keep the scaffold minimal |
+| Use TypeScript? | Yes | `uniweb` is TypeScript throughout |
+| JSX Support | Not selected | `uniweb` does not use JSX |
+| Router (SPA development) | Selected | Chapter 5 needs it, and `uniweb` depends on it |
+| Pinia (state management) | Selected | Chapter 7 needs it, and `uniweb` depends on it |
+| Vitest (unit testing) | Not selected | Testing is deferred to a follow-up session |
+| End-to-End Testing | Not selected | Same |
+| Linter (error prevention) | Selected | `uniweb` runs ESLint |
+| Prettier (code formatting) | Selected | `uniweb` runs Prettier |
 
-> Exact scaffolder output, the generated file tree, and the dev-server URL are captured during the
-> ticket-3 rehearsal and pasted into the deck at that point. Until that rehearsal runs, treat this
-> section's tree description as
-> `[unknown — run pnpm create vue@latest once and read the output to verify]`.
+The equivalent non-interactive form, used for the rehearsal so the run was reproducible:
+
+```bash
+pnpm create vue@latest member-directory --ts --router --pinia --eslint --prettier
+```
+
+> Scaffolder output, the generated file tree, the `node_modules` layout, the dev-server URL, and the
+> build output were all captured in the ticket-3 rehearsal on 2026-07-28 and are recorded in
+> `presentations/vue-basics/sources.md`. Re-run the rehearsal before the lecture: `create-vue`
+> changes between releases, and the scaffold always pulls current versions — the rehearsed scaffold
+> already differs from `uniweb` by a major version on `pinia`, `vite`, and `typescript`.
 
 #### `uniweb` mapping
 

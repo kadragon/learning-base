@@ -577,12 +577,575 @@
           <strong>5분 쉬고, 2장에서 TypeScript로</strong> · 다음 장부터는 코드가 나옵니다
         </p>
       </section>
+
+      <!-- ===================== PART 2 · TYPESCRIPT ====================== -->
+      <section class="slide" data-slide data-chapter="CH2 · WHAT IT IS">
+        <div class="slide-index">17</div>
+        <p class="eyebrow">CHAPTER 2 · TYPESCRIPT</p>
+        <h2>JavaScript에 <strong>타입 주석</strong>을 붙인 것, 그게 전부입니다</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>우리가 쓰는 것 · <code>.ts</code></b></div>
+            <pre><code><span class="k">type</span> Result = <span class="s">"pass"</span> | <span class="s">"fail"</span>
+
+<span class="k">function</span> verify(result: Result) {
+  <span class="c">// ...</span>
+}</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>브라우저가 받는 것 · <code>.js</code></b></div>
+            <pre><code><span class="c">// 타입 줄은 통째로 사라집니다</span>
+
+<span class="k">function</span> verify(result) {
+  <span class="c">// ...</span>
+}</code></pre>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “TypeScript is JavaScript with syntax for types.” · “TypeScript becomes JavaScript via the
+          delete key.”
+          <cite>typescriptlang.org</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          <strong>타입은 빌드 시점에 지워집니다</strong> · 런타임에는 존재하지 않으니,
+          실행 중에 “이 값이 <code>Result</code>인가”를 타입으로 물어볼 수는 없습니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH2 · SYNTAX">
+        <div class="slide-index">18</div>
+        <p class="eyebrow">ANNOTATION SYNTAX</p>
+        <h2>자리는 세 군데뿐입니다 — 변수 · 매개변수 · 반환값</h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>세 자리를 한 화면에</b></div>
+          <pre><code><span class="c">// 1. 변수 이름 뒤</span>
+<span class="k">const</span> teamName: <span class="k">string</span> = <span class="s">"정보화본부"</span>
+<span class="k">let</span> memberCount: <span class="k">number</span> = 12
+
+<span class="c">//        2. 매개변수마다        3. 괄호 뒤 — 반환값</span>
+<span class="k">function</span> label(name: <span class="k">string</span>, team: <span class="k">string</span>): <span class="k">string</span> {
+  <span class="k">return</span> <span class="s">`${name} · ${team}`</span>
+}
+
+<span class="c">// 적지 않으면 추론합니다 — total은 number</span>
+<span class="k">const</span> total = memberCount * 2</code></pre>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b>변수</b><span>이름 뒤에 <code>: 타입</code></span></p>
+          <p data-step="3"><b>매개변수</b><span>하나하나에 따로 붙입니다</span></p>
+          <p data-step="4"><b>반환값</b><span>괄호를 닫은 뒤 <code>: 타입</code></span></p>
+        </div>
+        <p class="footnote" data-step="5">
+          <strong>다 적을 필요는 없습니다</strong> · 초기값이 있으면 추론되므로, 실무 코드에서 변수 주석은
+          오히려 드뭅니다 · 반드시 적는 자리는 <strong>매개변수</strong>입니다 — 추론할 근거가 없으니까요
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH2 · SHAPES">
+        <div class="slide-index">19</div>
+        <p class="eyebrow">OBJECT SHAPES</p>
+        <h2>객체의 <strong>모양</strong>에 이름을 붙입니다</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>오늘 만들 것</b></div>
+            <pre><code><span class="k">interface</span> Member {
+  id: <span class="k">number</span>
+  name: <span class="k">string</span>
+  team: <span class="k">string</span>
+  role: <span class="s">"개발"</span> | <span class="s">"기획"</span> | <span class="s">"운영"</span>  <span class="c">// 유니온</span>
+  email?: <span class="k">string</span>                <span class="c">// 선택</span>
+}
+
+<span class="k">const</span> me: Member = {
+  id: 1,
+  name: <span class="s">"강동욱"</span>,
+  team: <span class="s">"정보화본부"</span>,
+  role: <span class="s">"개발"</span>,
+}</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>uniweb/src/main/types/user.ts — 발췌</b></div>
+            <pre><code><span class="c">// KNUE 전용 로그인 응답</span>
+<span class="k">export interface</span> LoginResponse
+  <span class="k">extends</span> LoginResponseBase {
+  userIdGb: <span class="k">string</span>
+  userNm: <span class="k">string</span>
+  userSt: <span class="k">string</span>
+  buseoNm: <span class="k">string</span>
+  email: <span class="k">string</span>
+  <span class="c">// ... 필드 더 있음</span>
+}</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b>유니온 <code>|</code></b><span>“이 중 하나만” — 오타를 컴파일 시점에 잡습니다</span></p>
+          <p data-step="4"><b>선택 <code>?</code></b><span>없을 수도 있는 필드 — API 응답에 자주 나옵니다</span></p>
+          <p data-step="5"><b>확장 <code>extends</code></b><span>공통 모양 위에 학교별 필드를 얹은 실제 사례</span></p>
+        </div>
+        <p class="takeaway" data-step="6">
+          <strong>컴포넌트의 props를 바로 이 형태로 씁니다</strong> · Vue 코드베이스에서 가장 자주 만나는 문법입니다 <span class="ahead">4장</span>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH2 · MODULES">
+        <div class="slide-index">20</div>
+        <p class="eyebrow">ES MODULES</p>
+        <h2>파일 사이는 <code>import</code> / <code>export</code>로 잇습니다</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>내보내고, 가져오고</b></div>
+            <pre><code><span class="c">// src/types.ts — 내보내기</span>
+<span class="k">export interface</span> Member { <span class="c">/* ... */</span> }
+<span class="k">export const</span> TEAM = <span class="s">"정보화본부"</span>
+
+<span class="c">// 다른 파일 — 가져오기</span>
+<span class="k">import</span> { TEAM } <span class="k">from</span> <span class="s">"./types"</span>
+<span class="k">import type</span> { Member } <span class="k">from</span> <span class="s">"./types"</span></code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>스캐폴더가 만들어 준 src/main.ts</b></div>
+            <pre><code><span class="k">import</span> <span class="s">'./assets/main.css'</span>
+
+<span class="k">import</span> { createApp } <span class="k">from</span> <span class="s">'vue'</span>
+<span class="k">import</span> { createPinia } <span class="k">from</span> <span class="s">'pinia'</span>
+
+<span class="k">import</span> App <span class="k">from</span> <span class="s">'./App.vue'</span>
+<span class="k">import</span> router <span class="k">from</span> <span class="s">'./router'</span>
+
+<span class="k">const</span> app = createApp(App)
+
+app.use(createPinia())
+app.use(router)
+
+app.mount(<span class="s">'#app'</span>)</code></pre>
+          </div>
+        </div>
+        <p class="takeaway" data-step="3">
+          <strong><code>.vue</code> 파일도 그냥 모듈입니다</strong> — <code>import App from './App.vue'</code> ·
+          CSS도, 패키지 이름도 같은 문법으로 들어옵니다
+        </p>
+        <p class="footnote" data-step="4">
+          오른쪽은 3장 리허설에서 <code>pnpm create vue@latest</code>가 실제로 생성한 파일 그대로입니다 ·
+          <code>import type</code>은 “타입만 가져온다”는 표시로, 빌드 때 이 줄은 통째로 사라집니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH2 · VUE-TSC">
+        <div class="slide-index">21</div>
+        <p class="eyebrow">THE CHECK IS A SEPARATE COMMAND</p>
+        <h2><code>pnpm dev</code>는 타입을 <strong>검사하지 않습니다</strong></h2>
+        <div class="code-split">
+          <div class="code-card code-card--slim" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>src/views/HomeView.vue — 오류를 하나 심어 두고</b></div>
+            <pre><code>&lt;script setup lang=<span class="s">"ts"</span>&gt;
+<span class="k">import</span> { ref } <span class="k">from</span> <span class="s">'vue'</span>
+<span class="k">const</span> count = ref&lt;<span class="k">number</span>&gt;(0)
+count.value = <span class="s">'3'</span>   <span class="c">// ← 4번째 줄</span>
+
+<span class="p">$</span> pnpm dev
+<span class="p">$</span> vite
+
+  VITE v8.1.5  ready in 201 ms
+
+  ➜  Local:   http://localhost:5173/</code></pre>
+            <p class="code-card__caption">서버는 그냥 뜹니다 · 브라우저도 <code>200</code>을 돌려줍니다</p>
+          </div>
+          <div class="code-card code-card--slim" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>같은 상태에서 타입 검사</b></div>
+            <pre><code><span class="p">$</span> pnpm type-check
+<span class="p">$</span> vue-tsc --build
+
+src/views/HomeView.vue(4,1): error TS2322:
+  Type 'string' is not assignable
+  to type 'number'.
+
+[ELIFECYCLE] Command failed with exit code 2.</code></pre>
+            <p class="code-card__caption">두 번째 <code>$</code> 줄은 pnpm이 실행할 스크립트를 그대로 찍은 것입니다</p>
+          </div>
+        </div>
+        <blockquote class="quote" data-step="3">
+          “With a Vite-based setup, the dev server and the bundler are transpilation-only and do not
+          perform any type-checking.”
+          <cite>vuejs.org — TypeScript Overview</cite>
+        </blockquote>
+        <p class="takeaway" data-step="4">
+          <strong>화면이 뜬다고 타입이 맞는 게 아닙니다</strong> · 검사는 <code>vue-tsc</code>가 따로 하고,
+          그게 빌드를 막는 관문입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH2 · OUT OF SCOPE">
+        <div class="slide-index">22</div>
+        <p class="eyebrow">DELIBERATE OMISSIONS</p>
+        <h2>TypeScript에서 오늘 건드리지 않는 것</h2>
+        <div class="omit-grid">
+          <div class="omit-item" data-step="1">
+            <b>제네릭</b>
+            <span><code>ref&lt;number&gt;</code>를 <strong>읽는 정도</strong>까지만 · 직접 만들지는 않습니다</span>
+          </div>
+          <div class="omit-item" data-step="2">
+            <b><code>enum</code> · 선언 병합</b>
+            <span><code>uniweb</code>에 <code>enum</code>이 실제로 있습니다 — 읽을 줄만 알면 됩니다</span>
+          </div>
+          <div class="omit-item" data-step="3">
+            <b>유틸리티 타입</b>
+            <span><code>Partial</code>, <code>Pick</code>, <code>Omit</code> — 이름만 알아 두세요</span>
+          </div>
+          <div class="omit-item" data-step="4">
+            <b>데코레이터</b>
+            <span>다른 스택의 애너테이션과 비슷하지만, 오늘 코드엔 나오지 않습니다</span>
+          </div>
+        </div>
+        <p class="footnote" data-step="5">
+          <code>uniweb</code>의 <code>src/main/types/user.ts</code>에는 <code>MenuUserRole</code>이라는
+          <code>enum</code>이 있습니다 · <strong>“모르는 것”이 아니라 “아직 안 배운 것”</strong>으로 두고 넘어갑니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH2 · WRAP-UP">
+        <div class="slide-index">23</div>
+        <p class="eyebrow">CHAPTER 2 · WRAP-UP</p>
+        <h2>방금 배운 것이 <code>uniweb</code>의 어디에 있는가</h2>
+        <div class="map-grid">
+          <div class="map-row" data-step="1"><b><code>tsconfig.json</code></b><i aria-hidden="true">→</i><span>저장소 루트 — <code>"strict": true</code>, 그리고 <code>@/*</code>를 <code>src/*</code>로 잇는 <code>paths</code></span></div>
+          <div class="map-row" data-step="2"><b><code>env.d.ts</code></b><i aria-hidden="true">→</i><span>루트 — 환경 변수(<code>ImportMetaEnv</code>)처럼 프로젝트 전역에서 쓰는 타입 선언</span></div>
+          <div class="map-row" data-step="3"><b><code>src/main/types/</code></b><i aria-hidden="true">→</i><span><code>user.ts</code>, <code>global-components.d.ts</code>, <code>knue/</code></span></div>
+          <div class="map-row" data-step="4"><b><code>pnpm type-check</code></b><i aria-hidden="true">→</i><span><code>vue-tsc --noEmit</code> — PR을 올리기 전에 반드시 통과시켜야 하는 명령</span></div>
+        </div>
+        <ol class="recap-list" data-step="5">
+          <li>타입은 빌드 때 지워집니다 → <b>런타임에 없습니다</b></li>
+          <li>자리는 변수·매개변수·반환값 → <b>매개변수는 꼭 적습니다</b></li>
+          <li>객체 모양은 <code>interface</code> → <b>props가 이 형태입니다</b></li>
+          <li><code>dev</code>는 검사 안 함 → <b><code>type-check</code>가 합니다</b></li>
+        </ol>
+        <p class="takeaway" data-step="6">
+          <strong>3장에서 드디어 프로젝트를 만듭니다</strong> · 지금까지 말로만 한 것들이 파일로 생깁니다
+        </p>
+      </section>
+
+      <!-- ================== PART 3 · CREATING THE PROJECT ================== -->
+      <section class="slide" data-slide data-chapter="CH3 · ONE COMMAND">
+        <div class="slide-index">24</div>
+        <p class="eyebrow">CHAPTER 3 · CREATING THE PROJECT</p>
+        <h2>명령 <strong>한 줄</strong>로 시작합니다</h2>
+        <div class="code-card code-card--slim" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>빈 디렉터리에서</b></div>
+          <pre><code><span class="p">$</span> pnpm create vue@latest</code></pre>
+        </div>
+        <blockquote class="quote" data-step="2">
+          “This command will install and execute create-vue, the official Vue project scaffolding
+          tool.”
+          <cite>vuejs.org — Quick Start</cite>
+        </blockquote>
+        <div class="note-row">
+          <p data-step="3"><b>1장의 <code>pnpm dlx</code>입니다</b><span><code>create</code>는 스캐폴더를 받아 한 번 돌리고 버립니다 — 프로젝트 의존성이 되지 않습니다</span></p>
+          <p data-step="4"><b>몇 가지를 물어봅니다</b><span>답한 대로 파일이 생성됩니다 — 다음 슬라이드</span></p>
+          <p data-step="5"><b>설치는 아직입니다</b><span>파일만 만들어 두고 끝납니다 · <code>pnpm install</code>은 우리가 따로 칩니다</span></p>
+        </div>
+        <p class="footnote" data-step="6">
+          이 장의 모든 출력은 <strong>2026-07-28 리허설에서 실제로 실행한 결과</strong>입니다 ·
+          Node <code>24.13.0</code>, pnpm <code>11.17.0</code>, create-vue <code>3.23.0</code> ·
+          버전이 다르면 화면도 달라집니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · PROMPTS">
+        <div class="slide-index">25</div>
+        <p class="eyebrow">THE PROMPTS</p>
+        <h2>묻는 것과, 오늘 우리가 답할 것</h2>
+        <div class="table-grid" role="table" aria-label="create-vue 프롬프트와 답">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">묻는 것</span>
+            <span role="columnheader">우리의 답</span>
+            <span role="columnheader">이유</span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell"><code>Project name (target directory):</code></strong>
+            <span role="cell"><code>member-directory</code></span>
+            <em role="cell">이 이름의 폴더가 생깁니다</em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell"><code>Use TypeScript?</code></strong>
+            <span role="cell">Yes</span>
+            <em role="cell"><code>uniweb</code>이 전부 TypeScript입니다</em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell"><code>Select features…</code> <b class="cell-qualifier">다중 선택</b></strong>
+            <span role="cell">Router · Pinia · Linter · Prettier</span>
+            <em role="cell">5·7장에서 쓰고, <code>uniweb</code>도 <b>같은 네 가지</b>를 씁니다</em>
+          </div>
+          <div class="table-row" role="row" data-step="4">
+            <strong role="cell">같은 목록에서 <b class="cell-qualifier">고르지 않을 것</b></strong>
+            <span role="cell">JSX · Vitest · End-to-End Testing</span>
+            <em role="cell">테스트는 후속 세션 · JSX는 <code>uniweb</code>이 쓰지 않습니다</em>
+          </div>
+        </div>
+        <aside class="instructor-note" data-step="5">
+          <strong>다중 선택 조작법</strong>
+          <span>화면에 그대로 뜹니다 — “↑/↓ to navigate, <strong>space to select</strong>, a to toggle all,
+          <strong>enter to confirm</strong>” · 스페이스를 안 누르고 엔터부터 치면 아무것도 선택되지 않습니다</span>
+        </aside>
+        <p class="footnote" data-step="6">
+          <strong>공식 문서의 프롬프트 목록은 이것과 다릅니다</strong> · Quick Start 문서는 항목마다
+          <code>Add ~? … No / Yes</code>를 따로 묻는 예전 형태로 적혀 있지만, create-vue <code>3.23.0</code>은
+          TypeScript만 따로 묻고 나머지는 다중 선택 하나로 묶습니다 · <strong>화면에 뜬 것을 믿으세요</strong>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · SCAFFOLD">
+        <div class="slide-index">26</div>
+        <p class="eyebrow">WHAT IT PRINTS</p>
+        <h2>다 답하면 이렇게 끝납니다</h2>
+        <div class="code-split">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>스캐폴더 출력 — 실제 리허설</b></div>
+            <pre><code>┌  Vue.js - The Progressive JavaScript Framework
+
+Scaffolding project in
+  .../rehearsal/member-directory...
+│
+└  Done. Now run:
+
+   cd member-directory
+   pnpm install
+   pnpm format
+   pnpm dev</code></pre>
+          </div>
+          <div class="code-card" data-step="2">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b><code>pnpm install</code> — 발췌</b></div>
+            <pre><code><span class="p">$</span> pnpm install
+
+dependencies:
++ pinia 4.0.2
++ vue 3.5.40
++ vue-router 5.2.0
+
+devDependencies:
++ vite 8.1.5
++ typescript 6.0.3
++ vue-tsc 3.3.8
+  <span class="c">... 외 15개</span>
+
+Done in 3.7s using pnpm v11.17.0</code></pre>
+          </div>
+        </div>
+        <div class="note-row">
+          <p data-step="3"><b><code>cd</code> 먼저</b><span>이후 명령은 모두 프로젝트 폴더 <strong>안에서</strong> 칩니다</span></p>
+          <p data-step="4"><b><code>pnpm install</code></b><span>여기서 <code>node_modules</code>와 <code>pnpm-lock.yaml</code>이 생깁니다</span></p>
+          <p data-step="5"><b><code>pnpm format</code></b><span>Prettier가 첫 정렬을 합니다 — 건너뛰어도 동작에는 지장 없습니다</span></p>
+        </div>
+        <p class="footnote" data-step="6">
+          경로는 리허설 환경의 임시 폴더라 줄여 적었습니다 · 나머지 줄은 실제 출력 그대로이고,
+          설치 목록은 21개 중 6개만 보인 <strong>발췌</strong>입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · VERSIONS">
+        <div class="slide-index">27</div>
+        <p class="eyebrow">A CAUTION</p>
+        <h2>스캐폴더는 <strong>언제나 최신</strong>을 가져옵니다</h2>
+        <div class="table-grid" role="table" aria-label="오늘 만든 프로젝트와 uniweb의 버전 비교">
+          <div class="table-row table-row--head" role="row">
+            <span role="columnheader">패키지</span>
+            <span role="columnheader">오늘 만든 프로젝트</span>
+            <span role="columnheader"><code>uniweb</code></span>
+          </div>
+          <div class="table-row" role="row" data-step="1">
+            <strong role="cell"><code>vue</code></strong>
+            <span role="cell"><code>^3.5.40</code></span>
+            <em role="cell"><code>^3.5.27</code> — 같은 메이저</em>
+          </div>
+          <div class="table-row" role="row" data-step="2">
+            <strong role="cell"><code>vue-router</code></strong>
+            <span role="cell"><code>^5.2.0</code></span>
+            <em role="cell"><code>^5.0.2</code> — 같은 메이저</em>
+          </div>
+          <div class="table-row" role="row" data-step="3">
+            <strong role="cell"><code>pinia</code></strong>
+            <span role="cell"><code>^4.0.2</code></span>
+            <em role="cell"><code>^3.0.4</code> — <b>메이저가 다릅니다</b></em>
+          </div>
+          <div class="table-row" role="row" data-step="4">
+            <strong role="cell"><code>vite</code></strong>
+            <span role="cell"><code>^8.1.5</code></span>
+            <em role="cell"><code>^7.3.1</code> — <b>메이저가 다릅니다</b></em>
+          </div>
+          <div class="table-row" role="row" data-step="5">
+            <strong role="cell"><code>typescript</code></strong>
+            <span role="cell"><code>~6.0.0</code></span>
+            <em role="cell"><code>~5.9.3</code> — <b>메이저가 다릅니다</b></em>
+          </div>
+        </div>
+        <p class="takeaway" data-step="6">
+          <strong>오늘 다루는 범위에서는 양쪽이 똑같이 동작합니다</strong> · 다만 검색해서 나온 글을 읽을 때는
+          <strong>어느 버전 이야기인지 먼저 확인</strong>하세요 — 설정 파일과 CLI 옵션이 메이저마다 바뀝니다
+        </p>
+        <p class="footnote" data-step="7">
+          왼쪽은 리허설로 생성된 <code>package.json</code>, 오른쪽은 2026-07-28
+          <code>uniweb/package.json</code>에서 읽은 값입니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · FILE TREE">
+        <div class="slide-index">28</div>
+        <p class="eyebrow">WHAT GOT CREATED</p>
+        <h2>무엇이 생겼는가</h2>
+        <div class="code-split code-split--wide">
+          <div class="code-card" data-step="1">
+            <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>member-directory/ — 주요 항목</b></div>
+            <pre><code>index.html          <span class="c">브라우저가 처음 받는 한 장</span>
+package.json        <span class="c">명세서</span>
+pnpm-lock.yaml      <span class="c">잠금 파일</span>
+vite.config.ts      <span class="c">빌드·개발 서버 설정</span>
+tsconfig.json       <span class="c">TypeScript 설정</span>
+env.d.ts
+eslint.config.ts
+public/             <span class="c">그대로 복사되는 정적 파일</span>
+src/
+├─ main.ts          <span class="c">진입점</span>
+├─ App.vue          <span class="c">최상위 컴포넌트</span>
+├─ router/index.ts
+├─ stores/counter.ts
+├─ views/           <span class="c">라우트 하나당 하나</span>
+├─ components/
+└─ assets/</code></pre>
+          </div>
+          <div class="tree-notes">
+            <div class="map-grid">
+              <div class="map-row" data-step="2"><b><code>index.html</code></b><i aria-hidden="true">→</i><span>딱 한 장입니다 · 나머지 화면은 JavaScript가 이 안에서 갈아 끼웁니다 <span class="ahead">5장</span></span></div>
+              <div class="map-row" data-step="3"><b><code>src/main.ts</code></b><i aria-hidden="true">→</i><span>앱을 만들고, 플러그인을 붙이고, <code>#app</code>에 붙이는 곳 — 20번 슬라이드에서 본 파일</span></div>
+              <div class="map-row" data-step="4"><b><code>views/</code> vs <code>components/</code></b><i aria-hidden="true">→</i><span>화면 한 장이면 <code>views</code>, 여기저기 재사용하면 <code>components</code></span></div>
+              <div class="map-row" data-step="5"><b><code>public/</code></b><i aria-hidden="true">→</i><span>빌드가 건드리지 않고 그대로 복사 · 오늘의 <code>members.json</code>이 여기 들어갑니다 <span class="ahead">6장</span></span></div>
+            </div>
+          </div>
+        </div>
+        <p class="footnote" data-step="6">
+          <code>node_modules/</code>와 스캐폴더가 만든 예제 컴포넌트(<code>HelloWorld.vue</code> 등)는 생략한
+          <strong>발췌</strong>입니다 · 예제 파일들은 4장에서 우리 것으로 갈아 끼웁니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · STRICTNESS">
+        <div class="slide-index">29</div>
+        <p class="eyebrow">CHAPTER 1’S PROMISE, MEASURED</p>
+        <h2>1장의 “선언한 것만 보입니다”가 여기 있습니다</h2>
+        <div class="code-card code-card--slim" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>설치 직후 node_modules 최상단</b></div>
+          <pre><code><span class="p">$</span> ls node_modules | wc -l
+      20
+
+<span class="p">$</span> ls node_modules
+@tsconfig  @types  @vitejs  @vue  eslint
+eslint-config-prettier  eslint-plugin-oxlint
+eslint-plugin-vue  jiti  npm-run-all2  oxlint
+pinia  prettier  typescript  vite
+vite-plugin-vue-devtools  vue  vue-eslint-parser
+vue-router  vue-tsc</code></pre>
+        </div>
+        <div class="stat-row">
+          <div class="stat" data-step="2"><b>21</b><span><code>package.json</code>이 선언한 패키지</span></div>
+          <div class="stat" data-step="3"><b>20</b><span>최상단 항목 — <code>@vue/</code> 둘이 한 폴더</span></div>
+          <div class="stat" data-step="4"><b>289</b><span><code>.pnpm/</code>에 실제로 설치된 것</span></div>
+        </div>
+        <p class="takeaway" data-step="5">
+          <code>vue</code>가 내부적으로 쓰는 <code>@vue/runtime-core</code>는 최상단에 <strong>없습니다</strong> —
+          <code>.pnpm/</code> 안에만 있습니다 · 그래서 <code>import</code>할 수 없습니다
+        </p>
+        <p class="footnote" data-step="6">
+          셋 다 리허설 프로젝트에서 직접 센 값입니다 · npm이었다면 289개 중 상당수가 최상단으로 올라와,
+          선언하지 않은 패키지도 <code>import</code>됐을 겁니다 <span class="ahead">13번 슬라이드</span>
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · DEV SERVER">
+        <div class="slide-index">30</div>
+        <p class="eyebrow">RUNNING IT</p>
+        <h2>개발 서버를 켭니다 — <code>pnpm dev</code></h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력</b></div>
+          <pre><code><span class="p">$</span> pnpm dev
+<span class="p">$</span> vite
+
+  VITE v8.1.5  ready in 889 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Option(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools</code></pre>
+        </div>
+        <blockquote class="quote" data-step="2">
+          “Source code … is served on-demand over native ESM.” · “Vite used Hot Module Replacement
+          (HMR) over native ESM to update just that module in the browser, without a full page reload.”
+          <cite>vite.dev — Why Vite</cite>
+        </blockquote>
+        <div class="note-row">
+          <p data-step="3"><b>정적 서버가 아닙니다</b><span>요청이 올 때 <code>.vue</code>·TypeScript를 브라우저가 읽을 수 있게 바꿔 보냅니다</span></p>
+          <p data-step="4"><b>저장하면 바로 반영</b><span>바뀐 모듈만 갈아 끼웁니다 — 새로고침도, 다시 빌드도 없습니다</span></p>
+          <p data-step="5"><b>주소는 출력에서 읽으세요</b><span>포트가 쓰이는 중이면 Vite가 다른 번호를 잡습니다 · <code>localhost</code>는 내 컴퓨터에서만 열립니다</span></p>
+        </div>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · BUILD">
+        <div class="slide-index">31</div>
+        <p class="eyebrow">BUILDING FOR PRODUCTION</p>
+        <h2>배포용으로 굽습니다 — <code>pnpm build</code></h2>
+        <div class="code-card" data-step="1">
+          <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>실제 리허설 출력</b></div>
+          <pre><code><span class="p">$</span> pnpm build
+<span class="p">$</span> run-p type-check "build-only {@}" --
+<span class="p">$</span> vue-tsc --build
+<span class="p">$</span> vite build
+
+vite v8.1.5 building client environment for production...
+✓ 44 modules transformed.
+
+dist/index.html                      0.42 kB │ gzip:  0.28 kB
+dist/assets/index-DEm2-gV0.css       4.05 kB │ gzip:  1.27 kB
+dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
+dist/assets/AboutView-DU7XtDBM.js    0.22 kB │ gzip:  0.20 kB
+
+✓ built in 345ms</code></pre>
+        </div>
+        <div class="note-row">
+          <p data-step="2"><b><code>dist/</code>가 결과물</b><span>서버에 올리는 건 이 폴더 하나뿐입니다 · Node도, 소스도 필요 없습니다</span></p>
+          <p data-step="3"><b>타입 검사가 함께 돕니다</b><span><code>build</code> 스크립트가 <code>vue-tsc</code>를 같이 돌립니다 — 실패하면 <code>pnpm build</code>도 실패합니다</span></p>
+          <p data-step="4"><b><code>AboutView</code>가 따로 있습니다</b><span>라우트별로 파일이 쪼개진 것 — 그 페이지에 갈 때만 받습니다 <span class="ahead">5장</span></span></p>
+        </div>
+        <p class="footnote" data-step="5">
+          개발 중에는 모듈을 하나씩 나눠 보내도 되지만, 그대로 배포하면 요청이 너무 많아집니다 ·
+          Vite 문서의 표현으로 “bundling is still necessary for optimized production builds” —
+          그래서 <strong>배포본만</strong> 이렇게 합칩니다
+        </p>
+      </section>
+
+      <section class="slide" data-slide data-chapter="CH3 · WRAP-UP">
+        <div class="slide-index">32</div>
+        <p class="eyebrow">CHAPTER 3 · WRAP-UP</p>
+        <h2>방금 만든 것이 <code>uniweb</code>의 어디에 해당하는가</h2>
+        <div class="map-grid">
+          <div class="map-row" data-step="1"><b><code>index.html</code></b><i aria-hidden="true">→</i><span>저장소 루트 — 같은 위치, 같은 역할</span></div>
+          <div class="map-row" data-step="2"><b><code>vite.config.ts</code></b><i aria-hidden="true">→</i><span>루트 — <code>uniweb</code>은 여기서 <code>server.port</code>를 <code>3300</code>으로 못 박아 둡니다</span></div>
+          <div class="map-row" data-step="3"><b><code>src/main.ts</code></b><i aria-hidden="true">→</i><span><code>uniweb</code>도 정확히 같은 경로 · 앱을 만들고 플러그인을 붙이는 곳</span></div>
+          <div class="map-row" data-step="4"><b><code>pnpm dev</code></b><i aria-hidden="true">→</i><span><code>uniweb</code>은 <code>loc</code> · <code>dev</code> · <code>proc</code> 세 모드 — 각각 <code>.env.loc</code>, <code>.env.dev</code>, <code>.env.proc</code>를 읽습니다</span></div>
+          <div class="map-row" data-step="5"><b><code>pnpm build</code></b><i aria-hidden="true">→</i><span><code>uniweb</code>은 <code>build-dev</code> · <code>build-proc</code>로 나뉩니다 — 어느 환경으로 굽는지 골라야 합니다</span></div>
+        </div>
+        <ol class="recap-list" data-step="6">
+          <li>한 줄로 생성 → <b><code>pnpm create vue@latest</code></b></li>
+          <li>최상단에 선언한 것만 → <b>pnpm의 엄격함을 눈으로 확인</b></li>
+          <li><code>dev</code>는 모듈을 그때그때 → <b>저장하면 그 모듈만 교체</b></li>
+          <li><code>build</code>는 합쳐서 <code>dist/</code> → <b>올리는 건 그 폴더뿐</b></li>
+        </ol>
+        <p class="takeaway" data-step="7">
+          <strong>5분 쉬고, 4장에서 드디어 Vue입니다</strong> · 지금까지는 무대를 세운 것이고,
+          이제 그 위에 컴포넌트를 올립니다
+        </p>
+      </section>
     </main>
 
     <footer class="deck-controls" aria-label="프레젠테이션 탐색">
       <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
       <button id="previous" type="button" aria-label="이전 단계">←</button>
-      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">17</span></p>
+      <p><span id="current-slide">01</span><i>/</i><span id="total-slides">33</span></p>
       <button id="next" type="button" aria-label="다음 단계">→</button>
       <button id="fullscreen" class="fullscreen" type="button" aria-label="전체 화면">⛶</button>
     </footer>

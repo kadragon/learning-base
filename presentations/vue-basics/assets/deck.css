@@ -1409,6 +1409,35 @@ kbd {
   font-size: 0.85em;
 }
 
+/*
+ * Two code cards side by side — "what we write / what the browser gets",
+ * "our project / uniweb". .code-card sets its own max width for the
+ * single-card slides, so it has to be released inside the split.
+ */
+.code-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.8rem);
+  align-items: start;
+}
+.code-split .code-card {
+  width: 100%;
+}
+.code-split .code-card pre {
+  padding: clamp(0.8rem, 1.5vw, 1.35rem);
+  font-size: clamp(0.68rem, 0.88vw, 0.94rem);
+}
+
+/* File tree beside its annotations: the tree needs the narrower column. */
+.code-split--wide {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+}
+.tree-notes {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+}
+
 /* ----------------------------- Animation ----------------------------- */
 @keyframes draw {
   to { stroke-dashoffset: 0; }
@@ -1431,7 +1460,8 @@ kbd {
     padding: clamp(0.8rem, 1.5vw, 1.3rem);
   }
 
-  .code-card pre {
+  .code-card pre,
+  .code-split .code-card pre {
     padding: clamp(0.7rem, 1.4vw, 1.2rem);
     font-size: clamp(0.68rem, 0.88vw, 0.92rem);
     line-height: 1.45;
@@ -1511,7 +1541,9 @@ kbd {
   .dep-split,
   .rule-grid,
   .card-grid--2,
-  .card-grid--3 {
+  .card-grid--3,
+  .code-split,
+  .code-split--wide {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -1585,8 +1617,28 @@ kbd {
   .card-grid,
   .flow,
   .dep-split,
-  .rule-grid {
+  .rule-grid,
+  .code-split {
     gap: clamp(0.6rem, 1.3vw, 1.1rem);
+  }
+
+  /*
+   * 1024x768 has the width for two code columns but not the height. Buy it
+   * back from the code padding and line height rather than stacking, which
+   * pushes the quote and takeaway steps below the fold.
+   */
+  .code-split .code-card pre,
+  .code-card pre {
+    padding: clamp(0.65rem, 1.2vw, 1rem);
+    line-height: 1.45;
+  }
+
+  .code-card__caption {
+    padding: 0.4rem 0.9rem 0.55rem;
+  }
+
+  .note-row {
+    margin-top: clamp(0.7rem, 1.6vh, 1.1rem);
   }
 
   .flow__node span {
