@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- [done] Fix the #clone mock overlap introduced by the chrome pass; drop a fix built on a wrong premise (2026-07-29)
 - [done] git-basics stops cutting its own editor chrome; deck-wide WCAG AA at three sizes (2026-07-29)
   → docs/runbook.md
 - [done] git-basics per-slide projection pass; clean geometry and AA contrast at three projector sizes (2026-07-29)

@@ -4226,13 +4226,22 @@ kbd {
 }
 
 /*
- * #clone and #appendix-init cut their own editor chrome on a 768px-tall
- * projector. Both windows are grid rows of a fixed-height slide and set
- * `overflow: hidden`, so what does not fit is dropped with no scrollbar: the
- * `⑂ main` status bar — the branch indicator this whole deck is about — was
- * gone entirely on #clone (30px) and half-cut on #appendix-init (9px).
- * Reclaim the height from the editor's own generous spacing, never from the
- * bars, and never by letting the editor clip in their place.
+ * #clone drops its `⑂ main` status bar entirely at 1366x768 — 30px of it, cut
+ * with no scrollbar, because the window is a grid row of a fixed-height slide
+ * that sets `overflow: hidden`. That bar is the branch indicator this whole
+ * deck is about. Reclaim the height from the editor's own spacing.
+ *
+ * The clip reaches zero at 1024x768, 1366x768 and 1600x768. It does not at
+ * 1920x768 — 42px there, against 215px before this deck's projection work
+ * began. That is a 2.5:1 viewport no projector produces, and closing it would
+ * mean capping the mock's type, which measurably reopens the overlap below.
+ *
+ * `.command-palette` and `.url-entry` are both absolutely positioned as a
+ * percentage of the editor's height, so shrinking the editor also shrinks the
+ * distance between them: the 19% that separates `top: 15%` from `top: 34%`
+ * fell under the palette's own height and the two mock inputs fused into one
+ * box. Anchoring the URL prompt a fixed distance below the palette keeps them
+ * legible as the two separate steps the slide is teaching.
  */
 @media (max-height: 860px) {
   #clone .vscode-titlebar {
@@ -4243,27 +4252,39 @@ kbd {
     padding: 0.8rem 2rem;
   }
 
-  #clone .clone-result {
-    margin-top: 17%;
+  /*
+   * Put all three mock elements on one rem axis instead of the mix of
+   * `top: 15%` / `top: 34%` / `margin-top: 17%` they inherit. Those percentages
+   * resolve against different things — the editor's height for the first two,
+   * its width for the third — so shrinking the editor closed the gaps at
+   * different rates and the boxes collided. Anchored in rem they scale with the
+   * type instead, and the spacing between them cannot collapse.
+   */
+  #clone .command-palette {
+    top: 1.6rem;
   }
 
-  /*
-   * `⑂ main · 강의 기준` and `LOCAL ONLY · no origin` are wider than the window
-   * here, so each span wrapped to a second line and the bar outgrew its row.
-   */
-  #appendix-init .vscode-status {
-    padding: 0.3rem 0.7rem;
-    font-size: 0.72rem;
-    white-space: nowrap;
+  #clone .url-entry {
+    top: 4.8rem;
+  }
+
+  #clone .clone-result {
+    position: absolute;
+    top: 8rem;
+    right: 12%;
+    left: 12%;
+    margin-top: 0;
   }
 }
 
 /*
- * #pull-request cuts the bottom 18px off its own PR window on a 768px-tall
- * projector — the row the branch selector and the Create Pull Request button
- * sit on. Same cause and same remedy as #clone above: the window is a grid row
- * of a fixed-height slide with `overflow: hidden`, so take the height out of
- * the body's generous padding rather than let it swallow the controls.
+ * #pull-request cuts 18px off the bottom of its own PR window at 1366x768.
+ * Measured, that 18px is the body's bottom padding, not the controls: the
+ * Create Pull Request button still clears the window's edge by 12px there, and
+ * at 1024x768 nothing is cut at all. So this is breathing room rather than a
+ * rescue — the button does start to clip a little above 1440px wide. Same
+ * cause as #clone above: a grid row of a fixed-height slide with
+ * `overflow: hidden`.
  */
 @media (max-height: 860px) {
   #pull-request .pr-window__body {
