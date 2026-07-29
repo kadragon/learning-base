@@ -678,7 +678,7 @@ this point, which is the swap slide 28's footnote promised.
 | Checked | Result |
 |---|---|
 | list → card link | `/` renders 6 cards; the first card's link is `href="/members/1"` |
-| navigate to detail | clicking it moves to `/members/1` and renders `강동욱`, `개발 · 정보화본부`, the email |
+| navigate to detail | clicking it moves to `/members/1` and renders `강동욱`, `개발 · 정보전산원`, the email |
 | back link | `<RouterLink to="/">` returns to `/` with all 6 cards, no full reload |
 | param → missing field | `/members/4` renders 박지호 with `이메일 미등록` |
 | param → no match | `/members/999` renders `999번 구성원을 찾을 수 없습니다.` and no `<h1>` |

@@ -106,22 +106,22 @@
               <div class="mock-grid">
                 <div class="mock-card is-bookmarked" data-step="3">
                   <strong>강동욱</strong>
-                  <small>개발 · 정보화본부</small>
+                  <small>개발 · 정보전산원</small>
                   <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
                 </div>
                 <div class="mock-card" data-step="3">
                   <strong>구성원 B</strong>
-                  <small>기획 · 정보화본부</small>
+                  <small>기획 · 정보전산원</small>
                   <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
                 </div>
                 <div class="mock-card" data-step="4">
                   <strong>구성원 C</strong>
-                  <small>운영 · 정보화본부</small>
+                  <small>운영 · 정보전산원</small>
                   <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
                 </div>
                 <div class="mock-card" data-step="4">
                   <strong>구성원 D</strong>
-                  <small>개발 · 정보화본부</small>
+                  <small>개발 · 정보전산원</small>
                   <svg class="ic mock-star" aria-hidden="true"><use href="#ic-star" /></svg>
                 </div>
               </div>
@@ -619,7 +619,7 @@
         <div class="code-card code-card--dense" data-step="1">
           <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>세 자리를 한 화면에</b></div>
           <pre><code data-source="illustration"><span class="c">// 1. 변수 이름 뒤</span>
-<span class="k">const</span> teamName: <span class="k">string</span> = <span class="s">"정보화본부"</span>
+<span class="k">const</span> teamName: <span class="k">string</span> = <span class="s">"정보전산원"</span>
 <span class="k">let</span> memberCount: <span class="k">number</span> = 12
 
 <span class="c">//        2. 매개변수마다        3. 괄호 뒤 — 반환값</span>
@@ -660,7 +660,7 @@
 <span class="k">const</span> me: Member = {
   id: 1,
   name: <span class="s">"강동욱"</span>,
-  team: <span class="s">"정보화본부"</span>,
+  team: <span class="s">"정보전산원"</span>,
   role: <span class="s">"개발"</span>,
 }</code></pre>
           </div>
@@ -697,7 +697,7 @@
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>내보내고, 가져오고</b></div>
             <pre><code data-source="illustration"><span class="c">// src/types.ts — 내보내기</span>
 <span class="k">export interface</span> Member { <span class="c">/* ... */</span> }
-<span class="k">export const</span> TEAM = <span class="s">"정보화본부"</span>
+<span class="k">export const</span> TEAM = <span class="s">"정보전산원"</span>
 
 <span class="c">// 다른 파일 — 가져오기</span>
 <span class="k">import</span> { TEAM } <span class="k">from</span> <span class="s">"./types"</span>
@@ -1158,9 +1158,9 @@ dist/assets/index-Fh33LsBj.js       99.03 kB │ gzip: 38.33 kB
           <div class="code-card" data-step="1">
             <div class="code-card__bar"><span class="window-dots"><i></i><i></i><i></i></span><b>public/members.json — 전부</b></div>
             <pre><code data-source="fixture:ch7-final/members.json">[
-  { <span class="k">"id"</span>: 1, <span class="k">"name"</span>: <span class="s">"강동욱"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"kadragon@knue.ac.kr"</span> },
-  { <span class="k">"id"</span>: 2, <span class="k">"name"</span>: <span class="s">"김서준"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"seojun@knue.ac.kr"</span> },
-  { <span class="k">"id"</span>: 3, <span class="k">"name"</span>: <span class="s">"이하은"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"정보화본부"</span>, <span class="k">"email"</span>: <span class="s">"haeun@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 1, <span class="k">"name"</span>: <span class="s">"강동욱"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"정보전산원"</span>, <span class="k">"email"</span>: <span class="s">"kadragon@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 2, <span class="k">"name"</span>: <span class="s">"김서준"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"정보전산원"</span>, <span class="k">"email"</span>: <span class="s">"seojun@knue.ac.kr"</span> },
+  { <span class="k">"id"</span>: 3, <span class="k">"name"</span>: <span class="s">"이하은"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"정보전산원"</span>, <span class="k">"email"</span>: <span class="s">"haeun@knue.ac.kr"</span> },
   { <span class="k">"id"</span>: 4, <span class="k">"name"</span>: <span class="s">"박지호"</span>, <span class="k">"role"</span>: <span class="s">"개발"</span>, <span class="k">"team"</span>: <span class="s">"학사지원본부"</span> },
   { <span class="k">"id"</span>: 5, <span class="k">"name"</span>: <span class="s">"최유진"</span>, <span class="k">"role"</span>: <span class="s">"운영"</span>, <span class="k">"team"</span>: <span class="s">"학사지원본부"</span>, <span class="k">"email"</span>: <span class="s">"yujin@knue.ac.kr"</span> },
   { <span class="k">"id"</span>: 6, <span class="k">"name"</span>: <span class="s">"정민서"</span>, <span class="k">"role"</span>: <span class="s">"기획"</span>, <span class="k">"team"</span>: <span class="s">"대외협력본부"</span>, <span class="k">"email"</span>: <span class="s">"minseo@knue.ac.kr"</span> }
