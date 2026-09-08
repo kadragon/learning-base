@@ -9,9 +9,9 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 - https://platform.openai.com/tokenizer — optional live tokenization tool. The public tool shell was reachable; no token count was measured for this deck. Token boundaries and probabilities are deliberately not presented as measured values.
 - https://learn.chatgpt.com/ — ChatGPT as a user-facing service with model-backed features.
 - https://models.wrks.ai/ — official listing of models from multiple providers. This does not establish an institution's enabled models.
-- Engine/car and work-desk metaphors are simplifications. The next-token interaction offers two authored contexts and three candidate branches per context, with word-like display pieces. No actual tokenizer, model, probability calculation, network call, or stochastic sampling is used. Real generation need not always choose the highest-probability token.
+- Work-desk metaphors are simplifications. The next-token interaction offers two authored contexts and three candidate branches per context, with word-like display pieces. No actual tokenizer, model, probability calculation, network call, or stochastic sampling is used. Real generation need not always choose the highest-probability token.
 - Reading a document in context is not immediate model-weight training. Storage and possible later training use are separate, policy-dependent issues; no WRKS-specific policy is asserted. This caveat is now stated **on the slide** rather than only in speaker notes, because reviewers read the unqualified takeaway as permission to upload material.
-- `next-token`'s on-screen candidates are word-like groups chosen for readability. The slide now says so explicitly and gives a counter-example, because presenting word-shaped candidates immediately after "a Korean character is not a token" was read as a contradiction.
+- `next-token`'s on-screen candidates are word-like groups chosen for readability. The slide discloses that the example is not an actual model, probability calculation, or token split; speaker notes distinguish display chunks from actual token boundaries. No concrete token counterexample or measured boundary is presented.
 - `tokens` and `next-token` carry a "심화" marker: they are the first omissions in the 90-minute path.
 
 ## Slide `hallucination-why`, `hallucination-example`, `verify`
@@ -23,8 +23,8 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 ## Slide `context`, `context-efficiency`, `context-quality`
 
 - https://developers.openai.com/api/docs/guides/conversation-state — context windows, conversation inputs, and context management. The interface's full visible history need not equal the exact model input. Service-specific summarization, retrieval and truncation are not verified here. The slide now states that the window is counted **in tokens** and spans input and output together, completing the link the `tokens` takeaway promised.
-- `context-efficiency` adds a fourth dimension, human review time, alongside usage, latency and accuracy. This is a teaching position, not a measured quantity: the point is that improvements in the first three do not automatically reduce the reviewing a person still owes.
-- `hallucination-why`'s third card is presented as an incentive that encourages guessing, not as a third peer cause alongside the training objective and information limits. The published explanation is about development and evaluation incentives, not a runtime mechanism.
+- `context-efficiency` compares usage, latency, answer quality and total work time, including human review. The review-time examples describe a possible effect of irrelevant or incorrect output; this is a teaching explanation, not a measured productivity result.
+- `hallucination-why`'s speaker notes describe incentives that encourage guessing alongside the training objective and information limits. The published explanation is about development and evaluation incentives, not a runtime mechanism.
 - https://developers.openai.com/api/docs/guides/prompt-engineering — context relevance, limits and prompt caching considerations.
 - https://arxiv.org/abs/2307.03172 — Liu et al., _Lost in the Middle: How Language Models Use Long Contexts_, submitted 2023, published in TACL 2024. Studies multi-document question answering and key-value retrieval; relevant-information position affects performance in evaluated models. Not a universal degradation percentage or threshold for current models. The strip is a conceptual arrangement, not a quantitative chart.
 - Cost, latency and answer quality are separate dimensions. More processed input can increase work; actual cost and delay depend on models, caching, output, tools, service processing and plans. No WRKS billing or cache implementation is assumed. Relevant long context can improve answers; length alone is not evidence of degradation.
@@ -41,10 +41,10 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 ## Slide `data-checklist`, `accountability` — added after persona review
 
 - These two slides carry **no external source**. They are authored institutional guidance for this deck, added because reviewers found `data-boundary` deferred every question to "check your institution's rules" without naming the rules, the contact, or the prohibited work.
-- `data-checklist` deliberately ships **blank fields** (`__________`) for institution-specific allowances, prohibitions and contacts. The blanks are the honest state: institutional policy was not available when the deck was written, and inventing entries would breach this deck's no-fabrication rule. The instructor fills them before delivery.
-- The three items named as unverified on the slide — conversation retention period, administrator read access, and processing server location — are unverified because `https://docs.wrks.ai/user-guide` could not be retrieved and no institutional contract was available. They are presented as open questions, not as risks that are known to exist.
+- `data-checklist` now presents three handling buckets: institution-permitted examples, materials not to enter, and materials to verify before use. It omits institution-specific fill-in fields and does not assert retention, administrator access, or processing location.
+- Conversation retention period, administrator read access, and processing server location remain unverified instructor-preflight questions because `https://docs.wrks.ai/user-guide` could not be retrieved and no institutional contract was available. They are not displayed on the current slide and are not asserted as known risks.
 - The categories listed as "do not enter" (identifiers, sensitive records, confidential contracts and unpublished procurement material) are conventional handling categories, not quotations from a specific statute. The slide does not cite a statute, article, or certification, and speaker notes state that institutional rules take precedence and that the deck is not legal advice.
-- `accountability` describes the deck's practical recommendation: authorship and approval responsibility are unchanged by tool use, some judgments are not delegated, and drafts are labelled. No claim is made about any institution's existing AI policy, audit outcome, or liability rule. The "what shrinks is drafting time, not review time" statement is a teaching position, not a measured productivity result; this deck makes no productivity measurement.
+- `accountability` describes the deck's practical recommendation: author and approver confirmation procedures still apply, some judgments are not delegated, drafts are labelled, and source evidence is retained. No claim is made about any institution's existing AI policy, audit outcome, or liability rule. Time savings are framed as a comparison of drafting plus review, not as a measured result.
 
 ## Slide `practice-setup`, `practice-apply`, `session-plan` — added after persona review
 
@@ -60,7 +60,7 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 - https://models.wrks.ai/ — public multi-provider model listing, checked 2026-09-07.
 - https://wrks.ai/guides/agent/index.html — official guide surfaced in search; optional further reading only, not evidence of the user's enabled features.
 - https://docs.wrks.ai/user-guide — retrieval failed during planning; not relied on for button names, UI layouts or account behavior.
-- The WRKS diagram is explicitly not a screenshot. Live account navigation, model selection, file input, search, limits, retention and data permissions require instructor preflight. If optional functionality is absent, use plain-text prompts with the fictional memo. The lesson does not claim every question performs a web search or every uploaded file is completely read.
+- The `wrks-position` diagram is explicitly not a screenshot. Live account navigation, model selection, file input, search, limits, retention and data permissions require instructor preflight. If optional functionality is absent, use plain-text prompts with the fictional memo. The lesson does not claim every question performs a web search or every uploaded file is completely read.
 
 ## Slide `opening`, `outcomes`, `before-after`, `practice-source`, `practice-summary`, `practice-mail`, `practice-audit`, `practice-rubric`, `quiz`, `closing`
 
@@ -82,7 +82,7 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 - `hallucination-example`: identify two unsupported details in the fictional answer. The original includes the email task but leaves its owner and deadline unsettled. Repeated clicks do not increase the found count; reset clears the activity.
 - `new-chat`: three scenario choices provide recommendation-based feedback. The alternatives are practical recommendations, not technical prohibitions; selecting another case clears its previous feedback.
 - `prompt`: four independent toggles compose a copyable request in canonical order. The count indicates included elements, not quality or expected model accuracy. The source instruction is not itself the source; attendees must append the actual memo.
-- `quiz`: four O/X statements, two true and two false. First answer per card is recorded until reset; explanation and score remain visible. Responses stay in page memory, survive slide navigation, and reset on reload. No learner identities, analytics, shared voting or response submission are implemented.
+- `quiz`: three O/X statements, two true and one false. First answer per card is recorded until reset; explanation and score remain visible. Responses stay in page memory, survive slide navigation, and reset on reload. No learner identities, analytics, shared voting or response submission are implemented.
 - All controls support native keyboard activation. Print hides activity controls but retains the unsupported words, scenario recommendations, prompt checklist, and all quiz explanations independent of answers chosen.
 
 ## Initial validation results — 2026-09-07, before interaction expansion
@@ -104,4 +104,51 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 - The overflow probe was checked against an injected oversized element before being trusted. The first version of the probe measured `slide.scrollHeight - slide.clientHeight`, which is structurally always 0 because the slide is not the scroll container; that probe reported a false all-clear. The corrected probe measures `#deck` and was confirmed to rise from 25 to 941 when an over-tall block was injected. Four new slides did overflow at 1366×768 (up to 218px) and were compacted until they matched baseline.
 - Notes printing verified under emulated print media in three states: print without the class hides notes, print with the class shows them (89px rendered), screen with the class hides them. The plain print output is therefore unchanged.
 - Console clean on load and navigation with the deck served from the repository root. Font and favicon 404s seen in an earlier run were an artefact of serving the deck subdirectory, not a deck defect.
-- Not verified: exported PDF and physical print output, authenticated WRKS behaviour, institution-specific policy values (deliberately left blank on `data-checklist`), and actual delivery timings for either session plan.
+- Not verified: exported PDF and physical print output, authenticated WRKS behaviour, institution-specific policy values (blank fields existed in that revision; removed on 2026-09-08), and actual delivery timings for either session plan.
+
+
+## Revision evidence — 2026-09-08
+
+### Slides `llm-model`, `model-service`, `before-after`, `next-token`, `tokens`, `training-context`
+
+- https://developers.openai.com/api/docs/models/gpt-6-astra — opened 2026-09-08. Confirms GPT-6 Astra (`gpt-6-astra`), text input/output and image input. No claim of audio/video support or WRKS availability.
+- https://www.anthropic.com/claude/fable — opened 2026-09-08. Confirms Claude Fable 5.1 and vision support. Names are examples, not a ranking or institution-specific catalog.
+- Replaced the language-engine metaphor with a model definition and multimodal input example. The meeting-file contrast is an authored teaching example of training versus inference; storage, later training use and cross-chat retrieval remain separate.
+- Moved the prompt comparison (`before-after`) to immediately before the prompt-construction lesson (`prompt`), following the context/handoff lessons. Generation precedes token terminology, and speaker notes point forward to tokenization.
+
+### Slide `hallucination-why`
+
+- https://image.samsungsds.com/kr/resources/__icsFiles/afieldfile/2023/04/13/%EC%82%BC%EC%84%B1SDS-ChatGPT-%EA%B8%B0%EC%88%A0-%EB%B6%84%EC%84%9D-%EB%B0%B1%EC%84%9C(Mar.2023)-last-updated-230405.pdf — opened 2026-09-08, page 22, figure 13. Documents the Sejong/MacBook hallucination and credits Hankook Ilbo, 2023-02-23. Slide paraphrases the historical error; it neither quotes a fabricated response as history nor claims reproduction by current models.
+
+### Slides `data-checklist`, `wrks-position`
+
+- Removed institution-specific fill-in fields and obsolete preparation notes, as requested.
+- https://gov.wrks.ai/ko/agent — user-specified destination, opened 2026-09-08. Authenticated menu labels and linked routes were observed through the local evaluator; input, upload, save and result behavior were not tested.
+
+## Slides `wrks-menu-map`, `wrks-tool-guide`
+
+- https://github.com/kadragon/wrksai-manual — existing Korean employee manual, public single-page guide. The included `assets/home.png`, `assets/chat-example.png`, `assets/notes.png`, `assets/translation.png`, and `assets/works-plus.png` are its screen captures, marked in that manual as `웍스AI v3.0 · 2026-08-21` examples.
+- Authenticated WRKS navigation was checked through `/Users/kadragon/dev/wrks-evaluator` on 2026-09-08. The visible top menu was `에이전트`, `워크플로우`, `이미지`, `회의록`, `슬라이드`, `문서 번역`, `문서 작성`, `웍스+`, `기타`; `기타` exposed `텍스트 추출`. Route labels and menu presence were checked only; institutional permissions and input, upload, generation, save, sharing, retention, and result behavior remain unverified.
+- The screenshots are sanitized public manual examples, not captures of the authenticated account. Menu names, layout, availability, model choices and feature limits may change; instructor preflight remains required.
+- Local Chromium QA checked both slides at 1920×1080, 1366×768, 1024×768 and 390×844 after fonts and transitions settled. All five images loaded, no horizontal overflow or console errors appeared, and keyboard navigation advanced from `#25` to `#26`.
+
+### Motion
+
+- Local CSS entrance animation staggers headings, comparison blocks and takeaways; no additional navigation steps. Reduced-motion preference disables effects; new effects apply to screen media only.
+
+### Verification — 2026-09-08 revision
+
+- Presentation/harness validators, targeted slide-evidence checker, sweep and `git diff --check` passed. No runtime dependencies added.
+- Changed slides checked twice against the pre-change HEAD at 1920×1080, 1366×768, 1024×768 and 390×844, with fonts ready and 850ms after hash navigation. No horizontal overflow, code overflow or desktop vertical-scroll regression. Existing desktop scroll of up to 7px remains; narrow layouts scroll vertically.
+- All 35 slides also swept twice at those four viewports with reduced motion enabled: no horizontal overflow, clipped children in the inspected hidden-overflow cards, or desktop scroll above 7px. Screenshots of the rewritten definition, model comparison, training contrast, hallucination example and data checklist inspected at 1366×768.
+- Browser checks passed: keyboard forward/back, visible keyboard focus, entrance animation active, reduced-motion animation disabled, print media showing 35 slides with no animations, and offline file loading/navigation. Console: zero errors/warnings. Exported PDF and authenticated WRKS behavior were not tested.
+- Three independent read-only reviews covered teaching, animation/accessibility and request coverage. Fixed their stale-source findings and a focus-triggered animation restart; browser verification performed by the implementing agent.
+
+## Content-density revision — 2026-09-08
+
+- Shortened the visible teaching copy on `next-token`, `context-efficiency`, `data-checklist`, `accountability`, `practice-audit`, and `practice-apply`; explanations and examples remain in speaker notes where they are needed for delivery.
+- Reduced `quiz` from four to three statements and changed its score denominator to derive from the rendered card count. The remaining statements cover model/service, hallucination, and context continuity.
+- Retained interaction instructions, the educational-example disclosure, institution data boundary, human approval, source memo, exercise prompts, and review rubric. `practice-apply` now shows request keywords; full request expansions remain in speaker notes.
+- Post-revision checks passed: `bash tools/validate-presentations.sh`, `bash tools/validate-harness.sh`, `bash tools/sweep.sh`, targeted slide evidence, `node --check`, and `git diff --check`.
+- Chromium layout sweep after the revision covered all 35 slides at 1920×1080, 1366×768, 1024×768, and 390×844 after fonts loaded and transitions settled. No horizontal overflow or desktop vertical overflow was observed; narrow layouts retain intentional vertical scrolling. Quiz selection reached `3/3` with three correct answers. Console reported zero errors and warnings.
+- Reduced-motion media set the entrance animation to `none`; normal media retained `enter`. Authenticated WRKS behavior, exported PDF output, and physical print output remain unverified.

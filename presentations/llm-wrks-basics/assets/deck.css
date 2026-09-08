@@ -115,7 +115,7 @@ a:hover {
 }
 .slide.is-active {
   display: flex;
-  animation: enter 0.2s ease-out;
+  animation: enter 0.3s ease-out;
 }
 .eyebrow {
   margin: 0 !important;
@@ -512,6 +512,121 @@ li + li {
   padding: 14px 10px;
   font-size: 17px;
 }
+
+.wrks-menu-layout {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 3%;
+  align-items: start;
+  min-width: 0;
+}
+
+.wrks-screenshot {
+  min-width: 0;
+  margin: 0;
+}
+
+.wrks-screenshot img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 8px 8px 0 var(--soft);
+}
+
+.wrks-screenshot figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.menu-map {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  min-width: 0;
+}
+
+.menu-map article {
+  display: flex;
+  min-height: 76px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.menu-map b {
+  color: var(--accent);
+  font-size: clamp(14px, 1.15vw, 18px);
+  line-height: 1.25;
+}
+
+.menu-map article > span:last-child {
+  color: var(--muted);
+  font-size: clamp(12px, 0.95vw, 15px);
+  line-height: 1.35;
+}
+
+.menu-badge {
+  display: inline-block;
+  padding: 2px 5px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  vertical-align: 2px;
+}
+
+.tool-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+
+.tool-menu-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.tool-menu-card img {
+  display: block;
+  width: 100%;
+  height: 126px;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.tool-menu-card > div {
+  padding: 12px 14px 14px;
+}
+
+.menu-kicker {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+}
+
+.tool-menu-card h3 {
+  margin: 4px 0 6px;
+  font-size: clamp(20px, 1.6vw, 27px);
+}
+
+.tool-menu-card p {
+  color: var(--muted);
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.45;
+}
 .text-link {
   display: inline-block;
   font-weight: 700;
@@ -741,6 +856,34 @@ dialog::backdrop {
   .steps li {
     padding: 10px 0;
   }
+
+  #wrks-menu-map .wrks-screenshot img {
+    max-height: 280px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  #wrks-menu-map .menu-map article {
+    min-height: 58px;
+    padding: 8px 10px;
+  }
+
+  #wrks-tool-guide .tool-menu-card img {
+    height: 100px;
+  }
+
+  #wrks-tool-guide .tool-menu-card > div {
+    padding: 9px 11px 11px;
+  }
+
+  #wrks-tool-guide .tool-menu-card h3 {
+    margin-top: 2px;
+    margin-bottom: 3px;
+  }
+
+  #wrks-tool-guide .tool-menu-card p {
+    font-size: 14px;
+  }
 }
 @media (max-aspect-ratio: 4/3) and (min-width: 901px) {
   h2 {
@@ -783,7 +926,8 @@ dialog::backdrop {
     justify-content: flex-start;
   }
   .cover-grid,
-  .two {
+  .two,
+  .wrks-menu-layout {
     grid-template-columns: 1fr;
     gap: 24px;
   }
@@ -791,9 +935,13 @@ dialog::backdrop {
     display: none;
   }
   .three,
-  .four {
+  .four,
+  .tool-menu-grid {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+  }
+  .menu-map {
+    grid-template-columns: repeat(2, 1fr);
   }
   .comparison,
   .decision {
@@ -869,7 +1017,9 @@ dialog::backdrop {
 }
 @media (max-width: 500px) {
   .three,
-  .four {
+  .four,
+  .tool-menu-grid,
+  .menu-map {
     grid-template-columns: 1fr;
   }
   .slide {
@@ -1498,4 +1648,39 @@ dialog::backdrop {
     letter-spacing: 0.08em;
     margin-bottom: 3mm;
   }
+}
+
+/* Stagger explanation blocks once per slide entry, without extra key presses. */
+@keyframes explain-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .slide.is-active > :is(h1, h2, .lead) {
+    animation: explain-in 360ms ease-out both;
+  }
+  .slide.is-active :is(.two, .three, .comparison, .decision, .token-line, .service-diagram) > * {
+    animation: explain-in 420ms ease-out both;
+    animation-delay: 100ms;
+  }
+  .slide.is-active :is(.two, .three, .comparison, .decision, .token-line, .service-diagram) > :nth-child(2) {
+    animation-delay: 200ms;
+  }
+  .slide.is-active :is(.two, .three, .comparison, .decision, .token-line, .service-diagram) > :nth-child(n + 3) {
+    animation-delay: 300ms;
+  }
+  .slide.is-active > :is(.takeaway, .activity-caption) {
+    animation: explain-in 420ms ease-out 350ms both;
+  }
+  .slide.is-active details[open] > :not(summary) {
+    animation: explain-in 240ms ease-out;
+  }
+  .slide.is-active :focus-within {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+.model-name {
+  font-size: clamp(22px, 2vw, 32px);
+  overflow-wrap: anywhere;
 }

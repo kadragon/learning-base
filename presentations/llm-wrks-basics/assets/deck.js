@@ -445,7 +445,7 @@
         const count = answered.filter(
           (item) => item.dataset.choice === item.dataset.answer,
         ).length;
-        quizScore.textContent = `${correct ? "맞았습니다." : "해설을 확인하세요."} ${answered.length}/4 응답 · ${count}개 정답. ${answered.length === 4 ? "다시 풀기로 재도전할 수 있습니다." : "첫 선택으로 채점합니다."}`;
+        quizScore.textContent = `${correct ? "맞았습니다." : "해설을 확인하세요."} ${answered.length}/${quizCards.length} 응답 · ${count}개 정답. ${answered.length === quizCards.length ? "다시 풀기로 재도전할 수 있습니다." : "첫 선택으로 채점합니다."}`;
       }),
     ),
   );
@@ -459,7 +459,7 @@
         button.removeAttribute("aria-disabled");
       });
     });
-    quizScore.textContent = "0/4 응답 · 첫 선택으로 채점합니다.";
+    quizScore.textContent = `0/${quizCards.length} 응답 · 첫 선택으로 채점합니다.`;
   });
   window.addEventListener("hashchange", parseHash);
   window.llmDeck = { handleKeydown };
