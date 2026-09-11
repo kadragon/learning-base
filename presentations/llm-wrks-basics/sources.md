@@ -2,7 +2,9 @@
 
 Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examples, timing allocations, metaphors, prompts, and the fictional meeting are authored illustrations, not empirical results. No account-specific UI or response was captured. The deck makes no price, current-best-model, security certification, or measured productivity claim.
 
-## Slide `llm-model`, `model-service`, `tokens`, `next-token`, `training-context`
+## Slide `llm-model`, `tokens`, `next-token`, `training-context`
+
+(`model-service` was merged into `llm-model` on 2026-09-11; its evidence below still applies to the model-versus-service panel.)
 
 - https://developers.openai.com/api/docs/guides/text — models accept prompts and produce text; model and service distinction.
 - https://developers.openai.com/api/docs/guides/prompt-engineering — token generation, prompt instructions, context and model differences.
@@ -12,7 +14,7 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 - Work-desk metaphors are simplifications. The next-token interaction offers two authored contexts and three candidate branches per context, with word-like display pieces. No actual tokenizer, model, probability calculation, network call, or stochastic sampling is used. Real generation need not always choose the highest-probability token.
 - Reading a document in context is not immediate model-weight training. Storage and possible later training use are separate, policy-dependent issues; no WRKS-specific policy is asserted. This caveat is now stated **on the slide** rather than only in speaker notes, because reviewers read the unqualified takeaway as permission to upload material.
 - `next-token`'s on-screen candidates are word-like groups chosen for readability. The slide discloses that the example is not an actual model, probability calculation, or token split; speaker notes distinguish display chunks from actual token boundaries. No concrete token counterexample or measured boundary is presented.
-- `tokens` and `next-token` carry a "심화" marker: they are the first omissions in the 90-minute path.
+- Since 2026-09-11, `tokens` and `embedding` carry the "심화" marker; `next-token` is core and is not omitted in the 90-minute path.
 
 ## Slide `hallucination-why`, `hallucination-example`, `verify`
 
@@ -78,7 +80,7 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 
 ## Interaction design
 
-- `next-token`: changing context or candidate resets generation; the next-piece button plays the chosen authored branch. These examples illustrate multiple possible continuations, not relative probability or model performance.
+- `next-token` (superseded 2026-09-11): the manual candidate/generate buttons were replaced by an autoplay loop; see "Restructure — 2026-09-11" below.
 - `hallucination-example`: identify two unsupported details in the fictional answer. The original includes the email task but leaves its owner and deadline unsettled. Repeated clicks do not increase the found count; reset clears the activity.
 - `new-chat`: three scenario choices provide recommendation-based feedback. The alternatives are practical recommendations, not technical prohibitions; selecting another case clears its previous feedback.
 - `prompt`: four independent toggles compose a copyable request in canonical order. The count indicates included elements, not quality or expected model accuracy. The source instruction is not itself the source; attendees must append the actual memo.
@@ -127,7 +129,7 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 
 ## Slides `wrks-menu-map`, `wrks-tool-guide`
 
-- https://github.com/kadragon/wrksai-manual — existing Korean employee manual, public single-page guide. The included `assets/home.png`, `assets/chat-example.png`, `assets/notes.png`, `assets/translation.png`, and `assets/works-plus.png` are its screen captures, marked in that manual as `웍스AI v3.0 · 2026-08-21` examples.
+- https://github.com/kadragon/wrksai-manual — existing Korean employee manual, public single-page guide. The included `assets/wrks/home.png`, `assets/wrks/chat-example.png`, `assets/wrks/notes.png`, `assets/wrks/translation.png`, and `assets/wrks/works-plus.png` are its screen captures, marked in that manual as `웍스AI v3.0 · 2026-08-21` examples.
 - Authenticated WRKS navigation was checked through `/Users/kadragon/dev/wrks-evaluator` on 2026-09-08. The visible top menu was `에이전트`, `워크플로우`, `이미지`, `회의록`, `슬라이드`, `문서 번역`, `문서 작성`, `웍스+`, `기타`; `기타` exposed `텍스트 추출`. Route labels and menu presence were checked only; institutional permissions and input, upload, generation, save, sharing, retention, and result behavior remain unverified.
 - The screenshots are sanitized public manual examples, not captures of the authenticated account. Menu names, layout, availability, model choices and feature limits may change; instructor preflight remains required.
 - Local Chromium QA checked both slides at 1920×1080, 1366×768, 1024×768 and 390×844 after fonts and transitions settled. All five images loaded, no horizontal overflow or console errors appeared, and keyboard navigation advanced from `#25` to `#26`.
@@ -174,3 +176,65 @@ Captured with Playwright after the lecture owner signed in to `https://gov.wrks.
 - The agent home banner rotates institutional notices, including `[공지] 생성형 AI 서비스(wrks.ai) 이용 관련 개인정보 및 대화 내용 보안 안내`. Only the title was observed; its body was not opened.
 - `슬라이드` and `문서 작성` open on `onpod.ai` hosts, not `wrks.ai`. The hostnames are observed facts; no claim is made about data handling, contracts, or processing location.
 - Feature statements above are the services' own on-screen copy, not tested behavior.
+
+## Restructure — 2026-09-11 (`docs/llm-wrks-lecture-plan.md`)
+
+The deck was reordered into five parts: how LLMs answer → cautions → WRKS screen and practice → WRKS tools → own agent. 35 slides became 48. `model-service` was merged into `llm-model`; `practice-apply` was rewritten as the agent-design exercise and moved to Part 5; `practice-rubric` now follows `practice-audit` in Part 3.
+
+### Slides `learning`, `tokens`, `embedding`, `next-token`, `sampling`, `context` — Part 1 animations
+
+- Animations are authored illustrations rendered with local HTML/CSS and one Canvas 2D element. No library, network call, model, tokenizer or probability computation is involved. Each slide's markup holds the final frame, so print, no-JS and `prefers-reduced-motion` show a static final state.
+- `learning`: “다음 말 맞히기” summarises the pretraining prediction objective described in https://openai.com/index/why-language-models-hallucinate/ (already cited above). “틀린 만큼 수치를 고친다” is a stated simplification; the slide says details are omitted.
+- `tokens`: the split positions and the numbers under each chip are invented for display and labelled “설명용 예시”. No measured boundary or token ID is claimed.
+- `embedding`: https://developers.openai.com/api/docs/guides/embeddings — opened 2026-09-11. Quoted: “An embedding is a vector (list) of floating point numbers.” and “The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.” The canvas is a 3-D simplification of internal representations; word positions are authored, and no dimension count is stated.
+- `next-token`: autoplays authored chains for two contexts; bars are labelled “설명용 가상 값”. Always choosing the top candidate is a display choice; speaker notes say real generation need not.
+- `sampling`: https://developers.openai.com/api/docs/guides/text — opened 2026-09-11. Quoted: “Because the content generated from a model is non-deterministic, prompting to get your desired output is a mix of art and science.” The six sample sentences are authored, not model output.
+- `context`: the drop of the oldest conversation card is one illustrative case; the slide says what is dropped or summarised differs by service. WRKS behaviour is not asserted.
+- Autoplay controls: each animated slide starts on entry, restarts on re-entry, and has a pause/replay button; arrow keys only navigate slides.
+
+### Slides `traits-bridge`, `ai-slop`, `over-reliance` — Part 2 additions
+
+- `traits-bridge` maps Part 1 properties to Part 2 habits. “흔한 표현 쪽으로 기운다” is marked in speaker notes as a simplification of choosing plausible continuations.
+- `ai-slop`: definition supplied by the lecture owner on 2026-09-11 (“AI 슬롭(AI Slop)은 생성형 인공지능 기술을 사용하여 양산되는 글과 그림 등 저품질 콘텐츠를 경멸적인 용도로 부르는 멸칭이다. Slop은 '음식물 찌꺼기' 혹은 '오물'이라는 뜻이다.”). No external reference was opened. Both example sentences are authored; the revised one uses only facts from the fictional practice memo.
+- `over-reliance`: “생각하지 않는 사람들” means people who follow AI answers blindly (lecture owner, 2026-09-11). The slide is a practical recommendation and says it cites no study.
+- `data-checklist` now quotes the WRKS input notice observed on `agent-home.png`.
+
+### Slides `wrks-position`, `wrks-tool-guide`, `tool-notes`, `tool-slides`, `tool-docs` — Parts 3–4
+
+- `wrks-position` replaces the conceptual diagram with `assets/wrks/agent-home.png`; callouts name only elements visible in that capture.
+- `wrks-tool-guide` uses manual captures for 회의록 (`notes.png`), 문서 번역 and 웍스+, and 2026-09-11 account captures for 슬라이드, 문서 작성 Pro and 텍스트 추출.
+- `tool-notes`, `tool-slides`, `tool-docs` restate on-screen copy from the capture table above (export formats, steps, input fields, 20-image limit, two-week download). “구성안에서 먼저 흐름을 고칩니다”, “녹음은 참석자에게 알린다” and the check rows are practical recommendations. No upload, recording or generation was tested.
+
+### Slides `agent-what`, `agent-form`, `practice-apply`, `workflow-preview` — Part 5
+
+- `agent-what` summarises the three 직원 에이전트 cards visible on `agent-home.png`: 공문다듬이 (cites 「행정업무의 운영 및 혁신에 관한 규정」 and related handbooks), 메일다듬이 (“대학 업무 이메일을 수신자와 목적에 맞게 다듬어 드립니다”), 규정길잡이 (“한국교원대학교 규정 및 국가법령정보를 기반으로 대답합니다”). Their performance was not tested. The “지시문 + 참고자료 + 도구” formula is an authored teaching frame matching the creation form.
+- `agent-form` uses the three `agent-create-*.png` captures, cropped on 2026-09-11 to the dialog area (source 1440×900, crop box 420,45–1020,855). Field names and limits are the dialog's own copy; the wand-button sentence paraphrases “우측 요술봉을 누르시면, AI가 보다 전문적인 프롬프트로 바꿔드려요.”
+- `practice-apply` is now an agent design sheet (`data-source="illustration"`). The four job-family hints are carried over from the 2026-09-07 persona review. Survey-driven cases will replace or extend them.
+- `workflow-preview` quotes `workflow.png` copy; “예약 실행” refers to the scheduled first step shown in the tutorial image. Workflow creation and execution were not tested.
+
+### Slides `quiz`, `closing`, `session-plan`, `practice-setup`
+
+- Quiz statements now cover one item each from Parts 1, 2 and 5; two false, one true.
+- `session-plan` timings are authored estimates (120: 5·20·20·10·25·15·20·5; 90: 5·15·15·25·10·15·5). No delivery has been timed.
+- `practice-setup` shrank from 15 to 5 minutes because the opening notes now ask attendees to sign in before the session starts; this is a scheduling recommendation, not a measured figure.
+
+### Revisions after independent review — 2026-09-11
+
+Two read-only `presentation-evaluator` runs (teaching content; operation code) returned `revise` with no high-severity finding. Applied:
+
+- `traits-bridge`: the responsibility row is now visually separated and labelled “원리와 별개 · 기관의 규칙”; the over-reliance row now links to `next-token`'s bars (“점수는 그럴듯함일 뿐, 사실 여부가 아니다”).
+- `over-reliance` takeaway no longer asserts that AI “speaks confidently when wrong”; it states that a confident tone is not evidence of accuracy. https://openai.com/index/why-language-models-hallucinate/ returned HTTP 403 on 2026-09-11, so no new quotation from it was added.
+- `training-context`: https://developers.openai.com/api/docs/models/gpt-6-astra — opened 2026-09-11, shows “Apr 30, 2026 knowledge cutoff”. The slide cites it as an example of a knowledge cutoff date; no WRKS model's cutoff is asserted.
+- `sampling` caption now says results “can” differ and marks the explanation as a simplification; `embedding` caption says the LLM-internal picture is simplified from the embeddings guide.
+- `wrks-menu-map`: menu names cite the 2026-09-08 authenticated check; right-hand descriptions are labelled lesson examples; `텍스트 추출` wording follows the capture (images only); the manual screenshot caption says tabs and cards may differ from the account.
+- `agent-form` numbering now matches the three ingredients (basic info unnumbered; ① instructions, ② reference files, ③ tools).
+- `quiz` item 1 explanation, and Korean copy on `new-chat`, `context`, `context-efficiency`, `wrks-tool-guide`.
+- Capture evidence not previously recorded: `translation.png` (manual) shows “문서 파일의 디자인과 형식을 그대로 유지하면서 원하는 언어로 번역해 드리는 기능”, formats “PDF, DOCX, DOC, PPTX, PPT, XLSX, XLS” and 2-week download; `slides.png` shows fields `장 수`, `슬라이드 크기`, `슬라이드 언어`, `누구에게 · 무슨 목적의 발표인가요?`; the 2026-09-11 account sidebar contains a `새 대화 시작` link and a `사이드바 닫기` button (accessibility snapshot).
+- Operation: print now redraws the embedding canvas at a fixed 640×300 logical size in `beforeprint` (verified: 1280×600 bitmap with drawn pixels under print media); the canvas bitmap is rebuilt on height-only changes (verified 290→340 px); `aria-pressed` was removed from label-swapping toggles; replay restarts the CSS `learning` loop from the first keyframe; a toggle hidden by a reduced-motion change hands focus to `#deck`; resolved timer ids are dropped; a paused canvas redraws its last angle on resize; `sampling` lanes are `aria-hidden` with a static screen-reader sentence.
+
+### Verification — 2026-09-11 restructure
+
+- `bash tools/validate-presentations.sh` (with `rg` on `PATH`), `python3 tools/validate-slide-evidence.py llm-wrks-basics` and `node --check assets/deck.js` passed.
+- Chromium via Playwright, served from the repository root: all 48 slides swept after `document.fonts.ready` and 420ms per hash navigation at 1920×1080, 1366×768 and 1024×768 (desktop vertical scroll ≤7px, no horizontal overflow) and 390×844 (no horizontal overflow; vertical scroll intended), under both `reducedMotion: reduce` (final frames) and normal motion at every listed viewport (re-run after the review revisions). `next-token` was also measured with the longer sunny-day chain.
+- Behaviour checked: pause freezes `next-token` and toggles label/`aria-pressed`; replay restarts; context switch restarts with the new chain and updates the screen-reader summary; ArrowRight/ArrowLeft navigate from an animated slide; leaving and re-entering restarts the scene; `learning` pause sets `is-paused`. Print media shows 48 slides with speaker notes and scene toggles hidden. Console: zero errors and warnings.
+- Independent read-only review by two `presentation-evaluator` agents (see above); browser verification performed by the implementing agent. Exported PDF, physical print, and authenticated WRKS behaviour were not tested.

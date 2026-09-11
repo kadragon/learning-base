@@ -1,7 +1,7 @@
 # LLM and WRKS AI Lecture Plan for University Staff
 
-Status: draft for restructuring `presentations/llm-wrks-basics/`. Part 5 examples wait for the
-pre-lecture demand survey.
+Status: implemented in `presentations/llm-wrks-basics/` on 2026-09-11 (48 slides). Part 5
+worked examples wait for the pre-lecture demand survey.
 
 ## 1. Lecture Overview
 
@@ -75,8 +75,10 @@ animated in Part 1. A caution without a mechanism is grouped separately and kept
 The self-contained rule bans *remote* loading, not libraries. GitHub Pages could load a CDN, but
 the deck must also work offline and from `file://`.
 
-- Decision: SVG + CSS animation + Canvas 2D, no library. three.js is not required; the embedding
-  slide uses a Canvas 2D pseudo-3D rotation.
+- Decision: HTML/CSS animation + Canvas 2D, no library. three.js is not required; the embedding
+  slide uses a Canvas 2D pseudo-3D sway (a full turn made clusters cross and labels collide).
+- Implementation: `assets/deck.js` `scene()` registers start/stop/final per slide id; markup holds
+  the final frame so print, no-JS and reduced motion need no extra code path.
 - Revisit a library only if a concrete slide cannot be built without one. Adding one is a
   dependency change: update `docs/architecture.md`, `docs/runbook.md`, and
   `tools/validate-presentations.sh` in the same change.
@@ -91,20 +93,27 @@ Cautions are demonstrated, not preached. Each caution gets one short comparison 
 | Section | Default | Reduced |
 |---|---:|---:|
 | Opening | 5 | 5 |
-| Part 1 — How AI and LLMs work | 25 | 20 |
-| Part 2 — Using AI carefully | 25 | 20 |
-| Part 3 — WRKS AI screen and first chat (includes sign-in buffer) | 20 | 15 |
-| Part 4 — WRKS AI add-on tools | 20 | 15 |
-| Part 5 — Build your own agent | 20 | 10 |
+| Part 1 — How AI and LLMs work | 20 | 15 |
+| Part 2 — Using AI carefully | 20 | 15 |
+| Part 3 — WRKS AI screen and sign-in | 10 | 10 |
+| Part 3 — Practice 1–3 and rubric | 25 | 15 |
+| Part 4 — WRKS AI add-on tools | 15 | 10 |
+| Part 5 — Build your own agent (practice 4) | 20 | 15 |
 | Closing quiz and wrap-up | 5 | 5 |
 | Total | 120 minutes | 90 minutes |
 
-Timings are authored estimates; no delivery has been timed. Reduced path: drop slides marked
-"심화", demonstrate Part 5 instead of hands-on.
+Timings are authored estimates; no delivery has been timed. Attendees sign in before the session
+so the Part 3 access check needs only 5 minutes. Reduced path: drop slides marked "심화"
+(`tokens`, `embedding`, `context-efficiency`, `context-quality`, `workflow-preview`), skip
+practice 2, and demonstrate practice 4. The same numbers appear on the `session-plan` slide.
 
 ## 4. Detailed Lecture Outline
 
-Slide ids in parentheses are existing slides to reuse or rework. `new` marks a new slide.
+Slide ids in parentheses are the implemented slides. As built on 2026-09-11: `model-service` was
+merged into `llm-model`; new slides are `learning`, `embedding`, `sampling`, `traits-bridge`,
+`ai-slop`, `over-reliance`, `tool-notes`, `tool-slides`, `tool-docs`, `agent-what`, `agent-form`,
+`workflow-preview`; `practice-apply` became the Part 5 agent design sheet and `practice-rubric`
+stays in Part 3 after `practice-audit`.
 
 ### 4.0 Opening
 
