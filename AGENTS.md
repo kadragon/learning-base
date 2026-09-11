@@ -15,6 +15,7 @@ Repository for Korean HTML presentations that explain developer knowledge to dep
 | `docs/harness-log.md` | When changing harness roles or skills |
 | `docs/git-lecture-plan.md` | Before changing the `git-basics` deck's teaching content |
 | `docs/vue-lecture-plan.md` | Before changing the `vue-basics` deck's teaching content |
+| `docs/llm-wrks-lecture-plan.md` | Before changing the `llm-wrks-basics` deck's teaching content |
 
 ## Golden Principles
 
