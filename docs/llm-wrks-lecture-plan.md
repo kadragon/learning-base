@@ -237,6 +237,10 @@ The survey feeds Part 5. Ask for concrete repeated work, not wishes:
 Select 2–3 cases that differ in output type (document, reply, summary/table) and use only
 anonymised or fictional data on slides.
 
+Survey received 2026-09-23 (48 responses; aggregates in `sources.md`, raw file not committed).
+Applied on 2026-09-26: `practice-apply` hints, `agent-what` notes, and a new `wrks-limits` slide for
+requests that need system integration. Worked examples 1–3 above remain open.
+
 ## 6. Open Decisions
 
 None open. Resolved on 2026-09-11:
