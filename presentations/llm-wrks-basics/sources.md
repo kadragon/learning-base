@@ -48,7 +48,7 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 
 ## Slide `practice-setup`, `practice-apply`, `session-plan` — added after persona review
 
-- All prompts on `practice-apply` are authored illustrations and are marked as fixtures for four job families named by reviewers (official correspondence, public enquiry replies, numeric reconciliation, long documents and translation). They are request skeletons, not tested prompts, and no model output is shown for any of them.
+- All prompts on `practice-apply` are authored illustrations, originally written for four job families named by reviewers; the families were replaced on 2026-09-26 from the applicant survey (see below). They are request skeletons, not tested prompts, and no model output is shown for any of them.
 - The numeric-work card deliberately instructs attendees **not** to delegate calculation, matching this deck's existing position that arithmetic is checked against a verifiable tool.
 - `practice-setup` assumes some attendees will fail to sign in. The 15-minute access buffer and the pair-work fallback are scheduling recommendations from instructional practice, not measured figures.
 - `session-plan` timings are the authors' estimates for a 120-minute default and a 90-minute reduced path. They are not observed timings; no delivery of this deck has been timed. Slides marked "심화" in the eyebrow are the reduced path's omissions.
@@ -152,3 +152,13 @@ Public sources checked on 2026-09-07. Korean copy is paraphrased. Teaching examp
 - Post-revision checks passed: `bash tools/validate-presentations.sh`, `bash tools/validate-harness.sh`, `bash tools/sweep.sh`, targeted slide evidence, `node --check`, and `git diff --check`.
 - Chromium layout sweep after the revision covered all 35 slides at 1920×1080, 1366×768, 1024×768, and 390×844 after fonts loaded and transitions settled. No horizontal overflow or desktop vertical overflow was observed; narrow layouts retain intentional vertical scrolling. Quiz selection reached `3/3` with three correct answers. Console reported zero errors and warnings.
 - Reduced-motion media set the entrance animation to `none`; normal media retained `enter`. Authenticated WRKS behavior, exported PDF output, and physical print output remain unverified.
+
+## Applicant-survey revision — 2026-09-26
+
+### Slides `wrks-limits`, `practice-apply`, `session-plan`
+
+- Evidence: the applicant sign-up survey for this lecture (Google Forms export, 48 responses, collected 2026-09-21 to 2026-09-23). Only aggregate counts are used; the raw file contains names and staff numbers and is not committed.
+- Most frequent prior uses (multi-select): official letters and reports 26, image generation 18, planning and ideas 16, translation and summary 13. Self-rated skill: personal use 29, applicable to work 10, none 8, advanced 1. 32 of 48 have no paid subscription.
+- Free-text requests that motivated `wrks-limits`: automatically mailing groupware (코러스) circulation documents (2), generating approval lines, booking department lecture rooms, a work-enquiry chatbot, and several "I don't know what AI can handle" answers. The slide separates text generation from actions in other systems. It does **not** assert that WRKS or 코러스 lacks such integrations; that was not verified, and speaker notes say so. The workflow menu is named only as an entry point, not demonstrated.
+- `practice-apply` cards changed from official letters / public enquiry replies / numeric reconciliation / long documents and translation to official letters and reports / survey and satisfaction summaries / Excel and Hangul / long documents and translation. No survey respondent asked about public enquiry replies; Excel or Hangul help was requested by 4 and survey or satisfaction analysis by 3. The Excel card keeps the deck's rule that calculation is checked in a verifiable tool rather than delegated.
+- `session-plan` keeps its timings; `wrks-limits` is absorbed into the existing 10-minute menu block. This is an estimate, not a measured timing.
