@@ -251,3 +251,31 @@ Two read-only `presentation-evaluator` runs (teaching content; operation code) r
 - `data-checklist` takeaway adds "기관이 제공한 서비스에서", motivated by the 32 of 48 without a paid subscription. No free-tier retention or training policy was checked, and none is asserted.
 - `accountability` notes answer one request for AI "legality review" of procurement documents with a requirement-by-requirement gap table; legal judgement stays with staff. Authored illustration; no output was tested.
 - `session-plan` notes add an early-finisher poster option (image menu presence from the 2026-09-08 menu check; generation untested) and a self-check heuristic ("half at 2 or below on item 1 → skip 심화 slides"), which is authored, not measured. Timings unchanged; `wrks-limits` is absorbed into Part 5.
+
+## Simple-design revision — 2026-09-28
+
+- Design: header, jump menu, and utility buttons removed; slide chrome is a faded arrow/counter
+  pair and a 3px progress bar. One accent colour; dark demo stages use a neutral `--stage` token
+  instead of green, which now signals only correct answers. Guidance followed: one idea per
+  slide, generous empty space, 2–3 colours used for meaning, remove footers and decorative lines
+  (https://www.garrreynolds.com/design-tips, https://presentationzen.com/blog/the-signal-to-noise-ratio-activity,
+  https://www.nngroup.com/articles/presenting-remotely/); Korean headings use `word-break: keep-all`
+  with `text-wrap: balance` (https://daleseo.com/css-text-wrap/).
+- Instructor-only content removed from the audience screen: the `session-plan` slide (48 slides
+  now), the "심화 · 90분 편성에서 생략 가능" eyebrow pills, the "강의 전 확인" list on
+  `references`, and the "강사 메모" / "메모 인쇄" buttons. Timings, optional-slide list, and the
+  `session-plan` notes moved to `docs/llm-wrks-lecture-plan.md` §3. Earlier sections that name
+  `session-plan` or the "심화" marker describe the deck before this revision.
+- Speaker notes stay in the HTML and open with N; F toggles full screen; browser print
+  (Ctrl/Cmd+P) keeps the audience-only print path. Printing with speaker notes is no longer offered.
+- Copy trim (same date): explanatory sentences on `training-context`, `sampling`,
+  `hallucination-why`, `ai-slop`, `llm-model`, `new-chat`, `practice-setup`, `context-quality`,
+  `prompt`, `wrks-limits`, `handoff`, `wrks-workflow`, `wrks-grounding`, `context`, `verify`,
+  `tool-docs`, and `agent-what` were cut to short phrases. Every removed sentence was appended to
+  that slide's speaker notes, so no claim was dropped or changed. Example sentences, practice
+  material, quiz items, and source lines were kept.
+- Wording pass (same date): coined plain-Korean paraphrases were replaced with the terms staff
+  already use — "글 조각"/"다음 말" → "단어"/"토큰", "글" → "텍스트"/"데이터", "입구" → "도구"/"전용 메뉴",
+  "모양이 정해진" → "형식이 정해진", "연결" → "연동" on `wrks-limits`. "다음 단어 예측" is a
+  teaching simplification: the unit is a token, which `tokens` states precisely. `next-token`
+  phase labels now read "후보별 확률 계산"; the bars remain illustrative values, as the slide says.

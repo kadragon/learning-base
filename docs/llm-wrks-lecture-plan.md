@@ -103,9 +103,21 @@ Cautions are demonstrated, not preached. Each caution gets one short comparison 
 | Total | 120 minutes | 90 minutes |
 
 Timings are authored estimates; no delivery has been timed. Attendees sign in before the session
-so the Part 3 access check needs only 5 minutes. Reduced path: drop slides marked "심화"
+so the Part 3 access check needs only 5 minutes. Reduced path: drop the optional slides
 (`tokens`, `embedding`, `context-efficiency`, `context-quality`, `workflow-preview`), skip
-practice 2, and demonstrate practice 4. The same numbers appear on the `session-plan` slide.
+practice 2, and demonstrate practice 4. Never drop: `next-token`, hallucination, verification,
+the data-boundary table, accountability, and the access check. The deck carries no on-screen
+marker for optional slides and no planning slide; this table is the instructor's only source.
+
+Instructor guidance (authored, not measured):
+
+- Choose the path from the opening self-check rather than the applicant survey, whose self-ratings
+  proved unreliable. If more than half rate item 1 (how AI answers and its limits) at 2 or below,
+  drop the optional slides and spend the time on the Part 1–2 core.
+- Wide skill gaps: skip the optional slides and give practice 4 more time.
+- Early finishers: write a second design sheet with another practice 4 row, or — where the image
+  menu is enabled — draft a poster for the fictional memo and check that undecided date, place,
+  and link did not become concrete values.
 
 ## 4. Detailed Lecture Outline
 
@@ -125,8 +137,8 @@ Goal: attendees can retell the generation loop without jargon.
 
 1. AI, LLM, and a chat service are different layers (`llm-model`, `model-service`, condensed to one)
 2. Learning: large amounts of text become patterns — text stream compressing into a model (new)
-3. Text becomes pieces (`tokens`, reworked as animation; 심화)
-4. Meaning as position — embedding space, Canvas 2D pseudo-3D (new; 심화)
+3. Text becomes pieces (`tokens`, reworked as animation; optional)
+4. Meaning as position — embedding space, Canvas 2D pseudo-3D (new; optional)
 5. Next-piece prediction: candidates with bars, one chosen, loop repeats; autoplays
    (`next-token`, reworked)
 6. Sampling: the same question run three times gives three answers (new)
@@ -139,7 +151,7 @@ Goal: attendees can retell the generation loop without jargon.
 Goal: each caution is recognised as a direct consequence of Part 1.
 
 1. Why prompts matter — vague vs specific request comparison (`before-after`, `prompt`, `refine`)
-2. Keep context clean — split tasks, hand off summaries (`new-chat`, `handoff`; 심화:
+2. Keep context clean — split tasks, hand off summaries (`new-chat`, `handoff`; optional:
    `context-efficiency`, `context-quality`)
 3. Hallucination — why it happens, spot the fabrication, verify (`hallucination-why`,
    `hallucination-example`, `verify`)
@@ -200,7 +212,7 @@ Goal: attendees leave with one agent sketch for their own repeated task.
 4. Worked example 1–3 from the demand survey (new; waiting for survey)
 5. Hands-on: fill an agent sketch for your task (`practice-apply`, `practice-rubric`, reworked)
 6. Next step preview: `워크플로우` — automation described in words, e.g. a scheduled multi-step
-   flow (`assets/wrks/workflow.png`; 심화)
+   flow (`assets/wrks/workflow.png`; optional)
 
 Agent vs workflow, as the screens present them: an agent is a reusable conversational assistant;
 a workflow is a multi-step automation that can run on a schedule.
@@ -223,7 +235,7 @@ security notice before uploading.
 ### 4.6 Closing
 
 - Quiz (`quiz`, statements updated to the new parts), wrap-up (`closing`)
-- Appendix: `session-plan`, `references`
+- Appendix: `references`
 
 ## 5. Demand Survey Guidance
 
