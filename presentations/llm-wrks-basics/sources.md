@@ -279,3 +279,117 @@ Two read-only `presentation-evaluator` runs (teaching content; operation code) r
   "모양이 정해진" → "형식이 정해진", "연결" → "연동" on `wrks-limits`. "다음 단어 예측" is a
   teaching simplification: the unit is a token, which `tokens` states precisely. `next-token`
   phase labels now read "후보별 확률 계산"; the bars remain illustrative values, as the slide says.
+
+## Lecture-owner review — 2026-09-28 (slides 1–31)
+
+Requested by the lecture owner slide by slide; earlier sections that name `embedding`,
+`context-efficiency`, or `data-checklist` describe the deck before this revision (45 slides now).
+
+- Removed: `embedding` (not needed for the lesson's cautions; its canvas code, CSS and the
+  embeddings reference link went with it), `context-efficiency` (off-topic for Part 2), and
+  `data-checklist` (merged into `data-boundary`, which now states one rule: do not upload
+  important or confidential material). The `data-boundary` examples are the former checklist's
+  categories; the WRKS input notice quote from `agent-home.png` (2026-09-11) is kept.
+- Reordered: `tokens` → `learning` → `next-token` (split → learn → generate); `context-quality`
+  now precedes `new-chat` as the reason to split conversations.
+- `llm-model`: the model/service panel became a nested diagram (service holding screen, file,
+  web-search and history features around a model). "GPT-5.6 Luna" is read from the model picker
+  in `assets/wrks/agent-home.png` (institution account, captured 2026-09-11); it is the default
+  shown, not a full list of enabled models. The engine/car metaphor is a teaching simplification.
+- `next-token` was briefly presenter-stepped, then reverted to autoplay at the lecture owner's
+  request (same day); only its eyebrow changed.
+- `sampling` now shows three authored phrasings of one goal, each with an authored answer, to
+  teach that the wording of the request is part of the context. The non-determinism quote from
+  the OpenAI text guide still backs the "다시 물어도 달라질 수 있음" line.
+- `context`: the "people also lose the start of a long meeting" comparison is an analogy, not a
+  claim that model and human memory work alike (speaker notes say so).
+- `prompt`: the response preview is authored. Each element rewrites one row so all 16
+  combinations compose; wavy-underlined segments are not in the practice memo. Not model output.
+- `ai-slop`: the slop example was made more exaggerated (emoji, buzzwords); still authored.
+- `wrks-grounding`: "웹 검색이 기본으로 켜져 있음" is supplied by the lecture owner on
+  2026-09-28; not independently verified in the account this session.
+- `practice-setup`: all attendees use lab computers, so the no-screen/printout fallback was
+  removed; pair work remains for sign-in failures. `gov.wrks.ai` is the path already linked on
+  `wrks-position`.
+- The requested slide introducing WRKS's enabled models was not built; the lecture owner covers
+  it verbally.
+- `saju` (new, after `next-token`; lecture-owner request): an authored analogy. It does not
+  claim saju is statistical or valid, and makes no claim about how much saju text any model was
+  trained on; it applies the `next-token` simplification to a familiar topic. "갑목 일간" is an
+  illustrative saju phrase, not a model output.
+
+## Part 5 worked examples — 2026-09-28
+
+### Slides `example-report`, `example-survey`, `example-reply`
+
+- Selection: the three most frequent output types in the applicant survey's free-text answers
+  (2026-09-21 to 2026-09-23): reports, plans and official letters (document); survey and
+  satisfaction summaries and Excel work (summary/table); mail replies and circulation notices
+  (reply). Lecture plan §5 asks for 2–3 cases that differ in output type.
+- All three prompts are authored illustrations (`data-source="illustration"`). No prompt was run
+  in WRKS AI and no output is shown or claimed.
+- `example-report` format rules come from the lecture owner's local `report-draft` skill
+  (`references/knue-house-style.md`, an analysis of 57 KNUE reports dated 2026-09-28, and
+  `SKILL.md`): the special-lecture/event result-report skeleton (추진 배경 → 개요 → 내용 → 참석자
+  현황 → 만족도 조사 결과 → 향후 개선 방안), symbol order □ > ○ > - > ※, noun-form endings,
+  `2026. 9. 28.` date notation, no `끝.` in reports, no remedies inside 현황, conclusion as a
+  `⇒ …필요` line, and `[확인 필요]` for values missing from the source. The skill is not
+  committed; the slide labels the format as the instructor's summary. The skill's skeleton names
+  the sections 특강 개요 / 특강 내용; the slide shortens them to 개요 / 내용 to cover events.
+- `example-survey` keeps calculation in Excel, consistent with the `practice-apply` Excel hint
+  and the next-piece prediction mechanism (`next-token`).
+- `example-reply` contrasts with the `메일다듬이` card text on `agent-what` ("수신자·목적에 맞게
+  다듬기"); the card's actual behaviour was not tested.
+
+## Practice replacement — 2026-09-28 (lecture-owner request)
+
+### Slides `practice-run`, `practice-check`; removed `practice-source`, `practice-summary`, `practice-mail`, `practice-audit`, `practice-rubric`
+
+- The lecture owner judged the Part 3 memo exercises (fictional "직원 AI 교육 준비" meeting memo)
+  awkward and chose to replace them with a run of the Part 5 example prompts. Slides 46 (was 49).
+- `practice-run` material is a fictional special-lecture memo (「업무 엑셀 기초」, six free-text
+  responses). The topic echoes the Excel requests in the applicant survey; the venue, dates and
+  counts are invented. 2026-10-15 was checked to be a Thursday (`datetime.date(2026,10,15)`).
+  Lecturer name, attendance and satisfaction score are deliberately absent so that
+  `practice-check` can test whether they stay `[확인 필요]`. No prompt was run; no output shown.
+- Cross-references updated: `ai-slop` fixed example now uses the new material's facts;
+  `data-boundary`, `before-after`, `wrks-menu-map` and `wrks-workflow` wording no longer refers to
+  the removed memo. Part 1–2 slides still use their own memo-style teaching illustrations.
+- `practice-apply` renumbered from 실습 4 to 실습 2. `example-report` agent renamed from
+  결과 보고 도우미 to 보고서 작성 도우미; `tool-slides` heading changed to
+  “발표자료는 구성안부터 확인합니다” (lecture-owner request).
+
+- `practice-run` revised the same day (lecture owner found it awkward): heading
+  “지시문과 자료를 넣고 결과를 대조합니다”, four ordered steps, and copy buttons that copy
+  `example-report-prompt` / `example-survey-prompt` directly (the copy handler resolves ids across
+  slides). The separate warn line was dropped; the material header already says 가상 자료.
+
+## Synthetic persona review — 2026-09-28
+
+### Slides `practice-apply`, `practice-run`, `practice-setup`, `wrks-limits`
+
+- Input: a 10-persona debate (`prod:persona-debate`; personas from
+  nvidia/Nemotron-Personas-Korea, CC-BY-4.0) reacting to a text summary of the deck, not to the
+  slides themselves. Five personas were sampled as university administrative or teaching
+  assistants; five were administrative or clerical workers assigned a university workplace. AI
+  usage levels were assigned from the applicant survey distribution. Synthetic output; not a
+  measured satisfaction result.
+- `practice-apply` label changed from 10 to 20 minutes to match the lecture plan schedule (§3
+  already allotted 20). Added four steps (list five weekly tasks → pick one → fill the sketch →
+  swap with a partner); splitting practice into listing, picking, and writing was proposed
+  independently by three personas. The step timings in the notes are authored.
+- `practice-apply` hint 긴 문서 · 번역 replaced by 계획서 · 회의자료. In the applicant survey's
+  free-text task column, 3 responses mention plans (계획서 / 계획 안) and 2 mention meeting
+  material (회의자료 / 회의록); none mention translation. Personas asked for university-office
+  examples such as student enquiries, but no applicant requested enquiry replies (see the
+  2026-09-26 entry), so that hint was not reinstated.
+- `practice-run` steps now say where to paste (입력창) and to send; notes add a follow-along option
+  for first-time users. `practice-setup` notes seat attendees who have never used a chat AI next
+  to frequent users. The one AI-naive persona (the devil's advocate) reported being unable to
+  follow sign-in and practice 1. The opening self-check does not ask about usage, so the notes ask
+  for a show of hands. Authored guidance, not measured.
+- `wrks-limits` adds "(계산은 엑셀에서)" after 엑셀 수식 설명, consistent with `example-survey`
+  and the `practice-apply` Excel hint.
+- Not changed: shortening Part 1 (three personas) and replacing agent time with deeper tool
+  practice (one persona, rebutted by five). Pseudonymised department templates for practice 2 were
+  suggested but need pre-lecture collection; left to the instructor.

@@ -160,7 +160,6 @@
       slide.removeAttribute("aria-hidden");
     });
     Object.values(scenes).forEach((item) => item.final());
-    drawEmbedding(0.3, { width: 640, height: 300 });
   });
   window.addEventListener("afterprint", () => {
     printingDetails.forEach(([element, open]) => {
@@ -329,16 +328,13 @@
     }),
   );
 
+  // One authored answer per phrasing; the loop retypes them to show that the
+  // wording of the request steers the continuation.
   const sampleSets = [
     [
-      "안녕하세요. 직원 AI 활용 교육을 안내드립니다.",
-      "직원 여러분께 AI 교육 소식을 전해 드립니다.",
-      "업무에 바로 쓰는 AI 교육에 여러분을 초대합니다.",
-    ],
-    [
-      "AI 활용 교육 참가 신청을 안내드립니다.",
-      "안녕하세요, 직원 대상 AI 교육을 알려 드립니다.",
-      "직원 여러분의 AI 교육 참여를 기다립니다.",
+      "안녕하세요. AI 교육을 안내드립니다.",
+      "직원 여러분께 AI 활용 교육 개최를 알려 드립니다.",
+      "90분이면 충분해요. AI 활용 교육에 함께해요!",
     ],
   ];
   const laneOutputs = [...document.querySelectorAll(".lane-out")];
@@ -460,114 +456,6 @@
     },
   );
 
-  // Pseudo-3D point cloud: words projected with a simple perspective divide.
-  const embedCanvas = document.querySelector("#embed-canvas");
-  const embedWords = [
-    ["비", -0.78, 0.2, 0.3, 1], ["우산", -0.52, 0.34, 0.36, 1],
-    ["우비", -0.6, 0.02, 0.42, 1], ["장마", -0.92, 0.42, 0.24, 1],
-    ["공문", 0.42, 0.6, -0.3, 2], ["기안", 0.78, 0.66, -0.26, 2],
-    ["결재", 0.52, 0.3, -0.36, 2], ["규정", 0.86, 0.36, -0.32, 2],
-    ["김치", -0.24, -0.5, 0.02, 3], ["비빔밥", 0.08, -0.76, -0.04, 3],
-    ["된장국", 0.36, -0.52, 0.06, 3], ["식당", 0.02, -0.28, -0.02, 3],
-  ];
-  const embedColors = { 1: "#b74220", 2: "#254b3c", 3: "#9a6b12" };
-  let embedAngle = 0.3;
-  // A hidden canvas has no layout size, so print draws at a fixed logical size
-  // matching the print stylesheet's 150mm × 70mm box.
-  const drawEmbedding = (angle, fixed) => {
-    embedAngle = angle;
-    const ratio = fixed ? 2 : window.devicePixelRatio || 1;
-    const width = fixed ? fixed.width : embedCanvas.clientWidth;
-    const height = fixed ? fixed.height : embedCanvas.clientHeight;
-    if (!width || !height) return;
-    if (
-      embedCanvas.width !== Math.round(width * ratio) ||
-      embedCanvas.height !== Math.round(height * ratio)
-    ) {
-      embedCanvas.width = Math.round(width * ratio);
-      embedCanvas.height = Math.round(height * ratio);
-    }
-    const ctx = embedCanvas.getContext("2d");
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    ctx.clearRect(0, 0, width, height);
-    const scaleX = width * 0.36;
-    const scaleY = height * 0.4;
-    const tilt = 0.32;
-    const project = ([x, y, z]) => {
-      const x1 = x * Math.cos(angle) + z * Math.sin(angle);
-      const z1 = -x * Math.sin(angle) + z * Math.cos(angle);
-      const y1 = y * Math.cos(tilt) - z1 * Math.sin(tilt);
-      const z2 = y * Math.sin(tilt) + z1 * Math.cos(tilt);
-      const depth = 3.2 / (3.2 + z2);
-      return {
-        x: width / 2 + x1 * scaleX * depth,
-        y: height / 2 - y1 * scaleY * depth,
-        depth,
-      };
-    };
-    ctx.strokeStyle = "#c9cec3";
-    ctx.lineWidth = 1;
-    [[[-1, 0, 0], [1, 0, 0]], [[0, -1, 0], [0, 1, 0]], [[0, 0, -1], [0, 0, 1]]].forEach(
-      ([from, to]) => {
-        const a = project(from);
-        const b = project(to);
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      },
-    );
-    const points = embedWords.map(([label, x, y, z, group]) => ({
-      label,
-      group,
-      ...project([x, y, z]),
-    }));
-    const byLabel = Object.fromEntries(points.map((p) => [p.label, p]));
-    const link = (a, b, dashed, text, at, dy, dx = 0) => {
-      ctx.save();
-      ctx.strokeStyle = dashed ? "#58625c" : "#b74220";
-      ctx.lineWidth = dashed ? 1.5 : 2.5;
-      ctx.setLineDash(dashed ? [6, 6] : []);
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.stroke();
-      ctx.restore();
-      ctx.fillStyle = dashed ? "#58625c" : "#b74220";
-      ctx.font = "700 14px 'Pretendard Variable', sans-serif";
-      ctx.textAlign = dx ? "right" : "center";
-      ctx.fillText(text, a.x + (b.x - a.x) * at + dx, a.y + (b.y - a.y) * at + dy);
-    };
-    link(byLabel["우산"], byLabel["결재"], true, "멀다 = 관련 적음", 0.5, -10);
-    link(byLabel["우산"], byLabel["우비"], false, "가깝다 = 관련 깊음", 1, 26, -6);
-    points
-      .sort((a, b) => a.depth - b.depth)
-      .forEach((point) => {
-        const radius = 7 * point.depth;
-        ctx.globalAlpha = Math.min(1, 0.45 + point.depth * 0.5);
-        ctx.fillStyle = embedColors[point.group];
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = "#242b29";
-        ctx.font = `650 ${Math.round(15 * point.depth + 3)}px 'Pretendard Variable', sans-serif`;
-        ctx.textAlign = "left";
-        ctx.fillText(point.label, point.x + radius + 5, point.y + 5);
-        ctx.globalAlpha = 1;
-      });
-  };
-  const embeddingScene = scene(
-    ({ tick }) => {
-      let start;
-      tick((time) => {
-        if (start === undefined) start = time;
-        // Sway instead of a full turn so clusters never cross each other.
-        drawEmbedding(Math.sin(((time - start) / 1000) * 0.6) * 0.55);
-      });
-    },
-    () => drawEmbedding(0.3),
-  );
-
   // Replay restarts CSS loops from the first keyframe, matching the JS scenes.
   const cssScene = (slide) =>
     scene(
@@ -582,7 +470,6 @@
   const scenes = {
     learning: cssScene(document.querySelector("#learning")),
     tokens: tokensScene,
-    embedding: embeddingScene,
     "next-token": nextTokenScene,
     sampling: samplingScene,
     context: contextScene,
@@ -626,9 +513,6 @@
   reduceMotion.addEventListener("change", () => {
     sceneSlide = null;
     syncScene();
-  });
-  window.addEventListener("resize", () => {
-    if (!scenes.embedding.running) drawEmbedding(embedAngle);
   });
   Object.values(scenes).forEach((item) => item.final());
 
@@ -676,7 +560,7 @@
       question:
         "같은 사업을 오래 논의했습니다. 폐기한 일정과 새 일정, 여러 초안이 뒤섞였습니다.",
       answer: "handoff",
-      why: "요약 후 새 대화 권장. 최종 조건을 검토하고 필요한 원문과 함께 인계합니다.",
+      why: "요약 후 새 대화 권장. 최종 조건을 검토한 요약과 필요한 원문을 새 대화로 넘깁니다.",
     },
   ];
   let scenarioIndex = 0;
@@ -716,6 +600,48 @@
     constraint: "조건: 원문에 없는 날짜·담당자는 ‘미정’으로 표시해줘.",
     format: "형식: 핵심 요약 3개와 업무 / 담당자 / 기한 표로 작성해줘.",
   };
+  // Authored response rows: each element rewrites one facet, so all 16
+  // combinations compose. Segments marked true are not in the memo.
+  const responseList = document.querySelector("#built-response");
+  const responseRows = (on) => {
+    const owner = on.has("constraint") ? [["미정"]] : [["김 대리", true]];
+    const due = on.has("constraint") ? [["미정"]] : [["금요일", true]];
+    return [
+      on.has("purpose")
+        ? [["[팀 공유] AI 교육 준비 회의 결과입니다."]]
+        : [["회의에서 AI 교육과 관련한 다양한 논의가 오갔습니다."]],
+      on.has("source")
+        ? [["교육은 90분이며 실습은 노트북으로 진행합니다."]]
+        : [["AI 교육은 업무 혁신을 위한 중요한 기회로 평가됐습니다.", true]],
+      on.has("constraint")
+        ? [["신청 마감일과 안내 메일 담당자는 미정입니다."]]
+        : [["신청은 "], ["금요일까지", true], [", 안내 메일은 "], ["김 대리", true], ["가 보냅니다."]],
+      on.has("format")
+        ? [["할 일: 안내 메일 발송 │ 담당자: "], ...owner, [" │ 기한: "], ...due]
+        : [],
+    ];
+  };
+  const renderResponse = (on) => {
+    responseList.classList.toggle("is-list", on.has("format"));
+    responseRows(on).forEach((segments, index) => {
+      const row = responseList.children[index];
+      const before = row.textContent;
+      row.replaceChildren(
+        ...segments.map(([text, madeUp]) => {
+          if (!madeUp) return document.createTextNode(text);
+          const mark = document.createElement("mark");
+          mark.textContent = text;
+          return mark;
+        }),
+      );
+      row.classList.toggle("is-table", index === 3 && segments.length > 0);
+      row.classList.remove("is-changed");
+      if (before !== row.textContent) {
+        void row.offsetWidth;
+        row.classList.add("is-changed");
+      }
+    });
+  };
   const updatePrompt = () => {
     const selected = [
       ...document.querySelectorAll("[data-prompt-part][aria-pressed=true]"),
@@ -725,7 +651,8 @@
       ...selected.map((button) => promptParts[button.dataset.promptPart]),
     ].join("\n");
     document.querySelector("#builder-count").textContent =
-      `${selected.length}/4 요소 선택 · AI 성능 점수가 아닙니다`;
+      `${selected.length}/4 요소 선택`;
+    renderResponse(new Set(selected.map((button) => button.dataset.promptPart)));
   };
   document.querySelectorAll("[data-prompt-part]").forEach((button) =>
     button.addEventListener("click", () => {
