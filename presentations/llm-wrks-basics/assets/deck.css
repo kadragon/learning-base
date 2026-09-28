@@ -2243,6 +2243,21 @@ dialog::backdrop {
   grid-template-columns: 1.3fr 1fr;
   align-items: stretch;
 }
+.sketch-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  font-size: clamp(15px, 1.3vw, 20px);
+}
+.sketch-steps li {
+  margin: 0;
+}
+.sketch-steps b {
+  color: var(--accent);
+}
 .sketch .prompt-card pre {
   font-size: clamp(15px, 1.3vw, 20px);
   line-height: 1.6;

@@ -363,3 +363,33 @@ Requested by the lecture owner slide by slide; earlier sections that name `embed
   “지시문과 자료를 넣고 결과를 대조합니다”, four ordered steps, and copy buttons that copy
   `example-report-prompt` / `example-survey-prompt` directly (the copy handler resolves ids across
   slides). The separate warn line was dropped; the material header already says 가상 자료.
+
+## Synthetic persona review — 2026-09-28
+
+### Slides `practice-apply`, `practice-run`, `practice-setup`, `wrks-limits`
+
+- Input: a 10-persona debate (`prod:persona-debate`; personas from
+  nvidia/Nemotron-Personas-Korea, CC-BY-4.0) reacting to a text summary of the deck, not to the
+  slides themselves. Five personas were sampled as university administrative or teaching
+  assistants; five were administrative or clerical workers assigned a university workplace. AI
+  usage levels were assigned from the applicant survey distribution. Synthetic output; not a
+  measured satisfaction result.
+- `practice-apply` label changed from 10 to 20 minutes to match the lecture plan schedule (§3
+  already allotted 20). Added four steps (list five weekly tasks → pick one → fill the sketch →
+  swap with a partner); splitting practice into listing, picking, and writing was proposed
+  independently by three personas. The step timings in the notes are authored.
+- `practice-apply` hint 긴 문서 · 번역 replaced by 계획서 · 회의자료. In the applicant survey's
+  free-text task column, 3 responses mention plans (계획서 / 계획 안) and 2 mention meeting
+  material (회의자료 / 회의록); none mention translation. Personas asked for university-office
+  examples such as student enquiries, but no applicant requested enquiry replies (see the
+  2026-09-26 entry), so that hint was not reinstated.
+- `practice-run` steps now say where to paste (입력창) and to send; notes add a follow-along option
+  for first-time users. `practice-setup` notes seat attendees who have never used a chat AI next
+  to frequent users. The one AI-naive persona (the devil's advocate) reported being unable to
+  follow sign-in and practice 1. The opening self-check does not ask about usage, so the notes ask
+  for a show of hands. Authored guidance, not measured.
+- `wrks-limits` adds "(계산은 엑셀에서)" after 엑셀 수식 설명, consistent with `example-survey`
+  and the `practice-apply` Excel hint.
+- Not changed: shortening Part 1 (three personas) and replacing agent time with deeper tool
+  practice (one persona, rebutted by five). Pseudonymised department templates for practice 2 were
+  suggested but need pre-lecture collection; left to the instructor.

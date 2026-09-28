@@ -3,6 +3,8 @@
 Status: implemented in `presentations/llm-wrks-basics/` on 2026-09-11. Part 5 worked
 examples added on 2026-09-28 from the demand survey; the Part 3 memo exercises (practice 1–3 and
 rubric) were replaced the same day by a Part 5 exercise that runs an example prompt (46 slides).
+Practice 2 steps, the 20-minute label, and first-time-user pairing added on 2026-09-28 after a
+synthetic persona review (see `sources.md`).
 
 ## 1. Lecture Overview
 
@@ -117,6 +119,9 @@ Instructor guidance (authored, not measured):
   proved unreliable. If more than half rate item 1 (how AI answers and its limits) at 2 or below,
   drop the optional slides and spend the time on the Part 1–2 core.
 - Wide skill gaps: skip the optional slides and give practice 2 more time.
+- First-time users: at the access check, ask who has never used a chat AI and seat each next to a
+  frequent user for practice 1 and 2. The self-check measures understanding, not usage, so it
+  cannot find these attendees.
 - Early finishers: run the other example in practice 1, write a second practice 2 design sheet,
   or — where the image menu is enabled — draft a poster for the fictional lecture memo and check
   that the undecided lecturer name did not become a concrete value.
@@ -218,7 +223,8 @@ Goal: attendees leave with one agent sketch for their own repeated task.
 5. Practice 1: paste `example-report` or `example-survey` into a new chat with a fictional
    special-lecture memo and check dates, counts, quotes, and `[확인 필요]` cells
    (`practice-run`, `practice-check`)
-6. Practice 2: fill an agent sketch for your task (`practice-apply`)
+6. Practice 2 (20 minutes): list five tasks repeated this week, pick one, fill the agent sketch,
+   and swap with a partner (`practice-apply`)
 7. Next step preview: `워크플로우` — automation described in words, e.g. a scheduled multi-step
    flow (`assets/wrks/workflow.png`; optional)
 
