@@ -5,9 +5,7 @@
   const deck = document.querySelector("#deck");
   const previous = document.querySelector("#previous");
   const next = document.querySelector("#next");
-  const jump = document.querySelector("#slide-jump");
   const notes = document.querySelector("#notes-dialog");
-  const notesButton = document.querySelector("#notes-toggle");
   const status = document.querySelector("#status");
   let slideIndex = 0;
   let statusTimer;
@@ -17,11 +15,6 @@
     const heading = slide.querySelector("h1,h2").cloneNode(true);
     heading.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
     const title = heading.textContent.replace(/\s+/g, " ").trim();
-    const option = new Option(
-      `${String(index + 1).padStart(2, "0")} · ${title}`,
-      String(index),
-    );
-    jump.add(option);
     slide.setAttribute("aria-label", `${index + 1}. ${title}`);
   });
 
@@ -53,13 +46,10 @@
     document.querySelector("#total-slides").textContent = String(
       slides.length,
     ).padStart(2, "0");
-    document.querySelector("#chapter-label").textContent =
-      slides[slideIndex].dataset.chapter;
     document.querySelector("#progress-bar").style.width =
       `${((slideIndex + 1) / slides.length) * 100}%`;
     previous.disabled = slideIndex === 0;
     next.disabled = slideIndex === slides.length - 1;
-    jump.value = String(slideIndex);
     document.querySelector("#notes-content").textContent =
       slides[slideIndex].querySelector(".speaker-notes").textContent;
     document.title = `${slideIndex + 1}/${slides.length} · AI에게 일을 맡기는 법`;
@@ -83,10 +73,7 @@
   };
   const toggleNotes = () => {
     if (notes.open) notes.close();
-    else {
-      notes.showModal();
-      notesButton.setAttribute("aria-expanded", "true");
-    }
+    else notes.showModal();
   };
   const toggleFullscreen = async () => {
     try {
@@ -157,32 +144,9 @@
   };
   previous.addEventListener("click", () => move(slideIndex - 1));
   next.addEventListener("click", () => move(slideIndex + 1));
-  jump.addEventListener("change", () => {
-    move(Number(jump.value));
-    deck.focus();
-  });
-  notesButton.addEventListener("click", toggleNotes);
   document
     .querySelector("#notes-close")
     .addEventListener("click", () => notes.close());
-  notes.addEventListener("close", () =>
-    notesButton.setAttribute("aria-expanded", "false"),
-  );
-  document
-    .querySelector("#fullscreen")
-    .addEventListener("click", toggleFullscreen);
-  document.addEventListener("fullscreenchange", () => {
-    document.querySelector("#fullscreen").textContent =
-      document.fullscreenElement ? "화면 복귀" : "전체 화면";
-  });
-  document.querySelector("#print").addEventListener("click", () => {
-    document.body.classList.remove("print-notes");
-    window.print();
-  });
-  document.querySelector("#print-notes").addEventListener("click", () => {
-    document.body.classList.add("print-notes");
-    window.print();
-  });
   window.addEventListener("beforeprint", () => {
     printingDetails = Array.from(
       document.querySelectorAll("details"),
@@ -199,7 +163,6 @@
     drawEmbedding(0.3, { width: 640, height: 300 });
   });
   window.addEventListener("afterprint", () => {
-    document.body.classList.remove("print-notes");
     printingDetails.forEach(([element, open]) => {
       element.open = open;
     });
@@ -361,7 +324,7 @@
         );
       const script = generationScripts[generationKey];
       document.querySelector("#gen-summary").textContent =
-        `예시: “${script.context}” 다음 후보(${script.steps[0].map((c) => c[0]).join("·")})가 떠오르고, 하나를 골라 붙이는 과정을 반복해 “${script.context} ${script.steps.map((s) => s[0][0]).join(" ").replace(/ ([.,!])$/, "$1")}”를 만듭니다.`;
+        `예시: “${script.context}” 다음 단어 후보(${script.steps[0].map((c) => c[0]).join("·")})가 나오고, 하나를 골라 붙이는 과정을 반복해 “${script.context} ${script.steps.map((s) => s[0][0]).join(" ").replace(/ ([.,!])$/, "$1")}”를 만듭니다.`;
       restartScene();
     }),
   );
@@ -424,9 +387,9 @@
         await wait(1500);
         if (!alive()) return;
         tokenStage.classList.add("is-split");
-        tokenCaption.textContent = "② 조각(토큰)으로 나누기";
+        tokenCaption.textContent = "② 토큰으로 나누기";
         await wait(1700);
-        tokenCaption.textContent = "③ 조각마다 번호(숫자)로 바꾸기";
+        tokenCaption.textContent = "③ 토큰마다 번호(숫자)로 바꾸기";
         for (const chip of tokenChips) {
           if (!alive()) return;
           chip.classList.add("show-id");
@@ -438,7 +401,7 @@
     () => {
       tokenStage.classList.add("is-split", "show-id");
       tokenChips.forEach((chip) => chip.classList.add("show-id"));
-      tokenCaption.textContent = "문장 → 조각(토큰) → 번호(숫자)";
+      tokenCaption.textContent = "문장 → 토큰 → 토큰 번호(숫자)";
     },
   );
 
