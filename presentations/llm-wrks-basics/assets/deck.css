@@ -1788,44 +1788,6 @@ dialog::backdrop {
   opacity: 1;
   transform: none;
 }
-.embed-layout {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 4%;
-  align-items: center;
-}
-#embed-canvas {
-  width: 100%;
-  height: clamp(230px, 38vh, 440px);
-  background: var(--white);
-  border: 1px solid var(--line);
-  display: block;
-}
-.embed-legend {
-  list-style: none;
-  padding: 0;
-  margin-top: 14px;
-}
-.embed-legend li {
-  font-size: clamp(15px, 1.25vw, 19px);
-  margin-top: 6px;
-}
-.embed-legend i {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-.embed-legend .c1 {
-  background: #b74220;
-}
-.embed-legend .c2 {
-  background: #254b3c;
-}
-.embed-legend .c3 {
-  background: #9a6b12;
-}
 .gen-demo {
   display: flex;
   flex-direction: column;
@@ -2304,6 +2266,9 @@ dialog::backdrop {
   color: var(--muted);
   font-size: clamp(14px, 1.2vw, 18px);
 }
+.steps-hints dd button {
+  margin: 6px 8px 0 0;
+}
 .versus {
   display: grid;
   gap: 12px;
@@ -2457,7 +2422,6 @@ dialog::backdrop {
 @media (max-height: 820px) and (min-width: 901px) {
   #learning h2,
   #tokens h2,
-  #embedding h2,
   #next-token h2,
   #sampling h2,
   #context h2,
@@ -2501,7 +2465,6 @@ dialog::backdrop {
 }
 @media (max-width: 900px) {
   .learn-stage,
-  .embed-layout,
   .gen-body,
   .tool-detail,
   .sketch {
@@ -2555,8 +2518,125 @@ dialog::backdrop {
   .g-wrong {
     display: none;
   }
-  #embed-canvas {
-    width: 150mm;
-    height: 70mm;
+}
+
+/* Revision 2026-09-28: model/service box, stepped generation, prompt response preview. */
+.svc-box {
+  margin-top: 18px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  padding: 14px 16px;
+}
+.svc-box p {
+  margin: 0;
+}
+.svc-label {
+  font-size: clamp(15px, 1.25vw, 19px);
+}
+.svc-box b {
+  margin-right: 8px;
+}
+.svc-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+.svc-tools span {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 2px 10px;
+  font-size: clamp(13px, 1vw, 16px);
+}
+.svc-model {
+  background: var(--accent);
+  color: var(--white);
+  padding: 10px 14px;
+}
+.svc-model p {
+  font-size: clamp(16px, 1.35vw, 21px);
+}
+.svc-model small {
+  display: block;
+  margin-top: 4px;
+  font-size: clamp(13px, 1vw, 16px);
+  color: var(--white);
+}
+.builder pre:has(+ .response-card) {
+  min-height: 0;
+  flex: 0 0 auto;
+}
+.response-card {
+  flex: 1;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 10px 14px;
+}
+.response-card .tag {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+.response-lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(15px, 1.25vw, 19px);
+  line-height: 1.5;
+}
+.response-lines li {
+  margin: 0;
+  min-height: 1.5em;
+}
+.response-lines.is-list li::before {
+  content: "• ";
+  color: var(--accent);
+}
+.response-lines li.is-table {
+  border-top: 1px solid var(--line);
+  margin-top: 4px;
+  padding-top: 4px;
+  font-size: 0.9em;
+}
+.response-lines.is-list li.is-table::before {
+  content: "";
+}
+.response-lines li.is-changed {
+  animation: row-flash 0.9s ease-out;
+}
+.response-card mark {
+  background: transparent;
+  color: var(--accent);
+  text-decoration: underline wavy;
+  text-underline-offset: 4px;
+}
+@keyframes row-flash {
+  from {
+    background: var(--soft);
   }
+  to {
+    background: transparent;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .response-lines li.is-changed {
+    animation: none;
+  }
+}
+@media (max-height: 820px) and (min-width: 901px) {
+  .response-card {
+    margin-top: 8px;
+    padding: 6px 12px;
+  }
+  .response-lines {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .builder pre:has(+ .response-card) {
+    line-height: 1.5;
+  }
+}
+#sampling .lane-label {
+  font-size: clamp(14px, 1.15vw, 17px);
+  color: var(--ink);
 }

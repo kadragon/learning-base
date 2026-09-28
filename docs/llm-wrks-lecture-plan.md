@@ -1,7 +1,8 @@
 # LLM and WRKS AI Lecture Plan for University Staff
 
-Status: implemented in `presentations/llm-wrks-basics/` on 2026-09-11 (48 slides). Part 5
-worked examples wait for the pre-lecture demand survey.
+Status: implemented in `presentations/llm-wrks-basics/` on 2026-09-11. Part 5 worked
+examples added on 2026-09-28 from the demand survey; the Part 3 memo exercises (practice 1–3 and
+rubric) were replaced the same day by a Part 5 exercise that runs an example prompt (46 slides).
 
 ## 1. Lecture Overview
 
@@ -60,10 +61,10 @@ animated in Part 1. A caution without a mechanism is grouped separately and kept
 - **Explain by showing, not by terms.** Show a visual first; name the term afterwards, if needed.
 - **Attention first.** Each Part 1 slide needs one element that draws the eye and shows an LLM
   property; the library is secondary.
-- **Autoplay for process animations.** Processes such as next-word prediction start when the
-  slide becomes active and loop without presenter input. Provide a pause/replay control and
-  restart from the beginning when the slide is re-entered. Arrow keys always navigate slides;
-  they never step animations.
+- **Autoplay for process animations.** Processes start when the slide becomes active and loop
+  without presenter input. Provide a pause/replay control and restart from the beginning when the
+  slide is re-entered. Arrow keys always navigate slides; they never step animations
+  (presenter-stepped `next-token` was tried on 2026-09-28 and reverted as hard to drive).
 - **Deterministic and honest.** Animations are authored illustrations, not real model output or
   measured probabilities. Keep the existing on-slide disclosure pattern from `next-token`.
 - **Accessible.** `prefers-reduced-motion` shows the final frame; print shows the final frame;
@@ -75,8 +76,8 @@ animated in Part 1. A caution without a mechanism is grouped separately and kept
 The self-contained rule bans *remote* loading, not libraries. GitHub Pages could load a CDN, but
 the deck must also work offline and from `file://`.
 
-- Decision: HTML/CSS animation + Canvas 2D, no library. three.js is not required; the embedding
-  slide uses a Canvas 2D pseudo-3D sway (a full turn made clusters cross and labels collide).
+- Decision: HTML/CSS animation, no library. (The Canvas 2D `embedding` slide was removed on
+  2026-09-28.)
 - Implementation: `assets/deck.js` `scene()` registers start/stop/final per slide id; markup holds
   the final frame so print, no-JS and reduced motion need no extra code path.
 - Revisit a library only if a concrete slide cannot be built without one. Adding one is a
@@ -96,16 +97,17 @@ Cautions are demonstrated, not preached. Each caution gets one short comparison 
 | Part 1 — How AI and LLMs work | 20 | 15 |
 | Part 2 — Using AI carefully | 20 | 15 |
 | Part 3 — WRKS AI screen and sign-in | 10 | 10 |
-| Part 3 — Practice 1–3 and rubric | 25 | 15 |
 | Part 4 — WRKS AI add-on tools | 15 | 10 |
-| Part 5 — Build your own agent (practice 4) | 20 | 15 |
+| Part 5 — Agent, examples, practice 1 and check | 25 | 15 |
+| Part 5 — Agent design (practice 2) | 20 | 15 |
 | Closing quiz and wrap-up | 5 | 5 |
 | Total | 120 minutes | 90 minutes |
 
 Timings are authored estimates; no delivery has been timed. Attendees sign in before the session
 so the Part 3 access check needs only 5 minutes. Reduced path: drop the optional slides
-(`tokens`, `embedding`, `context-efficiency`, `context-quality`, `workflow-preview`), skip
-practice 2, and demonstrate practice 4. Never drop: `next-token`, hallucination, verification,
+(`tokens`, `context-quality`, `workflow-preview`), show only the Part 5 example closest to the
+room's jobs (default `example-report`) and run only that one in practice 1, and demonstrate
+practice 2. Never drop: `next-token`, hallucination, verification,
 the data-boundary table, accountability, and the access check. The deck carries no on-screen
 marker for optional slides and no planning slide; this table is the instructor's only source.
 
@@ -114,10 +116,10 @@ Instructor guidance (authored, not measured):
 - Choose the path from the opening self-check rather than the applicant survey, whose self-ratings
   proved unreliable. If more than half rate item 1 (how AI answers and its limits) at 2 or below,
   drop the optional slides and spend the time on the Part 1–2 core.
-- Wide skill gaps: skip the optional slides and give practice 4 more time.
-- Early finishers: write a second design sheet with another practice 4 row, or — where the image
-  menu is enabled — draft a poster for the fictional memo and check that undecided date, place,
-  and link did not become concrete values.
+- Wide skill gaps: skip the optional slides and give practice 2 more time.
+- Early finishers: run the other example in practice 1, write a second practice 2 design sheet,
+  or — where the image menu is enabled — draft a poster for the fictional lecture memo and check
+  that the undecided lecturer name did not become a concrete value.
 
 ## 4. Detailed Lecture Outline
 
@@ -136,14 +138,14 @@ stays in Part 3 after `practice-audit`.
 Goal: attendees can retell the generation loop without jargon.
 
 1. AI, LLM, and a chat service are different layers (`llm-model`, `model-service`, condensed to one)
-2. Learning: large amounts of text become patterns — text stream compressing into a model (new)
-3. Text becomes pieces (`tokens`, reworked as animation; optional)
-4. Meaning as position — embedding space, Canvas 2D pseudo-3D (new; optional)
-5. Next-piece prediction: candidates with bars, one chosen, loop repeats; autoplays
-   (`next-token`, reworked)
-6. Sampling: the same question run three times gives three answers (new)
-7. The context window: a desk with limited space; old items fall off (`context`, reworked)
-8. Knowledge has a date; search and uploaded documents add outside information
+2. Split: text becomes pieces (`tokens`, reworked as animation; optional)
+3. Learn: large amounts of text become patterns — text stream compressing into a model (new)
+4. Generate: candidates with bars, one chosen, loop repeats; autoplays (`next-token`)
+   - Why AI "reads saju well": it continues patterns from abundant saju text, not because saju is
+     statistics; fluency is not accuracy (`saju`)
+5. Phrasing: the same goal asked three ways gives three answers (`sampling`)
+6. Long conversations lose earlier content, as people do in long meetings (`context`)
+7. Knowledge has a date; search and uploaded documents add outside information
    (`training-context`, reworked)
 
 ### 4.2 Part 2 — Using AI Carefully
@@ -151,15 +153,15 @@ Goal: attendees can retell the generation loop without jargon.
 Goal: each caution is recognised as a direct consequence of Part 1.
 
 1. Why prompts matter — vague vs specific request comparison (`before-after`, `prompt`, `refine`)
-2. Keep context clean — split tasks, hand off summaries (`new-chat`, `handoff`; optional:
-   `context-efficiency`, `context-quality`)
+2. Keep context clean — conditions get buried, split tasks, carry a summary (`context-quality`
+   (optional), `new-chat`, `handoff`)
 3. Hallucination — why it happens, spot the fabrication, verify (`hallucination-why`,
    `hallucination-example`, `verify`)
 4. AI slop — a pejorative for low-quality text and images mass-produced with generative AI
    ("slop": food scraps, filth). Link to typical-continuation text; how to recognise it, how to
    add your own judgment and facts (new)
 5. Responsibility and ethics — data boundary, what not to enter, who approves
-   (`data-boundary`, `data-checklist`, `accountability`)
+   (`data-boundary`, `accountability`)
 6. People who stop thinking — people who follow AI answers blindly. Link to fluent, confident
    output; habit: think first, ask AI second, judge the answer last (new)
 
@@ -172,13 +174,13 @@ Sources:
 
 ### 4.3 Part 3 — WRKS AI Screen and First Chat
 
-Goal: every attendee has a working session and has asked one grounded question.
+Goal: every attendee has a working session and knows where to start a chat. The first grounded
+chat now happens in Part 5 practice 1 (the memo exercises were removed on 2026-09-28 as awkward
+for the audience).
 
 1. Sign-in and fallback pair work (`practice-setup`)
 2. Screen tour with manual screenshots (`wrks-position`, `wrks-menu-map`; `assets/wrks/home.png`,
    `chat-example.png`)
-3. First grounded chat with the fictional memo (`practice-source`, `practice-summary`)
-4. Draft and review an email (`practice-mail`, `practice-audit`)
 
 ### 4.4 Part 4 — WRKS AI Add-on Tools
 
@@ -209,9 +211,15 @@ Goal: attendees leave with one agent sketch for their own repeated task.
 2. Agents already provided: `직원 에이전트` cards such as `공문다듬이`, `메일다듬이`,
    `규정길잡이`; `나만의 에이전트` and `팀 에이전트` tabs (`assets/wrks/agent-home.png`)
 3. From prompt to agent: when a prompt you repeat becomes an agent (new)
-4. Worked example 1–3 from the demand survey (new; waiting for survey)
-5. Hands-on: fill an agent sketch for your task (`practice-apply`, `practice-rubric`, reworked)
-6. Next step preview: `워크플로우` — automation described in words, e.g. a scheduled multi-step
+4. Worked examples from the demand survey, one per output type (added 2026-09-28):
+   `example-report` (document: special-lecture/event result report in KNUE report style),
+   `example-survey` (summary/table: satisfaction survey, calculation kept in Excel),
+   `example-reply` (reply: enquiry mail answered only from department material)
+5. Practice 1: paste `example-report` or `example-survey` into a new chat with a fictional
+   special-lecture memo and check dates, counts, quotes, and `[확인 필요]` cells
+   (`practice-run`, `practice-check`)
+6. Practice 2: fill an agent sketch for your task (`practice-apply`)
+7. Next step preview: `워크플로우` — automation described in words, e.g. a scheduled multi-step
    flow (`assets/wrks/workflow.png`; optional)
 
 Agent vs workflow, as the screens present them: an agent is a reusable conversational assistant;
@@ -251,7 +259,7 @@ anonymised or fictional data on slides.
 
 Survey received 2026-09-23 (48 responses; aggregates in `sources.md`, raw file not committed).
 Applied on 2026-09-26: `practice-apply` hints, `agent-what` notes, and a new `wrks-limits` slide for
-requests that need system integration. Worked examples 1–3 above remain open.
+requests that need system integration. Worked examples 1–3 were built on 2026-09-28 (§4.5 item 4).
 
 ## 6. Open Decisions
 
@@ -260,7 +268,8 @@ None open. Resolved on 2026-09-11:
 1. No three.js; SVG/CSS/Canvas 2D with autoplaying process animations.
 2. Screenshots for `회의록`, `슬라이드`, `문서 작성`, `텍스트 추출` are captured from the
    authenticated account (lecture owner signs in); sanitise before committing.
-3. `practice-audit` stays in Part 3 as hands-on practice.
+3. `practice-audit` stays in Part 3 as hands-on practice. (Superseded 2026-09-28: Part 3 memo
+   exercises removed; verification practice moved to `practice-check` in Part 5.)
 
 ## 7. Out of Scope
 
