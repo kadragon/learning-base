@@ -7,8 +7,9 @@ Each deck uses `presentations/<kebab-case-slug>/index.html` plus `sources.md`.
 `index.html` must contain:
 
 - A valid `lang` attribute on `<html>`.
-- One `<main>` containing slide sections marked with `data-slide`.
-- Keyboard handling for forward and backward navigation.
+- One `<main>` containing slide sections. Native decks mark them with `data-slide` and handle
+  forward and backward keyboard navigation. The imported workshop uses Reveal.js sections and
+  its keyboard navigation.
 - Local asset paths only.
 
 ## Teaching Content

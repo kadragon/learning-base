@@ -68,6 +68,10 @@ python3 -m http.server 8000
 
 Open `http://localhost:8000/presentations/<slug>/`. Port `8000` is explicit in this command only; it is not a fixed project configuration.
 
+For the imported workshop, preview `/presentations/genai-lecture/` and
+`/presentations/genai-lecture/practice.html`. The workshop uses local Reveal.js packages
+already checked into the deck, so the same server also works for its tools.
+
 ## Browser Verification
 
 For each changed deck:

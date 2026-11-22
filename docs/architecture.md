@@ -4,6 +4,10 @@
 
 The initial baseline is browser-native HTML, CSS, and JavaScript with no package or build dependency. This is a deliberate low-complexity default for portable presentation files, not a permanent framework ban.
 
+The imported `genai-lecture` deck ships the local Reveal.js 6.0.2 and Motion 13.4.4 runtime files
+it uses, with licenses under its `vendor/` directory. It uses the shared Pretendard 1.3.9 font
+and has the same no-build preview and deployment as the other decks.
+
 ## Source Layout
 
 ```text

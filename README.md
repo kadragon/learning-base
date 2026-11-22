@@ -15,6 +15,9 @@ Index: https://kadragon.github.io/learning-base/
 | `git-basics` | Git, 가지를 만들고 합치는 일 | SVN users moving to Git in VS Code (`git.knue.ac.kr`) | ~90 min + 20–30 min exercise (max 120) | 43 | [Open](https://kadragon.github.io/learning-base/presentations/git-basics/) |
 | `vue-basics` | Vue, 생태계부터 프레임워크까지 | Developers from other stacks taking over `uniweb` | 180 min (two 5-min breaks) | 67 | [Open](https://kadragon.github.io/learning-base/presentations/vue-basics/) |
 | `llm-wrks-basics` | AI에게 일을 맡기는 법 (LLM · 웍스AI) | Administrative staff using WRKS AI | 120 min (90-min reduced path) | 48 | [Open](https://kadragon.github.io/learning-base/presentations/llm-wrks-basics/) |
+| `genai-lecture` | 생성형 AI 특강 | Staff workshop participants | — | 52 | [Slides](https://kadragon.github.io/learning-base/presentations/genai-lecture/) · [Practice](https://kadragon.github.io/learning-base/presentations/genai-lecture/practice.html) |
+
+Faculty guides for ChatGPT and Claude are available in the [KNUE AI Newsletter](https://kadragon.github.io/knue-ai-newsletter/).
 
 ### Deck summaries
 
@@ -60,7 +63,7 @@ Requires Python 3 and a modern browser.
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000/presentations/<slug>/`.
+Open `http://localhost:8000/presentations/<slug>/`. See the workshop's [source notes](presentations/genai-lecture/sources.md) for its import revision and bundled runtimes.
 
 ## Repository Layout
 
