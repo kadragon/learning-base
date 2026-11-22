@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>생성형 AI 특강 실습</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<!-- Attendee handout for the practice stops and optional exercises in index.html.
+     Self-contained on purpose: it is shared on its own, without vendor/. -->
+<style>
+  :root {
+    --paper: #f4f1ea; --surface: #fbfaf6; --ink: #16171a; --muted: #6c6d72;
+    --rule: rgba(22, 23, 26, 0.14); --accent: #2346d1; --accent-soft: rgba(35, 70, 209, 0.08); --on-accent: #f7f5ef;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.65 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; word-break: keep-all; }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 16px 96px; }
+  h1 { margin: 0 0 6px; font-size: 34px; letter-spacing: -0.03em; }
+  .lead { margin: 0 0 40px; color: var(--muted); }
+  section { margin: 0 0 40px; padding-top: 28px; border-top: 2px solid var(--ink); }
+  h2 { margin: 0 0 4px; font-size: 24px; letter-spacing: -0.02em; }
+  h2 small { margin-left: 8px; font-size: 15px; font-weight: 600; color: var(--accent); }
+  .why { margin: 0 0 16px; color: var(--muted); }
+  ol { margin: 0 0 18px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  .box { position: relative; margin: 12px 0; padding: 18px 20px; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; }
+  .box.prompt { border: 2px solid var(--accent); }
+  .box .tag { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: var(--accent); }
+  .box pre { margin: 0; white-space: pre-wrap; font: inherit; }
+  button.copy { position: absolute; top: 12px; right: 12px; padding: 6px 14px; border: 0; border-radius: 6px; background: var(--accent); color: var(--on-accent); font: 600 14px/1 inherit; font-family: inherit; cursor: pointer; }
+  button.copy.done { background: var(--ink); }
+  .dl { display: inline-block; margin: 6px 0 12px; padding: 10px 18px; border-radius: 6px; background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; }
+  .fig { display: block; max-width: 260px; margin: 8px 0; border: 1px solid var(--rule); }
+  .check { padding: 12px 16px; border-left: 4px solid var(--accent); background: var(--accent-soft); }
+  .note { font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <a class="dl" href="https://gov.wrks.ai/ko/" target="_blank" rel="noopener">gov.wrks.ai 열기 · https://gov.wrks.ai/ko/</a>
+  <h1>생성형 AI 특강 실습</h1>
+  <p class="lead">슬라이드의 실습 번호를 따라가세요. 테두리가 옅은 상자는 예시 자료, 파란 테두리 상자는 AI에게 보낼 요청입니다. <b>복사</b> 버튼으로 옮겨 붙이면 됩니다.</p>
+
+  <nav aria-label="실습 바로가기"><p>기본 복습: <a href="#p1">요청</a> · <a href="#p2">질문</a><br>핵심 실습: <a href="#p3">공문 → 기안문</a> · <a href="#optional-4">이미지 만들기</a> · <a href="#reuse">스킬 만들기</a><br>시연: <a href="#sources">근거 확인</a> · <a href="#p4">발표자료</a><br>선택: <a href="#p5">제출자료 점검</a> · <a href="#optional-3">양식 분석</a> · <a href="#optional-5">영수증</a></p></nav>
+  <section>
+    <h2>시작 전</h2>
+    <ol>
+      <li>브라우저에서 <a href="https://gov.wrks.ai/ko/" target="_blank" rel="noopener"><b>gov.wrks.ai</b></a>에 접속해 기관 계정으로 로그인합니다.</li>
+      <li>실습을 시작할 때마다 <b>새 채팅</b>을 엽니다. 상단 ‘에이전트’를 누르고 대화 목록 사이드바의 ‘새 대화 시작’을 누르면 됩니다. 앞 대화가 섞이지 않게 하려는 것입니다.</li>
+      <li>예시 자료는 모두 <b>가상</b>입니다. 실제 개인정보나 내부 문서는 넣지 않습니다(입력창 아래 안내 참고).</li>
+    </ol>
+  </section>
+
+  <section id="p1">
+    <h2>실습 1 · 또렷하게 요청하기<small>5분</small></h2>
+    <p class="why">같은 메일을 두 번 맡겨, 요청 한 줄에 따라 답이 얼마나 달라지는지 봅니다.</p>
+    <ol>
+      <li>새 채팅에서 아래 예시 메일을 복사해 “이 메일 어때? 검토해 줘”와 함께 보냅니다.</li>
+      <li>새 채팅을 열고 파란 상자의 요청과 예시 메일을 함께 보냅니다.</li>
+      <li>두 답의 첫 문단과 고친 메일만 나란히 놓고 비교합니다.</li>
+    </ol>
+    <p class="check">비교할 것: 맞춤법을 바로잡았는가? 회의 요청과 시간을 앞에 놓았는가? 부서별 의견과 날짜를 바꾸지 않았는가?</p>
+    <div class="box"><span class="tag">예시 메일 (가상)</span><button class="copy">복사</button><pre>원장님 안녕하십니까. 학사관리과 김○○입니다.
+다름이 아니오라 지난번 회으에서 말씀하신 학사일저 관련해서 여러 부서의 의견을 모아보았는데 부서마다 입장이 조금씩 달라서 정리하는대 시간이 좀 걸렸습니다. 학사관리과는 10월 중순을 희망하고 학생지원과는 11월초를 원하고 있으며 기획평가과은 일정보다 예산 확보가 먼저라는 의견이였습니다. 그래서 한번 모여서 논의하는게 좋을것 같은데 혹시 다음주 화요일 오후 2시에 시간 되시는지 여쭙고자 연락드렸습니다.
+바쁘시겠지만 회신 부탁드립니다. 감사합니다.</pre></div>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>원장님께 보낼 메일이야. 교정·교열해 주고, 두괄식이 아니면 회의 요청이 앞에 오도록 고쳐 써 줘.</pre></div>
+  </section>
+
+  <section id="p2">
+    <h2>실습 2 · AI가 묻게 하기<small>5분</small></h2>
+    <p class="why">내가 다 쓰지 않고 필요한 정보를 AI가 물어보게 합니다.</p>
+    <ol>
+      <li>새 채팅에 첫 번째 파란 상자를 보냅니다.</li>
+      <li>AI의 질문에 하나씩 답합니다. 날짜·과목은 지어내도 됩니다.</li>
+      <li>공지가 나오면 한 군데를 분명하게 고쳐 달라고 합니다.</li>
+      <li>마지막으로 두 번째 파란 상자를 보냅니다. 그 답이 다음번 프롬프트입니다.</li>
+    </ol>
+    <p class="check">확인할 것: 과목·휴강 날짜·보강(대체 수업) 여부가 분명한가? 알려 주지 않은 사실을 AI가 임의로 채우지 않았는가?</p>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>학생들에게 보낼 휴강 공지를 쓰려고 해. 쓰기 전에 꼭 필요한 것만 나한테 한 번에 하나씩 물어봐 줘. 질문은 5개 이내로 해 줘.</pre></div>
+    <div class="box prompt"><span class="tag">마지막 요청</span><button class="copy">복사</button><pre>다음에도 이런 공지를 한 번에 받으려면 어떻게 요청하면 돼? 날짜·과목은 빈칸으로 두고, 그대로 복사해 쓸 수 있는 요청문으로 써 줘.</pre></div>
+  </section>
+
+<section id="p3">
+    <h2>실습 3 · 받은 공문에서 기안문까지<small>15분</small>
+    </h2>
+    <p class="why">입력 전: 아래 가상 자료만 사용합니다. 완성한 초안은 한글 양식에 옮겨 확인합니다.</p>
+    <ol>
+    <li>가상 수신 공문과 요청을 함께 보냅니다.</li>
+    <li>AI가 물으면 아래 부서 정보를 제공합니다.</li>
+    <li>회신 기안문을 받고 원문·부서 정보와 대조합니다.</li>
+    <li>완료 후 제목이나 문장 한 곳을 고쳐 봅니다.</li>
+    </ol>
+    <div class="box"><span class="tag">수신 공문 · 가상</span><button class="copy">복사</button><pre>[실습용 가상 공문 · 실제 기관의 요청이 아님]
+문서번호: 기획평가과-1234
+제목: 2026년도 부서별 AI 활용 실적 제출 요청
+수신: 각 부서장
+1. 부서별 AI 활용 현황을 파악하고자 다음 자료를 요청합니다.
+2. 제출기한: 2026. 11. 6. 18:00
+3. 제출처: 기획평가과 업무담당자(전자문서)
+4. 작성 대상 기간: 2026. 1. 1.~10. 31.
+5. 필수 항목: 부서명, 활용 업무, 활용 건수, 확인 방법
+6. 실적이 없는 경우 활용 건수는 0으로 기재하고 ‘해당 없음’을 명시합니다.
+붙임  부서별 AI 활용 실적 서식 1부. 끝.</pre>
+    </div>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>받은 공문에서 제출기한·제출처·대상 기간·필수 항목·붙임을 먼저 표로 정리해 줘. 우리 부서의 회신 기안문에 필요한 정보를 한 번에 모아 질문하고 기다려. 내가 답하면 제목·본문·붙임 순서로 초안을 써 줘. 제공하지 않은 사실과 문서번호는 만들지 말고 [확인 필요]로 표시해 줘.</pre>
+    </div>
+    <div class="box"><span class="tag">AI가 물으면 답할 부서 정보</span><button class="copy">복사</button><pre>부서: 학사관리과
+활용 업무: 학사 안내문 초안 작성
+활용 건수: 12건
+확인 방법: 담당자가 학사 일정 원문과 대조
+붙임: 학사관리과 AI 활용 실적 1부(작성 완료로 가정)
+결재권자·담당자 이름·발신 문서번호: 제공하지 않음</pre>
+    </div>
+    <p class="note">추가 과제: 이 과정을 재사용할 지침으로 만들고, 활용 건수가 0인 부서에도 적용해 보세요. 한글 파일 생성 여부와 관계없이 초안 내용을 먼저 확인합니다.</p>
+    <p class="check">추출표: 11월 6일 18시 / 기획평가과·전자문서 / 1월 1일~10월 31일 / 필수 항목 4개. 초안: 학사관리과·12건·확인 방법·붙임 1부가 일치하고, 미제공 정보는 창작하지 않았는가?</p>
+    </section>
+
+<section id="sources">
+    <h2>시연 · 근거를 직접 확인하기<small>5분</small>
+    </h2>
+    <p class="why">외부 검색 전에, 제공한 자료만으로 답하는 과정을 확인합니다.</p>
+    <ol>
+    <li>가상 규정 두 건과 요청을 함께 보냅니다.</li>
+    <li>근거 한 곳을 원문과 직접 대조합니다.</li>
+    <li>취소 수수료를 확인 불가로 표시했는지 봅니다.</li>
+    </ol>
+    <div class="box"><span class="tag">비교 자료 · 가상</span><button class="copy">복사</button><pre>[가상 규정 발췌 · 실제 규정이나 법률 판단에 사용하지 않음]
+가대학 회의실 운영기준 / 2026. 3. 1. 시행 / 2쪽 제4조
+회의실 사용 신청은 사용일 3일 전까지 제출한다. 변경 신청은 전날 12시까지 제출한다.
+나대학 회의실 운영기준 / 2026. 9. 1. 시행 / 3쪽 제5조
+회의실 사용 신청은 사용일 5일 전까지 제출한다. 변경 신청은 전날 18시까지 제출한다.</pre>
+    </div>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>두 자료의 신청기한·변경기한·취소 수수료를 비교해 줘. 항목마다 기관·내용·근거 문구·문서명·쪽수·시행일을 써 줘. 자료에 없는 내용은 확인 불가로 표시해 줘. 실제 규정으로 일반화하지 마.</pre>
+    </div>
+    <p class="check">신청기한 3일/5일, 변경기한 전날 12시/18시, 취소 수수료는 두 자료 모두 확인 불가. 실제 공개 자료로 바꿀 때는 원문 링크·시행일·적용 범위를 다시 확인합니다.</p>
+    </section>
+<section id="p4">
+    <h2>시연 · 문서에서 발표자료로<small>5분</small></h2>
+    <p class="why">실습 3의 12건을 바탕으로 내용을 확장한 가상 보고서입니다. 앞 실습을 하지 않아도 아래 자료만으로 시연할 수 있습니다.</p>
+    <ol>
+      <li>새 대화에 아래 가상 보고서와 요청을 함께 보냅니다.</li>
+      <li>5장 구성안과 발표자 메모를 받습니다.</li>
+      <li>한 장을 골라 원문·핵심 메시지·도식을 대조합니다.</li>
+    </ol>
+    <div class="box"><span class="tag">시연용 가상 보고서</span><button class="copy">복사</button><pre>[시연용 가상 보고서 · 실제 부서의 실적이 아님]
+제목: 학사관리과 생성형 AI 활용 현황 및 후속 계획
+대상 기간: 2026. 1. 1.~10. 31.
+공유 대상: 교내 업무담당자
+
+1. 활용 개요
+학사 안내문을 작성할 때 반복되는 초안 작성과 표현 정리에 생성형 AI를 활용했다. 대상 기간의 활용 건수는 총 12건이다. AI는 초안을 작성하고, 담당자가 학사 일정과 관련 공지 원문을 대조한 뒤 최종 문안을 확정했다. AI가 직접 공지를 게시하거나 학생에게 발송하지 않았다.
+
+2. 업무별 활용 내역
+- 수강신청 안내문 초안: 5건. 신청 기간·대상·유의사항을 항목별로 정리했다.
+- 휴·복학 안내문 초안: 4건. 신청 대상·기간·제출 서류를 읽기 쉽게 구성했다.
+- 졸업 관련 서류 제출 안내문 초안: 3건. 제출 서류·제출처·기한을 앞부분에 배치했다.
+세 업무의 건수 합계는 12건이다. 건수는 초안 작성에 AI를 활용한 업무 건수이며, 발송 인원이나 절감 시간을 뜻하지 않는다.
+
+3. 처리 절차
+① 담당자가 공개된 학사 일정과 공지 원문에서 필요한 부분을 준비했다.
+② AI에게 대상·기한·신청 방법이 드러나는 안내문 초안을 요청했다.
+③ 담당자가 날짜·대상·제출처·첨부 서류를 원문과 대조했다.
+④ 긴 문장과 모호한 표현을 수정한 뒤 최종 문안을 확정했다.
+이름·학번·연락처가 포함된 학생 명단과 비공개 자료는 입력하지 않았다.
+
+4. 검토 사례와 한계
+- 수강신청 안내: AI 초안에 없던 신청 마감 시각을 담당자가 원문에서 확인해 보완했다.
+- 휴·복학 안내: 신청 대상에 따른 제출 서류 구분이 사라져 담당자가 다시 나누었다.
+- 졸업 관련 안내: 제출 기한이 문단 끝에 있어 첫 문장으로 옮겼다.
+위 사례는 검토 내용을 설명하기 위한 예시이며, 오류 건수나 오류율을 집계한 자료는 아니다. 초안을 빠르게 검토할 수 있도록 구성하는 데 활용했으나, 실제 작업 시간·시간 절감률·이용자 만족도는 측정하지 않았다. 내용의 정확성은 담당자의 원문 확인이 필요했다.
+
+5. 후속 계획 · 아직 시행하지 않음
+- 업무별 요청 문구와 점검표를 정리해 다음 안내문 작성 때 사용한다.
+- 점검표에 날짜·대상·제출처·첨부 서류 확인 항목을 넣는다.
+- 다음 집계 기간에는 초안 작성 시간과 수정 내용을 기록해 활용 효과를 살펴본다.
+계획의 구체적인 시행일·예산·성과 목표치는 아직 정하지 않았다.</pre></div>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>아래 가상 보고서만 사용해 내부 업무 공유용 발표자료 5장 구성안을 만들어 줘. 순서는 ① 활용 개요 ② 업무별 내역 ③ 처리 절차 ④ 검토 사례와 한계 ⑤ 후속 계획으로 해 줘. 장마다 제목·핵심 메시지 한 문장·본문 요점 3개·표나 도식 제안·발표자 메모를 써 줘. 제공된 사실을 나누어 구성하고, 실적과 계획을 구분해 줘. 측정하지 않은 시간 절감률·만족도는 만들지 말고, 미측정이라고 표시해 줘.</pre></div>
+    <p class="note">응용 과제: 아래 이미지 실습에서 발표자료에 필요한 그림 한 장을 만듭니다. 파일 생성 기능이 없으면 구성안을 PPT에 옮깁니다. 실제 PPT 파일 생성·편집은 강사가 기관 계정에서 확인한 기능만 시연합니다.</p>
+    <p class="check">업무별 5·4·3건의 합계가 12건인가? 검토 사례를 오류율로 바꾸지 않았는가? 시간 절감률·만족도를 미측정으로 표시하고, 후속 계획을 완료한 실적과 구분했는가?</p>
+    </section>
+
+  <section id="optional-4">
+    <h2>실습 4 · 이미지 만들기<small>10분 이상</small></h2>
+    <p class="why">이미지를 만들기 전에 프롬프트부터 AI에게 쓰게 합니다.</p>
+    <ol>
+      <li>새 채팅에 파란 상자의 요청을 보냅니다.</li>
+      <li>AI가 보여 준 디자인 세 가지 중 하나를 고르고, 질문 두 개에 함께 답합니다.</li>
+      <li>받은 프롬프트를 에이전트 채팅이나 상단 <b>‘이미지’</b> 메뉴에 넣어 이미지를 만듭니다.</li>
+      <li>날짜·장소·문구를 살펴보고, 한 곳만 골라 분명하게 고쳐 달라고 합니다.</li>
+    </ol>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>직원 AI 특강 안내 포스터 이미지를 만들려고 해. 아직 이미지는 만들지 마. 장소는 도서관 201호, 일시는 9월 30일(수) 14~16시야. 요즘 뜨는 포스터 디자인 경향을 인터넷에서 찾아 세 가지만 출처와 함께 추천하고, 분위기·구도·색·들어갈 문구 중 가장 중요한 질문 두 개도 함께 보여 줘. 여기서 멈추고 내 답을 기다려. 내가 디자인을 고르고 답하면 그때 이미지 생성에 쓸 프롬프트를 써 줘. 나머지는 네가 정해.</pre></div>
+    <p class="note">이미지 생성이 늦어지면 수정할 부분을 한 문장으로 적고, 결과가 나온 뒤 적용합니다.</p>
+    <p class="check">확인할 것: 포스터의 날짜·시간·장소가 요청과 일치하는가? 글자가 읽히는가? 한 곳을 고친 뒤 나머지 정보도 유지되었는가?</p>
+    <p class="note">그림 속 글자는 깨지기 쉽습니다. 넣을 문구는 짧게 정합니다.</p>
+  </section>
+
+<section id="p5">
+    <h2>선택 실습 · 제출자료 누락 점검<small>15분</small>
+    </h2>
+    <p class="why">입력 전: 실제 회계·개인정보 자료 대신 아래 가상 자료를 사용합니다.</p>
+    <ol>
+    <li>가상 자료와 요청을 새 채팅에 함께 보냅니다.</li>
+    <li>엑셀 파일(.xlsx)을 내려받아 원본 자료·점검 결과·집계 요약 시트를 확인합니다.</li>
+    <li>자료ID를 따라 원문과 대조하고 정답을 펼칩니다.</li>
+    <li>틀린 항목을 짚어 다시 요청합니다.</li>
+    </ol>
+    <div class="box"><span class="tag">제출 대상과 제출자료 · 가상</span><button class="copy">복사</button><pre>[가상 자료 · 빈칸은 미입력, 0은 실적 없음]
+제출 대상: 학사관리과, 학생지원과, 총무과, 기획평가과, 학술정보과, 정보전산원
+허용한 이름 대응: 학생 지원과 = 학생지원과 (그 밖의 이름은 임의로 합치지 않음)
+필수 항목: 부서명, 활용 업무, 활용 건수, 확인 방법
+자료ID,부서명,활용 업무,활용 건수,확인 방법
+R01,학사관리과,안내문 작성,12,일정 원문 대조
+R02,학생 지원과,행사 홍보,8,담당자 확인
+R03,총무과,해당 없음,0,실적 없음 확인
+R04,기획평가과,보고서 요약,5,
+R05,학술정보과,자료 요약,,원문 대조
+R06,학사관리과,안내문 작성,12,일정 원문 대조</pre>
+    </div>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>제출 대상과 필수 항목을 기준으로 미제출·필수값 누락·중복을 찾아 자료ID와 이유를 표로 써 줘. 지정한 이름 대응만 적용하고 빈칸과 0을 구분해 줘. R06은 R01의 중복이므로 집계에서 제외하되 삭제하지 마. 건수의 빈칸은 미확정으로 남기고, 입력된 건수의 잠정 합계와 집계 범위를 밝혀 줘. 결과는 다운로드할 수 있는 엑셀 파일(.xlsx)로 제공해 줘. 원본 자료·점검 결과·집계 요약을 각각 시트로 나누고, 원본의 빈칸과 0을 그대로 보존해 줘.</pre>
+    </div>
+    <details>
+    <summary>실습 후 정답 펼치기</summary>
+    <ul>
+    <li>미제출: 정보전산원. 제출 부서는 이름 대응 후 5개, 대상은 6개입니다.</li>
+    <li>필수값 누락: R04 확인 방법, R05 활용 건수.</li>
+    <li>중복: R06과 R01. 집계에서 R06만 제외하고 두 원본 행은 보존합니다.</li>
+    <li>학생 지원과는 지정된 규칙에 따라 학생지원과로 대응합니다. 총무과의 0은 누락이 아닙니다.</li>
+    <li>입력된 건수의 잠정 합계: 12 + 8 + 0 + 5 = 25건. 학술정보과 건수와 미제출 부서는 미확정이므로 전체 확정 합계가 아닙니다.</li>
+    </ul>
+    </details>
+    <p class="note">추가 과제: R05를 3건으로 보완하면 잠정 합계는 28건입니다. 정보전산원은 여전히 미제출입니다. 같은 규칙을 새 자료에 재사용해 보세요.</p>
+    <p class="check">합계뿐 아니라 미제출 1개 부서·누락 2개 항목·중복 1건을 각각 대조했는가? 빈칸을 0으로 바꾸지 않았는가?</p>
+    </section>
+
+  <section id="optional-3">
+    <h2>선택 실습 · 보고서 양식 분석<small>20분</small></h2>
+    <p class="why">보고서를 직접 쓰기 전에 양식을 분석해 프롬프트부터 만들게 합니다.</p>
+    <ol>
+      <li>새 채팅에 아래 가상 보고서 2건을 붙여 넣고 파란 상자의 요청을 함께 보냅니다.</li>
+      <li>AI가 되물으면 답합니다.</li>
+    </ol>
+    <div class="box fence"><span class="tag">가상 보고서 1 · 계획(안)</span><button class="copy">복사</button><pre>2026학년도 2학기 학생상담 주간 운영 계획(안)
+
+Ⅰ. 추진 배경
+   ○ 학업·진로 고민으로 상담을 찾는 학생이 늘어 학기 중 집중 상담 기간 운영 필요
+       ※ 2026학년도 1학기 상담 신청 412건(전년 동기 대비 18% 증가)
+   ⇒ 학기 중 1주간 상담 주간을 운영하여 상담 접근성을 높이고 조기 지원 체계 마련 필요
+
+Ⅱ. 현황 및 문제점
+ □ 상담 수요 대비 상담 인력 부족
+   ○ 상담 신청이 시험 기간 전후에 몰려 평균 대기 기간이 2주로 길어짐
+ □ 학생들이 교내 상담 창구를 잘 모름
+   ○ 재학생 설문 결과 상담실 위치·신청 방법을 모른다는 응답 37%
+
+Ⅲ. 개선 방향
+ □ 상담 주간 집중 운영
+   ○ 기간을 정해 상담 인력을 집중 배치하고 당일 상담 창구 운영
+ □ 학과 연계 안내 강화
+   ○ 각 학과(부)에서 안내하고 통합정보시스템 신청 메뉴를 함께 안내
+
+Ⅳ. 추진 계획
+ □ 예산 정보                                   (단위: 천원)
+   ○ 홍보물 제작 500, 상담 운영 물품 300 / 총액 800
+ □ 세부 일정
+   ○ 계획 수립 및 학과 안내(2026. 9.)
+   ○ 상담 주간 운영(2026. 10. 12.~10. 16.)
+   ○ 운영 결과 분석 및 보고(2026. 11.)</pre></div>
+    <div class="box fence"><span class="tag">가상 보고서 2 · 계획(안)</span><button class="copy">복사</button><pre>2026학년도 직원 정보보호 교육 운영 계획(안)
+
+Ⅰ. 추진 배경
+   ○ 생성형 AI 활용이 늘어 업무 자료를 입력할 때 정보 구분 교육 필요
+       ※ 최근 직원 문의 중 입력 가능 자료에 관한 질문이 반복됨
+   ⇒ 실제 업무 사례를 중심으로 정보보호 교육을 운영할 필요
+
+Ⅱ. 현황 및 문제점
+ □ 기존 교육은 설명 중심으로 진행
+   ○ 직원이 업무에 적용해 볼 기회가 부족함
+ □ 교육 참여 시간이 한정됨
+   ○ 집합 교육만으로는 모든 직원이 참여하기 어려움
+
+Ⅲ. 개선 방향
+ □ 실습 중심 교육 운영
+   ○ 공개·가림·입력 금지 자료를 사례로 구분
+ □ 참여 방식 확대
+   ○ 집합 교육 뒤 교육 자료를 온라인으로 제공
+
+Ⅳ. 추진 계획
+ □ 예산 정보                                   (단위: 천원)
+   ○ 교육 자료 제작비 400, 운영 물품비 200 / 총액 600
+ □ 세부 일정
+   ○ 사례 수집 및 교육 자료 준비(2026. 9.)
+   ○ 직원 정보보호 교육 운영(2026. 10.)
+   ○ 참가자 의견 정리 및 결과 보고(2026. 11.)</pre></div>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>위 가상 보고서 두 건의 공통 구조, 내용 흐름, 문체를 분석해 같은 형식의 계획안을 쓰게 하는 프롬프트를 만들어 줘. 지금은 보고서를 쓰지 말고, 프롬프트만 코드 블록 하나에 담아 줘. 예시 없이 새 채팅에서도 쓸 수 있게 목차와 문체 규칙을 프롬프트 안에 모두 적어 줘. 서로 다른 부분은 공통 양식으로 단정하지 마. 만들 프롬프트에는 다음을 지시해 줘. ① 추진 배경·현황처럼 근거가 필요한 부분은 인터넷에서 찾아 출처와 함께 후보를 2~3개 보여 주고 내가 고르게 할 것. ② 인원·예산·담당 부서 같은 기관 내부 정보는 지어내지 말고 한 번에 모아 물을 것. ③ 내가 고르고 답하기 전에는 보고서를 쓰지 말 것.</pre></div>
+    <ol start="3">
+      <li><b>새 채팅</b>을 열고, AI가 만들어 준 프롬프트와 아래 가상 행사 정보를 함께 붙여 넣습니다. AI가 보여 주는 후보를 고르고, 질문에는 아래 ‘AI가 물으면 답할 값’으로 답한 뒤 “직원 AI 특강 운영 계획(안)” 보고서를 받아 봅니다.</li>
+    </ol>
+    <div class="box"><span class="tag">가상 행사 정보</span><button class="copy">복사</button><pre>보고서 제목: 직원 AI 특강 운영 계획(안)
+대상: 대학 직원
+일시: 2026. 9. 30.(수) 14:00~16:00
+장소: 도서관 201호
+내용: 생성형 AI 요청 작성, 입력 정보 구분, 결과 검증 실습</pre></div>
+    <div class="box"><span class="tag">AI가 물으면 답할 값 · 붙여 넣지 않음</span><pre>참가 인원: 40명
+예산: 다과비 200천원
+담당 부서: 학사관리과</pre></div>
+    <p class="check">확인할 것: 만든 프롬프트에 Ⅰ~Ⅳ 목차와 검색·질문 지시가 들어 있는가? 새 채팅의 AI가 보고서를 쓰기 전에 출처 있는 후보를 보여 주고 인원·예산·담당 부서를 물었는가?</p>
+  </section>
+  <section id="optional-5">
+    <h2>선택 실습 · 영수증 정리와 검증<small>10분 이상</small></h2>
+    <p class="why">뽑는 일은 AI에게, 맞추는 일은 내가 합니다.</p>
+    <ol>
+      <li>영수증 이미지를 내려받아 새 채팅에 첨부합니다.</li>
+      <li>파란 상자의 요청을 보냅니다.</li>
+      <li>품목 두세 개의 <b>수량 × 단가</b>를 확인하고 상품 금액·할인 합계·결제 금액을 계산기로 대조합니다.</li>
+      <li>틀린 곳이 있으면 그곳을 짚어 주고 다시 받습니다.</li>
+    </ol>
+    <p class="check">검증값: 상품 금액 145,970원 · 할인 합계 −11,000원 · 결제 금액 134,970원. 합계가 맞아도 품목별 금액은 따로 확인합니다.</p>
+    <a class="dl" href="assets/practice-receipt.png" download="실습-영수증.png">영수증 이미지 내려받기</a>
+    <img class="fig" src="assets/practice-receipt.png" alt="실습용 가상 영수증: 가나마트, 6개 품목, 결제 금액 134,970원">
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>마트 영수증이야. 품목명, 수량, 단가, 금액, 할인 금액을 표로 뽑아 줘. 할인 줄은 따로 행으로 만들지 말고 바로 위 품목의 할인 금액 칸에 넣어 줘. 표 아래에 상품 금액, 할인 합계, 결제 금액도 적어 줘.</pre></div>
+  </section>
+<section id="reuse">
+    <h2>마무리 · 자주 하는 업무는 스킬로<small>시연 5분 + 실습 15분</small></h2>
+    <p class="why">교수나 직장 동료에게 보낼 메일·문자를 검토하는 새 스킬을 만들어 봅니다. 새 대화에서 필요한 기능을 설명하는 것부터 시작합니다.</p>
+    <p>프롬프트는 이번 작업을 부탁하는 말입니다. 스킬에는 비슷한 업무에 반복해서 쓸 지침과 언제 사용할지를 정리합니다. 예를 들어 ‘메일 검토’라고 요청할 때 교정·두괄식 정리·누락 점검을 함께 하도록 만들 수 있습니다.</p>
+    <ol>
+      <li><b>만들고 싶은 스킬을 정합니다.</b> 새 대화에서 누구에게 보낼 글인지, 무엇을 검토할지 설명하고 프롬프트를 요청합니다.</li>
+      <li><b>스킬 만들기를 시작합니다.</b> 같은 대화에서 <code>/skill-creator</code>와 아래 조건을 한 번에 보냅니다.</li>
+      <li><b>초안을 읽고 등록을 승인합니다.</b> 할 일, 사용할 표현, 출력 형식, 사실관계를 지킬 규칙을 확인합니다. 이번 메일의 이름·날짜·숫자를 고정 규칙으로 남기지 않습니다.</li>
+      <li><b>등록과 연결을 확인합니다.</b> 스킬 관리에서 등록된 이름과 내용을 확인하고 사용할 에이전트의 스킬 연결 상태를 확인합니다.</li>
+      <li><b>새 대화에서 시험합니다.</b> 연결한 에이전트에서 다른 메일이나 문자로 실행해 같은 기준을 지키는지 확인합니다.</li>
+    </ol>
+    <div class="box prompt"><span class="tag">① 새 대화에서 검토할 업무 설명</span><button class="copy">복사</button><pre>교수나 직장 동료들에게 보낼 메일이나 문자 내용을 검토하는 스킬을 만들고 싶어. 이 스킬에 사용할 프롬프트를 만들어 줘. 맞춤법·띄어쓰기, 핵심 요청을 앞에 놓는 구성, 공손하고 간결한 어조, 날짜와 누락 정보 점검을 포함해 줘. 사실관계는 임의로 바꾸지 마.</pre></div>
+    <div class="box prompt"><span class="tag">② 같은 대화에서 스킬 만들기</span><button class="copy">복사</button><pre>/skill-creator
+
+앞서 만든 프롬프트로 ‘교수·직장 동료에게 보낼 메일·문자 검토’ 스킬을 만들어 줘.
+- 사용할 때: ‘메일 검토’, ‘문자 검토’라고 요청할 때
+- 할 일: 교정·교열, 두괄식 재구성, 어조 점검, 날짜와 누락 정보 점검
+- 결과: 수정본 / 수정 내역 표 / 발송 전 확인 사항. 문자는 제목을 생략해 줘.
+- 규칙: 날짜·시간·부서명·수치는 임의로 바꾸거나 추가하지 마. 상대적 날짜의 기준일이 없으면 물어봐. 장소·회신 기한·첨부 등 빠진 정보는 확인 사항으로 남겨 줘.
+등록 전에 초안을 보여 줘.</pre></div>
+    <div class="box prompt"><span class="tag">③ 등록·연결 후 새 대화에서 시험</span><button class="copy">복사</button><pre>문자 검토해 줘. 과장님께 학사관리과 김○○가 보내는 가상 문자야.
+
+과장님, 학사일정 관련해서 부서 의견이 달라 논의가 필요할것 같습니다. 다음 주 화요일 오후 2시에 회의 가능하신지 회신 부탁드림니다.</pre></div>
+    <p class="check">확인할 것: 회의 요청이 첫 문장에 오는가? 오탈자를 고치는가? 기준일을 묻고 날짜를 임의로 확정하지 않는가? 장소를 지어내지 않는가? 문자에 제목을 붙이지 않는가? 수정 내역과 발송 전 확인 사항을 보여 주는가?</p>
+    <p class="note">강사 사례: 2026-10-22 WRKS 대화에서 메일 교정 → 프롬프트 추천 → 스킬 초안 → /skill-creator → ‘메일 검토·문자 검토’ 지정 → 승인 순서로 진행했습니다. 등록한 이름은 <code>official-mail-proofreader</code>입니다. 위 실습은 이 사례를 바탕으로 새 대화에서 스킬을 만드는 과정으로 구성했습니다.</p>
+    <p class="note">‘등록했습니다’라는 답 뒤에도 관리 화면에서 확인합니다. 이미 같은 이름이 있으면 내용을 먼저 확인하고 중복 등록 요청을 반복하지 않습니다. 메뉴·등록 권한·에이전트 연결 방식은 강의 전에 기관 계정에서 확인합니다. 사용할 수 없으면 지침을 저장해 새 대화에 붙여 넣고 시험합니다.</p>
+    <p class="note">강사는 새 대화에서 업무 설명 → 프롬프트 작성 → 스킬 등록 과정을 5분간 시연하고 참가자는 15분간 자기 업무로 새 스킬을 만들고 새 대화에서 시험합니다. 공문 회신·제출자료 점검도 같은 방식으로 확장할 수 있습니다. 공유 전 사용 범위·관리 담당자·검토 항목을 정합니다. 스킬 저장과 예약 실행·자동 발송·시스템 입력은 별개입니다.</p>
+  </section>
+  <section id="homework">
+    <h2>이번 주 과제</h2>
+    <p class="why">강의에서 본 순서(편하게 요청 → 분명하게 고치기 → 지침으로 정리)를 내 업무 하나로 한 번 돌려 봅니다.</p>
+    <ol>
+      <li>개인정보가 없는 내 업무 하나를 고릅니다. 공지, 안내 메일, 회의 자료 초안 등.</li>
+      <li>편하게 요청하고 안 맞는 곳은 분명하게 고쳐 달라고 합니다.</li>
+      <li>마음에 드는 결과가 나오면 아래 요청을 보내고 그 답을 저장해 둡니다.</li>
+    </ol>
+    <div class="box prompt"><span class="tag">요청</span><button class="copy">복사</button><pre>지금까지 대화를 바탕으로, 다음에 비슷한 일을 맡길 때 그대로 붙여 넣을 프롬프트(지침)를 만들어 줘. 이번 건의 날짜·이름·숫자는 [빈칸]으로 남기고, 내가 고쳐 달라고 한 점은 규칙으로 넣어 줘. 대화 요약은 빼 줘.</pre></div>
+    <p class="check">넣기 전에 확인: 공개 자료는 그대로, 사람이 드러나는 정보는 가리고, 주민번호·계좌·비공개 문서는 넣지 않습니다. 애매하면 넣지 않습니다.</p>
+    <p class="note">참고: 개인정보보호위원회 「생성형 AI 서비스 이용자를 위한 개인정보 보호 가이드」(2026. 5.) · 국가정보원 「챗GPT 등 생성형 AI 활용 보안 가이드라인」(2023. 6.)</p>
+  </section>
+</main>
+<script>
+  document.querySelectorAll('button.copy').forEach((b) => {
+    b.addEventListener('click', async () => {
+      const box = b.parentElement;
+      const raw = box.querySelector('pre').textContent;
+      // Fence report samples so the AI reads them as quoted material, not instructions
+      const text = box.classList.contains('fence') ? '```\n' + raw + '\n```' : raw;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // file:// and older browsers: select the text so Ctrl+C still works
+        const r = document.createRange();
+        r.selectNodeContents(b.parentElement.querySelector('pre'));
+        getSelection().removeAllRanges(); getSelection().addRange(r);
+        b.textContent = 'Ctrl+C';
+        return;
+      }
+      b.textContent = '복사됨'; b.classList.add('done');
+      setTimeout(() => { b.textContent = '복사'; b.classList.remove('done'); }, 1500);
+    });
+  });
+</script>
+</body>
+</html>

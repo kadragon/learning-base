@@ -56,15 +56,25 @@ while IFS= read -r -d '' deck; do
       "Wrap slide content in one main element." \
       "docs/conventions.md"
 
-  rg -q 'data-slide' "$deck" ||
-    report_failure "$deck has no data-slide marker" \
-      "Mark each slide section with data-slide." \
-      "docs/conventions.md"
+  if rg -q '<main class="reveal">' "$deck"; then
+    rg -q '<div class="slides">' "$deck" &&
+      rg -q '<section([[:space:]>])' "$deck" &&
+      rg -q 'Reveal\.initialize\(' "$deck" &&
+      [[ -f "$deck_dir/vendor/reveal/reveal.js" ]] ||
+      report_failure "$deck lacks a complete local Reveal.js slide setup" \
+        "Keep the slide container, slides, initialization, and local runtime." \
+        "docs/conventions.md"
+  else
+    rg -q 'data-slide' "$deck" ||
+      report_failure "$deck has no data-slide marker" \
+        "Mark each deck section with data-slide." \
+        "docs/conventions.md"
 
-  rg -q '(keydown|keyup)' "$deck" ||
-    report_failure "$deck has no keyboard navigation handler" \
-      "Handle keyboard navigation for forward and backward movement." \
-      "docs/conventions.md"
+    rg -q '(keydown|keyup)' "$deck" ||
+      report_failure "$deck has no keyboard navigation handler" \
+        "Handle keyboard navigation for forward and backward movement." \
+        "docs/conventions.md"
+  fi
 
   if rg -n -i '<script[^>]+src=["'\'']https?://|<link[^>]+href=["'\'']https?://|<(img|video|audio|source)[^>]+src=["'\'']https?://' "$deck"; then
     report_failure "$deck loads a remote runtime asset" \

@@ -21,7 +21,7 @@ Repository for Korean HTML presentations that explain developer knowledge to dep
 
 1. **Every deck is self-contained** — no remote runtime scripts, stylesheets, fonts, or images. Enforced by `tools/validate-presentations.sh`.
 2. **Every deck is evidence-backed** — `presentations/<slug>/sources.md` is required. Enforced by `tools/validate-presentations.sh`.
-3. **Every deck has operable slide semantics** — `index.html` requires a language, `<main>`, `[data-slide]`, and keyboard handling. Enforced by `tools/validate-presentations.sh`.
+3. **Every deck has operable slide semantics** — `index.html` requires a language, `<main>`, and the slide markup and keyboard navigation described in `docs/conventions.md`. Enforced by `tools/validate-presentations.sh`.
 4. **Fabrication ban** — If a value was not read from a file, command output, or tool result this session, write `[unknown — read {source} to verify]`; never state it as fact.
 
 ## Delegation
